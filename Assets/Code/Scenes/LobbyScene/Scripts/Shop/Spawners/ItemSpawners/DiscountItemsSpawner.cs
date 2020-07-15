@@ -1,5 +1,6 @@
 using System.Globalization;
 using Code.Scenes.LobbyScene.Scripts.Shop;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ namespace Code.Scenes.LobbyScene.Scripts
 {
     public class DiscountItemsSpawner
     {
-        public float Spawn(ProductModel productModel, GameObject sectionGameObject, 
+        public float Spawn(PurchaseModel purchaseModel, GameObject sectionGameObject, 
             Vector3 upperLeftCornerPosition, ProductClickHandlerScript productClickHandlerScript)
         {
             //Создать объект на сцене
@@ -21,26 +22,26 @@ namespace Code.Scenes.LobbyScene.Scripts
             //Заполнить картинку
             Image itemPreview = discountItemGameObject.transform.Find("Image_ItemPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(productModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.ProductModel.ImagePreviewPath);
             
             //Заполнить текущую цену
             Text currentCost = discountItemGameObject.transform.Find("Image_Cost/Text_Amount").GetComponent<Text>();
-            currentCost.text = productModel.Cost.ToString(CultureInfo.InvariantCulture);
+            currentCost.text = purchaseModel.ProductModel.Cost.ToString(CultureInfo.InvariantCulture);
             
             //Заполнить старую цену
             Text oldCost = discountItemGameObject.transform.Find("Image_Cost/Text_OldAmount").GetComponent<Text>();
-            oldCost.text = productModel.Cost.ToString(CultureInfo.InvariantCulture);
+            oldCost.text = purchaseModel.ProductModel.Cost.ToString(CultureInfo.InvariantCulture);
             
             //Заполнить название
             Text itemName = discountItemGameObject.transform.Find("Text_ItemName").GetComponent<Text>();
-            itemName.text = productModel.Name;
+            itemName.text = purchaseModel.ProductModel.Name;
             
             //Установить обработчик нажатия
             Button itemButton = discountItemGameObject.GetComponent<Button>();
             itemButton.onClick.RemoveAllListeners();
             itemButton.onClick.AddListener(() =>
             {
-                productClickHandlerScript.Product_OnClick(productModel);
+                productClickHandlerScript.Product_OnClick(purchaseModel);
             });
             
             //Вернуть ширину

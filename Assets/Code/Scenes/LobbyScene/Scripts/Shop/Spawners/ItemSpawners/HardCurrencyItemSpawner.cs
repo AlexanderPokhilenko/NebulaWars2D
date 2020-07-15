@@ -1,5 +1,6 @@
 using System.Globalization;
 using Code.Scenes.LobbyScene.Scripts.Shop;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ namespace Code.Scenes.LobbyScene.Scripts
 {
     public class HardCurrencyItemSpawner
     {
-        public void Spawn(ProductModel productModel, GameObject sectionGameObject,
+        public void Spawn(PurchaseModel purchaseModel, GameObject sectionGameObject,
             ProductClickHandlerScript productClickHandlerScript)
         {
             //Создать объект на сцене
@@ -19,22 +20,22 @@ namespace Code.Scenes.LobbyScene.Scripts
             //Заполнить картинку
             Image itemPreview = premiumCurrencyItemGameObject.transform.Find("Image_ItemPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(productModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.ProductModel.ImagePreviewPath);
             
             //Заполнить цену
             Text itemCost = premiumCurrencyItemGameObject.transform.Find("Image_Cost/Text_Amount").GetComponent<Text>();
-            itemCost.text = productModel.CostString;
+            itemCost.text = purchaseModel.ProductModel.CostString;
             
             //Заполнить название
             Text itemName = premiumCurrencyItemGameObject.transform.Find("Image_ItemPreview/Text_ItemName").GetComponent<Text>();
-            itemName.text = productModel.Name;
+            itemName.text = purchaseModel.ProductModel.Name;
             
             //Установить обработчик нажатия
             Button itemButton = premiumCurrencyItemGameObject.GetComponent<Button>();
             itemButton.onClick.RemoveAllListeners();
             itemButton.onClick.AddListener(() =>
             {
-                productClickHandlerScript.Product_OnClick(productModel);
+                productClickHandlerScript.Product_OnClick(purchaseModel);
             });
         }
     }

@@ -2,6 +2,7 @@ using System.Globalization;
 using Assets.Code.Scenes.BattleScene.Experimental;
 using Code.Common;
 using Code.Scenes.LobbyScene.Scripts.Shop;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Code.Scenes.LobbyScene.Scripts
     {
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipPowerPointsItemSpawner));
         
-        public void Spawn(ProductModel productModel, GameObject sectionGameObject,
+        public void Spawn(PurchaseModel purchaseModel, GameObject sectionGameObject,
             ProductClickHandlerScript productClickHandlerScript)
         {
             //Создать объект на сцене
@@ -21,40 +22,39 @@ namespace Code.Scenes.LobbyScene.Scripts
             GameObject wppGo = Object.Instantiate(wppPrefab, sectionGameObject.transform, false);
             
             //Установить название обьекта
-            wppGo.name += " "+productModel.WarshipPowerPointsProduct.PowerPointsIncrement;
+            wppGo.name += " "+purchaseModel.ProductModel.WarshipPowerPointsProduct.PowerPointsIncrement;
             //Заполнить картинку
             Image itemPreview = wppGo.transform.Find("Image_WarshipPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(productModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.ProductModel.ImagePreviewPath);
 
             //Заполнить текущий показатель силы
             Text currentPowerValue = wppGo.transform.Find("Empty_PowerValueRoot/Text").GetComponent<Text>();
-            currentPowerValue.text = productModel.WarshipPowerPointsProduct.CurrentPowerPointsAmount + "/" +
-                                     productModel.WarshipPowerPointsProduct.CurrentMaxPowerPointsAmount;
+            currentPowerValue.text = purchaseModel.ProductModel.WarshipPowerPointsProduct.CurrentPowerPointsAmount + "/" +
+                                     purchaseModel.ProductModel.WarshipPowerPointsProduct.CurrentMaxPowerPointsAmount;
             
             //Установить значение слайдера
             Slider slider = wppGo.transform.Find("Empty_PowerValueRoot/Slider").GetComponent<Slider>();
-            slider.value = 1f * productModel.WarshipPowerPointsProduct.CurrentPowerPointsAmount /
-                           productModel.WarshipPowerPointsProduct.CurrentMaxPowerPointsAmount;
+            slider.value = 1f * purchaseModel.ProductModel.WarshipPowerPointsProduct.CurrentPowerPointsAmount /
+                           purchaseModel.ProductModel.WarshipPowerPointsProduct.CurrentMaxPowerPointsAmount;
             
             //Заполнить прибавку к очкам силы
             Text incrementText = wppGo.transform.Find("Text").GetComponent<Text>();
-            int increment = productModel.WarshipPowerPointsProduct.PowerPointsIncrement;
+            int increment = purchaseModel.ProductModel.WarshipPowerPointsProduct.PowerPointsIncrement;
             // log.Debug($"increment = "+increment);
             incrementText.text = $"+{increment}";
             
             //Заполнить цену
             Text itemCost = wppGo.transform.Find("Image_Cost/Text_Amount").GetComponent<Text>();
-            itemCost.text = productModel.Cost.ToString(CultureInfo.InvariantCulture);
+            itemCost.text = purchaseModel.ProductModel.Cost.ToString(CultureInfo.InvariantCulture);
             
             //Установить обработчик нажатия
             Button itemButton = wppGo.GetComponent<Button>();
             itemButton.onClick.RemoveAllListeners();
             
-            var test = productModel;
             itemButton.onClick.AddListener(() =>
             {
-                productClickHandlerScript.Product_OnClick(test);
+                productClickHandlerScript.Product_OnClick(purchaseModel);
             });
         }
     }

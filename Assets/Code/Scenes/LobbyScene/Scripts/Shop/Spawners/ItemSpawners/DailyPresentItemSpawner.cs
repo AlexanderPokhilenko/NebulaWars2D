@@ -1,4 +1,5 @@
 using Code.Scenes.LobbyScene.Scripts.Shop;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ namespace Code.Scenes.LobbyScene.Scripts
 {
     public class DailyPresentItemSpawner
     {
-        public void Spawn(ProductModel productModel, GameObject sectionGameObject,
+        public void Spawn(PurchaseModel purchaseModel, GameObject sectionGameObject,
             ProductClickHandlerScript productClickHandlerScript)
         {
             //Создать объект на сцене
@@ -19,18 +20,18 @@ namespace Code.Scenes.LobbyScene.Scripts
             //Заполнить картинку
             Image itemPreview = dailyPresentGameObject.transform.Find("Image_ItemPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(productModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.ProductModel.ImagePreviewPath);
        
             //Заполнить название
             Text itemName = dailyPresentGameObject.transform.Find("Image_ItemPreview/Text_ItemName").GetComponent<Text>();
-            itemName.text = productModel.Name;
+            itemName.text = purchaseModel.ProductModel.Name;
             
             //Установить обработчик нажатия
             Button itemButton = dailyPresentGameObject.GetComponent<Button>();
             itemButton.onClick.RemoveAllListeners();
             itemButton.onClick.AddListener(() =>
             {
-                productClickHandlerScript.DailyPresent_OnClick(productModel.Id);
+                productClickHandlerScript.DailyPresent_OnClick(purchaseModel);
             });
         }
     }

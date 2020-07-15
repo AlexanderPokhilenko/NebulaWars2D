@@ -1,4 +1,5 @@
 using Code.Common;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,14 +17,14 @@ namespace Code.Scenes.LobbyScene.Scripts
         {
             this.paymaster = paymaster;
         }
-        public void Spawn(ProductModel productModel, Transform parent)
+        public void Spawn(PurchaseModel purchaseModel, Transform parent)
         {
             GameObject lootboxContentPrefab = Resources
                 .Load<GameObject>("Prefabs/LobbyShop/PurchasesConfirmation/WarshipPowerPointsContent");
             GameObject wpp = Object.Instantiate(lootboxContentPrefab, parent, false);
             Button buttonBuy = wpp.transform.Find("Button_Buy").GetComponent<Button>();
-            FillData(wpp, productModel);
-            AddListeners(buttonBuy, productModel);
+            FillData(wpp, purchaseModel.ProductModel);
+            AddListeners(buttonBuy, purchaseModel);
         }
 
         private void FillData(GameObject powerPointsContent, ProductModel productModel)
@@ -58,13 +59,13 @@ namespace Code.Scenes.LobbyScene.Scripts
             //TODO сделать установку типа валюты
         }
 
-        private void AddListeners(Button buttonBuy, ProductModel productModel)
+        private void AddListeners(Button buttonBuy, PurchaseModel purchaseModel)
         {
             //устновить слушатель на кнопку покупки
             buttonBuy.onClick.RemoveAllListeners();
             buttonBuy.onClick.AddListener(() =>
             {
-                paymaster.Buy(productModel);
+                paymaster.Buy(purchaseModel);
             });
         }
     }

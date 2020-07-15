@@ -2,6 +2,7 @@ using System.Globalization;
 using Assets.Code.Scenes.BattleScene.Experimental;
 using Code.Common;
 using Code.Scenes.LobbyScene.Scripts.Shop;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ namespace Code.Scenes.LobbyScene.Scripts
     {
         private readonly ILog log = LogManager.CreateLogger(typeof(SkinItemSpawner));
         
-        public void Spawn(ProductModel productModel, GameObject sectionGameObject,
+        public void Spawn(PurchaseModel purchaseModel, GameObject sectionGameObject,
             ProductClickHandlerScript productClickHandlerScript)
         {
             //Создать объект на сцене
@@ -23,24 +24,24 @@ namespace Code.Scenes.LobbyScene.Scripts
             //Заполнить картинку
             Image itemPreview = skinItemGameObject.transform.Find("Image_WarshipItem/Image_WarshipPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(productModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.ProductModel.ImagePreviewPath);
             
             //Заполнить название
             Text itemName = skinItemGameObject.transform.Find("Image_WarshipItem/Image_Name/Text_Name")
                 .GetComponent<Text>();
-            itemName.text = productModel.Name;
+            itemName.text = purchaseModel.ProductModel.Name;
 
             //Заполнить цену
             Text itemCost = skinItemGameObject.transform.Find("Image_WarshipItem/Image_Cost/Text_Amount")
                 .GetComponent<Text>();
-            itemCost.text = productModel.Cost.ToString(CultureInfo.InvariantCulture);
+            itemCost.text = purchaseModel.ProductModel.Cost.ToString(CultureInfo.InvariantCulture);
             
             //Установить обработчик нажатия
             Button itemButton = skinItemGameObject.GetComponent<Button>();
             itemButton.onClick.RemoveAllListeners();
             itemButton.onClick.AddListener(() =>
             {
-                productClickHandlerScript.Product_OnClick(productModel);
+                productClickHandlerScript.Product_OnClick(purchaseModel);
             });
         }
     }

@@ -1,5 +1,6 @@
 using System;
 using Code.Common;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,13 +21,13 @@ namespace Code.Scenes.LobbyScene.Scripts
             this.paymaster = paymaster;
         }
 
-        public void Spawn(ProductModel productModel, Transform parent)
+        public void Spawn(PurchaseModel purchaseModel, Transform parent)
         {
             GameObject lootboxContentPrefab = Resources
                 .Load<GameObject>("Prefabs/LobbyShop/PurchasesConfirmation/LooboxContent");
             GameObject lootboxContent = Object.Instantiate(lootboxContentPrefab, parent, false);
-            FillData(lootboxContent, productModel);
-            AddListeners(lootboxContent, productModel);
+            FillData(lootboxContent, purchaseModel.ProductModel);
+            AddListeners(lootboxContent, purchaseModel);
         }
 
         private void FillData(GameObject lootboxContent, ProductModel productModel)
@@ -47,7 +48,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             lootboxName.text = productModel.Name;
         }
         
-        private void AddListeners(GameObject lootboxContent, ProductModel productModel)
+        private void AddListeners(GameObject lootboxContent, PurchaseModel purchaseModel)
         {
             //повесить слушатель на кнопку покупки
             Button buttonBuy = lootboxContent.transform.Find("Button_Buy")
@@ -56,7 +57,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             buttonBuy.onClick.AddListener(() =>
             {
                 log.Debug("Покупка лутбокса");
-                paymaster.Buy(productModel);
+                paymaster.Buy(purchaseModel);
             });
             
             //todo повесить слушатель на кнопку подробной информации

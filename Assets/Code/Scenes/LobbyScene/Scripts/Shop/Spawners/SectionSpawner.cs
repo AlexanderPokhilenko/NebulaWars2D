@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Code.Common;
 using Code.Scenes.LobbyScene.Scripts.Shop;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
@@ -41,7 +42,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             warshipPowerPointsItemSpawner = new WarshipPowerPointsItemSpawner();
         }
 
-        public void SpawnSection(SectionModel sectionModel)
+        public void SpawnSection(SectionModel sectionModel, int shopModelId)
         {
             bool success = new ShopSectionModelValidator().Validate(sectionModel);
             if (!success)
@@ -90,41 +91,41 @@ namespace Code.Scenes.LobbyScene.Scripts
                 for (int xIndex = 0; xIndex < sectionModel.UiItems[yIndex].Length; xIndex++)
                 {
                     ProductModel productModel = sectionModel.UiItems[yIndex][xIndex];
-                    SpawnItem(productModel, sectionGo);
+                    SpawnItem(new PurchaseModel(productModel, shopModelId), sectionGo);
                 }
             }
         }
 
-        private void SpawnItem(ProductModel productModel, GameObject sectionGameObject)
+        private void SpawnItem(PurchaseModel purchaseModel, GameObject sectionGameObject)
         {
-            switch (productModel.TransactionType)
+            switch (purchaseModel.ProductModel.TransactionType)
             {
                 case TransactionTypeEnum.Lootbox:
-                    lootboxItemsSpawner.Spawn(productModel, sectionGameObject, productClickHandlerScript);
+                    lootboxItemsSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
                 
                 case TransactionTypeEnum.Skin:
-                    skinItemSpawner.Spawn(productModel, sectionGameObject, productClickHandlerScript);
+                    skinItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
                 case TransactionTypeEnum.Warship:
-                    warshipItemSpawner.Spawn(productModel, sectionGameObject, productClickHandlerScript);
+                    warshipItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     break;
                 case TransactionTypeEnum.WarshipAndSkin:
                     throw new ArgumentOutOfRangeException();
                 case TransactionTypeEnum.WarshipPowerPoints:
-                    warshipPowerPointsItemSpawner.Spawn(productModel, sectionGameObject, productClickHandlerScript);
+                    warshipPowerPointsItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
                 case TransactionTypeEnum.HardCurrency:
-                    hardCurrencyItemSpawner.Spawn(productModel, sectionGameObject, productClickHandlerScript);
+                    hardCurrencyItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
                 case TransactionTypeEnum.SoftCurrency:
-                    softCurrencyItemSpawner.Spawn(productModel, sectionGameObject, productClickHandlerScript);
+                    softCurrencyItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
                 case TransactionTypeEnum.DailyPrize:
-                    dailyPresentItemSpawner.Spawn(productModel, sectionGameObject, productClickHandlerScript);
+                    dailyPresentItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(productModel.TransactionType));
+                    throw new ArgumentOutOfRangeException(nameof(purchaseModel.ProductModel.TransactionType));
             }
         }
     }

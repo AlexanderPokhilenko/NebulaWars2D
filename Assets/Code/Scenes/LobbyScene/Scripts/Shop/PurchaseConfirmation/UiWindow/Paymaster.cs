@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using Code.Common;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using ZeroFormatter;
@@ -19,10 +20,10 @@ namespace Code.Scenes.LobbyScene.Scripts
             lobbySoundsManager = UiSoundsManager.Instance();
         }
 
-        public void Buy(ProductModel productModel)
+        public void Buy(PurchaseModel purchaseModel)
         {
             //todo если не хватает показать уведомление и переместить магазин на секцию с нужными ресурсами
-            if (!IsPurchaseContinue(productModel))
+            if (!IsPurchaseContinue(purchaseModel.ProductModel))
             {
                 return;
             }
@@ -35,7 +36,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 return;
             }
 
-            byte[] binaryProductModel = ZeroFormatterSerializer.Serialize(productModel);
+            byte[] binaryProductModel = ZeroFormatterSerializer.Serialize(purchaseModel.ProductModel);
             string base64ProductModel = Convert.ToBase64String(binaryProductModel);
                     
             HttpClient httpClient = new HttpClient();
@@ -43,7 +44,9 @@ namespace Code.Scenes.LobbyScene.Scripts
             using (MultipartFormDataContent formData = new MultipartFormDataContent())
             {
                 formData.Add(new StringContent(playerServiceId), "playerId");   
+                formData.Add(new StringContent(purchaseModel.ProductModel.Id.ToString()), "productId");   
                 formData.Add(new StringContent(base64ProductModel), "base64ProductModel");   
+                formData.Add(new StringContent(purchaseModel.ShopModelId.ToString()), "shopModelId");   
                 response = httpClient.PostAsync(NetworkGlobals.BuyProduct, formData).Result;
             }
 

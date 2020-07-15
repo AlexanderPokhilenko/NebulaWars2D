@@ -1,6 +1,7 @@
 using System;
 using Code.Common;
 using Code.Scenes.DebugScene;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
@@ -24,15 +25,15 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
                 ?? throw new Exception(nameof(PurchaseConfirmationWindowController));;
         }
 
-        public void Product_OnClick([NotNull] ProductModel productModel)
+        public void Product_OnClick([NotNull] PurchaseModel purchaseModel)
         {
-            log.Debug($"{nameof(Product_OnClick)} {nameof(productModel.Id)} {productModel.Id}");
-            log.Debug("Тип валюты "+productModel.CurrencyTypeEnum);
+            log.Debug($"{nameof(Product_OnClick)} {nameof(purchaseModel.ProductModel.Id)} {purchaseModel.ProductModel.Id}");
+            log.Debug("Тип валюты "+purchaseModel.ProductModel.CurrencyTypeEnum);
             //Если покупка за реальную валюту, то вызвать api платёжной системы
-            if (productModel.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
+            if (purchaseModel.ProductModel.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
             {
                 log.Debug("Покупка за реальную валюту");
-                string sku = productModel.ForeignServiceProduct.ProductGoogleId;
+                string sku = purchaseModel.ProductModel.ForeignServiceProduct.ProductGoogleId;
                 log.Debug($"{nameof(sku)} {sku}");
                 purchasingService.BuyProductById(sku);
             }
@@ -40,11 +41,11 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             {
                 log.Debug("Показ окна подтверждения покупки");
                 //Если покупка за внутриигровую валюту, то показать меню подтверждения покупки
-                purchaseConfirmationWindowController.Show(productModel);    
+                purchaseConfirmationWindowController.Show(purchaseModel);    
             }
         }
 
-        public void DailyPresent_OnClick(int id)
+        public void DailyPresent_OnClick(PurchaseModel purchaseModel)
         {
             //TODO отправить запрос
             //TODO показать анимацию начисления

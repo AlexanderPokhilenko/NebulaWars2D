@@ -34,7 +34,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             //Создать разделы
             foreach (var shopSectionModel in shopModel.UiSections)
             {
-                sectionSpawner.SpawnSection(shopSectionModel);
+                sectionSpawner.SpawnSection(shopSectionModel, shopModel.Id);
             }
         }
 

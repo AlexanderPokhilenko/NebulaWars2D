@@ -1,5 +1,6 @@
 using System;
 using Code.Common;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using DataLayer.Tables;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -39,29 +40,29 @@ namespace Code.Scenes.LobbyScene.Scripts
                 new WarshipPowerPointsPurchaseConfirmationWindowController(paymaster);
         }
 
-        public void Show([NotNull] ProductModel productModel)
+        public void Show([NotNull] PurchaseModel purchaseModel)
         {
             purchaseConfirmationWindow.ClearWindow();
             
-            switch (productModel.TransactionType)
+            switch (purchaseModel.ProductModel.TransactionType)
             {
                 case TransactionTypeEnum.Lootbox:
                     lootboxPurchaseConfirmationWindowController
-                        .Spawn(productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                        .Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
                 case TransactionTypeEnum.Skin:
                     skinPurchaseConfirmationWindowController
-                        .Spawn(productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                        .Spawn(purchaseModel.ProductModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
                 case TransactionTypeEnum.Warship:
                     warshipPurchaseConfirmationWindowController
-                        .Spawn(productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                        .Spawn(purchaseModel.ProductModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
                 case TransactionTypeEnum.WarshipAndSkin:
                     break;
                 case TransactionTypeEnum.WarshipPowerPoints:
                     warshipPowerPointsPurchaseConfirmationWindowController
-                        .Spawn(productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                        .Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
                 case TransactionTypeEnum.HardCurrency:
                     string message = "Жесткая валюта не должна покупать за внтриигровую валюту.";
@@ -69,7 +70,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     throw new Exception(message);
                 case TransactionTypeEnum.SoftCurrency:
                     softCurrencyPurchaseConfirmationWindowController
-                        .Spawn(productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                        .Spawn(purchaseModel.ProductModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
                 case TransactionTypeEnum.DailyPrize:
                     break;
