@@ -1,17 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Code.Scenes.BattleScene.Experimental;
 using Code.Common;
+using Code.Common.Logger;
+using Code.Common.Statistics;
+using Code.Scenes.LobbyScene.ECS.Warships;
 using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
-using Vector2 = NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages.Vector2;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Reactive.Warships
+namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
 {
     public class WarshipListFillerSystem:ReactiveSystem<LobbyUiEntity>
     {

@@ -2,7 +2,7 @@
 using Code.Common;
 using UnityEngine;
 
-namespace Assets.Code.Scenes.BattleScene.Experimental
+namespace Code.Scenes.BattleScene.Experimental
 {
     public class SoundManager : Singleton<SoundManager>
     {

@@ -6,9 +6,12 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LootboxScene.ECS;
+
 public partial class LootboxEntity {
 
-    static readonly DefaultNamespace.CanvasClickComponent canvasClickComponent = new DefaultNamespace.CanvasClickComponent();
+    static readonly CanvasClickComponent canvasClickComponent = new CanvasClickComponent();
 
     public bool isCanvasClick {
         get { return HasComponent(LootboxComponentsLookup.CanvasClick); }

@@ -6,14 +6,17 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LootboxScene.ECS;
+
 public partial class LootboxEntity {
 
-    public DefaultNamespace.ShowPrizeComponent showPrize { get { return (DefaultNamespace.ShowPrizeComponent)GetComponent(LootboxComponentsLookup.ShowPrize); } }
+    public ShowPrizeComponent showPrize { get { return (ShowPrizeComponent)GetComponent(LootboxComponentsLookup.ShowPrize); } }
     public bool hasShowPrize { get { return HasComponent(LootboxComponentsLookup.ShowPrize); } }
 
     public void AddShowPrize(int newAmount, NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType newLootboxPrizeType) {
         var index = LootboxComponentsLookup.ShowPrize;
-        var component = (DefaultNamespace.ShowPrizeComponent)CreateComponent(index, typeof(DefaultNamespace.ShowPrizeComponent));
+        var component = (ShowPrizeComponent)CreateComponent(index, typeof(ShowPrizeComponent));
         component.amount = newAmount;
         component.LootboxPrizeType = newLootboxPrizeType;
         AddComponent(index, component);
@@ -21,7 +24,7 @@ public partial class LootboxEntity {
 
     public void ReplaceShowPrize(int newAmount, NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType newLootboxPrizeType) {
         var index = LootboxComponentsLookup.ShowPrize;
-        var component = (DefaultNamespace.ShowPrizeComponent)CreateComponent(index, typeof(DefaultNamespace.ShowPrizeComponent));
+        var component = (ShowPrizeComponent)CreateComponent(index, typeof(ShowPrizeComponent));
         component.amount = newAmount;
         component.LootboxPrizeType = newLootboxPrizeType;
         ReplaceComponent(index, component);

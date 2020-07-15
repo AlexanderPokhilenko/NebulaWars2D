@@ -6,23 +6,26 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.CommandToCreateAwardImagesComponent commandToCreateAwardImages { get { return (Code.Scenes.LobbyScene.ECS.Components.CommandToCreateAwardImagesComponent)GetComponent(LobbyUiComponentsLookup.CommandToCreateAwardImages); } }
+    public CommandToCreateAwardImagesComponent commandToCreateAwardImages { get { return (CommandToCreateAwardImagesComponent)GetComponent(LobbyUiComponentsLookup.CommandToCreateAwardImages); } }
     public bool hasCommandToCreateAwardImages { get { return HasComponent(LobbyUiComponentsLookup.CommandToCreateAwardImages); } }
 
-    public void AddCommandToCreateAwardImages(int newQuantity, Code.Scenes.LobbyScene.ECS.Components.AwardType newAwardType, System.DateTime newStartSpawnTime) {
+    public void AddCommandToCreateAwardImages(int newQuantity, AwardType newAwardType, System.DateTime newStartSpawnTime) {
         var index = LobbyUiComponentsLookup.CommandToCreateAwardImages;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.CommandToCreateAwardImagesComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.CommandToCreateAwardImagesComponent));
+        var component = (CommandToCreateAwardImagesComponent)CreateComponent(index, typeof(CommandToCreateAwardImagesComponent));
         component.quantity = newQuantity;
         component.awardType = newAwardType;
         component.startSpawnTime = newStartSpawnTime;
         AddComponent(index, component);
     }
 
-    public void ReplaceCommandToCreateAwardImages(int newQuantity, Code.Scenes.LobbyScene.ECS.Components.AwardType newAwardType, System.DateTime newStartSpawnTime) {
+    public void ReplaceCommandToCreateAwardImages(int newQuantity, AwardType newAwardType, System.DateTime newStartSpawnTime) {
         var index = LobbyUiComponentsLookup.CommandToCreateAwardImages;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.CommandToCreateAwardImagesComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.CommandToCreateAwardImagesComponent));
+        var component = (CommandToCreateAwardImagesComponent)CreateComponent(index, typeof(CommandToCreateAwardImagesComponent));
         component.quantity = newQuantity;
         component.awardType = newAwardType;
         component.startSpawnTime = newStartSpawnTime;

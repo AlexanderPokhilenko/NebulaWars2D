@@ -6,21 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.EnableWarshipImprovementModalWindowComponent enableWarshipImprovementModalWindow { get { return (Code.Scenes.LobbyScene.ECS.Components.EnableWarshipImprovementModalWindowComponent)GetComponent(LobbyUiComponentsLookup.EnableWarshipImprovementModalWindow); } }
+    public EnableWarshipImprovementModalWindowComponent enableWarshipImprovementModalWindow { get { return (EnableWarshipImprovementModalWindowComponent)GetComponent(LobbyUiComponentsLookup.EnableWarshipImprovementModalWindow); } }
     public bool hasEnableWarshipImprovementModalWindow { get { return HasComponent(LobbyUiComponentsLookup.EnableWarshipImprovementModalWindow); } }
 
     public void AddEnableWarshipImprovementModalWindow(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.EnableWarshipImprovementModalWindow;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.EnableWarshipImprovementModalWindowComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.EnableWarshipImprovementModalWindowComponent));
+        var component = (EnableWarshipImprovementModalWindowComponent)CreateComponent(index, typeof(EnableWarshipImprovementModalWindowComponent));
         component.WarshipDto = newWarshipDto;
         AddComponent(index, component);
     }
 
     public void ReplaceEnableWarshipImprovementModalWindow(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.EnableWarshipImprovementModalWindow;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.EnableWarshipImprovementModalWindowComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.EnableWarshipImprovementModalWindowComponent));
+        var component = (EnableWarshipImprovementModalWindowComponent)CreateComponent(index, typeof(EnableWarshipImprovementModalWindowComponent));
         component.WarshipDto = newWarshipDto;
         ReplaceComponent(index, component);
     }

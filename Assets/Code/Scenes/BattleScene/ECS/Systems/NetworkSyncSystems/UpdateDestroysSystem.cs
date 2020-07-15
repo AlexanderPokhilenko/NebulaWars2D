@@ -1,8 +1,8 @@
-﻿using Entitas;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Entitas;
 using UnityEngine;
 
-namespace Code.BattleScene.ECS.Systems
+namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
     public class UpdateDestroysSystem : IExecuteSystem
     {

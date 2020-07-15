@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.WarshipsUi
 {
     public class WarshipImprovementPurchase:MonoBehaviour
     {

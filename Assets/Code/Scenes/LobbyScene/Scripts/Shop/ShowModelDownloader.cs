@@ -3,10 +3,11 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop
 {
     /// <summary>
     /// Отвечает за скачивание модели магазина

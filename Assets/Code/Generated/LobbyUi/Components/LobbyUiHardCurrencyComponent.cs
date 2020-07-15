@@ -6,10 +6,13 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity hardCurrencyEntity { get { return GetGroup(LobbyUiMatcher.HardCurrency).GetSingleEntity(); } }
-    public Code.Scenes.LobbyScene.ECS.Components.HardCurrencyComponent hardCurrency { get { return hardCurrencyEntity.hardCurrency; } }
+    public HardCurrencyComponent hardCurrency { get { return hardCurrencyEntity.hardCurrency; } }
     public bool hasHardCurrency { get { return hardCurrencyEntity != null; } }
 
     public LobbyUiEntity SetHardCurrency(int newValue) {
@@ -46,19 +49,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.HardCurrencyComponent hardCurrency { get { return (Code.Scenes.LobbyScene.ECS.Components.HardCurrencyComponent)GetComponent(LobbyUiComponentsLookup.HardCurrency); } }
+    public HardCurrencyComponent hardCurrency { get { return (HardCurrencyComponent)GetComponent(LobbyUiComponentsLookup.HardCurrency); } }
     public bool hasHardCurrency { get { return HasComponent(LobbyUiComponentsLookup.HardCurrency); } }
 
     public void AddHardCurrency(int newValue) {
         var index = LobbyUiComponentsLookup.HardCurrency;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.HardCurrencyComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.HardCurrencyComponent));
+        var component = (HardCurrencyComponent)CreateComponent(index, typeof(HardCurrencyComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceHardCurrency(int newValue) {
         var index = LobbyUiComponentsLookup.HardCurrency;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.HardCurrencyComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.HardCurrencyComponent));
+        var component = (HardCurrencyComponent)CreateComponent(index, typeof(HardCurrencyComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

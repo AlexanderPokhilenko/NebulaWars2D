@@ -6,6 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LootboxScene.ECS;
+
 public static class LootboxComponentsLookup {
 
     public const int CanvasClick = 0;
@@ -19,7 +22,7 @@ public static class LootboxComponentsLookup {
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(DefaultNamespace.CanvasClickComponent),
-        typeof(DefaultNamespace.ShowPrizeComponent)
+        typeof(CanvasClickComponent),
+        typeof(ShowPrizeComponent)
     };
 }

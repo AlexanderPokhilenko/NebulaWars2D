@@ -1,9 +1,9 @@
-﻿using Code.Scenes.BattleScene.ScriptableObjects;
-using System.Collections.Generic;
-using Code.Common;
+﻿using System.Collections.Generic;
+using Code.Common.Logger;
+using Code.Scenes.BattleScene.ScriptableObjects;
 using UnityEngine;
 
-namespace Assets.Code.Scenes.BattleScene.Experimental
+namespace Code.Scenes.BattleScene.Experimental
 {
     public static class PreviewsManager
     {

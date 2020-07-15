@@ -6,10 +6,13 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity usernameEntity { get { return GetGroup(LobbyUiMatcher.Username).GetSingleEntity(); } }
-    public Code.Scenes.LobbyScene.ECS.Components.UsernameComponent username { get { return usernameEntity.username; } }
+    public UsernameComponent username { get { return usernameEntity.username; } }
     public bool hasUsername { get { return usernameEntity != null; } }
 
     public LobbyUiEntity SetUsername(string newUsername) {
@@ -46,19 +49,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.UsernameComponent username { get { return (Code.Scenes.LobbyScene.ECS.Components.UsernameComponent)GetComponent(LobbyUiComponentsLookup.Username); } }
+    public UsernameComponent username { get { return (UsernameComponent)GetComponent(LobbyUiComponentsLookup.Username); } }
     public bool hasUsername { get { return HasComponent(LobbyUiComponentsLookup.Username); } }
 
     public void AddUsername(string newUsername) {
         var index = LobbyUiComponentsLookup.Username;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.UsernameComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.UsernameComponent));
+        var component = (UsernameComponent)CreateComponent(index, typeof(UsernameComponent));
         component.username = newUsername;
         AddComponent(index, component);
     }
 
     public void ReplaceUsername(string newUsername) {
         var index = LobbyUiComponentsLookup.Username;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.UsernameComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.UsernameComponent));
+        var component = (UsernameComponent)CreateComponent(index, typeof(UsernameComponent));
         component.username = newUsername;
         ReplaceComponent(index, component);
     }

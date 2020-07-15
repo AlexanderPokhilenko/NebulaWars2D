@@ -4,7 +4,7 @@ using System.Linq;
 using Entitas;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Reactive.AccountInfoChangingHandlers
+namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
 {
     /// <summary>
     /// Устанавливает значение кол-ва обычной валюты в при добавлении компонента.

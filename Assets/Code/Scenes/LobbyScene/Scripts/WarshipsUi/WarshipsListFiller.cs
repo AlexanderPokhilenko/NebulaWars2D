@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using Assets.Code.Scenes.BattleScene.Experimental;
-using Code.Common;
-using NetworkLibrary.NetworkLibrary.Http;
+using Code.Common.Logger;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.WarshipsUi
 {
     /// <summary>
     /// Заполняет меню со списком кораблей после получения данных о аккаунте с сервера.

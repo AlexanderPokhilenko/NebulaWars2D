@@ -1,10 +1,10 @@
 using System;
-using Code.Common;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.Listeners;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 
-namespace Code.Scenes.LootboxScene
+namespace Code.Scenes.LootboxScene.Scripts
 {
     /// <summary>
     /// Стартует анимацию после того как данные о сундуке были получены в LootboxModelDownloader.

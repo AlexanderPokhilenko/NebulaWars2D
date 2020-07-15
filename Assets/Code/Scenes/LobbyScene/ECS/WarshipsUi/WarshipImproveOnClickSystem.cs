@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Entitas;
 
-namespace Code.Scenes.LobbyScene.ECS.Components.WarshipsUi.WarshipOverview
+namespace Code.Scenes.LobbyScene.ECS.WarshipsUi
 {
     public class WarshipImproveOnClickSystem:ReactiveSystem<LobbyUiEntity>
     {

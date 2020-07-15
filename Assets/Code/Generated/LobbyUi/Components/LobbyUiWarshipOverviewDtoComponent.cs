@@ -6,10 +6,13 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity warshipOverviewDtoEntity { get { return GetGroup(LobbyUiMatcher.WarshipOverviewDto).GetSingleEntity(); } }
-    public Code.Scenes.LobbyScene.ECS.Components.WarshipOverviewDto warshipOverviewDto { get { return warshipOverviewDtoEntity.warshipOverviewDto; } }
+    public WarshipOverviewDto warshipOverviewDto { get { return warshipOverviewDtoEntity.warshipOverviewDto; } }
     public bool hasWarshipOverviewDto { get { return warshipOverviewDtoEntity != null; } }
 
     public LobbyUiEntity SetWarshipOverviewDto(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
@@ -46,19 +49,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.WarshipOverviewDto warshipOverviewDto { get { return (Code.Scenes.LobbyScene.ECS.Components.WarshipOverviewDto)GetComponent(LobbyUiComponentsLookup.WarshipOverviewDto); } }
+    public WarshipOverviewDto warshipOverviewDto { get { return (WarshipOverviewDto)GetComponent(LobbyUiComponentsLookup.WarshipOverviewDto); } }
     public bool hasWarshipOverviewDto { get { return HasComponent(LobbyUiComponentsLookup.WarshipOverviewDto); } }
 
     public void AddWarshipOverviewDto(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.WarshipOverviewDto;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.WarshipOverviewDto)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.WarshipOverviewDto));
+        var component = (WarshipOverviewDto)CreateComponent(index, typeof(WarshipOverviewDto));
         component.WarshipDto = newWarshipDto;
         AddComponent(index, component);
     }
 
     public void ReplaceWarshipOverviewDto(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.WarshipOverviewDto;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.WarshipOverviewDto)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.WarshipOverviewDto));
+        var component = (WarshipOverviewDto)CreateComponent(index, typeof(WarshipOverviewDto));
         component.WarshipDto = newWarshipDto;
         ReplaceComponent(index, component);
     }

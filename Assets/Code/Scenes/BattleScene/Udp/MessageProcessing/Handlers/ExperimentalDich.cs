@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
 using Libraries.NetworkLibrary.Experimental;
 using ZeroFormatter;
 

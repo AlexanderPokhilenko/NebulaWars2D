@@ -1,9 +1,9 @@
 using System;
-using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Code.Scenes.LootboxScene
+namespace Code.Scenes.LootboxScene.Scripts
 {
     public class LootboxSceneSwitcher : MonoBehaviour
     {

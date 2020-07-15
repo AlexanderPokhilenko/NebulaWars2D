@@ -6,6 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity matchLoadingTableEnabledEntity { get { return GetGroup(LobbyUiMatcher.MatchLoadingTableEnabled).GetSingleEntity(); } }
@@ -35,7 +38,7 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    static readonly Code.Scenes.LobbyScene.ECS.Components.MatchLoadingTableEnabledComponent matchLoadingTableEnabledComponent = new Code.Scenes.LobbyScene.ECS.Components.MatchLoadingTableEnabledComponent();
+    static readonly MatchLoadingTableEnabledComponent matchLoadingTableEnabledComponent = new MatchLoadingTableEnabledComponent();
 
     public bool isMatchLoadingTableEnabled {
         get { return HasComponent(LobbyUiComponentsLookup.MatchLoadingTableEnabled); }

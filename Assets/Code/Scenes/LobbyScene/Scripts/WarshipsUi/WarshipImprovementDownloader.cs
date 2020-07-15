@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.WarshipsUi
 {
     public class WarshipImprovementDownloader
     {

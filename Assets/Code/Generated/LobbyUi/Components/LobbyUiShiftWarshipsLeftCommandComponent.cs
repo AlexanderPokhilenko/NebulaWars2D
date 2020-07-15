@@ -6,9 +6,12 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiEntity {
 
-    static readonly Code.Scenes.LobbyScene.ECS.Components.ShiftWarshipsLeftCommand shiftWarshipsLeftCommandComponent = new Code.Scenes.LobbyScene.ECS.Components.ShiftWarshipsLeftCommand();
+    static readonly ShiftWarshipsLeftCommand shiftWarshipsLeftCommandComponent = new ShiftWarshipsLeftCommand();
 
     public bool isShiftWarshipsLeftCommand {
         get { return HasComponent(LobbyUiComponentsLookup.ShiftWarshipsLeftCommand); }

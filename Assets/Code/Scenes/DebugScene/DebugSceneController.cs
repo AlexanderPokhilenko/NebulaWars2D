@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DebugSceneController : MonoBehaviour
+namespace Code.Scenes.DebugScene
 {
-    public void Button_Back_Click()
+    public class DebugSceneController : MonoBehaviour
     {
-        SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
+        public void Button_Back_Click()
+        {
+            SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
+        }
     }
 }

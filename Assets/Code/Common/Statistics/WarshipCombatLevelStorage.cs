@@ -1,7 +1,7 @@
 using System;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Common
+namespace Code.Common.Statistics
 {
     /// <summary>
     /// Синглтон

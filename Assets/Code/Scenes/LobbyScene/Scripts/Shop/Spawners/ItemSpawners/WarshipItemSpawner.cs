@@ -1,13 +1,10 @@
 using System.Globalization;
-using Assets.Code.Scenes.BattleScene.Experimental;
-using Code.Common;
-using Code.Scenes.LobbyScene.Scripts.Shop;
+using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
-using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
 {
     public class WarshipItemSpawner
     {

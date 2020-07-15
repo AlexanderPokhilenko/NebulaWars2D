@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Code.Common;
-using Code.Scenes.LobbyScene.Scripts;
-using Code.Scenes.LootboxScene;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
+using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace DefaultNamespace
+namespace Code.Scenes.LootboxScene.ECS.Systems
 {
     /// <summary>
     /// Реагирует на нажатие на канвас.

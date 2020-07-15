@@ -1,7 +1,10 @@
 ﻿using Entitas;
 
-[Game]
-public sealed class DirectionComponent : IComponent
+namespace Code.Scenes.BattleScene.ECS.Components.Game
 {
-    public float angle;
+    [Game]
+    public sealed class DirectionComponent : IComponent
+    {
+        public float angle;
+    }
 }

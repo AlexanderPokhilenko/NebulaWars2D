@@ -1,12 +1,8 @@
 using System;
-using Code.Scenes.LobbyScene.ECS.Components;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
-using UnityEngine;
-using CommandToCreateAwardImagesComponent = Code.Scenes.LobbyScene.ECS.Components.CommandToCreateAwardImagesComponent;
-using MovingAwardComponent = Code.Scenes.LobbyScene.ECS.Components.MovingAwardComponent;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards
 {
     /// <summary>
     /// Создаёт компоненты c информацией про награды и сообщение о том, что нужно показать текст.

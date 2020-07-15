@@ -6,21 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.ViewComponent view { get { return (Code.Scenes.LobbyScene.ECS.Components.ViewComponent)GetComponent(LobbyUiComponentsLookup.View); } }
+    public ViewComponent view { get { return (ViewComponent)GetComponent(LobbyUiComponentsLookup.View); } }
     public bool hasView { get { return HasComponent(LobbyUiComponentsLookup.View); } }
 
     public void AddView(UnityEngine.GameObject newGameObject) {
         var index = LobbyUiComponentsLookup.View;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.ViewComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.ViewComponent));
+        var component = (ViewComponent)CreateComponent(index, typeof(ViewComponent));
         component.GameObject = newGameObject;
         AddComponent(index, component);
     }
 
     public void ReplaceView(UnityEngine.GameObject newGameObject) {
         var index = LobbyUiComponentsLookup.View;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.ViewComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.ViewComponent));
+        var component = (ViewComponent)CreateComponent(index, typeof(ViewComponent));
         component.GameObject = newGameObject;
         ReplaceComponent(index, component);
     }

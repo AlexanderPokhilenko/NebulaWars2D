@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.MatchSearch
 {
     /// <summary>
     /// Костыльно создает компонеты при нажатии кнопок START и CANCEL

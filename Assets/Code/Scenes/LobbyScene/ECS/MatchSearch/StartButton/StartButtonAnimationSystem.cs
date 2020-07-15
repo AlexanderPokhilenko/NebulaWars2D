@@ -1,9 +1,9 @@
 ﻿using System;
-using Code.Common;
+using Code.Common.Logger;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.MatchSearch.StartButton
 {
     /// <summary>
     /// Вращаети растягивает картинки вокруг кнопки START в зависимости от времени.

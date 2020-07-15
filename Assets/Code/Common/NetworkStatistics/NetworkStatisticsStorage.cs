@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using NetworkLibrary.NetworkLibrary.Udp;
 
-namespace Code.Common
+namespace Code.Common.NetworkStatistics
 {
     /// <summary>
     /// Отвечает за запись статистики сети для всех боёв

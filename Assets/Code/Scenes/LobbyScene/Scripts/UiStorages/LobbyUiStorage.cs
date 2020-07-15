@@ -1,11 +1,10 @@
 ﻿using System;
-using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.UiStorages
 {
     /// <summary>
     /// Отвечает за хранение ссылок на ui элементы. 

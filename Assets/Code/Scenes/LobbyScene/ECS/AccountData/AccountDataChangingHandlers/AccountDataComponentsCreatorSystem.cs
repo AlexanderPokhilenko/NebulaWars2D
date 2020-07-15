@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Components;
+using Code.Common.Logger;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
 {
     /// <summary>
     /// Отвечает за обновление всех данных аккаунта.

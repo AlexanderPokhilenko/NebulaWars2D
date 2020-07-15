@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Code.Scenes.LobbyScene.ECS.Components;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images.Experimental
 {
     /// <summary>
     /// По типу награды создаёт путь для награды.

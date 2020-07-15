@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Listeners
 {
     public class ShopButtonListener : MonoBehaviour
     {

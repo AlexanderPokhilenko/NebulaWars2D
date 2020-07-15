@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Camera))]
-public class CameraImageFilter : MonoBehaviour
+namespace Code.Scenes.BattleScene.Scripts
 {
-    public Material shaderedMaterial;
-
-    void OnRenderImage(RenderTexture sourceTexture, RenderTexture destTexture)
+    [RequireComponent(typeof(Camera))]
+    public class CameraImageFilter : MonoBehaviour
     {
-        Graphics.Blit(sourceTexture, destTexture, shaderedMaterial);
+        public Material shaderedMaterial;
+
+        void OnRenderImage(RenderTexture sourceTexture, RenderTexture destTexture)
+        {
+            Graphics.Blit(sourceTexture, destTexture, shaderedMaterial);
+        }
     }
 }

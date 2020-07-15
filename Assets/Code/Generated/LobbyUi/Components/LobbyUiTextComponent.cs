@@ -6,21 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.TextComponent text { get { return (Code.Scenes.LobbyScene.ECS.Components.TextComponent)GetComponent(LobbyUiComponentsLookup.Text); } }
+    public TextComponent text { get { return (TextComponent)GetComponent(LobbyUiComponentsLookup.Text); } }
     public bool hasText { get { return HasComponent(LobbyUiComponentsLookup.Text); } }
 
     public void AddText(UnityEngine.UI.Text newText) {
         var index = LobbyUiComponentsLookup.Text;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.TextComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.TextComponent));
+        var component = (TextComponent)CreateComponent(index, typeof(TextComponent));
         component.Text = newText;
         AddComponent(index, component);
     }
 
     public void ReplaceText(UnityEngine.UI.Text newText) {
         var index = LobbyUiComponentsLookup.Text;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.TextComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.TextComponent));
+        var component = (TextComponent)CreateComponent(index, typeof(TextComponent));
         component.Text = newText;
         ReplaceComponent(index, component);
     }

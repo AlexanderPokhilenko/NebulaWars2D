@@ -2,7 +2,7 @@ using System;
 using Entitas;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.MatchSearch
 {
     /// <summary>
     /// Обновляет строку времени ожидания в меню

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Code.Common;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation;
 using Entitas;
 
-namespace Code.Scenes.LobbyScene.ECS.Components.CommonLayoutSwitcher
+namespace Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher
 {
     /// <summary>
     /// Хранит текущее состояние. Оно представлено перечислением ShittyUiLayerState.

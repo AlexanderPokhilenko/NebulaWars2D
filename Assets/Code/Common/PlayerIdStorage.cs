@@ -1,4 +1,6 @@
-﻿namespace Code.Common
+﻿using Code.Common.Logger;
+
+namespace Code.Common
 {
     /// <summary>
     /// Отвечает за извлечение/генерацию serviceId в целях отладки. 

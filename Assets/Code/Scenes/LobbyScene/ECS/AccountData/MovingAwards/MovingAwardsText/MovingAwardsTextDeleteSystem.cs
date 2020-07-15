@@ -1,9 +1,9 @@
 using System;
-using Code.Common;
+using Code.Common.Logger;
 using Entitas;
 using Object = UnityEngine.Object;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText
 {
     /// <summary>
     /// Удаляет текст, когда он стал прозрачным.

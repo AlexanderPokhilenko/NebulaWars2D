@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Code.Common;
+using Code.Common.Logger;
 using Code.Scenes.DebugScene;
 using UnityEngine;
 

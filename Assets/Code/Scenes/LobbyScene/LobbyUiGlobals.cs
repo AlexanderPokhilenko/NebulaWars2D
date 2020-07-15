@@ -1,4 +1,4 @@
-namespace Code.Scenes.LobbyScene.ECS.Systems.Reactive.Warships
+namespace Code.Scenes.LobbyScene
 {
     public static class LobbyUiGlobals
     {

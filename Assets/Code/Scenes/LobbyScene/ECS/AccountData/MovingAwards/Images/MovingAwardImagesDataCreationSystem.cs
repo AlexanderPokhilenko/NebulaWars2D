@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Components;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images.Experimental;
 using Entitas;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
 {
     /// <summary>
     /// Создаёт компоненты для наград. Внутри компонента указан его путь.

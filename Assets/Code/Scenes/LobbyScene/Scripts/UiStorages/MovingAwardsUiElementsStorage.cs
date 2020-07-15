@@ -1,9 +1,9 @@
 using System;
-using Code.Scenes.LobbyScene.ECS.Components;
+using Code.Scenes.LobbyScene.ECS;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.UiStorages
 {
     /// <summary>
     /// Синглтон

@@ -3,7 +3,7 @@ using UnityEngine;
 
 //TODO https://habr.com/ru/post/494930/
 
-namespace Code.Common
+namespace Code.Common.Experimental
 {
     public static class ControllerAggregator
     {

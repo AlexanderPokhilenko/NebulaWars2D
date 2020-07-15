@@ -1,6 +1,6 @@
 using NetworkLibrary.NetworkLibrary.Udp;
 
-namespace Code.Common
+namespace Code.Common.NetworkStatistics
 {
     public class MessageRecord
     {

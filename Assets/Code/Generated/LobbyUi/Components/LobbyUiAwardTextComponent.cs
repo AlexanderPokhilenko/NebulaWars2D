@@ -6,14 +6,17 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.AwardTextComponent awardText { get { return (Code.Scenes.LobbyScene.ECS.Components.AwardTextComponent)GetComponent(LobbyUiComponentsLookup.AwardText); } }
+    public AwardTextComponent awardText { get { return (AwardTextComponent)GetComponent(LobbyUiComponentsLookup.AwardText); } }
     public bool hasAwardText { get { return HasComponent(LobbyUiComponentsLookup.AwardText); } }
 
     public void AddAwardText(int newQuantity, UnityEngine.Vector3 newStartPosition, System.DateTime newCreationTime, System.DateTime newFadeTime) {
         var index = LobbyUiComponentsLookup.AwardText;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.AwardTextComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.AwardTextComponent));
+        var component = (AwardTextComponent)CreateComponent(index, typeof(AwardTextComponent));
         component.quantity = newQuantity;
         component.startPosition = newStartPosition;
         component.CreationTime = newCreationTime;
@@ -23,7 +26,7 @@ public partial class LobbyUiEntity {
 
     public void ReplaceAwardText(int newQuantity, UnityEngine.Vector3 newStartPosition, System.DateTime newCreationTime, System.DateTime newFadeTime) {
         var index = LobbyUiComponentsLookup.AwardText;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.AwardTextComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.AwardTextComponent));
+        var component = (AwardTextComponent)CreateComponent(index, typeof(AwardTextComponent));
         component.quantity = newQuantity;
         component.startPosition = newStartPosition;
         component.CreationTime = newCreationTime;

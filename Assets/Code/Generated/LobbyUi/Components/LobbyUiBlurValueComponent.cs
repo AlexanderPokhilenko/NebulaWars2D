@@ -6,10 +6,13 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity blurValueEntity { get { return GetGroup(LobbyUiMatcher.BlurValue).GetSingleEntity(); } }
-    public Code.Scenes.LobbyScene.ECS.Components.BlurValueComponent blurValue { get { return blurValueEntity.blurValue; } }
+    public BlurValueComponent blurValue { get { return blurValueEntity.blurValue; } }
     public bool hasBlurValue { get { return blurValueEntity != null; } }
 
     public LobbyUiEntity SetBlurValue(int newBlurValue) {
@@ -46,19 +49,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.BlurValueComponent blurValue { get { return (Code.Scenes.LobbyScene.ECS.Components.BlurValueComponent)GetComponent(LobbyUiComponentsLookup.BlurValue); } }
+    public BlurValueComponent blurValue { get { return (BlurValueComponent)GetComponent(LobbyUiComponentsLookup.BlurValue); } }
     public bool hasBlurValue { get { return HasComponent(LobbyUiComponentsLookup.BlurValue); } }
 
     public void AddBlurValue(int newBlurValue) {
         var index = LobbyUiComponentsLookup.BlurValue;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.BlurValueComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.BlurValueComponent));
+        var component = (BlurValueComponent)CreateComponent(index, typeof(BlurValueComponent));
         component.blurValue = newBlurValue;
         AddComponent(index, component);
     }
 
     public void ReplaceBlurValue(int newBlurValue) {
         var index = LobbyUiComponentsLookup.BlurValue;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.BlurValueComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.BlurValueComponent));
+        var component = (BlurValueComponent)CreateComponent(index, typeof(BlurValueComponent));
         component.blurValue = newBlurValue;
         ReplaceComponent(index, component);
     }

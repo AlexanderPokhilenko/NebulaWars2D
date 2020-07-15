@@ -1,4 +1,4 @@
-namespace Code.Scenes.DebugScene
+namespace Code.Common
 {
     public static class AdGlobals
     {

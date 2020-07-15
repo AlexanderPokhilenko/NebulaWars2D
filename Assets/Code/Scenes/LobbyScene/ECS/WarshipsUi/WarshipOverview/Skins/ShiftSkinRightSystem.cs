@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Code.Common;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Entitas;
 
-namespace Code.Scenes.LobbyScene.ECS.Components.WarshipsUi.WarshipOverview
+namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
 {
     /// <summary>
     /// Отвечает за листание скинов

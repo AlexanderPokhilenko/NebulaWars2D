@@ -1,4 +1,4 @@
-namespace Code.Common
+namespace Code.Common.Statistics
 {
     /// <summary>
     /// Хранит информацию о интервале рейтинга корабля. 

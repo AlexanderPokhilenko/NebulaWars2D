@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.TearDown
+namespace Code.Scenes.LobbyScene.ECS.Clear
 {
     public class ClearLobbyUiSystem:ITearDownSystem
     {

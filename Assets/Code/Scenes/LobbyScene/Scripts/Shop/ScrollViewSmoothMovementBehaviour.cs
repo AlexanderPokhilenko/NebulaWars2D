@@ -1,10 +1,9 @@
 using System.Collections;
-using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
-using UnityEngine.UDP;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop
 {
     /// <summary>
     /// Передвигает меню по указанным координатам. Нужно после нажатия на кнопки снизу.

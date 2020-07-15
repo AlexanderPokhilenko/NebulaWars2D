@@ -2,7 +2,7 @@
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.Blur
 {
     /// <summary>
     /// Меняет значение размытия в зависимости от нажатых кнопок "Старт" "Отмена"

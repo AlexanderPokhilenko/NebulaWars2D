@@ -4,13 +4,14 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Systems.Reactive.Warships;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.ECS.Warships;
+using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Components.WarshipsUi.WarshipOverview
+namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
 {
     /// <summary>
     /// Отвечает за показ скинов во время обзора корабля

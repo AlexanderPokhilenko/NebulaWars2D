@@ -1,7 +1,6 @@
-using Code.Scenes.LobbyScene.ECS.Components;
 using Entitas;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.MatchSearch
 {
     /// <summary>
     /// Создаёт комноненты для меню поиска матча после получения их от матчмейкера.

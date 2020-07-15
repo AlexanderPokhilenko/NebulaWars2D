@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
-using Assets.Code.Scenes.BattleScene.Experimental;
+using Code.Scenes.BattleScene.Experimental;
 using Code.Scenes.BattleScene.Udp.Experimental;
 using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using UnityEngine;
 using UnityEngine.UI;
 

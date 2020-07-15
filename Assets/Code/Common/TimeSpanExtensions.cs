@@ -1,6 +1,6 @@
 using System;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Common
 {
     public static class TimeSpanExtensions
     {

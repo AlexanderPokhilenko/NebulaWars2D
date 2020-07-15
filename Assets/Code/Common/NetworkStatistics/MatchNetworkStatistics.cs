@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using NetworkLibrary.NetworkLibrary.Udp;
 using UnityEngine;
 
-namespace Code.Common
+namespace Code.Common.NetworkStatistics
 {
     /// <summary>
     /// Хранит информацию о статистике сети в бою.

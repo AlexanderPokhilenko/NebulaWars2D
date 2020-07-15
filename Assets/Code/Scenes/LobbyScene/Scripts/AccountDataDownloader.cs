@@ -3,6 +3,8 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 

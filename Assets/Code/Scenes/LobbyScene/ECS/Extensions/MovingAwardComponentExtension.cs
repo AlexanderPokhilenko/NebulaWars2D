@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Components
+namespace Code.Scenes.LobbyScene.ECS.Extensions
 {
     public static class MovingAwardComponentExtension
     {

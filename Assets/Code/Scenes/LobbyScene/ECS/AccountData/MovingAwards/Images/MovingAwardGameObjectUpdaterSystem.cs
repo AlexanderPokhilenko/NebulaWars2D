@@ -1,9 +1,9 @@
-using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Components;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.ECS.Extensions;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
 {
     /// <summary>
     /// Меняет позиции GO движущихся наград.

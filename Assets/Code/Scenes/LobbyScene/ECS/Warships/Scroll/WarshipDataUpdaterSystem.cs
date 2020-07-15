@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Code.Common;
+using Code.Common.Statistics;
 using Entitas;
-using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.ECS.Warships.Scroll
 {
     /// <summary>
     /// Обновляет рейтинг и ранг при листании кораблей в ui.

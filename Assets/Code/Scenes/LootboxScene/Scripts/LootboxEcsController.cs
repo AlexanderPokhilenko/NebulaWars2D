@@ -1,13 +1,12 @@
 using System;
-using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Components;
-using Code.Scenes.LobbyScene.Scripts;
-using DefaultNamespace;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
+using Code.Scenes.LootboxScene.ECS.Systems;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 
-namespace Code.Scenes.LootboxScene
+namespace Code.Scenes.LootboxScene.Scripts
 {
     /// <summary>
     /// Создаёт/вызывает ситемы.

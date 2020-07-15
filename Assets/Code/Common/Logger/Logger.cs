@@ -1,6 +1,6 @@
 using System;
 
-namespace Code.Common
+namespace Code.Common.Logger
 {
     /// <summary>
     /// Все методы могут вызываться из разных потоков

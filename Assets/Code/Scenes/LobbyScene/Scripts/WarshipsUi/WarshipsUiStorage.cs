@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.WarshipsUi
 {
     /// <summary>
     /// Хранит ссылки на ui элементы для списка кораблей.

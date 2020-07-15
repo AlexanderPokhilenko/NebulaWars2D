@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Components.CommonLayoutSwitcher;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
 using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.Scripts.Shop;
+using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Entitas;
 using UnityEngine;
 using UnityEngine.UI;

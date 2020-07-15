@@ -6,21 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.EnableWarshipOverviewUiLayerComponent enableWarshipOverviewUiLayer { get { return (Code.Scenes.LobbyScene.ECS.Components.EnableWarshipOverviewUiLayerComponent)GetComponent(LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer); } }
+    public EnableWarshipOverviewUiLayerComponent enableWarshipOverviewUiLayer { get { return (EnableWarshipOverviewUiLayerComponent)GetComponent(LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer); } }
     public bool hasEnableWarshipOverviewUiLayer { get { return HasComponent(LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer); } }
 
     public void AddEnableWarshipOverviewUiLayer(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.EnableWarshipOverviewUiLayerComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.EnableWarshipOverviewUiLayerComponent));
+        var component = (EnableWarshipOverviewUiLayerComponent)CreateComponent(index, typeof(EnableWarshipOverviewUiLayerComponent));
         component.WarshipDto = newWarshipDto;
         AddComponent(index, component);
     }
 
     public void ReplaceEnableWarshipOverviewUiLayer(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.EnableWarshipOverviewUiLayerComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.EnableWarshipOverviewUiLayerComponent));
+        var component = (EnableWarshipOverviewUiLayerComponent)CreateComponent(index, typeof(EnableWarshipOverviewUiLayerComponent));
         component.WarshipDto = newWarshipDto;
         ReplaceComponent(index, component);
     }

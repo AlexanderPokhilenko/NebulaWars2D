@@ -6,6 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity battleWaitingUiEnabledEntity { get { return GetGroup(LobbyUiMatcher.BattleWaitingUiEnabled).GetSingleEntity(); } }
@@ -35,7 +38,7 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    static readonly Code.Scenes.LobbyScene.ECS.Components.BattleWaitingUiEnabledComponent battleWaitingUiEnabledComponent = new Code.Scenes.LobbyScene.ECS.Components.BattleWaitingUiEnabledComponent();
+    static readonly BattleWaitingUiEnabledComponent battleWaitingUiEnabledComponent = new BattleWaitingUiEnabledComponent();
 
     public bool isBattleWaitingUiEnabled {
         get { return HasComponent(LobbyUiComponentsLookup.BattleWaitingUiEnabled); }

@@ -1,45 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.Code.Scenes.BattleScene.Experimental;
-using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
+﻿using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CooldownInfo : MonoBehaviour
+namespace Code.Scenes.BattleScene.Experimental
 {
-    [SerializeField]
-    private Slider cooldownSlider;
-    [SerializeField]
-    private Image bulletPreview;
-
-    private float totalCooldown;
-    private static readonly Color reloadedColor = Color.white;
-    private static readonly Color reloadingColor = new Color(1f, 1f, 1f, 0.75f);
-
-    public void Load(WeaponInfo info)
+    public class CooldownInfo : MonoBehaviour
     {
-        bulletPreview.sprite = PreviewsManager.GetSprite(info.ViewType);
-        Load(info.Cooldown);
-    }
+        [SerializeField]
+        private Slider cooldownSlider;
+        [SerializeField]
+        private Image bulletPreview;
 
-    public void Load(float maxCooldown)
-    {
-        totalCooldown = maxCooldown;
-        cooldownSlider.maxValue = totalCooldown;
-        cooldownSlider.value = totalCooldown;
-    }
+        private float totalCooldown;
+        private static readonly Color reloadedColor = Color.white;
+        private static readonly Color reloadingColor = new Color(1f, 1f, 1f, 0.75f);
 
-    public void SetCooldown(float cooldown)
-    {
-        if (cooldown > 0f)
+        public void Load(WeaponInfo info)
         {
-            cooldownSlider.value = totalCooldown - cooldown;
-            bulletPreview.color = reloadingColor;
+            bulletPreview.sprite = PreviewsManager.GetSprite(info.ViewType);
+            Load(info.Cooldown);
         }
-        else
+
+        public void Load(float maxCooldown)
         {
+            totalCooldown = maxCooldown;
+            cooldownSlider.maxValue = totalCooldown;
             cooldownSlider.value = totalCooldown;
-            bulletPreview.color = reloadedColor;
+        }
+
+        public void SetCooldown(float cooldown)
+        {
+            if (cooldown > 0f)
+            {
+                cooldownSlider.value = totalCooldown - cooldown;
+                bulletPreview.color = reloadingColor;
+            }
+            else
+            {
+                cooldownSlider.value = totalCooldown;
+                bulletPreview.color = reloadedColor;
+            }
         }
     }
 }

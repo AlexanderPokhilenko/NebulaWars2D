@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
-namespace Code.Scenes.BattleScene.ECS.Components.ViewComponents
+namespace Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents
 {
     [Game]
     public sealed class RectangleComponent : IComponent

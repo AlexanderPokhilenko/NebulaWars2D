@@ -6,6 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity blurImageEnabledEntity { get { return GetGroup(LobbyUiMatcher.BlurImageEnabled).GetSingleEntity(); } }
@@ -35,7 +38,7 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    static readonly Code.Scenes.LobbyScene.ECS.Components.BlurImageEnabledComponent blurImageEnabledComponent = new Code.Scenes.LobbyScene.ECS.Components.BlurImageEnabledComponent();
+    static readonly BlurImageEnabledComponent blurImageEnabledComponent = new BlurImageEnabledComponent();
 
     public bool isBlurImageEnabled {
         get { return HasComponent(LobbyUiComponentsLookup.BlurImageEnabled); }

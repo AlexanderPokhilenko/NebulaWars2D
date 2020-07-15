@@ -1,12 +1,11 @@
 using System;
-using Code.Common;
+using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using DataLayer.Tables;
 using JetBrains.Annotations;
-using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation
 {
     /// <summary>
     /// Отвечает за наполнение окна подтверждения покупки.

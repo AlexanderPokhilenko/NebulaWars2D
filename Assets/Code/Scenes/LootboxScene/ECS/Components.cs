@@ -1,7 +1,7 @@
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace DefaultNamespace
+namespace Code.Scenes.LootboxScene.ECS
 {
    [Lootbox]
    public class CanvasClickComponent:IComponent

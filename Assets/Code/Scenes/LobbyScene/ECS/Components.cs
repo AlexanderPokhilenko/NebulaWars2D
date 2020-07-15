@@ -6,7 +6,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.ECS.Components
+namespace Code.Scenes.LobbyScene.ECS
 {
     [LobbyUi]
     [Unique]

@@ -1,9 +1,10 @@
 ﻿using System;
 using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.MatchLoading
 {
     /// <summary>
     /// Отвечает за обработку нажатий кнопок START и CANCEL

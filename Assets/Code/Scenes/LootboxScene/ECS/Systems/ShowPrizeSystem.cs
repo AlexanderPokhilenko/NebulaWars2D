@@ -3,7 +3,7 @@ using System.Linq;
 using Entitas;
 using UnityEngine.UI;
 
-namespace DefaultNamespace
+namespace Code.Scenes.LootboxScene.ECS.Systems
 {
     /// <summary>
     /// Показывает новый приз.

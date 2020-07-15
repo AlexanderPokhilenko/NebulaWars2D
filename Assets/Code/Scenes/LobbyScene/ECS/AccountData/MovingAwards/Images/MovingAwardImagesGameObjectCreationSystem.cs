@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Code.Scenes.LobbyScene.ECS.Components;
 using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
 {
     /// <summary>
     /// Создаёт GameObject-ы для двигающихся наград из префабов в зависимости от типа награды.

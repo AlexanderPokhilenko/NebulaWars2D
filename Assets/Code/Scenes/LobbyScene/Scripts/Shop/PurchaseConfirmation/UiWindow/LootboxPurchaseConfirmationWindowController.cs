@@ -1,12 +1,10 @@
-using System;
-using Code.Common;
-using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
+using Code.Common.Logger;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 {
     /// <summary>
     /// Наполняет содержимым меню подтверждения покупки для сундуков.

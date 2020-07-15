@@ -1,8 +1,7 @@
-﻿using Code.Scenes.BattleScene.Udp.MessageProcessing.Synchronizers;
+﻿using System.Collections.Generic;
 using Entitas;
-using System.Collections.Generic;
 
-namespace Code.BattleScene.ECS.Systems
+namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
     public class UpdateHidingSystem : IExecuteSystem
     {

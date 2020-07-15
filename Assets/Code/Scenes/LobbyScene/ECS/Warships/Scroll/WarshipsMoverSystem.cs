@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Systems.Reactive.Warships;
+using Code.Common.Logger;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Reactive
+namespace Code.Scenes.LobbyScene.ECS.Warships.Scroll
 {
     /// <summary>
     /// Сдвигает объекты кораблей при изменении индекса текущего

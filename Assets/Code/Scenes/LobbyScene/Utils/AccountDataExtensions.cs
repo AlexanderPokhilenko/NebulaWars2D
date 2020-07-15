@@ -1,6 +1,6 @@
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Utils
 {
     public static class AccountDataExtensions
     {

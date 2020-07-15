@@ -1,11 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Listeners
 {
     public class LootboxModelDownloader
     {

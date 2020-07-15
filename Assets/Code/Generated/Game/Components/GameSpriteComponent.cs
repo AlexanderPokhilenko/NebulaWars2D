@@ -6,21 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents;
+
 public partial class GameEntity {
 
-    public Code.Scenes.BattleScene.ECS.Components.ViewComponents.SpriteComponent sprite { get { return (Code.Scenes.BattleScene.ECS.Components.ViewComponents.SpriteComponent)GetComponent(GameComponentsLookup.Sprite); } }
+    public SpriteComponent sprite { get { return (SpriteComponent)GetComponent(GameComponentsLookup.Sprite); } }
     public bool hasSprite { get { return HasComponent(GameComponentsLookup.Sprite); } }
 
     public void AddSprite(UnityEngine.Sprite newValue) {
         var index = GameComponentsLookup.Sprite;
-        var component = (Code.Scenes.BattleScene.ECS.Components.ViewComponents.SpriteComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.ViewComponents.SpriteComponent));
+        var component = (SpriteComponent)CreateComponent(index, typeof(SpriteComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceSprite(UnityEngine.Sprite newValue) {
         var index = GameComponentsLookup.Sprite;
-        var component = (Code.Scenes.BattleScene.ECS.Components.ViewComponents.SpriteComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.ViewComponents.SpriteComponent));
+        var component = (SpriteComponent)CreateComponent(index, typeof(SpriteComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

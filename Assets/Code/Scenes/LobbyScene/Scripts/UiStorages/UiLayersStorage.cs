@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.UiStorages
 {
     /// <summary>
     /// Хранит ссылки на ui слои, которые нужны для правильной работы магазина.

@@ -6,10 +6,13 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity currentSkinIndexEntity { get { return GetGroup(LobbyUiMatcher.CurrentSkinIndex).GetSingleEntity(); } }
-    public Code.Scenes.LobbyScene.ECS.Components.CurrentSkinIndex currentSkinIndex { get { return currentSkinIndexEntity.currentSkinIndex; } }
+    public CurrentSkinIndex currentSkinIndex { get { return currentSkinIndexEntity.currentSkinIndex; } }
     public bool hasCurrentSkinIndex { get { return currentSkinIndexEntity != null; } }
 
     public LobbyUiEntity SetCurrentSkinIndex(int newIndex) {
@@ -46,19 +49,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.CurrentSkinIndex currentSkinIndex { get { return (Code.Scenes.LobbyScene.ECS.Components.CurrentSkinIndex)GetComponent(LobbyUiComponentsLookup.CurrentSkinIndex); } }
+    public CurrentSkinIndex currentSkinIndex { get { return (CurrentSkinIndex)GetComponent(LobbyUiComponentsLookup.CurrentSkinIndex); } }
     public bool hasCurrentSkinIndex { get { return HasComponent(LobbyUiComponentsLookup.CurrentSkinIndex); } }
 
     public void AddCurrentSkinIndex(int newIndex) {
         var index = LobbyUiComponentsLookup.CurrentSkinIndex;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.CurrentSkinIndex)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.CurrentSkinIndex));
+        var component = (CurrentSkinIndex)CreateComponent(index, typeof(CurrentSkinIndex));
         component.index = newIndex;
         AddComponent(index, component);
     }
 
     public void ReplaceCurrentSkinIndex(int newIndex) {
         var index = LobbyUiComponentsLookup.CurrentSkinIndex;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.CurrentSkinIndex)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.CurrentSkinIndex));
+        var component = (CurrentSkinIndex)CreateComponent(index, typeof(CurrentSkinIndex));
         component.index = newIndex;
         ReplaceComponent(index, component);
     }

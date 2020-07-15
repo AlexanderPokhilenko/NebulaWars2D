@@ -1,4 +1,4 @@
-namespace Assets.Code.Scenes.BattleScene.Experimental
+namespace Code.Scenes.BattleScene.Experimental
 {
     public struct ViewKey
     {

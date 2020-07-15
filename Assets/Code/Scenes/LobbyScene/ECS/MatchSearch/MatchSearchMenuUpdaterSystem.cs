@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Scenes.LobbyScene.ECS.Components;
 using Entitas;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.MatchSearch
 {
     /// <summary>
     /// Обновляет текст в меню при добавлении компонента.

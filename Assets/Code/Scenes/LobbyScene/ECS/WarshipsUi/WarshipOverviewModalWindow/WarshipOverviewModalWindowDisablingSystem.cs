@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
-using Code.Scenes.LobbyScene.ECS.Components.CommonLayoutSwitcher;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
+using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
-using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Scenes.LobbyScene.ECS.Components.WarshipsUi.WarshipOverview
+namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverviewModalWindow
 {
     public class WarshipOverviewModalWindowDisablingSystem : ReactiveSystem<LobbyUiEntity>
     {

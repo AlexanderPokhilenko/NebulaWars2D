@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Code.Common;
-using NetworkLibrary.NetworkLibrary.Http;
+using Code.Common.Logger;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
 {
     /// <summary>
     /// Создаёт внизу горизонтальную линию из кнопок-указателей.

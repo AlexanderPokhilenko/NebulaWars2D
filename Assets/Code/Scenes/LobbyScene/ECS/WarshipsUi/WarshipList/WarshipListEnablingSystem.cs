@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using Code.Scenes.LobbyScene.ECS.Components.CommonLayoutSwitcher;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
+using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.ECS.Components.WarshipsList
+namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
 {
     /// <summary>
     /// Отвечает за включение слоя со списком кораблей

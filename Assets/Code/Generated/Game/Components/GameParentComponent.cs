@@ -6,6 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.BattleScene.ECS.Components.Game;
+
 public partial class GameEntity {
 
     public ParentComponent parent { get { return (ParentComponent)GetComponent(GameComponentsLookup.Parent); } }

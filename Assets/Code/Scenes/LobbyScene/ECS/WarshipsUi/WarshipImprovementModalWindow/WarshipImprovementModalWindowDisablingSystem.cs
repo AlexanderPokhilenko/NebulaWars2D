@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
-using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Components.CommonLayoutSwitcher;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
+using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
-using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Scenes.LobbyScene.ECS.Components.WarshipsUi.WarshipOverview
+namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipImprovementModalWindow
 {
     public class WarshipImprovementModalWindowDisablingSystem : ReactiveSystem<LobbyUiEntity>
     {

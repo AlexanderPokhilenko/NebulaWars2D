@@ -6,21 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents;
+
 public partial class GameEntity {
 
-    public Code.Scenes.BattleScene.ECS.Components.Game.LoopSoundComponent loopSound { get { return (Code.Scenes.BattleScene.ECS.Components.Game.LoopSoundComponent)GetComponent(GameComponentsLookup.LoopSound); } }
+    public LoopSoundComponent loopSound { get { return (LoopSoundComponent)GetComponent(GameComponentsLookup.LoopSound); } }
     public bool hasLoopSound { get { return HasComponent(GameComponentsLookup.LoopSound); } }
 
     public void AddLoopSound(UnityEngine.AudioClip newValue) {
         var index = GameComponentsLookup.LoopSound;
-        var component = (Code.Scenes.BattleScene.ECS.Components.Game.LoopSoundComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.LoopSoundComponent));
+        var component = (LoopSoundComponent)CreateComponent(index, typeof(LoopSoundComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceLoopSound(UnityEngine.AudioClip newValue) {
         var index = GameComponentsLookup.LoopSound;
-        var component = (Code.Scenes.BattleScene.ECS.Components.Game.LoopSoundComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.LoopSoundComponent));
+        var component = (LoopSoundComponent)CreateComponent(index, typeof(LoopSoundComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

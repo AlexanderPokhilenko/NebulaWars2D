@@ -6,6 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity cancelButtonClickedEntity { get { return GetGroup(LobbyUiMatcher.CancelButtonClicked).GetSingleEntity(); } }
@@ -35,7 +38,7 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    static readonly Code.Scenes.LobbyScene.ECS.Components.CancelButtonClickedComponent cancelButtonClickedComponent = new Code.Scenes.LobbyScene.ECS.Components.CancelButtonClickedComponent();
+    static readonly CancelButtonClickedComponent cancelButtonClickedComponent = new CancelButtonClickedComponent();
 
     public bool isCancelButtonClicked {
         get { return HasComponent(LobbyUiComponentsLookup.CancelButtonClicked); }

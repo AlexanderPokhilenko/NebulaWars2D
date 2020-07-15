@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Google.Play.Billing;
-using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -11,7 +12,7 @@ using UnityEngine.Purchasing.Extension;
 using UnityEngine.Purchasing.Security;
 using ZeroFormatter;
 
-namespace Code.Scenes.DebugScene
+namespace Code.Scenes.LobbyScene.Scripts
 {
     /// <summary>
     /// Отвечает за взаимодействие с платёжной системой
@@ -80,7 +81,7 @@ namespace Code.Scenes.DebugScene
                     }
                     else
                     {
-                        LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                        UiSoundsManager.Instance().PlayError();
                         log.Error($"Не удалось выполнить покупку потому, " +
                                   $"что {nameof(playerServiceId)} не доступен");
                     }
@@ -89,7 +90,7 @@ namespace Code.Scenes.DebugScene
             }
             else
             {
-                LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                UiSoundsManager.Instance().PlayError();
                 log.Error($"Вызов покупки был сделан до того как магазин " +
                           $"был инициализирован. {nameof(productId)} {productId}");
             }
@@ -175,7 +176,7 @@ namespace Code.Scenes.DebugScene
             }
             catch (Exception e)
             {
-                LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                UiSoundsManager.Instance().PlayError();
                 log.Error($"Не удалось подтвердить продукт {nameof(productId)} {productId}." +
                           $" {e.Message} {e.StackTrace}");
             }
@@ -201,7 +202,7 @@ namespace Code.Scenes.DebugScene
                 //проверка нормального ответа от сервера
                 if (result == null || result.Length == 0)
                 {
-                    LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                    UiSoundsManager.Instance().PlayError();
                     log.Fatal("Не удалось получить от сервера список продуктов, которые были им проверены.");
                     return;
                 }
@@ -217,7 +218,7 @@ namespace Code.Scenes.DebugScene
                     }
                     else
                     {
-                        LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                        UiSoundsManager.Instance().PlayError();
                         log.Error($"Не удалось уведомить unity api о том, что продукт был сохранён в БД. " +
                                   $"{nameof(sku)} {sku}");
                     }
@@ -225,7 +226,7 @@ namespace Code.Scenes.DebugScene
             }
             catch (Exception exception)
             {
-                LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                UiSoundsManager.Instance().PlayError();
                 log.Error(exception.Message);
             }
         }
@@ -249,14 +250,14 @@ namespace Code.Scenes.DebugScene
                 }
                 catch (Exception e)
                 {
-                    LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                    UiSoundsManager.Instance().PlayError();
                     log.Error("Не удалось сообщить об отправке " +
                         $"сообщения об успешном подтверждении покупки {nameof(sku)} {sku} {e.Message} {e.StackTrace}");
                 }
             }
             else
             {
-                LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                UiSoundsManager.Instance().PlayError();
                 log.Error($"Не удалось получить {nameof(serviceId)} при отправке " +
                           $"сообщения об успешном подтверждении покупки {nameof(sku)} {sku}");
             }
@@ -272,7 +273,7 @@ namespace Code.Scenes.DebugScene
             }
             catch (Exception e)
             {
-                LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                UiSoundsManager.Instance().PlayError();
                 log.Error($"Не удалось получить стоимость продукта через api. " +
                           $"{nameof(sku)} {sku} {e.Message} {e.StackTrace}");
             }
@@ -325,7 +326,7 @@ namespace Code.Scenes.DebugScene
             }
             catch (Exception exception)
             {
-                LobbyScene.Scripts.UiSoundsManager.Instance().PlayError();
+                UiSoundsManager.Instance().PlayError();
                 log.Error(exception.Message);   
             }
         }

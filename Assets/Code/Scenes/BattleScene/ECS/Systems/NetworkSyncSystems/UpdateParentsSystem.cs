@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Code.Scenes.BattleScene.Udp.MessageProcessing.Synchronizers;
 using Entitas;
-using UnityEngine;
 
-namespace Code.BattleScene.ECS.Systems
+namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
     public class UpdateParentsSystem : IExecuteSystem
     {

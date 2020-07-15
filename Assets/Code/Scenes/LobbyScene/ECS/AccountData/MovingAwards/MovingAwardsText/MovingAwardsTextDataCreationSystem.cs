@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText
 {
     /// <summary>
     /// Создаёт компоненты для текста с количеством награды в определённом месте в зависимости от типа награды.

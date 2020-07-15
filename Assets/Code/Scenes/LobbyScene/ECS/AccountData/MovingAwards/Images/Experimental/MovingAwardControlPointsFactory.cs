@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Scenes.LobbyScene.ECS.Components;
+using Code.Common;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images.Experimental
 {
     /// <summary>
     /// Создаёт траекторию по которой должны двигаться награды.

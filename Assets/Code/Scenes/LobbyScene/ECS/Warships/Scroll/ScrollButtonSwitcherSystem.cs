@@ -4,7 +4,7 @@ using System.Linq;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Reactive
+namespace Code.Scenes.LobbyScene.ECS.Warships.Scroll
 {
     /// <summary>
     /// Включает/выключает кнопки для лислания кораблей если в сторону больше нельзя листать.

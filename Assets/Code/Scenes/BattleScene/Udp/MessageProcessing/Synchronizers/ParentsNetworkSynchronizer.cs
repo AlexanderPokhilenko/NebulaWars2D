@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.BattleScene.ECS.Systems;
+using Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Synchronizers
 {

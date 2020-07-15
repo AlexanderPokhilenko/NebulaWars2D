@@ -2,7 +2,7 @@ using Code.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation
 {
     /// <summary>
     /// Показывает и скрывает окно подтверждения покупки.

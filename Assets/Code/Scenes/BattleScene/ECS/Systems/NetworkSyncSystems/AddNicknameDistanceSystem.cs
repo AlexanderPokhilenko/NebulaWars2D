@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Entitas;
-using Entitas.Unity;
 using UnityEngine;
 
-namespace Code.BattleScene.ECS.Systems
+namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
     public class AddNicknameDistanceSystem : ReactiveSystem<GameEntity>
     {

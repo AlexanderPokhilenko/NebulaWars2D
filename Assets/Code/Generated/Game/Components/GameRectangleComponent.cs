@@ -6,14 +6,17 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents;
+
 public partial class GameEntity {
 
-    public Code.Scenes.BattleScene.ECS.Components.ViewComponents.RectangleComponent rectangle { get { return (Code.Scenes.BattleScene.ECS.Components.ViewComponents.RectangleComponent)GetComponent(GameComponentsLookup.Rectangle); } }
+    public RectangleComponent rectangle { get { return (RectangleComponent)GetComponent(GameComponentsLookup.Rectangle); } }
     public bool hasRectangle { get { return HasComponent(GameComponentsLookup.Rectangle); } }
 
     public void AddRectangle(float newWidth, float newHeight) {
         var index = GameComponentsLookup.Rectangle;
-        var component = (Code.Scenes.BattleScene.ECS.Components.ViewComponents.RectangleComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.ViewComponents.RectangleComponent));
+        var component = (RectangleComponent)CreateComponent(index, typeof(RectangleComponent));
         component.width = newWidth;
         component.height = newHeight;
         AddComponent(index, component);
@@ -21,7 +24,7 @@ public partial class GameEntity {
 
     public void ReplaceRectangle(float newWidth, float newHeight) {
         var index = GameComponentsLookup.Rectangle;
-        var component = (Code.Scenes.BattleScene.ECS.Components.ViewComponents.RectangleComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.ViewComponents.RectangleComponent));
+        var component = (RectangleComponent)CreateComponent(index, typeof(RectangleComponent));
         component.width = newWidth;
         component.height = newHeight;
         ReplaceComponent(index, component);

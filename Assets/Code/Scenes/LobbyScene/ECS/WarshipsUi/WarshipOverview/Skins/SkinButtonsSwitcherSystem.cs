@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Components.WarshipsUi.WarshipOverview
+namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
 {
     /// <summary>
     /// Отвечает за включение/выключение кнопок листания скинов

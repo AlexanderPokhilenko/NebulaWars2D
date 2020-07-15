@@ -2,7 +2,7 @@
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
+namespace Code.Scenes.BattleScene.ECS.Systems
 {
     public class DeathAnimationSystem : ReactiveSystem<GameEntity>
     {

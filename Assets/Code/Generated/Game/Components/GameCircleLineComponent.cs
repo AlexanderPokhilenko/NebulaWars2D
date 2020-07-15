@@ -6,14 +6,17 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents;
+
 public partial class GameEntity {
 
-    public Code.Scenes.BattleScene.ECS.Components.ViewComponents.CircleLineComponent circleLine { get { return (Code.Scenes.BattleScene.ECS.Components.ViewComponents.CircleLineComponent)GetComponent(GameComponentsLookup.CircleLine); } }
+    public CircleLineComponent circleLine { get { return (CircleLineComponent)GetComponent(GameComponentsLookup.CircleLine); } }
     public bool hasCircleLine { get { return HasComponent(GameComponentsLookup.CircleLine); } }
 
     public void AddCircleLine(int newNumSegments, float newWidth, UnityEngine.Material newMaterial) {
         var index = GameComponentsLookup.CircleLine;
-        var component = (Code.Scenes.BattleScene.ECS.Components.ViewComponents.CircleLineComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.ViewComponents.CircleLineComponent));
+        var component = (CircleLineComponent)CreateComponent(index, typeof(CircleLineComponent));
         component.numSegments = newNumSegments;
         component.width = newWidth;
         component.material = newMaterial;
@@ -22,7 +25,7 @@ public partial class GameEntity {
 
     public void ReplaceCircleLine(int newNumSegments, float newWidth, UnityEngine.Material newMaterial) {
         var index = GameComponentsLookup.CircleLine;
-        var component = (Code.Scenes.BattleScene.ECS.Components.ViewComponents.CircleLineComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.ViewComponents.CircleLineComponent));
+        var component = (CircleLineComponent)CreateComponent(index, typeof(CircleLineComponent));
         component.numSegments = newNumSegments;
         component.width = newWidth;
         component.material = newMaterial;

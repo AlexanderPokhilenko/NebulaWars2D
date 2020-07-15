@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Initialize
+namespace Code.Scenes.LobbyScene.ECS.Blur
 {
     /// <summary>
     /// Обнуляет значение размытия.

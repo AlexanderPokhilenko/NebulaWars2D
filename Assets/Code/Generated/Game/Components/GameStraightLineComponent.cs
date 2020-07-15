@@ -6,21 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents;
+
 public partial class GameEntity {
 
-    public Code.Scenes.BattleScene.ECS.Components.ViewComponents.StraightLineComponent straightLine { get { return (Code.Scenes.BattleScene.ECS.Components.ViewComponents.StraightLineComponent)GetComponent(GameComponentsLookup.StraightLine); } }
+    public StraightLineComponent straightLine { get { return (StraightLineComponent)GetComponent(GameComponentsLookup.StraightLine); } }
     public bool hasStraightLine { get { return HasComponent(GameComponentsLookup.StraightLine); } }
 
     public void AddStraightLine(UnityEngine.Material newMaterial) {
         var index = GameComponentsLookup.StraightLine;
-        var component = (Code.Scenes.BattleScene.ECS.Components.ViewComponents.StraightLineComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.ViewComponents.StraightLineComponent));
+        var component = (StraightLineComponent)CreateComponent(index, typeof(StraightLineComponent));
         component.material = newMaterial;
         AddComponent(index, component);
     }
 
     public void ReplaceStraightLine(UnityEngine.Material newMaterial) {
         var index = GameComponentsLookup.StraightLine;
-        var component = (Code.Scenes.BattleScene.ECS.Components.ViewComponents.StraightLineComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.ViewComponents.StraightLineComponent));
+        var component = (StraightLineComponent)CreateComponent(index, typeof(StraightLineComponent));
         component.material = newMaterial;
         ReplaceComponent(index, component);
     }

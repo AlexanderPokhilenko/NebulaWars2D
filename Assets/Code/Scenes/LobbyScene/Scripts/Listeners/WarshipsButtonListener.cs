@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Listeners
 {
     /// <summary>
     /// Реагирует на нажатие кнопки Warship

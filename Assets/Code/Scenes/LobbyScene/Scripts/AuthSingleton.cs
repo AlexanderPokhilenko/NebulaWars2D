@@ -1,12 +1,14 @@
 ﻿using System;
 using Code.Common;
-using UnityEngine;
-#if UNITY_ANDROID
+using Code.Common.Logger;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using UnityEngine;
+#if UNITY_ANDROID
+
 #endif
 
-namespace Code.Scenes.DebugScene
+namespace Code.Scenes.LobbyScene.Scripts
 {
    /// <summary>
    /// Отвечает за авторизацию. Остаётся на сцене всегда.

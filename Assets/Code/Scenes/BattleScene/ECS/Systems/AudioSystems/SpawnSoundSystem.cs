@@ -1,10 +1,10 @@
-﻿using Entitas;
-using System.Collections.Generic;
-using Assets.Code.Scenes.BattleScene.Experimental;
+﻿using System.Collections.Generic;
 using Code.Common;
+using Code.Scenes.BattleScene.Experimental;
+using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
+namespace Code.Scenes.BattleScene.ECS.Systems.AudioSystems
 {
     public class SpawnSoundSystem : ReactiveSystem<GameEntity>
     {

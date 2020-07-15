@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Components;
+using Code.Common.Logger;
 using Entitas;
 using Entitas.Unity;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -9,7 +8,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Vector2 = NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages.Vector2;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Reactive.Warships
+namespace Code.Scenes.LobbyScene.ECS.Warships
 {
     /// <summary>
     /// Создаёт корабли в лобби при инициализации лобби и при смене скина.

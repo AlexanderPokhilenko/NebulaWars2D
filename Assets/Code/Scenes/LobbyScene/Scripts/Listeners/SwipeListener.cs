@@ -1,9 +1,9 @@
 ﻿using System;
-using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Listeners
 {
     /// <summary>
     /// Отвечат за отлавливание горизонтальных свайпов и нажатий на кнокпи листания кораблей.

@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
+using Code.Common.NetworkStatistics;
+using Code.Scenes.BattleScene.Experimental;
 using Code.Scenes.BattleScene.Scripts;
+using Code.Scenes.LobbyScene.Utils;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.MatchLoading
 {
     /// <summary>
     /// Отвечает за получение данных о матче и загрузку сцены боя.

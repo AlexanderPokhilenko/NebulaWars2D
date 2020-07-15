@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Code.Scenes.BattleScene.Scripts;
+using Code.Scenes.BattleScene.Experimental;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.BattleScene.ECS.Systems
+namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
     public class UpdatePlayersSystem : IExecuteSystem
     {

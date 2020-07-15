@@ -2,15 +2,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Components.CommonLayoutSwitcher;
-using Code.Scenes.LobbyScene.ECS.Systems.Reactive.Warships;
+using Code.Common.Logger;
+using Code.Common.Statistics;
+using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
+using Code.Scenes.LobbyScene.ECS.Warships;
 using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
+using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.ECS.Components.WarshipsUi.WarshipOverview
+namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
 {
     public class WarshipOverviewEnablingSystem : ReactiveSystem<LobbyUiEntity>
     {

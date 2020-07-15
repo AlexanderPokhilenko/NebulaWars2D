@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Utils
 {
     /// <summary>
     /// Нужен для того, чтобы получать время задержки при отправке сообщений по http для MatchmakerNegotiator

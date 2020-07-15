@@ -1,6 +1,6 @@
 ﻿using Entitas;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.Blur
 {
     /// <summary>
     /// Отвечает за создание данных о включении/выключении картинки с размытием по значению размытия.

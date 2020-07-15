@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Reactive.Warships
+namespace Code.Scenes.LobbyScene.ECS.Warships
 {
     public static class CurrentWarshipIndexStorage
     {

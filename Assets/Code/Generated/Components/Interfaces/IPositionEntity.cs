@@ -6,9 +6,12 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial interface IPositionEntity {
 
-    Code.Scenes.LobbyScene.ECS.Components.PositionComponent position { get; }
+    PositionComponent position { get; }
     bool hasPosition { get; }
 
     void AddPosition(UnityEngine.Vector3 newValue);

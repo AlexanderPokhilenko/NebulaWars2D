@@ -1,12 +1,13 @@
 using System;
 using System.Net.Http;
 using Code.Common;
-using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using ZeroFormatter;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 {
     public class Paymaster:MonoBehaviour
     {

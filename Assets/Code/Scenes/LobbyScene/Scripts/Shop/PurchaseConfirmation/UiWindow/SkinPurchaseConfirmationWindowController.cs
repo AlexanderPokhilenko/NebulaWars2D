@@ -1,9 +1,9 @@
-using Code.Common;
+using Code.Common.Logger;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 {
     public class SkinPurchaseConfirmationWindowController
     {

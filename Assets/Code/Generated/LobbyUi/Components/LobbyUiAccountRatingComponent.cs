@@ -6,10 +6,13 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity accountRatingEntity { get { return GetGroup(LobbyUiMatcher.AccountRating).GetSingleEntity(); } }
-    public Code.Scenes.LobbyScene.ECS.Components.AccountRatingComponent accountRating { get { return accountRatingEntity.accountRating; } }
+    public AccountRatingComponent accountRating { get { return accountRatingEntity.accountRating; } }
     public bool hasAccountRating { get { return accountRatingEntity != null; } }
 
     public LobbyUiEntity SetAccountRating(int newValue) {
@@ -46,19 +49,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.AccountRatingComponent accountRating { get { return (Code.Scenes.LobbyScene.ECS.Components.AccountRatingComponent)GetComponent(LobbyUiComponentsLookup.AccountRating); } }
+    public AccountRatingComponent accountRating { get { return (AccountRatingComponent)GetComponent(LobbyUiComponentsLookup.AccountRating); } }
     public bool hasAccountRating { get { return HasComponent(LobbyUiComponentsLookup.AccountRating); } }
 
     public void AddAccountRating(int newValue) {
         var index = LobbyUiComponentsLookup.AccountRating;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.AccountRatingComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.AccountRatingComponent));
+        var component = (AccountRatingComponent)CreateComponent(index, typeof(AccountRatingComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceAccountRating(int newValue) {
         var index = LobbyUiComponentsLookup.AccountRating;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.AccountRatingComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.AccountRatingComponent));
+        var component = (AccountRatingComponent)CreateComponent(index, typeof(AccountRatingComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

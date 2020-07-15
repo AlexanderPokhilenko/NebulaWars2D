@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Code.Common
+namespace Code.Common.Logger
 {
     public class LogManager
     {

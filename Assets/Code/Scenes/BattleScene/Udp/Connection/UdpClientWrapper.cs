@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
 
 namespace Code.Scenes.BattleScene.Udp.Connection

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Code.Common;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
 {
     /// <summary>
     /// Заполняет меню магазина после получения данных от сервера.

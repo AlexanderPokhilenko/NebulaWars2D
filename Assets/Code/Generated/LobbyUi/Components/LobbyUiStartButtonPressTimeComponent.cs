@@ -6,10 +6,13 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiContext {
 
     public LobbyUiEntity startButtonPressTimeEntity { get { return GetGroup(LobbyUiMatcher.StartButtonPressTime).GetSingleEntity(); } }
-    public Code.Scenes.LobbyScene.ECS.Components.StartButtonPressTimeComponent startButtonPressTime { get { return startButtonPressTimeEntity.startButtonPressTime; } }
+    public StartButtonPressTimeComponent startButtonPressTime { get { return startButtonPressTimeEntity.startButtonPressTime; } }
     public bool hasStartButtonPressTime { get { return startButtonPressTimeEntity != null; } }
 
     public LobbyUiEntity SetStartButtonPressTime(System.DateTime newValue) {
@@ -46,19 +49,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.StartButtonPressTimeComponent startButtonPressTime { get { return (Code.Scenes.LobbyScene.ECS.Components.StartButtonPressTimeComponent)GetComponent(LobbyUiComponentsLookup.StartButtonPressTime); } }
+    public StartButtonPressTimeComponent startButtonPressTime { get { return (StartButtonPressTimeComponent)GetComponent(LobbyUiComponentsLookup.StartButtonPressTime); } }
     public bool hasStartButtonPressTime { get { return HasComponent(LobbyUiComponentsLookup.StartButtonPressTime); } }
 
     public void AddStartButtonPressTime(System.DateTime newValue) {
         var index = LobbyUiComponentsLookup.StartButtonPressTime;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.StartButtonPressTimeComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.StartButtonPressTimeComponent));
+        var component = (StartButtonPressTimeComponent)CreateComponent(index, typeof(StartButtonPressTimeComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceStartButtonPressTime(System.DateTime newValue) {
         var index = LobbyUiComponentsLookup.StartButtonPressTime;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.StartButtonPressTimeComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.StartButtonPressTimeComponent));
+        var component = (StartButtonPressTimeComponent)CreateComponent(index, typeof(StartButtonPressTimeComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

@@ -1,7 +1,7 @@
-using Code.Common;
+using Code.Common.Logger;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
 {
     /// <summary>
     /// Проверяет, что в разделе все элементы одинакового размера.

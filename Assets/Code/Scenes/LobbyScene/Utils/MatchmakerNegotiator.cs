@@ -2,10 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Common;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Utils
 {
     /// <summary>
     /// Отвечает за отправку сообщений для

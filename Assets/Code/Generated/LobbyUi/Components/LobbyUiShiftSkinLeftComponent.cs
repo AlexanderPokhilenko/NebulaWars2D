@@ -6,9 +6,12 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiEntity {
 
-    static readonly Code.Scenes.LobbyScene.ECS.Components.ShiftSkinLeftComponent shiftSkinLeftComponent = new Code.Scenes.LobbyScene.ECS.Components.ShiftSkinLeftComponent();
+    static readonly ShiftSkinLeftComponent shiftSkinLeftComponent = new ShiftSkinLeftComponent();
 
     public bool messageShiftSkinLeft {
         get { return HasComponent(LobbyUiComponentsLookup.ShiftSkinLeft); }

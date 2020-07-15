@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
-using Code.Common;
-using Code.Scenes.LobbyScene.ECS.Components;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Entitas;
 using Object = UnityEngine.Object;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
 {
     /// <summary>
     /// Удаляет объекты наград, когда они приближаются к месту назначения

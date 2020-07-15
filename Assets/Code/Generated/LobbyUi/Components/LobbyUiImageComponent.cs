@@ -6,21 +6,24 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+
+using Code.Scenes.LobbyScene.ECS;
+
 public partial class LobbyUiEntity {
 
-    public Code.Scenes.LobbyScene.ECS.Components.ImageComponent image { get { return (Code.Scenes.LobbyScene.ECS.Components.ImageComponent)GetComponent(LobbyUiComponentsLookup.Image); } }
+    public ImageComponent image { get { return (ImageComponent)GetComponent(LobbyUiComponentsLookup.Image); } }
     public bool hasImage { get { return HasComponent(LobbyUiComponentsLookup.Image); } }
 
     public void AddImage(UnityEngine.UI.Image newImage) {
         var index = LobbyUiComponentsLookup.Image;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.ImageComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.ImageComponent));
+        var component = (ImageComponent)CreateComponent(index, typeof(ImageComponent));
         component.image = newImage;
         AddComponent(index, component);
     }
 
     public void ReplaceImage(UnityEngine.UI.Image newImage) {
         var index = LobbyUiComponentsLookup.Image;
-        var component = (Code.Scenes.LobbyScene.ECS.Components.ImageComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.Components.ImageComponent));
+        var component = (ImageComponent)CreateComponent(index, typeof(ImageComponent));
         component.image = newImage;
         ReplaceComponent(index, component);
     }

@@ -1,42 +1,45 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
 
-public class Test2Behaviour : MonoBehaviour
+namespace Code.Scenes.Test2
 {
-    private int count;
-    private CancellationTokenSource cancellationTokenSource;
-    private readonly ILog log = LogManager.CreateLogger(typeof(Test2Behaviour));
-
-    private void Start()
+    public class Test2Behaviour : MonoBehaviour
     {
-        log.Debug(nameof(Start));
-        cancellationTokenSource = new CancellationTokenSource();
-        Thread thread = new Thread(ThreadWork);
-        thread.Start();
-    }
+        private int count;
+        private CancellationTokenSource cancellationTokenSource;
+        private readonly ILog log = LogManager.CreateLogger(typeof(Test2Behaviour));
 
-    private async void ThreadWork()
-    {
-        int counter = 1_000_000;
-        while (true)
+        private void Start()
         {
-            await Task.Delay(15, cancellationTokenSource.Token);
-            log.Debug(counter++);
+            log.Debug(nameof(Start));
+            cancellationTokenSource = new CancellationTokenSource();
+            Thread thread = new Thread(ThreadWork);
+            thread.Start();
         }
-        // ReSharper disable once FunctionNeverReturns
-    }
 
-    private void Update()
-    {
-        ++count;
-        log.Debug(count.ToString());
-    }
+        private async void ThreadWork()
+        {
+            int counter = 1_000_000;
+            while (true)
+            {
+                await Task.Delay(15, cancellationTokenSource.Token);
+                log.Debug(counter++);
+            }
+            // ReSharper disable once FunctionNeverReturns
+        }
 
-    private void OnDestroy()
-    {
-        cancellationTokenSource.Cancel();
-        log.Print();
+        private void Update()
+        {
+            ++count;
+            log.Debug(count.ToString());
+        }
+
+        private void OnDestroy()
+        {
+            cancellationTokenSource.Cancel();
+            log.Print();
+        }
     }
 }

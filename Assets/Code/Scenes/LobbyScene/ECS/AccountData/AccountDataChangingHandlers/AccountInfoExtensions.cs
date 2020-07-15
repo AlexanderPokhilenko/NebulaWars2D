@@ -1,8 +1,8 @@
 using System;
-using Code.Common;
+using Code.Common.Logger;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Execute
+namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
 {
     public static class AccountInfoExtensions
     {

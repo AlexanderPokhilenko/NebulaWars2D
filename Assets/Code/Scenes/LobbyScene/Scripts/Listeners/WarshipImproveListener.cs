@@ -1,7 +1,7 @@
-using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Listeners
 {
     public class WarshipImproveListener:MonoBehaviour
     {

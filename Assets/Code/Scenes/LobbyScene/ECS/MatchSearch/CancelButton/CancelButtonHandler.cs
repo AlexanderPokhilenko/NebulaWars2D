@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Reactive
+namespace Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton
 {
     public class CancelButtonHandler:ReactiveSystem<LobbyUiEntity>
     {

@@ -40,7 +40,7 @@ namespace Code.Scenes.DebugScene
 
         private void RequestBanner()
         {
-            bannerView = new BannerView(AdGlobals.BannerId, AdSize.SmartBanner, AdPosition.Bottom);
+            bannerView = new BannerView(Common.AdGlobals.BannerId, AdSize.SmartBanner, AdPosition.Bottom);
             
             //TODO remove AddTestDevice for release version
             AdRequest adRequest = new AdRequest.Builder().AddTestDevice("2077ef9a63d2b398840261c8221a0c9b").Build();
@@ -50,7 +50,7 @@ namespace Code.Scenes.DebugScene
         
         private void RequestInterstitial()
         {
-            interstitialAd = new InterstitialAd(AdGlobals.InterstitialId);
+            interstitialAd = new InterstitialAd(Common.AdGlobals.InterstitialId);
             
             //TODO remove AddTestDevice for release version
             AdRequest adRequest = new AdRequest.Builder().AddTestDevice("2077ef9a63d2b398840261c8221a0c9b").Build();
@@ -65,7 +65,7 @@ namespace Code.Scenes.DebugScene
             //TODO remove AddTestDevice for release version
             AdRequest adRequest = new AdRequest.Builder().AddTestDevice("2077ef9a63d2b398840261c8221a0c9b").Build();
             
-            rewardBasedVideoAd.LoadAd(adRequest, AdGlobals.VideoId);
+            rewardBasedVideoAd.LoadAd(adRequest, Common.AdGlobals.VideoId);
         }
     }
 };

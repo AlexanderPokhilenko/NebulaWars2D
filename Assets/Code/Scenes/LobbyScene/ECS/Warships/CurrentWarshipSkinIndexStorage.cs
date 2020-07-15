@@ -1,7 +1,7 @@
-using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Systems.Reactive.Warships
+namespace Code.Scenes.LobbyScene.ECS.Warships
 {
     /// <summary>
     /// Хранит номер скина для каждого корабля.
