@@ -2343,8 +2343,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to
-    the beetle, which deals damage throughout its life. The beetle can be shot down.
+  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to the
+    beetle, which deals damage throughout its life. The beetle can be shot down.
 --- !u!222 &150758401
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5222,6 +5222,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483565565}
   m_CullTransparentMesh: 0
+--- !u!1 &485215996
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 485215998}
+  - component: {fileID: 485215997}
+  m_Layer: 0
+  m_Name: YamlTestingDich
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &485215997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485215996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cacd7ca17c9a634fb9ccd81b94fae8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &485215998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485215996}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 314, y: 314, z: 314}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &485401476
 GameObject:
   m_ObjectHideFlags: 0
@@ -17720,8 +17763,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Xxxxxxxxx xxxxxxx xxxxxxxxxxxx xxxxxxxx
 
-    xxxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx
-    x x x x x x x x x xxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxx'
+    xxxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx x x x x x x x x x xxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxx'
 --- !u!222 &1704059763
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19054,8 +19096,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to
-    the beetle, which deals damage throughout its life. The beetle can be shot down.
+  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to the
+    beetle, which deals damage throughout its life. The beetle can be shot down.
 --- !u!222 &1828673130
 CanvasRenderer:
   m_ObjectHideFlags: 0
