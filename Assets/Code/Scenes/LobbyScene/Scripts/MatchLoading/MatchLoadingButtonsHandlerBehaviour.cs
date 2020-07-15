@@ -13,7 +13,7 @@ namespace Code.Scenes.LobbyScene.Scripts
         private MatchLoader matchLoader;
         
         private LobbyEcsController lobbyEcsController;
-        private readonly ILog log = LogManager.CreateLogger(typeof(AccountDataLoader));
+        private readonly ILog log = LogManager.CreateLogger(typeof(AccountModelLoadingInitiator));
 
         [SerializeField] private Button startMatchSearchButton;
         [SerializeField] private Button cancelMatchSearchButton;

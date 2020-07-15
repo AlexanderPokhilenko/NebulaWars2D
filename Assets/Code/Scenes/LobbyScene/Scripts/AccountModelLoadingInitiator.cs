@@ -10,11 +10,11 @@ namespace Code.Scenes.LobbyScene.Scripts
     /// <summary>
     /// Упраляет обновлением всех данных аккаунта при старте сцены.
     /// </summary>
-    public class AccountDataLoader : MonoBehaviour
+    public class AccountModelLoadingInitiator : MonoBehaviour
     {
         private CancellationTokenSource cts;
         private LobbyEcsController lobbyEcsController;
-        private readonly ILog log = LogManager.CreateLogger(typeof(AccountDataLoader));
+        private readonly ILog log = LogManager.CreateLogger(typeof(AccountModelLoadingInitiator));
 
         private void Awake()
         {

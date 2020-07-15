@@ -1,6 +1,7 @@
 using System.Globalization;
 using Assets.Code.Scenes.BattleScene.Experimental;
 using Code.Common;
+using Code.Scenes.LobbyScene.Scripts.Shop;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;

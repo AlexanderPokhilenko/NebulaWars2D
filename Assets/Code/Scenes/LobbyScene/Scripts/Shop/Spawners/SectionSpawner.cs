@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Code.Common;
+using Code.Scenes.LobbyScene.Scripts.Shop;
 using DataLayer.Tables;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;

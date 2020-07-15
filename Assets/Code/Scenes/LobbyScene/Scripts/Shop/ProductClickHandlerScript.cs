@@ -5,21 +5,21 @@ using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop
 {
     /// <summary>
     /// Реагирует на нажатие на товар в магазине.
     /// </summary>
     public class ProductClickHandlerScript : MonoBehaviour
     {
-        // private PurchasingService purchasingService;
+        private PurchasingService purchasingService;
         private PurchaseConfirmationWindowController purchaseConfirmationWindowController;
         private readonly ILog log = LogManager.CreateLogger(typeof(ProductClickHandlerScript));
 
         private void Awake()
         {
-            // purchasingService = FindObjectOfType<PurchasingService>()
-            //     ?? throw new Exception(nameof(PurchasingService));
+            purchasingService = FindObjectOfType<PurchasingService>()
+                ?? throw new Exception(nameof(PurchasingService));
             purchaseConfirmationWindowController = FindObjectOfType<PurchaseConfirmationWindowController>()
                 ?? throw new Exception(nameof(PurchaseConfirmationWindowController));;
         }
@@ -34,7 +34,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 log.Debug("Покупка за реальную валюту");
                 string sku = productModel.ForeignServiceProduct.ProductGoogleId;
                 log.Debug($"{nameof(sku)} {sku}");
-                // purchasingService.BuyProductById(sku);
+                purchasingService.BuyProductById(sku);
             }
             else
             {

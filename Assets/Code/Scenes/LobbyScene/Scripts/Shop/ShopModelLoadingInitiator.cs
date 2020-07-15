@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Common;
@@ -9,19 +7,19 @@ using Code.Scenes.DebugScene;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Shop
 {
     /// <summary>
     /// Точка входа в скрипты магазина.
     /// Скачивает данные для разметки магазина при входе в игру.
     /// </summary>
-    public class MainShopLoader : MonoBehaviour
+    public class ShopModelLoadingInitiator : MonoBehaviour
     {
         private ShopUiSpawner shopUiSpawner;
         private CancellationTokenSource cts;
         private PurchasingService purchasingService;
         private LobbyEcsController lobbyEcsController;
-        private readonly ILog log = LogManager.CreateLogger(typeof(MainShopLoader));
+        private readonly ILog log = LogManager.CreateLogger(typeof(ShopModelLoadingInitiator));
 
         private void Awake()
         {
@@ -51,32 +49,24 @@ namespace Code.Scenes.LobbyScene.Scripts
             }
 
             ShopModel shopModel = task.Result;
-
-            List<ProductModel> productModels = shopModel.UiSections
-                .SelectMany(container => container.UiItems)
-                .SelectMany(test1=>test1)
-                .ToList();
-            List<ForeignServiceProduct> realCurrencyProducts = productModels
-                .Where(productModel => productModel.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
-                .Select(productModel => productModel.ForeignServiceProduct)
-                .ToList();
-            purchasingService.StartInitialization(realCurrencyProducts);
+            
+#if !UNITY_EDITOR
             log.Debug($"Ожидание инициализации {nameof(purchasingService)}");
+            List<ForeignServiceProduct> realCurrencyProducts = shopModel.GetRealCurrencyProducts();
+            purchasingService.StartInitialization(realCurrencyProducts);
             yield return new WaitUntil(purchasingService.IsStoreInitialized);
             log.Debug($"{nameof(purchasingService)} инициализирован");
-            
-            foreach (ProductModel item in productModels)
+            foreach (ProductModel item in shopModel.GetAllProducts())
             {
                 if (item.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
                 {
                     string productId = item.ForeignServiceProduct.ProductGoogleId;
                     string cost = null;
-                    yield return new WaitUntil( ()=>purchasingService
-                        .TryGetProductCostById(productId, ref cost));
+                    yield return new WaitUntil( ()=>purchasingService.TryGetProductCostById(productId, ref cost));
                     //Если не удалось достать цену
                     if (cost == null)
                     {
-                        throw new Exception("Не удалось достать цену товара");
+                        throw new Exception("Не удалось достать цену товара из плагина магазина");
                     }
                     else
                     {
@@ -84,6 +74,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     }
                 }    
             }
+#endif
             
             shopUiSpawner.Spawn(shopModel);
         }
