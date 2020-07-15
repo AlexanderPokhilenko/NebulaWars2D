@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f919059e39b962345ad975bb2768addb, type: 3}
+  m_Name: CircleUfo
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 818f267c4266d804e92bbd30f34eab2c, type: 3}
+  controller: {fileID: 9100000, guid: 16794b17f28c1f44393a47a66b5faf6c, type: 2}

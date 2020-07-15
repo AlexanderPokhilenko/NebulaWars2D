@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<message4net>
+    <appender name="RollingFileAppender" type="message4net.Appender.RollingFileAppender">
+<!--        <param name="File" value="${ALLUSERSPROFILE}/Tikaytech/NebulaWars/Logs/logs.log"/>-->
+        <param name="File" value="~/TikaytechLogs/nebulaWars.message"/>
+        <param name="AppendToFile" value="false" />
+        <param name="RollingStyle" value="Size" />
+        <param name="MaxSizeRollBackups" value="10" />
+        <param name="MaximumFileSize" value="10MB" />
+        <staticLogFileName value="false" />
+        <layout type="message4net.Layout.PatternLayout">
+            <conversionPattern value="%date [%thread] %-5level %messageger - %messageWrapper%newline" />
+        </layout>
+    </appender>
+    <appender name="unityConsole" type="message4net.Unity.UnityDefaultLogAppender">
+        <layout type="message4net.Layout.PatternLayout">
+            <conversionPattern value="[%thread][%level][%messageger] %message"/>
+        </layout>
+    </appender>
+    <root>
+        <level value="INFO"/>
+        <appender-ref ref="unityConsole"/>
+        <level value="DEBUG"/>
+        <appender-ref ref="RollingFileAppender" />
+    </root>
+</message4net>

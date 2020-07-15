@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b01d08edf3dbf224689ab7794b106647, type: 3}
+  m_Name: FireAura
+  m_EditorClassIdentifier: 
+  spawnSound: {fileID: 8300000, guid: ccba649eb983a974088a8bd65987fbc3, type: 3}
+  loopSound: {fileID: 0}
+  deathSound: {fileID: 0}
+  width: 2
+  material: {fileID: 2100000, guid: c0587613938b1704daae528a6fcb16a8, type: 2}
+  segmentsNumber: 64
+  radius: 0.5

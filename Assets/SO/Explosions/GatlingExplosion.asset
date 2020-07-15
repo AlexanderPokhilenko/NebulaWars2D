@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9480e526bbb450a4e8745a6d3fb95f16, type: 3}
+  m_Name: GatlingExplosion
+  m_EditorClassIdentifier: 
+  spawnSound: {fileID: 8300000, guid: 7406cbd485e8d6e43a8bc9969b936acc, type: 3}
+  loopSound: {fileID: 0}
+  deathSound: {fileID: 0}
+  gameObject: {fileID: 5862270008546738030, guid: 163be198be0d1e34c8e6ce81a000d196,
+    type: 3}
+  maxSpeed: 0
