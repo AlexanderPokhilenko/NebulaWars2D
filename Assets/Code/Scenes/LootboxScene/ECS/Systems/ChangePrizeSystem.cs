@@ -12,7 +12,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
     /// </summary>
     public class ChangePrizeSystem:ReactiveSystem<LootboxEntity>
     {
-        private int? currentPrizeIndex;
+        private int currentPrizeIndex;
         private LootboxModel lootboxData;
         private UiSoundsManager uiSoundsManager;
         private readonly LootboxContext lootboxContext;
@@ -24,7 +24,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         {
             this.lootboxLobbyLoaderController = lootboxLobbyLoaderController;
             lootboxContext = contexts.lootbox;
-            currentPrizeIndex = null;
+            currentPrizeIndex = 0;
             uiSoundsManager = UiSoundsManager.Instance();
         }
 
@@ -53,34 +53,26 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             int numberOfClicks = entities.Count;
             for (int i = 0; i < numberOfClicks; i++)
             {
-                //Если призы ещё не начали показываться
-                if (currentPrizeIndex == null)
-                {
-                    uiSoundsManager.PlayAdding();
-                    ShiftCurrentPrize(0);
-                    continue;
-                }
-
                 //Если уже показан последний приз
-                if (currentPrizeIndex == lootboxData.Prizes.Count - 1)
+                if (currentPrizeIndex == lootboxData.Prizes.Count)
                 {
                     //Вернуться в лобби
                     lootboxLobbyLoaderController.LoadLobbyScene();
                     break;
                 }
 
-                //Можно показать следующий приз
+                //Можно показать приз
                 uiSoundsManager.PlayAdding();
-                ShiftCurrentPrize(currentPrizeIndex.Value + 1);
+                ShiftCurrentPrize();
             }
         }
 
-        private void ShiftCurrentPrize(int index)
+        private void ShiftCurrentPrize()
         {
-            log.Info($"{nameof(ShiftCurrentPrize)} {nameof(index)} {index}");
-            currentPrizeIndex = index;
+            log.Info($"{nameof(ShiftCurrentPrize)} {nameof(currentPrizeIndex)} {currentPrizeIndex}");
             var entity = lootboxContext.CreateEntity();
-            entity.AddShowPrize(lootboxData.Prizes[index].Quantity, lootboxData.Prizes[index].LootboxPrizeType);
+            entity.AddShowPrize(lootboxData.Prizes[currentPrizeIndex].Quantity, lootboxData.Prizes[currentPrizeIndex].LootboxPrizeType);
+            currentPrizeIndex++;
         }
     }
 }
