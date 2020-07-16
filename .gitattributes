@@ -13,7 +13,7 @@
 *.asset merge=unityyamlmerge
 *.meta merge=unityyamlmerge
 *.controller merge=unityyamlmerge
-
+* text=auto
 
 ## git-lfs ##
 
