@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Code.Scenes.LobbyScene.Scripts.UiStorages;
+﻿using Code.Common;
 using Entitas;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton
@@ -11,7 +11,6 @@ namespace Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton
         readonly LobbyUiContext lobbyUiContext;
         private readonly GameObject battleLoadingMenu;
         private readonly UiSoundsManager lobbySoundsManager;
-
 
         public CancelButtonHandler(LobbyUiContext context, GameObject battleLoadingMenu, UiSoundsManager lobbySoundsManager) : base(context)
         {

@@ -1,8 +1,7 @@
 ﻿#define AddRandomSounding
-using Code.Common;
 using UnityEngine;
 
-namespace Code.Scenes.BattleScene.Experimental
+namespace Code.Common
 {
     public class SoundManager : Singleton<SoundManager>
     {

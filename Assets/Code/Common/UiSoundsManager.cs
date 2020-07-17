@@ -1,8 +1,6 @@
-﻿using Code.Common;
-using Code.Scenes.BattleScene.Experimental;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts.UiStorages
+namespace Code.Common
 {
     [RequireComponent(typeof(AudioSource))]
     public class UiSoundsManager : Singleton<UiSoundsManager>

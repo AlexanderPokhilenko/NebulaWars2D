@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1944,7 +1944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &126509031
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2343,8 +2343,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to
-    the beetle, which deals damage throughout its life. The beetle can be shot down.
+  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to the
+    beetle, which deals damage throughout its life. The beetle can be shot down.
 --- !u!222 &150758401
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9813,7 +9813,6 @@ Transform:
   - {fileID: 1432997308}
   - {fileID: 1118309521}
   - {fileID: 898198604}
-  - {fileID: 2000668584}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14935,7 +14934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.054, y: 0.19851308}
   m_AnchorMax: {x: 0.96654487, y: 0.47700003}
-  m_AnchoredPosition: {x: 0, y: 0.85562515}
+  m_AnchoredPosition: {x: 0, y: 0.8557625}
   m_SizeDelta: {x: -1.416626, y: -1}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1428998686
@@ -17723,8 +17722,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Xxxxxxxxx xxxxxxx xxxxxxxxxxxx xxxxxxxx
 
-    xxxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx
-    x x x x x x x x x xxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxx'
+    xxxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx x x x x x x x x x xxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxx'
 --- !u!222 &1704059763
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19057,8 +19055,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to
-    the beetle, which deals damage throughout its life. The beetle can be shot down.
+  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to the
+    beetle, which deals damage throughout its life. The beetle can be shot down.
 --- !u!222 &1828673130
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20669,50 +20667,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &2000668583
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2000668584}
-  - component: {fileID: 2000668585}
-  m_Layer: 0
-  m_Name: Script_ScreensaverSpinner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2000668584
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000668583}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 957759492}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2000668585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000668583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9304e3ff919793348b20ff9fd38eb171, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spinnerImage: {fileID: 483565566}
 --- !u!1001 &2009871480
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22927,7 +22881,7 @@ PrefabInstance:
     - target: {fileID: 2099965456937398874, guid: 326d78c26216bba418784a2a0fbc033e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 11.463865
+      value: 11.463863
       objectReference: {fileID: 0}
     - target: {fileID: 2099965456937398874, guid: 326d78c26216bba418784a2a0fbc033e,
         type: 3}
@@ -23869,7 +23823,7 @@ PrefabInstance:
     - target: {fileID: 8844420206030794370, guid: 3edc664b379d30445a14f2dde2e67eea,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 11.463865
+      value: 11.463863
       objectReference: {fileID: 0}
     - target: {fileID: 8844420206030794370, guid: 3edc664b379d30445a14f2dde2e67eea,
         type: 3}
