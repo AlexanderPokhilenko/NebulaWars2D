@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Threading.Tasks;
+﻿using Code.Common;
 using Code.Common.Logger;
-using Code.Scenes.LobbyScene.Scripts.UiStorages;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Scenes.LobbyScene.Scripts

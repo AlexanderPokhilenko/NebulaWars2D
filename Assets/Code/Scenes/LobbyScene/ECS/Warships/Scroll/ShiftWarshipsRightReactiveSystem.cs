@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Code.Common;
 using Code.Common.Logger;
-using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Entitas;
+using System.Collections.Generic;
 
 namespace Code.Scenes.LobbyScene.ECS.Warships.Scroll
 {
