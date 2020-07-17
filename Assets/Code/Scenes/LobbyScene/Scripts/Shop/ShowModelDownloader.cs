@@ -16,7 +16,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
     {
         private readonly ILog log = LogManager.CreateLogger(typeof(ShowModelDownloader));
         
-        public async Task<ShopModel> GetShopModel(CancellationToken cts)
+        public async Task<ShopModel> GetShopModelAsync(CancellationToken cts)
         {
             log.Debug("Старт скачивания модели магазина");
             HttpClient httpClient = new HttpClient();
