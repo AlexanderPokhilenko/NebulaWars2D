@@ -40,7 +40,7 @@ namespace Code.Common
         public void SwitchMenu()
         {
             gameObject.SetActive(!gameObject.activeSelf);
-            uiSoundsManager.PlayMenu(gameObject.activeSelf);
+            uiSoundsManager.PlayMenu(!gameObject.activeSelf);
         }
 
         public void Interface_Slider_OnChange(float value)
