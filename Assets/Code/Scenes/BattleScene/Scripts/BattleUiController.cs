@@ -1,5 +1,4 @@
-﻿using Code.Common;
-using Code.Common.Logger;
+﻿using Code.Common.Logger;
 using Code.Scenes.BattleScene.Experimental;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -44,14 +43,10 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private Material nicknameFontMaterial;
         #endregion
 
-        private Material _vignetteShaderMaterial;
-        private UiSoundsManager uiSoundsManager;
-
         // private LobbyLoaderController lobbyLoaderController;
    
         private void Awake()
         {
-            uiSoundsManager = UiSoundsManager.Instance();
             // lobbyLoaderController = GetComponent<LobbyLoaderController>();
             zoneGroup.SetActive(true);
             overlayCanvas.SetActive(true);
@@ -92,31 +87,5 @@ namespace Code.Scenes.BattleScene.Scripts
         public Image GetLoadingImage() => loadingImage;
         public Vignette GetVignette() => vignetteVolumeProfile.TryGet(out Vignette vignette) ? vignette : null;
         public Material GetNicknameFontMaterial() => nicknameFontMaterial;
-
-        public void ShowMenu()
-        {
-            uiSoundsManager.PlayMenuOpen();
-            menuImage.SetActive(true);
-        }
-
-        public void CloseMenu()
-        {
-            uiSoundsManager.PlayMenuClose();
-            menuImage.SetActive(false);
-        }
-
-        public void SwitchMenu()
-        {
-            uiSoundsManager.PlayMenu(menuImage.activeSelf);
-            menuImage.SetActive(!menuImage.activeSelf);
-        }
-
-        void OnDisable()
-        {
-            if (_vignetteShaderMaterial)
-            {
-                DestroyImmediate(_vignetteShaderMaterial);
-            }
-        }
     }
 }

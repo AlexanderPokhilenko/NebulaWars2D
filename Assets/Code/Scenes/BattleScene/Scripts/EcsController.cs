@@ -52,10 +52,6 @@ namespace Code.Scenes.BattleScene.Scripts
 #if UNITY_EDITOR_WIN
             contexts.input.isTryingToUseAbility |= Input.GetKey(KeyCode.Space);
 #endif
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                battleUiController.SwitchMenu();
-            }
 
             systems.Execute();
             systems.Cleanup();
