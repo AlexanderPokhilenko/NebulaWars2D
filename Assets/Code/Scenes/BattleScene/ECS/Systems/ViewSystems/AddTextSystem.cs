@@ -34,6 +34,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
                 var text = new GameObject("Name");
                 text.transform.SetParent(go.transform);
                 var tmp = text.AddComponent<TextMeshPro>();
+                tmp.sortingOrder = 3;
                 var rectTr = tmp.rectTransform;
                 rectTr.sizeDelta = new Vector2(4f, 0.5f);
                 tmp.alignment = TextAlignmentOptions.Center;
