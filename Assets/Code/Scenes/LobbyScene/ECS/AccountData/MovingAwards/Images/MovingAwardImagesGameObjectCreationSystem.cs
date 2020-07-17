@@ -12,11 +12,11 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
     /// </summary>
     public class MovingAwardImagesGameObjectCreationSystem:ReactiveSystem<LobbyUiEntity>
     {
-        private readonly RectTransform movingAwardsParentRectTransform;
-        private GameObject regularCurrencyGameObjectCache;
-        private GameObject premiumCurrencyGameObjectCache;
         private GameObject trophyGameObjectCache;
         private GameObject lootboxPointGameObjectCache;
+        private GameObject regularCurrencyGameObjectCache;
+        private GameObject premiumCurrencyGameObjectCache;
+        private readonly RectTransform movingAwardsParentRectTransform;
         
         public MovingAwardImagesGameObjectCreationSystem(Contexts contexts,
             RectTransform movingAwardsParentRectTransform) 

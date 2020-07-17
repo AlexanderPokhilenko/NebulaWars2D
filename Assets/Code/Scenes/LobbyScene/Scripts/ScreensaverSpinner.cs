@@ -15,6 +15,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 throw new Exception("Не установлена картинка");
             }
+            
             StartCoroutine(Rotate());
         }
 

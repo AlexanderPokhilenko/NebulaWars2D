@@ -42,21 +42,51 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
 
         protected override void Execute(List<LobbyUiEntity> entities)
         {
+            const int maxNumberOfImagesPerAwardType = 100;
             foreach (var command in entities.Select(entity => entity.commandToCreateAwardImages))
             {
                 AwardType awardType = command.awardType;
                 DateTime spawnStartTime = command.startSpawnTime;
-                for (int index = 0; index < command.quantity; index++)
+                int remainder = command.quantity;
+                int numberOfImages;
+                
+                if (command.quantity > maxNumberOfImagesPerAwardType)
                 {
+                    numberOfImages = maxNumberOfImagesPerAwardType;
+                }
+                else
+                {
+                    numberOfImages = command.quantity;
+                }
+
+
+                int roundedAverageIncrement = (int) Math.Round(((decimal) command.quantity / numberOfImages),
+                    MidpointRounding.AwayFromZero);
+                log.Debug($"{nameof(roundedAverageIncrement)} {roundedAverageIncrement}");
+                
+                int index = 0;
+                while (remainder != 0)
+                {
+                    index++;
                     LobbyUiEntity entity = contextsLobbyUi.CreateEntity();
                     List<ControlPoint> controlPoints = awardControlPointsFactoryFacade
                         .Create(index, spawnStartTime, random, screenHeight, awardType);
 
-                    int increment = 1;
+                    int increment;
+                    if (roundedAverageIncrement < remainder)
+                    {
+                        increment = roundedAverageIncrement;
+                    }
+                    else
+                    {
+                        increment = remainder;
+                    }
                     entity.AddMovingAward( increment, awardType,1  , controlPoints);
                     entity.AddPosition(controlPoints.First().position);
                     entity.AddAlpha(0);
                     entity.AddScale(new Vector3(1,1,1));
+
+                    remainder -= increment;
                 }
             }
         }

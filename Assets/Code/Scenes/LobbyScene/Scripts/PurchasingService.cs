@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
-using NetworkLibrary.Http.Lobby.Shop;
+using NetworkLibrary.Http.Utils;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
 using UnityEngine.Purchasing.Security;
-using ZeroFormatter;
+using IGooglePlayStoreExtensions = Google.Play.Billing.IGooglePlayStoreExtensions;
 
 namespace Code.Scenes.LobbyScene.Scripts
 {
@@ -56,6 +55,16 @@ namespace Code.Scenes.LobbyScene.Scripts
             log.Info(nameof(OnInitialized));
             storeController = controller;
             extensionsProvider = extensions;
+            if (!PlayerIdStorage.TryGetServiceId(out string playerServiceId))
+            {
+                log.Fatal("Не удалось достать playerServiceId");
+                return;
+            }
+            IGooglePlayStoreExtensions playStoreExtensions =
+                extensionsProvider.GetExtension<IGooglePlayStoreExtensions>();
+
+            string obfuscatedAccountId = playerServiceId.Caesar();
+            playStoreExtensions.SetObfuscatedAccountId(obfuscatedAccountId);
         }
         
         public void OnInitializeFailed(InitializationFailureReason error)
@@ -68,7 +77,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             return storeController != null && extensionsProvider != null;
         }
 
-        public void BuyProductById(PurchaseModel purchaseModel)
+        public void BuyProduct(PurchaseModel purchaseModel)
         {
             string sku = purchaseModel.ProductModel.ForeignServiceProduct.ProductGoogleId;
             log.Debug($"{nameof(sku)} "+sku);
@@ -98,18 +107,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                 log.Error($"{nameof(playerServiceId)} is null");
                 throw new Exception($"{nameof(playerServiceId)} is null");
             }
-
-            // byte[] binaryProductModel = ZeroFormatterSerializer.Serialize(purchaseModel.ProductModel);
-            // string base64ProductModel = Convert.ToBase64String(binaryProductModel);
-            // PurchaseDeveloperPayload purchaseDeveloperPayload = new PurchaseDeveloperPayload()
-            // {
-            //     ProductId = purchaseModel.ProductModel.Id,
-            //     Base64SerializedProduct = base64ProductModel,
-            //     ServiceId = playerServiceId,
-            //     ShopModelId = purchaseModel.ShopModelId
-            // };
-            // string payload = JsonUtility.ToJson(purchaseDeveloperPayload);
-            // log.Debug($"{nameof(BuyProductById)} {nameof(payload)} {payload}");
+            
             storeController.InitiatePurchase(sku);
         }
 
