@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
-using Code.Common;
 using Code.Common.Logger;
 using Code.Common.NetworkStatistics;
 using Code.Common.Statistics;
@@ -35,10 +34,12 @@ namespace Code.Scenes.LobbyScene.Scripts
         {
             cts = new CancellationTokenSource();
             Task<LobbyModel> task = new AccountDataDownloader().Load(cts.Token);
+            //todo говно
             yield return new WaitUntil(()=>task.IsCompleted);
-            if (!task.IsCompleted)
+            if (task.IsFaulted||task.IsCanceled)
             {
                 log.Fatal("Не удалось скачать модель аккаунта");
+                yield break;
             }
             SetData(task.Result);
         }

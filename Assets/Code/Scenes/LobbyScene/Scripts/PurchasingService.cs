@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
@@ -19,12 +18,19 @@ namespace Code.Scenes.LobbyScene.Scripts
     /// <summary>
     /// Отвечает за взаимодействие с платёжной системой
     /// </summary>
+    [RequireComponent(typeof(ProfileServerPurchaseValidatorBehaviour))]
     public class PurchasingService : MonoBehaviour, IStoreListener 
     {
         private IStoreController storeController;
         private IExtensionProvider extensionsProvider;
+        private ProfileServerPurchaseValidatorBehaviour serverValidator;
         private readonly ILog log = LogManager.CreateLogger(typeof(PurchasingService));
-        
+
+        private void Awake()
+        {
+            serverValidator = GetComponent<ProfileServerPurchaseValidatorBehaviour>();
+        }
+
         public void StartInitialization(List<ForeignServiceProduct> serviceProducts)
         {
 #warning нужно использовать полное название пространства имён
@@ -162,16 +168,14 @@ namespace Code.Scenes.LobbyScene.Scripts
                 log.Error(e.Message+" "+e.StackTrace);
             }
 #endif
-            log.Debug($"{nameof(purchaseIsValid)} {purchaseIsValid}");
-             if (purchaseIsValid)
-             {
-                 // //todo Unlock the appropriate content here.
-              
-                 
-                 new ProductValidator().ValidateProductAsync(sku, token, this).Wait();
-             }
-             
-             return PurchaseProcessingResult.Pending;    
+            if (!purchaseIsValid)
+            {
+                log.Fatal($"Покупка не прошла локальную проверку");
+                UiSoundsManager.Instance().PlayError();
+            }
+            
+            serverValidator.StartValidation(sku, token);
+            return PurchaseProcessingResult.Pending;    
         }
 
         public void OnPurchaseFailed(Product i, PurchaseFailureReason p)
@@ -190,28 +194,28 @@ namespace Code.Scenes.LobbyScene.Scripts
         //     }
         // }
         
-        // public bool TryConfirmPendingPurchase(string productId)
-        // {
-        //     bool success = false;
-        //     log.Debug(nameof(TryConfirmPendingPurchase));
-        //     try
-        //     {
-        //         Product product = storeController.products.WithID(productId);
-        //         // log.Debug($"Продукт найден по id {nameof(productId)} {productId}");
-        //         // log.Debug("Подтверждение транзакции " + product.definition.id);
-        //         // storeController.ConfirmPendingPurchase(product);
-        //         // log.Debug("Транзакция успешно подтверджена");
-        //         // success = true;
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         UiSoundsManager.Instance().PlayError();
-        //         log.Error($"Не удалось подтвердить продукт {nameof(productId)} {productId}." +
-        //                   $" {e.Message} {e.StackTrace}");
-        //     }
-        //
-        //     return success;
-        // }
+        public bool TryConfirmPendingPurchase(string sku)
+        {
+            bool success = false;
+            log.Debug(nameof(TryConfirmPendingPurchase));
+            try
+            {
+                Product product = storeController.products.WithID(sku);
+                log.Debug($"Продукт найден по id {nameof(sku)} {sku}");
+                log.Debug("Подтверждение транзакции " + product.definition.id);
+                storeController.ConfirmPendingPurchase(product);
+                log.Debug("Транзакция успешно подтверджена");
+                success = true;
+            }
+            catch (Exception e)
+            {
+                UiSoundsManager.Instance().PlayError();
+                log.Error($"Не удалось подтвердить продукт {nameof(sku)} {sku}." +
+                          $" {e.Message} {e.StackTrace}");
+            }
+        
+            return success;
+        }
         
         public bool TryGetProductCostById(string sku, ref string cost)
         {

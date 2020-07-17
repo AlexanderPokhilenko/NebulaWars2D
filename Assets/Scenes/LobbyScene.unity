@@ -11602,6 +11602,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105942922}
   - component: {fileID: 1105942921}
+  - component: {fileID: 1105942923}
   m_Layer: 0
   m_Name: Script_Purchasing
   m_TagString: Untagged
@@ -11635,6 +11636,18 @@ Transform:
   m_Father: {fileID: 957759492}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1105942923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105942920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2d57e7fb0c4f5385f24505c598c48e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1107540721
 GameObject:
   m_ObjectHideFlags: 0
@@ -14921,7 +14934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.054, y: 0.19851308}
   m_AnchorMax: {x: 0.96654487, y: 0.47700003}
-  m_AnchoredPosition: {x: 0, y: 0.85588455}
+  m_AnchoredPosition: {x: 0, y: 0.855793}
   m_SizeDelta: {x: -1.416626, y: -1}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1428998686
