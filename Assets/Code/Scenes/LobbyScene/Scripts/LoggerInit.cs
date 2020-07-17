@@ -11,7 +11,7 @@ namespace Code.Scenes.LobbyScene.Scripts
         private void Awake()
         {
             UnityThread.InitUnityThread();
-            LoggerConfig config = new LoggerConfig(1, 10_000,
+            LoggerConfig config = new LoggerConfig(100, 10_000,
                 Application.persistentDataPath);
             if (LogManager.TrySetConfig(config))
             {

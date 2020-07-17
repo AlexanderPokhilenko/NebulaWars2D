@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Code.Common;
 using Code.Common.Logger;
-using Code.Scenes.DebugScene;
 using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
@@ -39,24 +38,31 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
         private IEnumerator LoadShop()
         {
             cts = new CancellationTokenSource();
-            Task<ShopModel> task = new ShowModelDownloader().GetShopModel(cts.Token);
-            yield return new WaitUntil(()=>task.IsCompleted);
-            
-            if (task.IsCanceled || task.IsFaulted)
+            Task<ShopModel> loadShopModelTask = new ShowModelDownloader().GetShopModel(cts.Token);
+            yield return new WaitUntil(()=>loadShopModelTask.IsCompleted);
+            if (loadShopModelTask.IsCanceled || loadShopModelTask.IsFaulted)
             {
                 log.Error($"Не удалось скачать содержимое магазина. " +
-                          $"{nameof(task.IsCanceled)} {task.IsCanceled}" +
-                          $"{nameof(task.IsFaulted)} {task.IsFaulted}");
+                          $"{nameof(loadShopModelTask.IsCanceled)} {loadShopModelTask.IsCanceled}" +
+                          $"{nameof(loadShopModelTask.IsFaulted)} {loadShopModelTask.IsFaulted}");
                 yield break;
             }
 
-            ShopModel shopModel = task.Result;
-            
-#if !UNITY_EDITOR
+            ShopModel shopModel = loadShopModelTask.Result;
+#if UNITY_ANDROID
+            Task<ShopModel> initProductCostTask = InitProductCost(shopModel);
+            yield return new WaitUntil(()=>initProductCostTask.IsCompleted);
+            shopModel = initProductCostTask.Result;
+#endif
+            shopUiSpawner.Spawn(shopModel);
+        }
+
+        private async Task<ShopModel> InitProductCost(ShopModel shopModel)
+        {
             log.Debug($"Ожидание инициализации {nameof(purchasingService)}");
             List<ForeignServiceProduct> realCurrencyProducts = shopModel.GetRealCurrencyProducts();
             purchasingService.StartInitialization(realCurrencyProducts);
-            yield return new WaitUntil(purchasingService.IsStoreInitialized);
+            await TaskExtensions.WaitUntil(purchasingService.IsStoreInitialized);
             log.Debug($"{nameof(purchasingService)} инициализирован");
             foreach (ProductModel item in shopModel.GetAllProducts())
             {
@@ -64,23 +70,19 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
                 {
                     string productId = item.ForeignServiceProduct.ProductGoogleId;
                     string cost = null;
-                    yield return new WaitUntil( ()=>purchasingService.TryGetProductCostById(productId, ref cost));
-                    //Если не удалось достать цену
+                    purchasingService.TryGetProductCostById(productId, ref cost);
                     if (cost == null)
                     {
                         throw new Exception("Не удалось достать цену товара из плагина магазина");
                     }
-                    else
-                    {
-                        item.CostString = cost;
-                    }
+
+                    item.CostString = cost;
                 }    
             }
-#endif
-            
-            shopUiSpawner.Spawn(shopModel);
-        }
 
+            return shopModel;
+        }
+        
         private void OnDestroy()
         {
             cts?.Cancel();

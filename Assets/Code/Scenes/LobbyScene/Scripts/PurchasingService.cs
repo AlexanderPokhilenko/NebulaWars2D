@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Threading;
 using Code.Common;
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
-using Google.Play.Billing;
+using NetworkLibrary.Http.Lobby.Shop;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -17,29 +18,37 @@ namespace Code.Scenes.LobbyScene.Scripts
     /// <summary>
     /// Отвечает за взаимодействие с платёжной системой
     /// </summary>
+    [RequireComponent(typeof(ProfileServerPurchaseValidatorBehaviour))]
     public class PurchasingService : MonoBehaviour, IStoreListener 
     {
         private IStoreController storeController;
         private IExtensionProvider extensionsProvider;
+        private ProfileServerPurchaseValidatorBehaviour serverValidator;
         private readonly ILog log = LogManager.CreateLogger(typeof(PurchasingService));
-        
+
+        private void Awake()
+        {
+            serverValidator = GetComponent<ProfileServerPurchaseValidatorBehaviour>();
+        }
+
         public void StartInitialization(List<ForeignServiceProduct> serviceProducts)
         {
-            log.Debug(nameof(StartInitialization)+" 1");
-            AbstractPurchasingModule test = GooglePlayStoreModule.Instance();
-            ConfigurationBuilder builder = ConfigurationBuilder.Instance(test);
-            log.Debug(nameof(StartInitialization)+" 2");
+#warning нужно использовать полное название пространства имён
+            AbstractPurchasingModule purchasingModule = Google.Play.Billing.GooglePlayStoreModule.Instance();
+#warning нужно использовать полное название пространства имён
+            
+            ConfigurationBuilder builder = ConfigurationBuilder.Instance(purchasingModule);
             foreach (ForeignServiceProduct foreignServiceProduct in serviceProducts)
             {
+                string productId = foreignServiceProduct.ProductGoogleId;
                 ProductType productType = foreignServiceProduct.Consumable
                     ? ProductType.Consumable
                     : ProductType.NonConsumable;
-                string productId = foreignServiceProduct.ProductGoogleId;
+                log.Debug($"{nameof(productId)} {productId} {nameof(productType)} {productType}");
                 builder.AddProduct(productId, productType);
             }
-            log.Debug(nameof(StartInitialization)+" 3");
+         
             UnityPurchasing.Initialize(this, builder);
-            log.Debug(nameof(StartInitialization)+" 4");
         }
         
         public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
@@ -59,90 +68,114 @@ namespace Code.Scenes.LobbyScene.Scripts
             return storeController != null && extensionsProvider != null;
         }
 
-        public void BuyProductById(string productId)
+        public void BuyProductById(PurchaseModel purchaseModel)
         {
-            log.Debug($"{nameof(BuyProductById)} "+productId);
+            string sku = purchaseModel.ProductModel.ForeignServiceProduct.ProductGoogleId;
+            log.Debug($"{nameof(sku)} "+sku);
             bool isStoreInitialized = IsStoreInitialized(); 
             log.Debug($"{nameof(isStoreInitialized)} {isStoreInitialized}");
-            if (isStoreInitialized)
-            {
-                Product product = storeController.products.WithID(productId);
-                if (product != null && product.availableToPurchase)
-                {
-                    if (PlayerIdStorage.TryGetServiceId(out string playerServiceId))
-                    {
-                        if (playerServiceId == null)
-                        {
-                            throw new Exception($"{nameof(playerServiceId)} is null");
-                        }
-                    
-                        string payload = playerServiceId;
-                        storeController.InitiatePurchase(productId, payload);
-                    }
-                    else
-                    {
-                        UiSoundsManager.Instance().PlayError();
-                        log.Error($"Не удалось выполнить покупку потому, " +
-                                  $"что {nameof(playerServiceId)} не доступен");
-                    }
-                   
-                }
-            }
-            else
+            if (!isStoreInitialized)
             {
                 UiSoundsManager.Instance().PlayError();
                 log.Error($"Вызов покупки был сделан до того как магазин " +
-                          $"был инициализирован. {nameof(productId)} {productId}");
+                          $"был инициализирован. {nameof(sku)} {sku}");
             }
+
+            Product product = storeController.products.WithID(sku);
+            if (product == null || !product.availableToPurchase)
+            {
+                log.Error($"product is null or not available for purchase");
+            }
+
+            if (!PlayerIdStorage.TryGetServiceId(out string playerServiceId))
+            {
+                UiSoundsManager.Instance().PlayError();
+                log.Error($"Не удалось выполнить покупку потому, что {nameof(playerServiceId)} не доступен");
+            }
+
+            if (playerServiceId == null)
+            {
+                log.Error($"{nameof(playerServiceId)} is null");
+                throw new Exception($"{nameof(playerServiceId)} is null");
+            }
+
+            // byte[] binaryProductModel = ZeroFormatterSerializer.Serialize(purchaseModel.ProductModel);
+            // string base64ProductModel = Convert.ToBase64String(binaryProductModel);
+            // PurchaseDeveloperPayload purchaseDeveloperPayload = new PurchaseDeveloperPayload()
+            // {
+            //     ProductId = purchaseModel.ProductModel.Id,
+            //     Base64SerializedProduct = base64ProductModel,
+            //     ServiceId = playerServiceId,
+            //     ShopModelId = purchaseModel.ShopModelId
+            // };
+            // string payload = JsonUtility.ToJson(purchaseDeveloperPayload);
+            // log.Debug($"{nameof(BuyProductById)} {nameof(payload)} {payload}");
+            storeController.InitiatePurchase(sku);
         }
 
-        public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
-        {
-            log.Debug(nameof(ProcessPurchase)+" start");
-            bool purchaseIsValid = true;
-            string sku = e.purchasedProduct.definition.id;
-            string token = null;
-            
+        public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEventArgs)
+        {   
+             log.Debug(nameof(ProcessPurchase));
+             string receipt = purchaseEventArgs.purchasedProduct.receipt;
+             GooglePurchaseData data = new GooglePurchaseData(receipt);
+             
+             log.Debug($"{nameof(data.json.autoRenewing)} {data.json.autoRenewing}");
+             log.Debug($"{nameof(data.json.developerPayload)} {data.json.developerPayload}");
+             log.Debug($"{nameof(data.json.orderId)} {data.json.orderId}");
+             log.Debug($"{nameof(data.json.packageName)} {data.json.packageName}");
+             log.Debug($"{nameof(data.json.productId)} {data.json.productId}");
+             log.Debug($"{nameof(data.json.purchaseState)} {data.json.purchaseState}");
+             log.Debug($"{nameof(data.json.purchaseTime)} {data.json.purchaseTime}");
+             log.Debug($"{nameof(data.json.purchaseToken)} {data.json.purchaseToken}");
+             
+             bool purchaseIsValid = true;
+             string sku = purchaseEventArgs.purchasedProduct.definition.id;
+             string token = null;
+             
+             
 #if UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX
             CrossPlatformValidator validator = new CrossPlatformValidator(GooglePlayTangle.Data(),
                 AppleTangle.Data(), Application.identifier);
 
-            LogProduct(e.purchasedProduct);
-           
-            try 
+            // purchaseEventArgs.purchasedProduct.LogProduct(log);
+
+            try
             {
-                IPurchaseReceipt[] result = validator.Validate(e.purchasedProduct.receipt);
-                
+                IPurchaseReceipt[] result = validator.Validate(purchaseEventArgs.purchasedProduct.receipt);
+
                 log.Debug("Receipt is valid. Contents:");
-                foreach (IPurchaseReceipt productReceipt in result) 
+                foreach (IPurchaseReceipt productReceipt in result)
                 {
                     log.Debug(productReceipt.productID);
-                    log.Debug(productReceipt.purchaseDate);
+                    log.Debug(productReceipt.purchaseDate.ToString());
                     log.Debug(productReceipt.transactionID);
-
-                    if (productReceipt is GooglePlayReceipt google) 
+                    if (productReceipt is GooglePlayReceipt google)
                     {
                         log.Debug(google.transactionID);
-                        log.Debug(google.purchaseState);
+                        log.Debug(google.purchaseState.ToString());
                         log.Debug(google.purchaseToken);
                         token = google.purchaseToken;
                     }
                 }
-            } 
-            catch (IAPSecurityException) 
+            }
+            catch (IAPSecurityException)
             {
                 log.Error("Invalid receipt, not unlocking content");
                 purchaseIsValid = false;
             }
-#endif
-
-            if (purchaseIsValid) 
+            catch (Exception e)
             {
-                // Unlock the appropriate content here.
-                ValidateProduct(sku, token).ConfigureAwait(true);
+                log.Error(e.Message+" "+e.StackTrace);
+            }
+#endif
+            if (!purchaseIsValid)
+            {
+                log.Fatal($"Покупка не прошла локальную проверку");
+                UiSoundsManager.Instance().PlayError();
             }
             
-            return PurchaseProcessingResult.Pending;
+            serverValidator.StartValidation(sku, token);
+            return PurchaseProcessingResult.Pending;    
         }
 
         public void OnPurchaseFailed(Product i, PurchaseFailureReason p)
@@ -150,25 +183,25 @@ namespace Code.Scenes.LobbyScene.Scripts
             log.Debug($"{nameof(OnPurchaseFailed)} "+p+" "+i.definition.id);
         }
 
-        public void ConfirmAll()
-        {
-            log.Debug(nameof(ConfirmAll));
-            var products = storeController.products.all;
-            foreach (var product in products)
-            {
-                storeController.ConfirmPendingPurchase(product);
-                log.Debug("success confirm "+product.definition.id);
-            }
-        }
+        // public void ConfirmAll()
+        // {
+        //     log.Debug(nameof(ConfirmAll));
+        //     var products = storeController.products.all;
+        //     foreach (var product in products)
+        //     {
+        //         storeController.ConfirmPendingPurchase(product);
+        //         log.Debug("success confirm "+product.definition.id);
+        //     }
+        // }
         
-        private bool TryConfirmRegisteredProduct(string productId)
+        public bool TryConfirmPendingPurchase(string sku)
         {
             bool success = false;
-            log.Debug(nameof(TryConfirmRegisteredProduct));
+            log.Debug(nameof(TryConfirmPendingPurchase));
             try
             {
-                Product product = storeController.products.WithID(productId);
-                log.Debug($"Продукт найден по id {nameof(productId)} {productId}");
+                Product product = storeController.products.WithID(sku);
+                log.Debug($"Продукт найден по id {nameof(sku)} {sku}");
                 log.Debug("Подтверждение транзакции " + product.definition.id);
                 storeController.ConfirmPendingPurchase(product);
                 log.Debug("Транзакция успешно подтверджена");
@@ -177,92 +210,13 @@ namespace Code.Scenes.LobbyScene.Scripts
             catch (Exception e)
             {
                 UiSoundsManager.Instance().PlayError();
-                log.Error($"Не удалось подтвердить продукт {nameof(productId)} {productId}." +
+                log.Error($"Не удалось подтвердить продукт {nameof(sku)} {sku}." +
                           $" {e.Message} {e.StackTrace}");
             }
-
+        
             return success;
         }
         
-        private async Task ValidateProduct(string productId, string token)
-        {
-            log.Debug(nameof(ValidateProduct));
-
-            try
-            {
-                (string name, string value)[] fields = 
-                {
-                    (nameof(productId), productId),
-                    (nameof(token), token)
-                };
-                //Отправка запроса на проверку и регистрацию покупки
-                byte[] data = await HttpWrapper.Post(NetworkGlobals.ValidatePurchaseUrl, fields);
-                log.Debug("Успешное выполнение запроса.");
-                string[] result = ZeroFormatterSerializer.Deserialize<string[]>(data);
-                //проверка нормального ответа от сервера
-                if (result == null || result.Length == 0)
-                {
-                    UiSoundsManager.Instance().PlayError();
-                    log.Fatal("Не удалось получить от сервера список продуктов, которые были им проверены.");
-                    return;
-                }
-
-                //вызвать Confirm по полученным данным
-                foreach (string sku in result)
-                {
-                    bool success = TryConfirmRegisteredProduct(sku);
-                    if (success)
-                    {
-                        //уведомить сервер, что удалось сообщить о сохранении в UnityApi 
-                        await SendConfirmationSuccessMessage(sku);
-                    }
-                    else
-                    {
-                        UiSoundsManager.Instance().PlayError();
-                        log.Error($"Не удалось уведомить unity api о том, что продукт был сохранён в БД. " +
-                                  $"{nameof(sku)} {sku}");
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                UiSoundsManager.Instance().PlayError();
-                log.Error(exception.Message);
-            }
-        }
-
-        private async Task SendConfirmationSuccessMessage(string sku)
-        {
-            log.Debug(nameof(SendConfirmationSuccessMessage));
-            log.Debug($"{nameof(sku)} {sku}");
-            if (PlayerIdStorage.TryGetServiceId(out string serviceId))
-            {
-                log.Debug($"{nameof(serviceId)} {serviceId}");
-                (string name, string value)[] fields = 
-                {
-                    (nameof(serviceId), serviceId),
-                    (nameof(sku), sku)
-                };
-                try
-                {
-                    await HttpWrapper.Post(NetworkGlobals.MarkOrderAsCompletedUrl, fields);
-                    log.Debug("Успешное выполнение запроса.");
-                }
-                catch (Exception e)
-                {
-                    UiSoundsManager.Instance().PlayError();
-                    log.Error("Не удалось сообщить об отправке " +
-                        $"сообщения об успешном подтверждении покупки {nameof(sku)} {sku} {e.Message} {e.StackTrace}");
-                }
-            }
-            else
-            {
-                UiSoundsManager.Instance().PlayError();
-                log.Error($"Не удалось получить {nameof(serviceId)} при отправке " +
-                          $"сообщения об успешном подтверждении покупки {nameof(sku)} {sku}");
-            }
-        }
-
         public bool TryGetProductCostById(string sku, ref string cost)
         {
             try
@@ -279,56 +233,6 @@ namespace Code.Scenes.LobbyScene.Scripts
             }
 
             return false;
-        }
-
-        private void LogProduct(Product purchasedProduct)
-        {
-            log.Debug(nameof(LogProduct)+" "+purchasedProduct.definition.id);
-            try
-            {
-                var definitionEnabled = purchasedProduct.definition.enabled;
-                var definitionId = purchasedProduct.definition.id;
-                var definitionPayout = purchasedProduct.definition.payout;
-
-                if (purchasedProduct.definition.payout != null)
-                {
-                    var payoutData = purchasedProduct.definition.payout.data;
-                    var payoutQuantity = purchasedProduct.definition.payout.quantity;
-                    var payoutSubtype = purchasedProduct.definition.payout.subtype;
-                    var payoutTypeString = purchasedProduct.definition.payout.typeString;
-                    
-                    // log.Debug($"{nameof(payoutData)} {payoutData}");
-                    // log.Debug($"{nameof(payoutQuantity)} {payoutQuantity}");
-                    // log.Debug($"{nameof(payoutSubtype)} {payoutSubtype}");
-                    // log.Debug($"{nameof(payoutTypeString)} {payoutTypeString}");
-                }
-                
-                var purchasedProductDefinition = purchasedProduct.definition;
-                var purchasedProductReceipt = purchasedProduct.receipt;
-                var purchasedProductHasReceipt = purchasedProduct.hasReceipt;
-                var purchasedProductTransactionId = purchasedProduct.transactionID;
-                var metadataLocalizedPrice = purchasedProduct.metadata.localizedPrice;
-                var metadataLocalizedTitle = purchasedProduct.metadata.localizedTitle;
-                var metadataIsoCurrencyCode = purchasedProduct.metadata.isoCurrencyCode;
-                var metadataLocalizedPriceString = purchasedProduct.metadata.localizedPriceString;
-                
-                // log.Debug($"{nameof(definitionEnabled)} {definitionEnabled}");
-                // log.Debug($"{nameof(definitionId)} {definitionId}");
-                // log.Debug($"{nameof(definitionPayout)} {definitionPayout}");
-                // log.Debug($"{nameof(purchasedProductDefinition)} {purchasedProductDefinition}");
-                // log.Debug($"{nameof(purchasedProductReceipt)} {purchasedProductReceipt}");
-                // log.Debug($"{nameof(purchasedProductHasReceipt)} {purchasedProductHasReceipt}");
-                // log.Debug($"{nameof(purchasedProductTransactionId)} {purchasedProductTransactionId}");
-                // log.Debug($"{nameof(metadataLocalizedPrice)} {metadataLocalizedPrice}");
-                // log.Debug($"{nameof(metadataLocalizedTitle)} {metadataLocalizedTitle}");
-                // log.Debug($"{nameof(metadataIsoCurrencyCode)} {metadataIsoCurrencyCode}");
-                // log.Debug($"{nameof(metadataLocalizedPriceString)} {metadataLocalizedPriceString}");
-            }
-            catch (Exception exception)
-            {
-                UiSoundsManager.Instance().PlayError();
-                log.Error(exception.Message);   
-            }
         }
     }
 }

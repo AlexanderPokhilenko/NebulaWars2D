@@ -8,9 +8,9 @@ namespace Code.Common.Logger
 {
     public class LogManager
     {
-        private static readonly Lazy<LogManager> lazy = new Lazy<LogManager>(() => new LogManager());
+        private static readonly Lazy<LogManager> Lazy = new Lazy<LogManager>(() => new LogManager());
         
-        private static readonly object lockObj = new object();
+        private static readonly object LockObj = new object();
         private readonly List<string> logs = new List<string>();
         
         private LoggerConfig config;
@@ -23,17 +23,17 @@ namespace Code.Common.Logger
 
         public static bool TrySetConfig(LoggerConfig loggerConfig)
         {
-            return lazy.Value.TrySetConfiguration(loggerConfig);
+            return Lazy.Value.TrySetConfiguration(loggerConfig);
         }
 
         public static ILog CreateLogger(Type type)
         {
-            return new Logger(lazy.Value, type);
+            return new Logger(Lazy.Value, type);
         }
 
         public void AddLog(string message)
         {
-            lock (lockObj)
+            lock (LockObj)
             {
                 logs.Add(message);
                 if (logPrinter != null && config.MaxNumberOfRecordsToPrint <= logs.Count)
@@ -46,7 +46,7 @@ namespace Code.Common.Logger
 
         public static void Print()
         {
-            lazy.Value.PrintAll();
+            Lazy.Value.PrintAll();
         }
 
         private void PrintAll()
@@ -62,7 +62,7 @@ namespace Code.Common.Logger
             }
             
             AddLog(loggerConfig.ToString());
-            lock (lockObj)
+            lock (LockObj)
             {
                 config = loggerConfig;
                 logPrinter = new LogPrinter(loggerConfig.PersistentDataPath);
@@ -80,7 +80,7 @@ namespace Code.Common.Logger
                 {
                     await Task.Delay(maxPrintingPeriodMs);
                     string[] logsCopy = new string[logs.Count];
-                    lock (lockObj)
+                    lock (LockObj)
                     {
                         if (logs.Count > 0)
                         {
@@ -104,7 +104,7 @@ namespace Code.Common.Logger
         
         private void Print(List<string> messages)
         {
-            lock (lockObj)
+            lock (LockObj)
             {
                 if (messages.Count == 0)
                 {

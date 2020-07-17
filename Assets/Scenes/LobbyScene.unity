@@ -2343,8 +2343,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to
-    the beetle, which deals damage throughout its life. The beetle can be shot down.
+  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to the
+    beetle, which deals damage throughout its life. The beetle can be shot down.
 --- !u!222 &150758401
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11601,6 +11601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105942922}
   - component: {fileID: 1105942921}
+  - component: {fileID: 1105942923}
   m_Layer: 0
   m_Name: Script_Purchasing
   m_TagString: Untagged
@@ -11634,6 +11635,18 @@ Transform:
   m_Father: {fileID: 957759492}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1105942923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105942920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2d57e7fb0c4f5385f24505c598c48e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1107540721
 GameObject:
   m_ObjectHideFlags: 0
@@ -17807,8 +17820,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Xxxxxxxxx xxxxxxx xxxxxxxxxxxx xxxxxxxx
 
-    xxxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx
-    x x x x x x x x x xxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxx'
+    xxxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx x x x x x x x x x xxxxxxxxxx xxxx xxxxxxxxxxxxxxxxxxx'
 --- !u!222 &1704059763
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19141,8 +19153,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to
-    the beetle, which deals damage throughout its life. The beetle can be shot down.
+  m_Text: Smiley launches a homing missile. Once hit, the missile is deployed to the
+    beetle, which deals damage throughout its life. The beetle can be shot down.
 --- !u!222 &1828673130
 CanvasRenderer:
   m_ObjectHideFlags: 0

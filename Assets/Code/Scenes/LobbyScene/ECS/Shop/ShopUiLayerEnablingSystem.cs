@@ -76,7 +76,7 @@ namespace Code.Scenes.LobbyScene.ECS.Shop
         {
             yield return null;
             var sectionsParentRect = shopUiStorage.shopSectionsParent.GetComponent<RectTransform>();
-            log.Info("sectionsParentRect.rect.width = "+sectionsParentRect.rect.width);
+            // log.Info("sectionsParentRect.rect.width = "+sectionsParentRect.rect.width);
             shopUiStorage.shopScrollViewContent
                 .SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, sectionsParentRect.rect.width);
             
