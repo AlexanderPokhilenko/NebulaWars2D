@@ -9,10 +9,13 @@ using ZeroFormatter;
 
 namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 {
+    /// <summary>
+    /// При покупке за игровую валюту отправляет запрос на сервер для проведения транзакции.
+    /// </summary>
     public class Paymaster:MonoBehaviour
     {
-        private LobbyEcsController lobbyEcsController;
         private UiSoundsManager lobbySoundsManager;
+        private LobbyEcsController lobbyEcsController;
         private readonly ILog log = LogManager.CreateLogger(typeof(Paymaster));
 
         private void Awake()
