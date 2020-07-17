@@ -14,7 +14,6 @@
 *.meta merge=unityyamlmerge
 *.controller merge=unityyamlmerge
 
-
 ## git-lfs ##
 
 #Image

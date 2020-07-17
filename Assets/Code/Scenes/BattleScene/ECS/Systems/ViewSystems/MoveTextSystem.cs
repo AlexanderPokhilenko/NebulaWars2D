@@ -40,8 +40,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
                     direction = (currentPosition - playerPosition).normalized;
                 }
                 
-                tmp.transform.localPosition = Quaternion.Inverse(currentTransform.rotation) * direction * nickDist
-                                              + Vector3.back;
+                tmp.transform.localPosition = Quaternion.Inverse(currentTransform.rotation) * direction * nickDist;
             }
         }
     }

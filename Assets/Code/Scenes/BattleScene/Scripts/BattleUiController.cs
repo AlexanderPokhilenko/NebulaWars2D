@@ -2,7 +2,8 @@
 using Code.Scenes.BattleScene.Experimental;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 //TODO большое говно
@@ -38,7 +39,7 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private CannonCooldownsController cannonCooldownsController;
         [SerializeField] private CooldownInfo abilityCooldownInfo;
         [SerializeField] private Image loadingImage;
-        [SerializeField] private PostProcessVolume postProcessVolume;
+        [SerializeField] private VolumeProfile vignetteVolumeProfile;
         [SerializeField] private GameObject menuImage;
         [SerializeField] private Material nicknameFontMaterial;
         #endregion
@@ -89,7 +90,7 @@ namespace Code.Scenes.BattleScene.Scripts
         public CannonCooldownsController GetCannonCooldownsController() => cannonCooldownsController;
         public CooldownInfo GetAbilityCooldownInfo() => abilityCooldownInfo;
         public Image GetLoadingImage() => loadingImage;
-        public Vignette GetVignette() => postProcessVolume.profile.GetSetting<Vignette>();
+        public Vignette GetVignette() => vignetteVolumeProfile.TryGet(out Vignette vignette) ? vignette : null;
         public Material GetNicknameFontMaterial() => nicknameFontMaterial;
 
         public void ShowMenu()

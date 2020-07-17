@@ -22,10 +22,11 @@ namespace Code.Scenes.LootboxScene.Scripts
         private LootboxSceneSwitcher lobbyLoaderController;
         private LootboxOpenEffectController lootboxOpenEffectController;
         private readonly ILog log = LogManager.CreateLogger(typeof(LootboxEcsController));
-        private bool firstClick = true;
+        private bool firstClick;
 
         private void Awake()
         {
+            firstClick = true;
             uiSoundsManager = UiSoundsManager.Instance();
             lobbyLoaderController = FindObjectOfType<LootboxSceneSwitcher>()
                                     ?? throw new Exception("Не удалось найти контроллер");
@@ -54,6 +55,7 @@ namespace Code.Scenes.LootboxScene.Scripts
         private void OnDestroy()
         {
             systems.TearDown();
+            contexts.lootbox.DestroyAllEntities();
         }
 
         public void CanvasButton_OnClick()
@@ -61,12 +63,15 @@ namespace Code.Scenes.LootboxScene.Scripts
             log.Debug("Click");
             if (firstClick)
             {
+                lootboxOpenEffectController.OpenLootbox();
                 uiSoundsManager.PlayLootbox();
                 firstClick = false;
             }
-            lootboxOpenEffectController.OpenLootbox();
-            LootboxEntity entity = contexts.lootbox.CreateEntity();
-            entity.isCanvasClick = true;
+            else
+            {
+                LootboxEntity entity = contexts.lootbox.CreateEntity();
+                entity.isCanvasClick = true;
+            }
         }
         
         public void SetLootboxData(LootboxModel lootboxModel)
