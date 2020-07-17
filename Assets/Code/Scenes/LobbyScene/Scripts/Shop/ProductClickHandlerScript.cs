@@ -35,7 +35,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             if (purchaseModel.ProductModel.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
             {
                 log.Debug("Покупка за реальную валюту");
-                purchasingService.BuyProductById(purchaseModel);
+                purchasingService.BuyProduct(purchaseModel);
             }
             else
             {

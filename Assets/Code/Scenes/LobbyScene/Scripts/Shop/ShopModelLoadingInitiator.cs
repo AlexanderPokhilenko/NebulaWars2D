@@ -38,7 +38,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
         private IEnumerator LoadShop()
         {
             cts = new CancellationTokenSource();
-            Task<ShopModel> loadShopModelTask = new ShowModelDownloader().GetShopModel(cts.Token);
+            Task<ShopModel> loadShopModelTask = new ShowModelDownloader().GetShopModelAsync(cts.Token);
             yield return new WaitUntil(()=>loadShopModelTask.IsCompleted);
             if (loadShopModelTask.IsCanceled || loadShopModelTask.IsFaulted)
             {
@@ -49,15 +49,15 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             }
 
             ShopModel shopModel = loadShopModelTask.Result;
-#if UNITY_ANDROID
-            Task<ShopModel> initProductCostTask = InitProductCost(shopModel);
+#if !UNITY_EDITOR && UNITY_ANDROID
+            Task<ShopModel> initProductCostTask = InitProductCostAsync(shopModel);
             yield return new WaitUntil(()=>initProductCostTask.IsCompleted);
             shopModel = initProductCostTask.Result;
 #endif
             shopUiSpawner.Spawn(shopModel);
         }
 
-        private async Task<ShopModel> InitProductCost(ShopModel shopModel)
+        private async Task<ShopModel> InitProductCostAsync(ShopModel shopModel)
         {
             log.Debug($"Ожидание инициализации {nameof(purchasingService)}");
             List<ForeignServiceProduct> realCurrencyProducts = shopModel.GetRealCurrencyProducts();
