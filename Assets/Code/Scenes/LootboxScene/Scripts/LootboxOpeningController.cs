@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
+using Code.Common;
 using Code.Common.Logger;
 using UnityEngine;
 
-namespace EpicLootBoxEffects.Scripts
+namespace Code.Scenes.LootboxScene.Scripts
 {
     public class LootboxOpeningController : MonoBehaviour 
     {
@@ -32,7 +33,7 @@ namespace EpicLootBoxEffects.Scripts
             openedBox.gameObject.SetActive(false);
         }
 
-        public void OpenLootbox()
+        public void StartLootboxOpening(Action callback)
         {
             if (isOpened) 
             {
@@ -40,12 +41,13 @@ namespace EpicLootBoxEffects.Scripts
                 return;
             }
         
-            StartCoroutine(OpenAnimation());
+            StartCoroutine(OpenAnimation(callback));
         }
     
-        private IEnumerator OpenAnimation()
+        private IEnumerator OpenAnimation(Action callback)
         {
             isOpened = true;
+            UiSoundsManager.Instance().PlayLootbox();
             yield return new WaitForSeconds(0.2f);
 
             closedBox.gameObject.SetActive(false);
@@ -55,7 +57,12 @@ namespace EpicLootBoxEffects.Scripts
             openedBox.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.1f);
             Instantiate(effectPrefab, position, rotation);
-            CameraShake.myCameraShake.ShakeCamera(0.3f, 0.1f);
+            float shakeDuration = 0.1f;
+            CameraShake.MyCameraShake.ShakeCamera(0.3f, shakeDuration);
+            yield return new WaitForSeconds(shakeDuration);
+            //Время задержки перед заменой лутбокса на ресурс
+            yield return new WaitForSeconds(1);
+            callback?.Invoke();
         }
     }
 }

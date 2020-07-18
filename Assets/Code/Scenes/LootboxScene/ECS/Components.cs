@@ -1,3 +1,4 @@
+using System;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 

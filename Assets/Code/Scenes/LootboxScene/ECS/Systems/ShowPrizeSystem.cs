@@ -6,7 +6,6 @@ using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Code.Scenes.LootboxScene.ECS.Systems
 {
@@ -35,7 +34,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
 
         protected override void Execute(List<LootboxEntity> entities)
         {
-            //убрать предыдущий приз
+            //очистить
             ClearResources();
             //начать показывать текущий приз
             LootboxEntity currentPrize = entities.Last();

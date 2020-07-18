@@ -42,7 +42,7 @@ public class LootBoxController : MonoBehaviour {
 		Lootbox = Instantiate (IconPrefabs [2], this.transform.position, this.transform.rotation);
 		yield return new WaitForSeconds(0.1f);
 		Instantiate (EffectPrefabs [idEffect], this.transform.position, this.transform.rotation);
-		CameraShake.myCameraShake.ShakeCamera (0.3f, 0.1f);
+		CameraShake.MyCameraShake.ShakeCamera (0.3f, 0.1f);
 	}
 
 	IEnumerator PlayIcon() {

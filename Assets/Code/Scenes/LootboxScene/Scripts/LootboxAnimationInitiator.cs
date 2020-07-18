@@ -18,7 +18,7 @@ namespace Code.Scenes.LootboxScene.Scripts
         protected void Awake()
         {
             lootboxEcsController = FindObjectOfType<LootboxEcsController>()
-                                   ?? throw new NullReferenceException(nameof(lootboxEcsController));
+                ?? throw new NullReferenceException(nameof(lootboxEcsController));
         }
 
         private void Start()

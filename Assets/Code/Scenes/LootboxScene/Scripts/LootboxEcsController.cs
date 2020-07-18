@@ -4,7 +4,6 @@ using Code.Scenes.LootboxScene.ECS.Systems;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using System;
-using EpicLootBoxEffects.Scripts;
 using UnityEngine;
 
 namespace Code.Scenes.LootboxScene.Scripts
