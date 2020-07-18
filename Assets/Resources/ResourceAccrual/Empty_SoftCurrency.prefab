@@ -462,37 +462,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Stardust_01_Uncommon
       objectReference: {fileID: 0}
-    - target: {fileID: 4490675285356788, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4490675285356788, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4490675285356788, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981351839014008, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981351839014008, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4981351839014008, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4982377878661598, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4982377878661598, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.86
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 4982377878661598, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -529,70 +505,6 @@ PrefabInstance:
     - target: {fileID: 4982377878661598, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4982377878661598, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4982377878661598, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4982377878661598, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984692058866972, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984692058866972, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4984692058866972, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198141881243635012, guid: 43a90117ddda9264d844a435a3a95c8f,
-        type: 3}
-      propertyPath: scalingMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198262914247813460, guid: 43a90117ddda9264d844a435a3a95c8f,
-        type: 3}
-      propertyPath: scalingMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198680693074122186, guid: 43a90117ddda9264d844a435a3a95c8f,
-        type: 3}
-      propertyPath: scalingMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198748748847960660, guid: 43a90117ddda9264d844a435a3a95c8f,
-        type: 3}
-      propertyPath: scalingMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199028087787183484, guid: 43a90117ddda9264d844a435a3a95c8f,
-        type: 3}
-      propertyPath: m_MaxParticleSize
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 199245209523351272, guid: 43a90117ddda9264d844a435a3a95c8f,
-        type: 3}
-      propertyPath: m_MaxParticleSize
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 199872103896751268, guid: 43a90117ddda9264d844a435a3a95c8f,
-        type: 3}
-      propertyPath: m_MaxParticleSize
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 199886552505818382, guid: 43a90117ddda9264d844a435a3a95c8f,
-        type: 3}
-      propertyPath: m_MaxParticleSize
-      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43a90117ddda9264d844a435a3a95c8f, type: 3}

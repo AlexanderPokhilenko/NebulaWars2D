@@ -6,6 +6,7 @@ using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 
 namespace Code.Scenes.LootboxScene.ECS.Systems
 {
@@ -19,19 +20,22 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         private LootboxModel lootboxModel;
         private readonly LootboxContext lootboxContext;
         private readonly UiSoundsManager uiSoundsManager;
+        private readonly LootboxUiStorage lootboxUiStorage;
         private readonly LootboxSceneSwitcher lootboxLobbyLoaderController;
         private readonly LootboxOpeningController lootboxOpenEffectController;
         private readonly ILog log = LogManager.CreateLogger(typeof(ClickHandlerSystem));
         
         public ClickHandlerSystem(Contexts contexts, LootboxSceneSwitcher lootboxLobbyLoaderController,
-            LootboxOpeningController lootboxOpenEffectController, UiSoundsManager uiSoundsManager) 
+            LootboxOpeningController lootboxOpenEffectController, UiSoundsManager uiSoundsManager,
+            LootboxUiStorage lootboxUiStorage) 
             : base(contexts.lootbox)
         {
-            this.lootboxLobbyLoaderController = lootboxLobbyLoaderController;
-            this.lootboxOpenEffectController = lootboxOpenEffectController;
-            lootboxContext = contexts.lootbox;
             currentPrizeIndex = -1;
+            lootboxContext = contexts.lootbox;
             this.uiSoundsManager = uiSoundsManager;
+            this.lootboxUiStorage = lootboxUiStorage;
+            this.lootboxOpenEffectController = lootboxOpenEffectController;
+            this.lootboxLobbyLoaderController = lootboxLobbyLoaderController;
         }
 
         public void SetLootboxModel(LootboxModel lootboxDataArg)
@@ -75,7 +79,8 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         {
             if (!isLootboxOpened)
             {
-                lootboxOpenEffectController.StartLootboxOpening(LootboxAnimationEnded);
+                Transform parent = lootboxUiStorage.resourcesRoot.transform;
+                lootboxOpenEffectController.StartLootboxOpening(LootboxAnimationEnded, parent);
                 isLootboxOpened = true;
                 return;
             }
@@ -94,8 +99,13 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             
             uiSoundsManager.PlayAdding();
             LootboxPrizeModel lootboxPrizeModel = lootboxModel.Prizes[currentPrizeIndex];
-            LootboxEntity entity = lootboxContext.CreateEntity();
-            entity.AddShowPrize(lootboxPrizeModel);
+            LootboxEntity entity1 = lootboxContext.CreateEntity();
+            entity1.AddShowPrize(lootboxPrizeModel);
+
+            
+            LootboxEntity entity2 = lootboxContext.CreateEntity();
+            int itemsLeftCount = lootboxModel.Prizes.Count - currentPrizeIndex-1;
+            entity2.AddItemsLeft(itemsLeftCount);
         }
     }
 }

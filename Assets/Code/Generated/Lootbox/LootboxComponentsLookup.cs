@@ -9,17 +9,20 @@
 public static class LootboxComponentsLookup {
 
     public const int CanvasClick = 0;
-    public const int ShowPrize = 1;
+    public const int ItemsLeft = 1;
+    public const int ShowPrize = 2;
 
-    public const int TotalComponents = 2;
+    public const int TotalComponents = 3;
 
     public static readonly string[] componentNames = {
         "CanvasClick",
+        "ItemsLeft",
         "ShowPrize"
     };
 
     public static readonly System.Type[] componentTypes = {
         typeof(Code.Scenes.LootboxScene.ECS.CanvasClickComponent),
+        typeof(Code.Scenes.LootboxScene.ECS.ItemsLeftComponent),
         typeof(Code.Scenes.LootboxScene.ECS.ShowPrizeComponent)
     };
 }

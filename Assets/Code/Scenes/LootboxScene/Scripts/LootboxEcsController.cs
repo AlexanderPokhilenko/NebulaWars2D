@@ -36,11 +36,14 @@ namespace Code.Scenes.LootboxScene.Scripts
         {
             contexts = Contexts.sharedInstance;
             clickHandlerSystem = new ClickHandlerSystem(contexts, lobbyLoaderController, lootboxOpenEffectController,
-                UiSoundsManager.Instance());
+                UiSoundsManager.Instance(), lootboxUiStorage);
             systems = new Systems()
                 .Add(clickHandlerSystem)
                 .Add(new ShowPrizeSystem(contexts, lootboxUiStorage))
+                .Add(new ItemsLeftChangedSystem(contexts, lootboxUiStorage))
                 ;
+            
+            systems.Initialize();
         }
 
         private void Update()

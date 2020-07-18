@@ -33,7 +33,7 @@ namespace Code.Scenes.LootboxScene.Scripts
             openedBox.gameObject.SetActive(false);
         }
 
-        public void StartLootboxOpening(Action callback)
+        public void StartLootboxOpening(Action callback, Transform parent)
         {
             if (isOpened) 
             {
@@ -41,22 +41,22 @@ namespace Code.Scenes.LootboxScene.Scripts
                 return;
             }
         
-            StartCoroutine(OpenAnimation(callback));
+            StartCoroutine(OpenAnimation(callback, parent));
         }
     
-        private IEnumerator OpenAnimation(Action callback)
+        private IEnumerator OpenAnimation(Action callback, Transform parent)
         {
             isOpened = true;
             UiSoundsManager.Instance().PlayLootbox();
             yield return new WaitForSeconds(0.2f);
 
             closedBox.gameObject.SetActive(false);
-            Transform transform1 = openedBox.transform;
+            Transform transform1 = closedBox.transform;
             Vector3 position = transform1.position;
             Quaternion rotation = transform1.rotation;
             openedBox.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.1f);
-            Instantiate(effectPrefab, position, rotation);
+            Instantiate(effectPrefab, position, rotation, parent);
             float shakeDuration = 0.1f;
             CameraShake.MyCameraShake.ShakeCamera(0.3f, shakeDuration);
             yield return new WaitForSeconds(shakeDuration);

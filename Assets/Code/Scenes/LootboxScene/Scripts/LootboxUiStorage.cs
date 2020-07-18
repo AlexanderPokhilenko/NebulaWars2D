@@ -7,6 +7,8 @@ namespace Code.Scenes.LootboxScene.Scripts
     {
         public GameObject resourcesRoot;
         public GameObject softCurrencyPrefab;
+        public GameObject itemsLeftRoot;
+        public Text itemsLeftText;
         // public GameObject hardCurrencyPrefab;
         // public GameObject lootboxPointsPrefab;
         // public GameObject warshipPowerPointsPrefab;

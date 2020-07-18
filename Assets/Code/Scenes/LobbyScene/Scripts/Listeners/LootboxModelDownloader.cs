@@ -45,7 +45,27 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
                     {
                         LootboxPrizeType = LootboxPrizeType.SoftCurrency,
                         Quantity = 53
-                    }
+                    },
+                    new LootboxPrizeModel()
+                    {
+                        LootboxPrizeType = LootboxPrizeType.SoftCurrency,
+                        Quantity = 53
+                    },
+                    new LootboxPrizeModel()
+                    {
+                        LootboxPrizeType = LootboxPrizeType.SoftCurrency,
+                        Quantity = 53
+                    },
+                    new LootboxPrizeModel()
+                    {
+                        LootboxPrizeType = LootboxPrizeType.SoftCurrency,
+                        Quantity = 53
+                    },
+                    new LootboxPrizeModel()
+                    {
+                        LootboxPrizeType = LootboxPrizeType.SoftCurrency,
+                        Quantity = 53
+                    },
                 }
             };
             return lootboxModel;

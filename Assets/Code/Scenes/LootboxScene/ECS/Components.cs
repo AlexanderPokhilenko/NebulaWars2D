@@ -14,4 +14,10 @@ namespace Code.Scenes.LootboxScene.ECS
    {
       public LootboxPrizeModel LootboxPrizeModel;
    }
+
+   [Lootbox]
+   public class ItemsLeftComponent : IComponent
+   {
+      public int Value;
+   }
 }
