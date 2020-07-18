@@ -7,7 +7,7 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
     /// <summary>
     /// Меняет значение размытия в зависимости от нажатых кнопок "Старт" "Отмена"
     /// </summary>
-    public class BlurValueUpdatingSystem:IExecuteSystem, ITearDownSystem
+    public class BlurValueUpdatingSystem:IExecuteSystem, IInitializeSystem
     {
         private const float MaxBlurValue = 0.01f;
         private const float BlurValueIncrement = MaxBlurValue * 0.05f;
@@ -33,7 +33,7 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
             SetBlurValue();
         }
 
-        public void TearDown()
+        public void Initialize()
         {
             context.blurValue.blurValue = 0f;
             SetBlurValue();
