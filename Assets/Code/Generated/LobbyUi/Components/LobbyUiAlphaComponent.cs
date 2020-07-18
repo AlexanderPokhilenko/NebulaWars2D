@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    public AlphaComponent alpha { get { return (AlphaComponent)GetComponent(LobbyUiComponentsLookup.Alpha); } }
+    public Code.Scenes.LobbyScene.ECS.AlphaComponent alpha { get { return (Code.Scenes.LobbyScene.ECS.AlphaComponent)GetComponent(LobbyUiComponentsLookup.Alpha); } }
     public bool hasAlpha { get { return HasComponent(LobbyUiComponentsLookup.Alpha); } }
 
     public void AddAlpha(float newAlpha) {
         var index = LobbyUiComponentsLookup.Alpha;
-        var component = (AlphaComponent)CreateComponent(index, typeof(AlphaComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.AlphaComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.AlphaComponent));
         component.alpha = newAlpha;
         AddComponent(index, component);
     }
 
     public void ReplaceAlpha(float newAlpha) {
         var index = LobbyUiComponentsLookup.Alpha;
-        var component = (AlphaComponent)CreateComponent(index, typeof(AlphaComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.AlphaComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.AlphaComponent));
         component.alpha = newAlpha;
         ReplaceComponent(index, component);
     }

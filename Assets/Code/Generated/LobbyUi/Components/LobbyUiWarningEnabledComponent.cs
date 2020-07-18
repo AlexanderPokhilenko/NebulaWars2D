@@ -6,18 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity warningEnabledEntity { get { return GetGroup(LobbyUiMatcher.WarningEnabled).GetSingleEntity(); } }
-    public WarningEnabledComponent warningEnabled { get { return warningEnabledEntity.warningEnabled; } }
+    public Code.Scenes.LobbyScene.ECS.WarningEnabledComponent warningEnabled { get { return warningEnabledEntity.warningEnabled; } }
     public bool hasWarningEnabled { get { return warningEnabledEntity != null; } }
 
     public LobbyUiEntity SetWarningEnabled(string newMessage) {
         if (hasWarningEnabled) {
-            throw new Entitas.EntitasException("Could not set WarningEnabled!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.Components.WarningEnabledComponent!",
+            throw new Entitas.EntitasException("Could not set WarningEnabled!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.WarningEnabledComponent!",
                 "You should check if the context already has a warningEnabledEntity before setting it or use context.ReplaceWarningEnabled().");
         }
         var entity = CreateEntity();
@@ -49,19 +46,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public WarningEnabledComponent warningEnabled { get { return (WarningEnabledComponent)GetComponent(LobbyUiComponentsLookup.WarningEnabled); } }
+    public Code.Scenes.LobbyScene.ECS.WarningEnabledComponent warningEnabled { get { return (Code.Scenes.LobbyScene.ECS.WarningEnabledComponent)GetComponent(LobbyUiComponentsLookup.WarningEnabled); } }
     public bool hasWarningEnabled { get { return HasComponent(LobbyUiComponentsLookup.WarningEnabled); } }
 
     public void AddWarningEnabled(string newMessage) {
         var index = LobbyUiComponentsLookup.WarningEnabled;
-        var component = (WarningEnabledComponent)CreateComponent(index, typeof(WarningEnabledComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.WarningEnabledComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarningEnabledComponent));
         component.message = newMessage;
         AddComponent(index, component);
     }
 
     public void ReplaceWarningEnabled(string newMessage) {
         var index = LobbyUiComponentsLookup.WarningEnabled;
-        var component = (WarningEnabledComponent)CreateComponent(index, typeof(WarningEnabledComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.WarningEnabledComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarningEnabledComponent));
         component.message = newMessage;
         ReplaceComponent(index, component);
     }

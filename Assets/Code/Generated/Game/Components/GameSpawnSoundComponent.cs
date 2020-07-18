@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents;
-
 public partial class GameEntity {
 
-    public SpawnSoundComponent spawnSound { get { return (SpawnSoundComponent)GetComponent(GameComponentsLookup.SpawnSound); } }
+    public Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent spawnSound { get { return (Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent)GetComponent(GameComponentsLookup.SpawnSound); } }
     public bool hasSpawnSound { get { return HasComponent(GameComponentsLookup.SpawnSound); } }
 
     public void AddSpawnSound(UnityEngine.AudioClip newValue) {
         var index = GameComponentsLookup.SpawnSound;
-        var component = (SpawnSoundComponent)CreateComponent(index, typeof(SpawnSoundComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceSpawnSound(UnityEngine.AudioClip newValue) {
         var index = GameComponentsLookup.SpawnSound;
-        var component = (SpawnSoundComponent)CreateComponent(index, typeof(SpawnSoundComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

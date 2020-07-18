@@ -6,18 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity usernameEntity { get { return GetGroup(LobbyUiMatcher.Username).GetSingleEntity(); } }
-    public UsernameComponent username { get { return usernameEntity.username; } }
+    public Code.Scenes.LobbyScene.ECS.UsernameComponent username { get { return usernameEntity.username; } }
     public bool hasUsername { get { return usernameEntity != null; } }
 
     public LobbyUiEntity SetUsername(string newUsername) {
         if (hasUsername) {
-            throw new Entitas.EntitasException("Could not set Username!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.Components.UsernameComponent!",
+            throw new Entitas.EntitasException("Could not set Username!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.UsernameComponent!",
                 "You should check if the context already has a usernameEntity before setting it or use context.ReplaceUsername().");
         }
         var entity = CreateEntity();
@@ -49,19 +46,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public UsernameComponent username { get { return (UsernameComponent)GetComponent(LobbyUiComponentsLookup.Username); } }
+    public Code.Scenes.LobbyScene.ECS.UsernameComponent username { get { return (Code.Scenes.LobbyScene.ECS.UsernameComponent)GetComponent(LobbyUiComponentsLookup.Username); } }
     public bool hasUsername { get { return HasComponent(LobbyUiComponentsLookup.Username); } }
 
     public void AddUsername(string newUsername) {
         var index = LobbyUiComponentsLookup.Username;
-        var component = (UsernameComponent)CreateComponent(index, typeof(UsernameComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.UsernameComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.UsernameComponent));
         component.username = newUsername;
         AddComponent(index, component);
     }
 
     public void ReplaceUsername(string newUsername) {
         var index = LobbyUiComponentsLookup.Username;
-        var component = (UsernameComponent)CreateComponent(index, typeof(UsernameComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.UsernameComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.UsernameComponent));
         component.username = newUsername;
         ReplaceComponent(index, component);
     }

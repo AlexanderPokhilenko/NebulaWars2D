@@ -6,18 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity pointsForBigLootboxEntity { get { return GetGroup(LobbyUiMatcher.PointsForBigLootbox).GetSingleEntity(); } }
-    public PointsForBigLootboxComponent pointsForBigLootbox { get { return pointsForBigLootboxEntity.pointsForBigLootbox; } }
+    public Code.Scenes.LobbyScene.ECS.PointsForBigLootboxComponent pointsForBigLootbox { get { return pointsForBigLootboxEntity.pointsForBigLootbox; } }
     public bool hasPointsForBigLootbox { get { return pointsForBigLootboxEntity != null; } }
 
     public LobbyUiEntity SetPointsForBigLootbox(int newValue) {
         if (hasPointsForBigLootbox) {
-            throw new Entitas.EntitasException("Could not set PointsForBigLootbox!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.Components.PointsForBigLootboxComponent!",
+            throw new Entitas.EntitasException("Could not set PointsForBigLootbox!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.PointsForBigLootboxComponent!",
                 "You should check if the context already has a pointsForBigLootboxEntity before setting it or use context.ReplacePointsForBigLootbox().");
         }
         var entity = CreateEntity();
@@ -49,19 +46,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public PointsForBigLootboxComponent pointsForBigLootbox { get { return (PointsForBigLootboxComponent)GetComponent(LobbyUiComponentsLookup.PointsForBigLootbox); } }
+    public Code.Scenes.LobbyScene.ECS.PointsForBigLootboxComponent pointsForBigLootbox { get { return (Code.Scenes.LobbyScene.ECS.PointsForBigLootboxComponent)GetComponent(LobbyUiComponentsLookup.PointsForBigLootbox); } }
     public bool hasPointsForBigLootbox { get { return HasComponent(LobbyUiComponentsLookup.PointsForBigLootbox); } }
 
     public void AddPointsForBigLootbox(int newValue) {
         var index = LobbyUiComponentsLookup.PointsForBigLootbox;
-        var component = (PointsForBigLootboxComponent)CreateComponent(index, typeof(PointsForBigLootboxComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.PointsForBigLootboxComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.PointsForBigLootboxComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplacePointsForBigLootbox(int newValue) {
         var index = LobbyUiComponentsLookup.PointsForBigLootbox;
-        var component = (PointsForBigLootboxComponent)CreateComponent(index, typeof(PointsForBigLootboxComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.PointsForBigLootboxComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.PointsForBigLootboxComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

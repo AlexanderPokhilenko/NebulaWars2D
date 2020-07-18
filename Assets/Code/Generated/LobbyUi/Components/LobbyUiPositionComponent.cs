@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    public PositionComponent position { get { return (PositionComponent)GetComponent(LobbyUiComponentsLookup.Position); } }
+    public Code.Scenes.LobbyScene.ECS.PositionComponent position { get { return (Code.Scenes.LobbyScene.ECS.PositionComponent)GetComponent(LobbyUiComponentsLookup.Position); } }
     public bool hasPosition { get { return HasComponent(LobbyUiComponentsLookup.Position); } }
 
     public void AddPosition(UnityEngine.Vector3 newValue) {
         var index = LobbyUiComponentsLookup.Position;
-        var component = (PositionComponent)CreateComponent(index, typeof(PositionComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.PositionComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.PositionComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplacePosition(UnityEngine.Vector3 newValue) {
         var index = LobbyUiComponentsLookup.Position;
-        var component = (PositionComponent)CreateComponent(index, typeof(PositionComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.PositionComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.PositionComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

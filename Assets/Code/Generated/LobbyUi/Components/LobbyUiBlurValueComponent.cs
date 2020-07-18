@@ -6,18 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity blurValueEntity { get { return GetGroup(LobbyUiMatcher.BlurValue).GetSingleEntity(); } }
-    public BlurValueComponent blurValue { get { return blurValueEntity.blurValue; } }
+    public Code.Scenes.LobbyScene.ECS.BlurValueComponent blurValue { get { return blurValueEntity.blurValue; } }
     public bool hasBlurValue { get { return blurValueEntity != null; } }
 
-    public LobbyUiEntity SetBlurValue(int newBlurValue) {
+    public LobbyUiEntity SetBlurValue(float newBlurValue) {
         if (hasBlurValue) {
-            throw new Entitas.EntitasException("Could not set BlurValue!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.Components.BlurValueComponent!",
+            throw new Entitas.EntitasException("Could not set BlurValue!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.BlurValueComponent!",
                 "You should check if the context already has a blurValueEntity before setting it or use context.ReplaceBlurValue().");
         }
         var entity = CreateEntity();
@@ -25,7 +22,7 @@ public partial class LobbyUiContext {
         return entity;
     }
 
-    public void ReplaceBlurValue(int newBlurValue) {
+    public void ReplaceBlurValue(float newBlurValue) {
         var entity = blurValueEntity;
         if (entity == null) {
             entity = SetBlurValue(newBlurValue);
@@ -49,19 +46,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public BlurValueComponent blurValue { get { return (BlurValueComponent)GetComponent(LobbyUiComponentsLookup.BlurValue); } }
+    public Code.Scenes.LobbyScene.ECS.BlurValueComponent blurValue { get { return (Code.Scenes.LobbyScene.ECS.BlurValueComponent)GetComponent(LobbyUiComponentsLookup.BlurValue); } }
     public bool hasBlurValue { get { return HasComponent(LobbyUiComponentsLookup.BlurValue); } }
 
-    public void AddBlurValue(int newBlurValue) {
+    public void AddBlurValue(float newBlurValue) {
         var index = LobbyUiComponentsLookup.BlurValue;
-        var component = (BlurValueComponent)CreateComponent(index, typeof(BlurValueComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.BlurValueComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.BlurValueComponent));
         component.blurValue = newBlurValue;
         AddComponent(index, component);
     }
 
-    public void ReplaceBlurValue(int newBlurValue) {
+    public void ReplaceBlurValue(float newBlurValue) {
         var index = LobbyUiComponentsLookup.BlurValue;
-        var component = (BlurValueComponent)CreateComponent(index, typeof(BlurValueComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.BlurValueComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.BlurValueComponent));
         component.blurValue = newBlurValue;
         ReplaceComponent(index, component);
     }

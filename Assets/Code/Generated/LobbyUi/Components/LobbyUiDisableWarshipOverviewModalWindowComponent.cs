@@ -6,12 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    static readonly DisableWarshipOverviewModalWindowComponent disableWarshipOverviewModalWindowComponent = new DisableWarshipOverviewModalWindowComponent();
+    static readonly Code.Scenes.LobbyScene.ECS.DisableWarshipOverviewModalWindowComponent disableWarshipOverviewModalWindowComponent = new Code.Scenes.LobbyScene.ECS.DisableWarshipOverviewModalWindowComponent();
 
     public bool messageDisableWarshipOverviewModalWindow {
         get { return HasComponent(LobbyUiComponentsLookup.DisableWarshipOverviewModalWindow); }

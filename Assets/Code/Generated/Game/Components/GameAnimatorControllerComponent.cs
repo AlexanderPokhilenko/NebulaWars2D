@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents;
-
 public partial class GameEntity {
 
-    public AnimatorControllerComponent animatorController { get { return (AnimatorControllerComponent)GetComponent(GameComponentsLookup.AnimatorController); } }
+    public Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent animatorController { get { return (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent)GetComponent(GameComponentsLookup.AnimatorController); } }
     public bool hasAnimatorController { get { return HasComponent(GameComponentsLookup.AnimatorController); } }
 
     public void AddAnimatorController(UnityEngine.RuntimeAnimatorController newValue) {
         var index = GameComponentsLookup.AnimatorController;
-        var component = (AnimatorControllerComponent)CreateComponent(index, typeof(AnimatorControllerComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceAnimatorController(UnityEngine.RuntimeAnimatorController newValue) {
         var index = GameComponentsLookup.AnimatorController;
-        var component = (AnimatorControllerComponent)CreateComponent(index, typeof(AnimatorControllerComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

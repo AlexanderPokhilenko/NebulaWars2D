@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class GameEntity {
 
-    public PositionComponent position { get { return (PositionComponent)GetComponent(GameComponentsLookup.Position); } }
+    public Code.Scenes.LobbyScene.ECS.PositionComponent position { get { return (Code.Scenes.LobbyScene.ECS.PositionComponent)GetComponent(GameComponentsLookup.Position); } }
     public bool hasPosition { get { return HasComponent(GameComponentsLookup.Position); } }
 
     public void AddPosition(UnityEngine.Vector3 newValue) {
         var index = GameComponentsLookup.Position;
-        var component = (PositionComponent)CreateComponent(index, typeof(PositionComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.PositionComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.PositionComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplacePosition(UnityEngine.Vector3 newValue) {
         var index = GameComponentsLookup.Position;
-        var component = (PositionComponent)CreateComponent(index, typeof(PositionComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.PositionComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.PositionComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

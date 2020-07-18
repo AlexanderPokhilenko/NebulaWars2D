@@ -6,9 +6,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity blockWarshipsShiftToTheLeftEntity { get { return GetGroup(LobbyUiMatcher.BlockWarshipsShiftToTheLeft).GetSingleEntity(); } }
@@ -38,7 +35,7 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    static readonly BlockWarshipsShiftToTheLeft blockWarshipsShiftToTheLeftComponent = new BlockWarshipsShiftToTheLeft();
+    static readonly Code.Scenes.LobbyScene.ECS.BlockWarshipsShiftToTheLeft blockWarshipsShiftToTheLeftComponent = new Code.Scenes.LobbyScene.ECS.BlockWarshipsShiftToTheLeft();
 
     public bool isBlockWarshipsShiftToTheLeft {
         get { return HasComponent(LobbyUiComponentsLookup.BlockWarshipsShiftToTheLeft); }

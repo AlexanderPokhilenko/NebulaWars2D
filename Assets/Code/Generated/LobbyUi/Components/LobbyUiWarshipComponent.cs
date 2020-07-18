@@ -6,17 +6,14 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    public WarshipComponent warship { get { return (WarshipComponent)GetComponent(LobbyUiComponentsLookup.Warship); } }
+    public Code.Scenes.LobbyScene.ECS.WarshipComponent warship { get { return (Code.Scenes.LobbyScene.ECS.WarshipComponent)GetComponent(LobbyUiComponentsLookup.Warship); } }
     public bool hasWarship { get { return HasComponent(LobbyUiComponentsLookup.Warship); } }
 
     public void AddWarship(ushort newIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.Warship;
-        var component = (WarshipComponent)CreateComponent(index, typeof(WarshipComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.WarshipComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarshipComponent));
         component.index = newIndex;
         component.warshipDto = newWarshipDto;
         AddComponent(index, component);
@@ -24,7 +21,7 @@ public partial class LobbyUiEntity {
 
     public void ReplaceWarship(ushort newIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.Warship;
-        var component = (WarshipComponent)CreateComponent(index, typeof(WarshipComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.WarshipComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarshipComponent));
         component.index = newIndex;
         component.warshipDto = newWarshipDto;
         ReplaceComponent(index, component);

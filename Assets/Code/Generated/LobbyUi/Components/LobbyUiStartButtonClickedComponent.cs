@@ -6,9 +6,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity startButtonClickedEntity { get { return GetGroup(LobbyUiMatcher.StartButtonClicked).GetSingleEntity(); } }
@@ -38,7 +35,7 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    static readonly StartButtonClickedComponent startButtonClickedComponent = new StartButtonClickedComponent();
+    static readonly Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent startButtonClickedComponent = new Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent();
 
     public bool isStartButtonClicked {
         get { return HasComponent(LobbyUiComponentsLookup.StartButtonClicked); }

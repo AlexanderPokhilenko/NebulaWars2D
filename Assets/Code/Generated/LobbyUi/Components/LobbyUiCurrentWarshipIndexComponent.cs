@@ -6,18 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity currentWarshipIndexEntity { get { return GetGroup(LobbyUiMatcher.CurrentWarshipIndex).GetSingleEntity(); } }
-    public CurrentWarshipIndexComponent currentWarshipIndex { get { return currentWarshipIndexEntity.currentWarshipIndex; } }
+    public Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent currentWarshipIndex { get { return currentWarshipIndexEntity.currentWarshipIndex; } }
     public bool hasCurrentWarshipIndex { get { return currentWarshipIndexEntity != null; } }
 
     public LobbyUiEntity SetCurrentWarshipIndex(int newValue) {
         if (hasCurrentWarshipIndex) {
-            throw new Entitas.EntitasException("Could not set CurrentWarshipIndex!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.Components.CurrentWarshipIndexComponent!",
+            throw new Entitas.EntitasException("Could not set CurrentWarshipIndex!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent!",
                 "You should check if the context already has a currentWarshipIndexEntity before setting it or use context.ReplaceCurrentWarshipIndex().");
         }
         var entity = CreateEntity();
@@ -49,19 +46,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public CurrentWarshipIndexComponent currentWarshipIndex { get { return (CurrentWarshipIndexComponent)GetComponent(LobbyUiComponentsLookup.CurrentWarshipIndex); } }
+    public Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent currentWarshipIndex { get { return (Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent)GetComponent(LobbyUiComponentsLookup.CurrentWarshipIndex); } }
     public bool hasCurrentWarshipIndex { get { return HasComponent(LobbyUiComponentsLookup.CurrentWarshipIndex); } }
 
     public void AddCurrentWarshipIndex(int newValue) {
         var index = LobbyUiComponentsLookup.CurrentWarshipIndex;
-        var component = (CurrentWarshipIndexComponent)CreateComponent(index, typeof(CurrentWarshipIndexComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceCurrentWarshipIndex(int newValue) {
         var index = LobbyUiComponentsLookup.CurrentWarshipIndex;
-        var component = (CurrentWarshipIndexComponent)CreateComponent(index, typeof(CurrentWarshipIndexComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

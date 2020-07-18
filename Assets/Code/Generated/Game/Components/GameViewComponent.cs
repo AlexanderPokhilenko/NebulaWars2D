@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents;
-
 public partial class GameEntity {
 
-    public ViewComponent view { get { return (ViewComponent)GetComponent(GameComponentsLookup.View); } }
+    public Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewComponent view { get { return (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewComponent)GetComponent(GameComponentsLookup.View); } }
     public bool hasView { get { return HasComponent(GameComponentsLookup.View); } }
 
     public void AddView(UnityEngine.GameObject newGameObject) {
         var index = GameComponentsLookup.View;
-        var component = (ViewComponent)CreateComponent(index, typeof(ViewComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewComponent));
         component.gameObject = newGameObject;
         AddComponent(index, component);
     }
 
     public void ReplaceView(UnityEngine.GameObject newGameObject) {
         var index = GameComponentsLookup.View;
-        var component = (ViewComponent)CreateComponent(index, typeof(ViewComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewComponent));
         component.gameObject = newGameObject;
         ReplaceComponent(index, component);
     }

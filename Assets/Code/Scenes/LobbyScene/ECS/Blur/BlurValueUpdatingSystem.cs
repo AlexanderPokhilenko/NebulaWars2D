@@ -7,13 +7,17 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
     /// <summary>
     /// Меняет значение размытия в зависимости от нажатых кнопок "Старт" "Отмена"
     /// </summary>
-    public class BlurValueUpdatingSystem:IExecuteSystem
+    public class BlurValueUpdatingSystem:IExecuteSystem, ITearDownSystem
     {
-        private const byte MaxBlurValue = 10;
+        private const float MaxBlurValue = 0.01f;
+        private const float BlurValueIncrement = MaxBlurValue * 0.05f;
+        private const float BlurValueDecrement = BlurValueIncrement * 3;
+        private const float BlurToAlphaCoefficient = 1f / MaxBlurValue;
         private readonly Material blurMaterial;
         private readonly LobbyUiContext context;
-        private static readonly int Size = Shader.PropertyToID("_Size");
-        
+        private static readonly int BlurValueId = Shader.PropertyToID("_BlurValue");
+        private static readonly int AlphaId = Shader.PropertyToID("_Alpha");
+
         public BlurValueUpdatingSystem(LobbyUiContext context, Material blurMaterial)
         {
             this.context = context;
@@ -29,13 +33,19 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
             SetBlurValue();
         }
 
+        public void TearDown()
+        {
+            context.blurValue.blurValue = 0f;
+            SetBlurValue();
+        }
+
         private void UpdateBlurValue()
         {
             if (context.isStartButtonClicked)
             {
                 if (context.blurValue.blurValue < MaxBlurValue)
                 {
-                    context.blurValue.blurValue++;
+                    context.blurValue.blurValue += BlurValueIncrement;
                 }
                 else
                 {
@@ -46,7 +56,7 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
             {
                 if (context.blurValue.blurValue > 0)
                 {
-                    context.blurValue.blurValue-=3;
+                    context.blurValue.blurValue -= BlurValueDecrement;
                     if (context.blurValue.blurValue < 0)
                     {
                         context.blurValue.blurValue = 0;
@@ -61,7 +71,8 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
         
         private void SetBlurValue()
         {
-            blurMaterial.SetFloat(Size, context.blurValue.blurValue);
+            blurMaterial.SetFloat(BlurValueId, context.blurValue.blurValue);
+            blurMaterial.SetFloat(AlphaId, context.blurValue.blurValue * BlurToAlphaCoefficient);
         }
     }
 }

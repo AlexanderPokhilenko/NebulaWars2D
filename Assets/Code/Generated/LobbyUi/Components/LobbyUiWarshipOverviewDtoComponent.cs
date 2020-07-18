@@ -6,18 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity warshipOverviewDtoEntity { get { return GetGroup(LobbyUiMatcher.WarshipOverviewDto).GetSingleEntity(); } }
-    public WarshipOverviewDto warshipOverviewDto { get { return warshipOverviewDtoEntity.warshipOverviewDto; } }
+    public Code.Scenes.LobbyScene.ECS.WarshipOverviewDto warshipOverviewDto { get { return warshipOverviewDtoEntity.warshipOverviewDto; } }
     public bool hasWarshipOverviewDto { get { return warshipOverviewDtoEntity != null; } }
 
     public LobbyUiEntity SetWarshipOverviewDto(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         if (hasWarshipOverviewDto) {
-            throw new Entitas.EntitasException("Could not set WarshipOverviewDto!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.Components.WarshipOverviewDto!",
+            throw new Entitas.EntitasException("Could not set WarshipOverviewDto!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.WarshipOverviewDto!",
                 "You should check if the context already has a warshipOverviewDtoEntity before setting it or use context.ReplaceWarshipOverviewDto().");
         }
         var entity = CreateEntity();
@@ -49,19 +46,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public WarshipOverviewDto warshipOverviewDto { get { return (WarshipOverviewDto)GetComponent(LobbyUiComponentsLookup.WarshipOverviewDto); } }
+    public Code.Scenes.LobbyScene.ECS.WarshipOverviewDto warshipOverviewDto { get { return (Code.Scenes.LobbyScene.ECS.WarshipOverviewDto)GetComponent(LobbyUiComponentsLookup.WarshipOverviewDto); } }
     public bool hasWarshipOverviewDto { get { return HasComponent(LobbyUiComponentsLookup.WarshipOverviewDto); } }
 
     public void AddWarshipOverviewDto(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.WarshipOverviewDto;
-        var component = (WarshipOverviewDto)CreateComponent(index, typeof(WarshipOverviewDto));
+        var component = (Code.Scenes.LobbyScene.ECS.WarshipOverviewDto)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewDto));
         component.WarshipDto = newWarshipDto;
         AddComponent(index, component);
     }
 
     public void ReplaceWarshipOverviewDto(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.WarshipOverviewDto;
-        var component = (WarshipOverviewDto)CreateComponent(index, typeof(WarshipOverviewDto));
+        var component = (Code.Scenes.LobbyScene.ECS.WarshipOverviewDto)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewDto));
         component.WarshipDto = newWarshipDto;
         ReplaceComponent(index, component);
     }

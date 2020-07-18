@@ -6,9 +6,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game;
-
 public partial class Contexts : Entitas.IContexts {
 
     public static Contexts sharedInstance {
@@ -83,7 +80,7 @@ public partial class Contexts {
         game.AddEntityIndex(new Entitas.EntityIndex<GameEntity, ushort>(
             Parent,
             game.GetGroup(GameMatcher.Parent),
-            (e, c) => ((ParentComponent)c).id));
+            (e, c) => ((Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent)c).id));
 
         game.AddEntityIndex(new Entitas.PrimaryEntityIndex<GameEntity, int>(
             Player,

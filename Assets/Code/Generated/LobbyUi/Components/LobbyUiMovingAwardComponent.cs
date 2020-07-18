@@ -6,17 +6,14 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    public MovingAwardComponent movingAward { get { return (MovingAwardComponent)GetComponent(LobbyUiComponentsLookup.MovingAward); } }
+    public Code.Scenes.LobbyScene.ECS.MovingAwardComponent movingAward { get { return (Code.Scenes.LobbyScene.ECS.MovingAwardComponent)GetComponent(LobbyUiComponentsLookup.MovingAward); } }
     public bool hasMovingAward { get { return HasComponent(LobbyUiComponentsLookup.MovingAward); } }
 
-    public void AddMovingAward(int newIncrement, AwardType newAwardType, int newCurrentTargetIndex, System.Collections.Generic.List<ControlPoint> newControlPoints) {
+    public void AddMovingAward(int newIncrement, Code.Scenes.LobbyScene.ECS.AwardType newAwardType, int newCurrentTargetIndex, System.Collections.Generic.List<Code.Scenes.LobbyScene.ECS.ControlPoint> newControlPoints) {
         var index = LobbyUiComponentsLookup.MovingAward;
-        var component = (MovingAwardComponent)CreateComponent(index, typeof(MovingAwardComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.MovingAwardComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.MovingAwardComponent));
         component.Increment = newIncrement;
         component.awardType = newAwardType;
         component.currentTargetIndex = newCurrentTargetIndex;
@@ -24,9 +21,9 @@ public partial class LobbyUiEntity {
         AddComponent(index, component);
     }
 
-    public void ReplaceMovingAward(int newIncrement, AwardType newAwardType, int newCurrentTargetIndex, System.Collections.Generic.List<ControlPoint> newControlPoints) {
+    public void ReplaceMovingAward(int newIncrement, Code.Scenes.LobbyScene.ECS.AwardType newAwardType, int newCurrentTargetIndex, System.Collections.Generic.List<Code.Scenes.LobbyScene.ECS.ControlPoint> newControlPoints) {
         var index = LobbyUiComponentsLookup.MovingAward;
-        var component = (MovingAwardComponent)CreateComponent(index, typeof(MovingAwardComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.MovingAwardComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.MovingAwardComponent));
         component.Increment = newIncrement;
         component.awardType = newAwardType;
         component.currentTargetIndex = newCurrentTargetIndex;
