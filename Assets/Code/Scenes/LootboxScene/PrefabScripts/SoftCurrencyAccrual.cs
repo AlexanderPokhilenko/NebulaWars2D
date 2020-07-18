@@ -21,7 +21,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts
     
         private void Awake()
         {
-            headerGo = transform.Find("Canvas/Text_CoinsHeader").gameObject;
+            headerGo = transform.Find("Canvas/Text_Header").gameObject;
             imageGo = transform.Find("Canvas/Image").gameObject;
             amountGo = transform.Find("Canvas/Text_Amount").gameObject;
             foreach (Transform child in transform)

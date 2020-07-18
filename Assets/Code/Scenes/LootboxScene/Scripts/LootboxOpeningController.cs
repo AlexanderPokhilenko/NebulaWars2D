@@ -58,7 +58,7 @@ namespace Code.Scenes.LootboxScene.Scripts
             yield return new WaitForSeconds(0.1f);
             Instantiate(effectPrefab, position, rotation, parent);
             float shakeDuration = 0.1f;
-            CameraShake.MyCameraShake.ShakeCamera(0.3f, shakeDuration);
+            CameraShake.myCameraShake.ShakeCamera(0.3f, shakeDuration);
             yield return new WaitForSeconds(shakeDuration);
             //Время задержки перед заменой лутбокса на ресурс
             yield return new WaitForSeconds(1);

@@ -2,38 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraShake : MonoBehaviour 
-{
+public class CameraShake : MonoBehaviour {
+
 	public float shakeTimer;
 	public float shakeAmount;
+	public static CameraShake myCameraShake;
 	private Vector3 startPos;
-	public static CameraShake MyCameraShake;
 
-	private void Awake () 
-	{
-		MyCameraShake = this;
+	void Awake () {
+		myCameraShake = this;
 		startPos = transform.position;
 	}
 
-	private void Update () 
-	{
-		if (shakeTimer >= 0) 
-		{
+	void Update () {
+		if (shakeTimer >= 0) {
 			Vector2 shakePos = Random.insideUnitCircle * shakeAmount;
-			Transform transform1 = transform;
-			Vector3 position = transform1.position; 
-			position = new Vector3 (position.x + (shakePos.x * 0.3f), position.y + shakePos.y, position.z);
-			transform1.position = position;
+			transform.position = new Vector3 (transform.position.x + (shakePos.x * 0.3f),
+				transform.position.y + shakePos.y,
+				transform.position.z);
 			shakeTimer -= Time.deltaTime;
-		}
-		else 
-		{
+		} else {
 			transform.position = startPos;
 		}
+
 	}
 
-	public void ShakeCamera (float shakePwr, float shakeDur) 
-	{
+	public void ShakeCamera (float shakePwr, float shakeDur) {
 		shakeAmount = shakePwr;
 		shakeTimer = shakeDur;
 	}
