@@ -40,5 +40,7 @@ public enum ViewTypeId:byte
     Raven,
     VoidBeam,
     SagePlayer,
-    BlasterShoot
+    BlasterShoot,
+    IncineratorBeam,
+    AbyssBeam
 }
