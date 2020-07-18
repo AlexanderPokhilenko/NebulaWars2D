@@ -1,21 +1,26 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Code.Common;
+using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
+using NetworkLibrary.NetworkLibrary.Http;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Code.Scenes.LootboxScene.ECS.Systems
 {
     /// <summary>
-    /// Показывает новый приз.
+    /// Показывает новый ресурс.
     /// </summary>
     public class ShowPrizeSystem:ReactiveSystem<LootboxEntity>
     {
-        private readonly Text text;
+        private readonly LootboxUiStorage uiStorage;
         
-        public ShowPrizeSystem(Contexts contexts, Text text) 
+        public ShowPrizeSystem(Contexts contexts, LootboxUiStorage uiStorage) 
             : base(contexts.lootbox)
         {
-            this.text = text;
+            this.uiStorage = uiStorage;
         }
         
         protected override ICollector<LootboxEntity> GetTrigger(IContext<LootboxEntity> context)
@@ -31,21 +36,31 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         protected override void Execute(List<LootboxEntity> entities)
         {
             //убрать предыдущий приз
-            ClearCanvas();
+            ClearResources();
             //начать показывать текущий приз
-            var currentPrize = entities.Last();
+            LootboxEntity currentPrize = entities.Last();
             ShowPrize(currentPrize);
         }
 
-        private void ClearCanvas()
+        private void ClearResources()
         {
-            text.text = string.Empty;
+            uiStorage.resourcesRoot.transform.DestroyAllChildren();
         }
 
         private void ShowPrize(LootboxEntity currentPrize)
         {
-            var prize = currentPrize.showPrize;
-            text.text = prize.LootboxPrizeType + " "+prize.amount;
+            ShowPrizeComponent prize = currentPrize.showPrize;
+            Transform parent = uiStorage.resourcesRoot.transform;
+            switch (prize.LootboxPrizeModel.LootboxPrizeType)
+            {
+                case LootboxPrizeType.SoftCurrency:
+                    var go = UnityEngine.Object.Instantiate(uiStorage.softCurrencyPrefab, parent);
+                    var script = go.GetComponent<SoftCurrencyAccrual>();
+                    script.SetData(prize.LootboxPrizeModel.Quantity);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

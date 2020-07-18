@@ -17,16 +17,16 @@ public partial class LootboxEntity {
     public void AddShowPrize(int newAmount, NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType newLootboxPrizeType) {
         var index = LootboxComponentsLookup.ShowPrize;
         var component = (ShowPrizeComponent)CreateComponent(index, typeof(ShowPrizeComponent));
-        component.amount = newAmount;
-        component.LootboxPrizeType = newLootboxPrizeType;
+        // component.amount = newAmount;
+        // component.LootboxPrizeType = newLootboxPrizeType;
         AddComponent(index, component);
     }
 
     public void ReplaceShowPrize(int newAmount, NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType newLootboxPrizeType) {
         var index = LootboxComponentsLookup.ShowPrize;
         var component = (ShowPrizeComponent)CreateComponent(index, typeof(ShowPrizeComponent));
-        component.amount = newAmount;
-        component.LootboxPrizeType = newLootboxPrizeType;
+        // component.amount = newAmount;
+        // component.LootboxPrizeType = newLootboxPrizeType;
         ReplaceComponent(index, component);
     }
 

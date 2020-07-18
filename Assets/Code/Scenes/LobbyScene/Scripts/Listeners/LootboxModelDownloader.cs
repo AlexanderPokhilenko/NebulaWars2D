@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
@@ -23,6 +24,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
 
         public bool IsDownloadingCompleted()
         {
+            return true;
             if (task == null)
             {
                 log.Debug("task is null");
@@ -35,7 +37,19 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
         [CanBeNull]
         public LootboxModel GetLootboxModel()
         {
-            return task.Result;
+            var lootboxModel = new LootboxModel()
+            {
+                Prizes = new List<LootboxPrizeModel>()
+                {
+                    new LootboxPrizeModel()
+                    {
+                        LootboxPrizeType = LootboxPrizeType.SoftCurrency,
+                        Quantity = 53
+                    }
+                }
+            };
+            return lootboxModel;
+            // return task.Result;
         }
         
         private async Task<LootboxModel> DownloadLootboxData()

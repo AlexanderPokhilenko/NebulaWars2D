@@ -10,9 +10,7 @@ namespace Code.Scenes.LootboxScene.ECS
 
    [Lootbox]
    public class ShowPrizeComponent:IComponent
-
    {
-   public int amount;
-   public LootboxPrizeType LootboxPrizeType;
+      public LootboxPrizeModel LootboxPrizeModel;
    }
 }

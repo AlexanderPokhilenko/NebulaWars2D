@@ -1,0 +1,61 @@
+using System;
+using System.Collections;
+using Code.Common.Logger;
+using UnityEngine;
+
+namespace EpicLootBoxEffects.Scripts
+{
+    public class LootboxOpeningController : MonoBehaviour 
+    {
+        private bool isOpened;
+        private Transform closedBox;
+        private Transform openedBox;
+        [SerializeField] private GameObject effectPrefab;
+        private readonly ILog log = LogManager.CreateLogger(typeof(LootboxOpeningController));
+
+        private void Awake()
+        {
+            //todo тут ругается
+            closedBox = transform.Find("Sprite_ClosedLootbox");
+            openedBox = transform.Find("Sprite_OpenedLootbox");
+
+            if (effectPrefab == null)
+            {
+                throw new NotImplementedException(nameof(effectPrefab));
+            }
+        }
+
+        private void Start()
+        {
+            isOpened = false;
+            closedBox.gameObject.SetActive(true);
+            openedBox.gameObject.SetActive(false);
+        }
+
+        public void OpenLootbox()
+        {
+            if (isOpened) 
+            {
+                log.Fatal("Лутбокс уже открыт.");
+                return;
+            }
+        
+            StartCoroutine(OpenAnimation());
+        }
+    
+        private IEnumerator OpenAnimation()
+        {
+            isOpened = true;
+            yield return new WaitForSeconds(0.2f);
+
+            closedBox.gameObject.SetActive(false);
+            Transform transform1 = openedBox.transform;
+            Vector3 position = transform1.position;
+            Quaternion rotation = transform1.rotation;
+            openedBox.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            Instantiate(effectPrefab, position, rotation);
+            CameraShake.myCameraShake.ShakeCamera(0.3f, 0.1f);
+        }
+    }
+}

@@ -5,6 +5,11 @@ namespace Code.Scenes.LootboxScene.Scripts
 {
     public class LootboxUiStorage : MonoBehaviour
     {
-        public Text text;
+        public GameObject resourcesRoot;
+        public GameObject softCurrencyPrefab;
+        // public GameObject hardCurrencyPrefab;
+        // public GameObject lootboxPointsPrefab;
+        // public GameObject warshipPowerPointsPrefab;
+        // public GameObject warshipPrefab;
     }
 }
