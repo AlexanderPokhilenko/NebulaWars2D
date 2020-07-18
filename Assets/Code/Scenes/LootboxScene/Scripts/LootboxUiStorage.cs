@@ -15,6 +15,7 @@ namespace Code.Scenes.LootboxScene.Scripts
         [Header("Префабы для анимаций начисления ресурсов")]
         public GameObject softCurrencyPrefab;
         public GameObject hardCurrencyPrefab;
+        public GameObject warshipPowerPointsPrefab;
         // public GameObject lootboxPointsPrefab;
         // public GameObject warshipPowerPointsPrefab;
         // public GameObject warshipPrefab;
