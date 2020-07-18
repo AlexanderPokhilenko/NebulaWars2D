@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents;
-
 public partial class GameEntity {
 
-    public DeathSoundComponent deathSound { get { return (DeathSoundComponent)GetComponent(GameComponentsLookup.DeathSound); } }
+    public Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.DeathSoundComponent deathSound { get { return (Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.DeathSoundComponent)GetComponent(GameComponentsLookup.DeathSound); } }
     public bool hasDeathSound { get { return HasComponent(GameComponentsLookup.DeathSound); } }
 
     public void AddDeathSound(UnityEngine.AudioClip newValue) {
         var index = GameComponentsLookup.DeathSound;
-        var component = (DeathSoundComponent)CreateComponent(index, typeof(DeathSoundComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.DeathSoundComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.DeathSoundComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceDeathSound(UnityEngine.AudioClip newValue) {
         var index = GameComponentsLookup.DeathSound;
-        var component = (DeathSoundComponent)CreateComponent(index, typeof(DeathSoundComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.DeathSoundComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.DeathSoundComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

@@ -10,7 +10,7 @@ public enum ViewTypeId:byte
     FlameCircle,
     FireAura,
     Shield,
-    SmallNebula,
+    BigPlasmaBall,
     FireAuraBonus,
     ShieldBonus,
     DefaultPlasma,

@@ -6,18 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity softCurrencyEntity { get { return GetGroup(LobbyUiMatcher.SoftCurrency).GetSingleEntity(); } }
-    public SoftCurrencyComponent softCurrency { get { return softCurrencyEntity.softCurrency; } }
+    public Code.Scenes.LobbyScene.ECS.SoftCurrencyComponent softCurrency { get { return softCurrencyEntity.softCurrency; } }
     public bool hasSoftCurrency { get { return softCurrencyEntity != null; } }
 
     public LobbyUiEntity SetSoftCurrency(int newValue) {
         if (hasSoftCurrency) {
-            throw new Entitas.EntitasException("Could not set SoftCurrency!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.Components.SoftCurrencyComponent!",
+            throw new Entitas.EntitasException("Could not set SoftCurrency!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.SoftCurrencyComponent!",
                 "You should check if the context already has a softCurrencyEntity before setting it or use context.ReplaceSoftCurrency().");
         }
         var entity = CreateEntity();
@@ -49,19 +46,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public SoftCurrencyComponent softCurrency { get { return (SoftCurrencyComponent)GetComponent(LobbyUiComponentsLookup.SoftCurrency); } }
+    public Code.Scenes.LobbyScene.ECS.SoftCurrencyComponent softCurrency { get { return (Code.Scenes.LobbyScene.ECS.SoftCurrencyComponent)GetComponent(LobbyUiComponentsLookup.SoftCurrency); } }
     public bool hasSoftCurrency { get { return HasComponent(LobbyUiComponentsLookup.SoftCurrency); } }
 
     public void AddSoftCurrency(int newValue) {
         var index = LobbyUiComponentsLookup.SoftCurrency;
-        var component = (SoftCurrencyComponent)CreateComponent(index, typeof(SoftCurrencyComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.SoftCurrencyComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.SoftCurrencyComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceSoftCurrency(int newValue) {
         var index = LobbyUiComponentsLookup.SoftCurrency;
-        var component = (SoftCurrencyComponent)CreateComponent(index, typeof(SoftCurrencyComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.SoftCurrencyComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.SoftCurrencyComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

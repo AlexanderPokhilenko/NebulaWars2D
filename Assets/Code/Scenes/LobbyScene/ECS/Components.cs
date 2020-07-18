@@ -20,7 +20,7 @@ namespace Code.Scenes.LobbyScene.ECS
     [LobbyUi] [Unique]
     public class BlurValueComponent: IComponent
     {
-        public int blurValue;
+        public float blurValue;
     }
     
     [LobbyUi] [Unique]

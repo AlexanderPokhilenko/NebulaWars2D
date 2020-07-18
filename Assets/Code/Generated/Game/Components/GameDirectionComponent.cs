@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game;
-
 public partial class GameEntity {
 
-    public DirectionComponent direction { get { return (DirectionComponent)GetComponent(GameComponentsLookup.Direction); } }
+    public Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent direction { get { return (Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent)GetComponent(GameComponentsLookup.Direction); } }
     public bool hasDirection { get { return HasComponent(GameComponentsLookup.Direction); } }
 
     public void AddDirection(float newAngle) {
         var index = GameComponentsLookup.Direction;
-        var component = (DirectionComponent)CreateComponent(index, typeof(DirectionComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent));
         component.angle = newAngle;
         AddComponent(index, component);
     }
 
     public void ReplaceDirection(float newAngle) {
         var index = GameComponentsLookup.Direction;
-        var component = (DirectionComponent)CreateComponent(index, typeof(DirectionComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent));
         component.angle = newAngle;
         ReplaceComponent(index, component);
     }

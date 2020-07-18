@@ -6,18 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity pointsForSmallLootboxEntity { get { return GetGroup(LobbyUiMatcher.PointsForSmallLootbox).GetSingleEntity(); } }
-    public PointsForSmallLootboxComponent pointsForSmallLootbox { get { return pointsForSmallLootboxEntity.pointsForSmallLootbox; } }
+    public Code.Scenes.LobbyScene.ECS.PointsForSmallLootboxComponent pointsForSmallLootbox { get { return pointsForSmallLootboxEntity.pointsForSmallLootbox; } }
     public bool hasPointsForSmallLootbox { get { return pointsForSmallLootboxEntity != null; } }
 
     public LobbyUiEntity SetPointsForSmallLootbox(int newValue) {
         if (hasPointsForSmallLootbox) {
-            throw new Entitas.EntitasException("Could not set PointsForSmallLootbox!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.Components.PointsForSmallLootboxComponent!",
+            throw new Entitas.EntitasException("Could not set PointsForSmallLootbox!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.PointsForSmallLootboxComponent!",
                 "You should check if the context already has a pointsForSmallLootboxEntity before setting it or use context.ReplacePointsForSmallLootbox().");
         }
         var entity = CreateEntity();
@@ -49,19 +46,19 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public PointsForSmallLootboxComponent pointsForSmallLootbox { get { return (PointsForSmallLootboxComponent)GetComponent(LobbyUiComponentsLookup.PointsForSmallLootbox); } }
+    public Code.Scenes.LobbyScene.ECS.PointsForSmallLootboxComponent pointsForSmallLootbox { get { return (Code.Scenes.LobbyScene.ECS.PointsForSmallLootboxComponent)GetComponent(LobbyUiComponentsLookup.PointsForSmallLootbox); } }
     public bool hasPointsForSmallLootbox { get { return HasComponent(LobbyUiComponentsLookup.PointsForSmallLootbox); } }
 
     public void AddPointsForSmallLootbox(int newValue) {
         var index = LobbyUiComponentsLookup.PointsForSmallLootbox;
-        var component = (PointsForSmallLootboxComponent)CreateComponent(index, typeof(PointsForSmallLootboxComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.PointsForSmallLootboxComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.PointsForSmallLootboxComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplacePointsForSmallLootbox(int newValue) {
         var index = LobbyUiComponentsLookup.PointsForSmallLootbox;
-        var component = (PointsForSmallLootboxComponent)CreateComponent(index, typeof(PointsForSmallLootboxComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.PointsForSmallLootboxComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.PointsForSmallLootboxComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

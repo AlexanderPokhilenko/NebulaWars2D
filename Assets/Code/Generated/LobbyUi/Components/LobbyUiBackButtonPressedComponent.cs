@@ -6,12 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    static readonly BackButtonPressedComponent backButtonPressedComponent = new BackButtonPressedComponent();
+    static readonly Code.Scenes.LobbyScene.ECS.BackButtonPressedComponent backButtonPressedComponent = new Code.Scenes.LobbyScene.ECS.BackButtonPressedComponent();
 
     public bool messageBackButtonPressed {
         get { return HasComponent(LobbyUiComponentsLookup.BackButtonPressed); }

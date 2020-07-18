@@ -6,28 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game;
-using Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents;
-using Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents;
-using Code.Scenes.LobbyScene.ECS;
-using ViewComponent = Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewComponent;
-
 public static class GameComponentsLookup {
 
     public const int DeathSound = 0;
-    public const int Destroyed = 1;
-    public const int DestroyTimer = 2;
-    public const int Hidden = 3;
-    public const int LoopSound = 4;
-    public const int MaxSpeed = 5;
-    public const int NicknameDistance = 6;
-    public const int Player = 7;
-    public const int SpawnSound = 8;
-    public const int Speed = 9;
-    public const int Transform = 10;
-    public const int ZoneInfo = 11;
-    public const int Id = 12;
+    public const int LoopSound = 1;
+    public const int SpawnSound = 2;
+    public const int Destroyed = 3;
+    public const int DestroyTimer = 4;
+    public const int Direction = 5;
+    public const int Hidden = 6;
+    public const int MaxSpeed = 7;
+    public const int NicknameDistance = 8;
+    public const int Parent = 9;
+    public const int Player = 10;
+    public const int Speed = 11;
+    public const int Transform = 12;
     public const int AnimatorController = 13;
     public const int Circle = 14;
     public const int CircleLine = 15;
@@ -36,26 +29,26 @@ public static class GameComponentsLookup {
     public const int StraightLine = 18;
     public const int TextMeshPro = 19;
     public const int View = 20;
-    public const int Position = 21;
-    public const int Direction = 22;
-    public const int Parent = 23;
+    public const int ZoneInfo = 21;
+    public const int Id = 22;
+    public const int Position = 23;
 
     public const int TotalComponents = 24;
 
     public static readonly string[] componentNames = {
         "DeathSound",
+        "LoopSound",
+        "SpawnSound",
         "Destroyed",
         "DestroyTimer",
+        "Direction",
         "Hidden",
-        "LoopSound",
         "MaxSpeed",
         "NicknameDistance",
+        "Parent",
         "Player",
-        "SpawnSound",
         "Speed",
         "Transform",
-        "ZoneInfo",
-        "Id",
         "AnimatorController",
         "Circle",
         "CircleLine",
@@ -64,35 +57,35 @@ public static class GameComponentsLookup {
         "StraightLine",
         "TextMeshPro",
         "View",
-        "Position",
-        "Direction",
-        "Parent"
+        "ZoneInfo",
+        "Id",
+        "Position"
     };
 
     public static readonly System.Type[] componentTypes = {
-        typeof(DeathSoundComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.DeathSoundComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.LoopSoundComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.DestroyedComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.DestroyTimerComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.HiddenComponent),
-        typeof(LoopSoundComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.MaxSpeedComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.NicknameDistanceComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.PlayerComponent),
-        typeof(SpawnSoundComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TransformComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleLineComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.RectangleComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.SpriteComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.StraightLineComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.TextMeshProComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ZoneInfoComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.IdComponent),
-        typeof(AnimatorControllerComponent),
-        typeof(CircleComponent),
-        typeof(CircleLineComponent),
-        typeof(RectangleComponent),
-        typeof(SpriteComponent),
-        typeof(StraightLineComponent),
-        typeof(TextMeshProComponent),
-        typeof(ViewComponent),
-        typeof(PositionComponent),
-        typeof(DirectionComponent),
-        typeof(ParentComponent)
+        typeof(Code.Scenes.LobbyScene.ECS.PositionComponent)
     };
 }

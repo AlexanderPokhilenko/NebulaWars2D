@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    public EnableWarshipOverviewModalWindowComponent enableWarshipOverviewModalWindow { get { return (EnableWarshipOverviewModalWindowComponent)GetComponent(LobbyUiComponentsLookup.EnableWarshipOverviewModalWindow); } }
+    public Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewModalWindowComponent enableWarshipOverviewModalWindow { get { return (Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewModalWindowComponent)GetComponent(LobbyUiComponentsLookup.EnableWarshipOverviewModalWindow); } }
     public bool hasEnableWarshipOverviewModalWindow { get { return HasComponent(LobbyUiComponentsLookup.EnableWarshipOverviewModalWindow); } }
 
     public void AddEnableWarshipOverviewModalWindow(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.EnableWarshipOverviewModalWindow;
-        var component = (EnableWarshipOverviewModalWindowComponent)CreateComponent(index, typeof(EnableWarshipOverviewModalWindowComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewModalWindowComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewModalWindowComponent));
         component.WarshipDto = newWarshipDto;
         AddComponent(index, component);
     }
 
     public void ReplaceEnableWarshipOverviewModalWindow(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.EnableWarshipOverviewModalWindow;
-        var component = (EnableWarshipOverviewModalWindowComponent)CreateComponent(index, typeof(EnableWarshipOverviewModalWindowComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewModalWindowComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewModalWindowComponent));
         component.WarshipDto = newWarshipDto;
         ReplaceComponent(index, component);
     }

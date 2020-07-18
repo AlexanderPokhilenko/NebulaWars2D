@@ -29,8 +29,8 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
 
         private bool IsBlurImageEnabled()
         {
-            int currentBlurValue = lobbyUiContext.blurValue.blurValue;
-            return currentBlurValue != 0;
+            var currentBlurValue = lobbyUiContext.blurValue.blurValue;
+            return currentBlurValue > 0;
         }
 
         private void TryDisableBlurImageData()

@@ -470,3 +470,5 @@ Desktop.ini
 !*.dll
 !*.obj
 /rabotay.keystore
+/Assets/Sounds/Sci-Fi Sounds
+networkStatistics*.txt

@@ -6,18 +6,15 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiContext {
 
     public LobbyUiEntity matchSearchDataForMenuEntity { get { return GetGroup(LobbyUiMatcher.MatchSearchDataForMenu).GetSingleEntity(); } }
-    public MatchSearchDataForMenuComponent matchSearchDataForMenu { get { return matchSearchDataForMenuEntity.matchSearchDataForMenu; } }
+    public Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent matchSearchDataForMenu { get { return matchSearchDataForMenuEntity.matchSearchDataForMenu; } }
     public bool hasMatchSearchDataForMenu { get { return matchSearchDataForMenuEntity != null; } }
 
     public LobbyUiEntity SetMatchSearchDataForMenu(int newNumberOfPlayersInMatch, int newNumberOfPlayersInQueue) {
         if (hasMatchSearchDataForMenu) {
-            throw new Entitas.EntitasException("Could not set MatchSearchDataForMenu!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.Components.MatchSearchDataForMenuComponent!",
+            throw new Entitas.EntitasException("Could not set MatchSearchDataForMenu!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent!",
                 "You should check if the context already has a matchSearchDataForMenuEntity before setting it or use context.ReplaceMatchSearchDataForMenu().");
         }
         var entity = CreateEntity();
@@ -49,12 +46,12 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    public MatchSearchDataForMenuComponent matchSearchDataForMenu { get { return (MatchSearchDataForMenuComponent)GetComponent(LobbyUiComponentsLookup.MatchSearchDataForMenu); } }
+    public Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent matchSearchDataForMenu { get { return (Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent)GetComponent(LobbyUiComponentsLookup.MatchSearchDataForMenu); } }
     public bool hasMatchSearchDataForMenu { get { return HasComponent(LobbyUiComponentsLookup.MatchSearchDataForMenu); } }
 
     public void AddMatchSearchDataForMenu(int newNumberOfPlayersInMatch, int newNumberOfPlayersInQueue) {
         var index = LobbyUiComponentsLookup.MatchSearchDataForMenu;
-        var component = (MatchSearchDataForMenuComponent)CreateComponent(index, typeof(MatchSearchDataForMenuComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent));
         component.NumberOfPlayersInMatch = newNumberOfPlayersInMatch;
         component.NumberOfPlayersInQueue = newNumberOfPlayersInQueue;
         AddComponent(index, component);
@@ -62,7 +59,7 @@ public partial class LobbyUiEntity {
 
     public void ReplaceMatchSearchDataForMenu(int newNumberOfPlayersInMatch, int newNumberOfPlayersInQueue) {
         var index = LobbyUiComponentsLookup.MatchSearchDataForMenu;
-        var component = (MatchSearchDataForMenuComponent)CreateComponent(index, typeof(MatchSearchDataForMenuComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent));
         component.NumberOfPlayersInMatch = newNumberOfPlayersInMatch;
         component.NumberOfPlayersInQueue = newNumberOfPlayersInQueue;
         ReplaceComponent(index, component);

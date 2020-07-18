@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    public ScaleComponent scale { get { return (ScaleComponent)GetComponent(LobbyUiComponentsLookup.Scale); } }
+    public Code.Scenes.LobbyScene.ECS.ScaleComponent scale { get { return (Code.Scenes.LobbyScene.ECS.ScaleComponent)GetComponent(LobbyUiComponentsLookup.Scale); } }
     public bool hasScale { get { return HasComponent(LobbyUiComponentsLookup.Scale); } }
 
     public void AddScale(UnityEngine.Vector3 newScale) {
         var index = LobbyUiComponentsLookup.Scale;
-        var component = (ScaleComponent)CreateComponent(index, typeof(ScaleComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.ScaleComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.ScaleComponent));
         component.scale = newScale;
         AddComponent(index, component);
     }
 
     public void ReplaceScale(UnityEngine.Vector3 newScale) {
         var index = LobbyUiComponentsLookup.Scale;
-        var component = (ScaleComponent)CreateComponent(index, typeof(ScaleComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.ScaleComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.ScaleComponent));
         component.scale = newScale;
         ReplaceComponent(index, component);
     }

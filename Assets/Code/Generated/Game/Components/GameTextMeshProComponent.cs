@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents;
-
 public partial class GameEntity {
 
-    public TextMeshProComponent textMeshPro { get { return (TextMeshProComponent)GetComponent(GameComponentsLookup.TextMeshPro); } }
+    public Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.TextMeshProComponent textMeshPro { get { return (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.TextMeshProComponent)GetComponent(GameComponentsLookup.TextMeshPro); } }
     public bool hasTextMeshPro { get { return HasComponent(GameComponentsLookup.TextMeshPro); } }
 
     public void AddTextMeshPro(TMPro.TextMeshPro newValue) {
         var index = GameComponentsLookup.TextMeshPro;
-        var component = (TextMeshProComponent)CreateComponent(index, typeof(TextMeshProComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.TextMeshProComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.TextMeshProComponent));
         component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceTextMeshPro(TMPro.TextMeshPro newValue) {
         var index = GameComponentsLookup.TextMeshPro;
-        var component = (TextMeshProComponent)CreateComponent(index, typeof(TextMeshProComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.TextMeshProComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.TextMeshProComponent));
         component.value = newValue;
         ReplaceComponent(index, component);
     }

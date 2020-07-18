@@ -6,12 +6,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    static readonly EnableShopUiLayerComponent enableShopUiLayerComponent = new EnableShopUiLayerComponent();
+    static readonly Code.Scenes.LobbyScene.ECS.EnableShopUiLayerComponent enableShopUiLayerComponent = new Code.Scenes.LobbyScene.ECS.EnableShopUiLayerComponent();
 
     public bool messageEnableShopUiLayer {
         get { return HasComponent(LobbyUiComponentsLookup.EnableShopUiLayer); }

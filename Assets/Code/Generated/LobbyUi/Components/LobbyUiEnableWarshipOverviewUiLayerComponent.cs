@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.LobbyScene.ECS;
-
 public partial class LobbyUiEntity {
 
-    public EnableWarshipOverviewUiLayerComponent enableWarshipOverviewUiLayer { get { return (EnableWarshipOverviewUiLayerComponent)GetComponent(LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer); } }
+    public Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewUiLayerComponent enableWarshipOverviewUiLayer { get { return (Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewUiLayerComponent)GetComponent(LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer); } }
     public bool hasEnableWarshipOverviewUiLayer { get { return HasComponent(LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer); } }
 
     public void AddEnableWarshipOverviewUiLayer(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer;
-        var component = (EnableWarshipOverviewUiLayerComponent)CreateComponent(index, typeof(EnableWarshipOverviewUiLayerComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewUiLayerComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewUiLayerComponent));
         component.WarshipDto = newWarshipDto;
         AddComponent(index, component);
     }
 
     public void ReplaceEnableWarshipOverviewUiLayer(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.EnableWarshipOverviewUiLayer;
-        var component = (EnableWarshipOverviewUiLayerComponent)CreateComponent(index, typeof(EnableWarshipOverviewUiLayerComponent));
+        var component = (Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewUiLayerComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.EnableWarshipOverviewUiLayerComponent));
         component.WarshipDto = newWarshipDto;
         ReplaceComponent(index, component);
     }

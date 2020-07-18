@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents;
-
 public partial class GameEntity {
 
-    public CircleComponent circle { get { return (CircleComponent)GetComponent(GameComponentsLookup.Circle); } }
+    public Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent circle { get { return (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent)GetComponent(GameComponentsLookup.Circle); } }
     public bool hasCircle { get { return HasComponent(GameComponentsLookup.Circle); } }
 
     public void AddCircle(float newRadius) {
         var index = GameComponentsLookup.Circle;
-        var component = (CircleComponent)CreateComponent(index, typeof(CircleComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent));
         component.radius = newRadius;
         AddComponent(index, component);
     }
 
     public void ReplaceCircle(float newRadius) {
         var index = GameComponentsLookup.Circle;
-        var component = (CircleComponent)CreateComponent(index, typeof(CircleComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent));
         component.radius = newRadius;
         ReplaceComponent(index, component);
     }

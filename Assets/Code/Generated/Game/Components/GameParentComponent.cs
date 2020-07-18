@@ -6,24 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
-using Code.Scenes.BattleScene.ECS.Components.Game;
-
 public partial class GameEntity {
 
-    public ParentComponent parent { get { return (ParentComponent)GetComponent(GameComponentsLookup.Parent); } }
+    public Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent parent { get { return (Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent)GetComponent(GameComponentsLookup.Parent); } }
     public bool hasParent { get { return HasComponent(GameComponentsLookup.Parent); } }
 
     public void AddParent(ushort newId) {
         var index = GameComponentsLookup.Parent;
-        var component = (ParentComponent)CreateComponent(index, typeof(ParentComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent));
         component.id = newId;
         AddComponent(index, component);
     }
 
     public void ReplaceParent(ushort newId) {
         var index = GameComponentsLookup.Parent;
-        var component = (ParentComponent)CreateComponent(index, typeof(ParentComponent));
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent));
         component.id = newId;
         ReplaceComponent(index, component);
     }
