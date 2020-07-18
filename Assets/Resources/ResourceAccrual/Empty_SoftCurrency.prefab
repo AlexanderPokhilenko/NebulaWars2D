@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 7185928407274753823}
   - component: {fileID: 7185928407274753822}
   m_Layer: 5
-  m_Name: Image_SoftCurrency
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 7185928407676243242}
   - component: {fileID: 7185928407676243241}
   m_Layer: 5
-  m_Name: Text_CoinsAmount
+  m_Name: Text_Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 7185928407803720062}
   - component: {fileID: 7185928407803720061}
   m_Layer: 5
-  m_Name: Text_CoinsHeader
+  m_Name: Text_Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

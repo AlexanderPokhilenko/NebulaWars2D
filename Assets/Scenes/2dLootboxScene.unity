@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -491,10 +491,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourcesRoot: {fileID: 951353776}
-  softCurrencyPrefab: {fileID: 7185928406799176031, guid: a51d4a08b8e0373428075120faadf4cc,
-    type: 3}
   itemsLeftRoot: {fileID: 464692423}
   itemsLeftText: {fileID: 523306636}
+  softCurrencyPrefab: {fileID: 7185928406799176031, guid: a51d4a08b8e0373428075120faadf4cc,
+    type: 3}
+  hardCurrencyPrefab: {fileID: 3538313733093073114, guid: 832c8b7b365e7d548a9082f584d09dfa,
+    type: 3}
 --- !u!114 &772140213
 MonoBehaviour:
   m_ObjectHideFlags: 0

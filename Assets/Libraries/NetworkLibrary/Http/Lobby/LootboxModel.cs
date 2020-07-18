@@ -21,6 +21,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
     {
         SoftCurrency,
         LootboxPoints,
-        WarshipPowerPoints
+        WarshipPowerPoints,
+        HardCurrency
     }
 }

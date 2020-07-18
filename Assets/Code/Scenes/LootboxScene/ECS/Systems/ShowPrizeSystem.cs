@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
+using Code.Scenes.LootboxScene.PrefabScripts;
 using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -53,10 +54,19 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             switch (prize.LootboxPrizeModel.LootboxPrizeType)
             {
                 case LootboxPrizeType.SoftCurrency:
+                {
                     var go = UnityEngine.Object.Instantiate(uiStorage.softCurrencyPrefab, parent);
                     var script = go.GetComponent<SoftCurrencyAccrual>();
                     script.SetData(prize.LootboxPrizeModel.Quantity);
                     break;
+                }
+                case LootboxPrizeType.HardCurrency:
+                {
+                    var go = UnityEngine.Object.Instantiate(uiStorage.hardCurrencyPrefab, parent);
+                    var script = go.GetComponent<HardCurrencyAccrual>();
+                    script.SetData(prize.LootboxPrizeModel.Quantity);
+                    break;
+                }
                 default:
                     throw new ArgumentOutOfRangeException();
             }

@@ -48,8 +48,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
                     },
                     new LootboxPrizeModel()
                     {
-                        LootboxPrizeType = LootboxPrizeType.SoftCurrency,
-                        Quantity = 53
+                        LootboxPrizeType = LootboxPrizeType.HardCurrency,
+                        Quantity = 35
                     },
                     new LootboxPrizeModel()
                     {
@@ -58,13 +58,13 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
                     },
                     new LootboxPrizeModel()
                     {
-                        LootboxPrizeType = LootboxPrizeType.SoftCurrency,
-                        Quantity = 53
+                        LootboxPrizeType = LootboxPrizeType.HardCurrency,
+                        Quantity = 35
                     },
                     new LootboxPrizeModel()
                     {
-                        LootboxPrizeType = LootboxPrizeType.SoftCurrency,
-                        Quantity = 53
+                        LootboxPrizeType = LootboxPrizeType.HardCurrency,
+                        Quantity = 35
                     },
                 }
             };
