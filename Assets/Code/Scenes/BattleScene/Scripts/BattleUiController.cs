@@ -25,7 +25,6 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private Camera mainCamera;
         [SerializeField] private GameObject zone;
         [SerializeField] private MovingBackgroundInfo[] backgrounds;
-        [SerializeField] private MovingMaterialInfo[] materials;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Text healthText;
         [SerializeField] private Slider shieldSlider;
@@ -69,7 +68,6 @@ namespace Code.Scenes.BattleScene.Scripts
         public GameObject GetGameViews() => gameViews;
         public Camera GetMainCamera() => mainCamera;
         public MovingBackgroundInfo[] GetBackgrounds() => backgrounds;
-        public MovingMaterialInfo[] GetMaterials() => materials;
         public GameObject GetZone() => zone;
         public Joystick GetMovementJoystick() => movementJoystick;
         public Joystick GetAttackJoystick() => attackJoystick;
