@@ -37,39 +37,38 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
         [CanBeNull]
         public LootboxModel GetLootboxModel()
         {
-            var lootboxModel = new LootboxModel()
+            // return task.Result;
+            LootboxModel lootboxModel = new LootboxModel()
             {
                 Prizes = new List<LootboxPrizeModel>()
                 {
                     new LootboxPrizeModel()
                     {
                         LootboxPrizeType = LootboxPrizeType.SoftCurrency,
-                        Quantity = 53
+                        SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxSoftCurrencyModel()
+                        {
+                            Amount = 53
+                        })
                     },
                     new LootboxPrizeModel()
                     {
                         LootboxPrizeType = LootboxPrizeType.HardCurrency,
-                        Quantity = 35
+                        SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
+                        {
+                            Amount = 53
+                        })
                     },
                     new LootboxPrizeModel()
                     {
-                        LootboxPrizeType = LootboxPrizeType.SoftCurrency,
-                        Quantity = 53
-                    },
-                    new LootboxPrizeModel()
-                    {
-                        LootboxPrizeType = LootboxPrizeType.HardCurrency,
-                        Quantity = 35
-                    },
-                    new LootboxPrizeModel()
-                    {
-                        LootboxPrizeType = LootboxPrizeType.HardCurrency,
-                        Quantity = 35
-                    },
+                        LootboxPrizeType = LootboxPrizeType.WarshipPowerPoints,
+                        SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxWarshipPowerPointsModel()
+                        {
+                            WarshipPrefabName = "hare"
+                        })
+                    }
                 }
             };
             return lootboxModel;
-            // return task.Result;
         }
         
         private async Task<LootboxModel> DownloadLootboxData()

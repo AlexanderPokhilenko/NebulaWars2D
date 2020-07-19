@@ -7,6 +7,7 @@ using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
+using ZeroFormatter;
 
 namespace Code.Scenes.LootboxScene.ECS.Systems
 {
@@ -57,14 +58,30 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.softCurrencyPrefab, parent);
                     var script = go.GetComponent<SoftCurrencyAccrual>();
-                    script.SetData(prize.LootboxPrizeModel.Quantity);
+                    LootboxSoftCurrencyModel lootboxSoftCurrencyModel =
+                        ZeroFormatterSerializer.Deserialize<LootboxSoftCurrencyModel>(prize.LootboxPrizeModel
+                            .SerializedModel);
+                    script.SetData(lootboxSoftCurrencyModel.Amount);
                     break;
                 }
                 case LootboxPrizeType.HardCurrency:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.hardCurrencyPrefab, parent);
                     var script = go.GetComponent<HardCurrencyAccrual>();
-                    script.SetData(prize.LootboxPrizeModel.Quantity);
+                    LootboxHardCurrencyModel lootboxHardCurrencyModel =
+                        ZeroFormatterSerializer.Deserialize<LootboxHardCurrencyModel>(prize.LootboxPrizeModel
+                            .SerializedModel);
+                    script.SetData(lootboxHardCurrencyModel.Amount);
+                    break;
+                }
+                case LootboxPrizeType.WarshipPowerPoints:
+                {
+                    var go = UnityEngine.Object.Instantiate(uiStorage.warshipPowerPointsPrefab, parent);
+                    var script = go.GetComponent<WarshipPowerPointsAccrual>();
+                    LootboxWarshipPowerPointsModel lootboxWarshipPowerPointsModel =
+                        ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel
+                            .SerializedModel);
+                    script.SetData(lootboxWarshipPowerPointsModel.WarshipPrefabName);
                     break;
                 }
                 default:

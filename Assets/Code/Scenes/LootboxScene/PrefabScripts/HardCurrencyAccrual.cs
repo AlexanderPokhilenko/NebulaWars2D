@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace Code.Scenes.LootboxScene.PrefabScripts
 {
+    /// <summary>
+    /// Находится на префабе премиум-валюты. Управляет анимацией при появлении префаба.
+    /// </summary>
     public class HardCurrencyAccrual : MonoBehaviour
     {
         private int amount;
