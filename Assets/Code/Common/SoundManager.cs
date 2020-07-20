@@ -45,7 +45,8 @@ namespace Code.Common
         {
             if (source.isPlaying) source.Stop();
             source.pitch = 1f;
-            source.PlayOneShot(clip, InterfaceVolume);
+            source.volume = InterfaceVolume;
+            source.PlayOneShot(clip);
         }
 
         public void PlayUiSound(AudioSource source, AudioClip clip, bool reversed)

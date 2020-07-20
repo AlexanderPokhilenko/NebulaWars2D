@@ -38,5 +38,9 @@ public enum ViewTypeId:byte
     SmileyPlayer,
     RedInterceptor,
     Raven,
-    VoidBeam
+    VoidBeam,
+    SagePlayer,
+    BlasterShoot,
+    IncineratorBeam,
+    AbyssBeam
 }

@@ -114,7 +114,6 @@ namespace Code.Scenes.BattleScene.Scripts
 
                     .Add(new CameraAndBackgroundMoveSystem(contexts, battleUiController.GetMainCamera(),
                         battleUiController.GetBackgrounds(), battleUiController.GetLoadingImage()))
-                    .Add(new MaterialsMoveSystem(contexts, battleUiController.GetMaterials()))
                     .Add(new ZoneMoveSystem(contexts, battleUiController.GetZone()))
                     .Add(new UpdateDirectionToCenterSystem(contexts, battleUiController.GetArrowToCenter()))
                     .Add(new JoysticksInputSystem(contexts, battleUiController.GetMovementJoystick(),
