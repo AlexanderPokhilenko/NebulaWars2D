@@ -44,7 +44,6 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             lightningParticleSystem.SetActive(false);
             Contexts contexts = Contexts.sharedInstance;
             canvasRect = transform.Find("Canvas").GetComponent<RectTransform>();
-            var movingAwardImagesDataCreationSystem = new MovingIconsDataCreationSystem(contexts, canvasRect);
             RectTransform upperObject = transform.Find("Canvas/Empty_UpperObject").GetComponent<RectTransform>();
             context = contexts.wppAccrual;
             systems = new Systems()
@@ -95,9 +94,6 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             
             //включить систему частиц
             lightningParticleSystem.SetActive(true);
-            
-            //включить звук молнии
-            UiSoundsManager.Instance().PlayLightning();
             
             //создать набор иконок
             Vector3 spawnPosition = new Vector3(Screen.width/2, Screen.height/2);

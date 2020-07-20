@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace Code.Common
 {
@@ -20,36 +22,50 @@ namespace Code.Common
         [SerializeField] private AudioClip start;
         [SerializeField] private AudioClip warshipChanging;
         [SerializeField] private AudioClip lightning;
-        private AudioSource audioSource;
+        [SerializeField] private AudioClip wpp01;
+        [SerializeField] private AudioClip wpp02;
+        [SerializeField] private AudioClip wpp03;
         private SoundManager soundManager;
+        private AudioSource mainAudioSource;
 
-        public void Start()
+        protected override void Awake()
         {
-            audioSource = GetComponent<AudioSource>();
+            mainAudioSource = GetComponent<AudioSource>();
             soundManager = SoundManager.Instance();
         }
 
-        private void PlaySound(AudioClip clip) => soundManager.PlayUiSound(audioSource, clip, false);
-        private void PlaySoundReversed(AudioClip clip) => soundManager.PlayUiSound(audioSource, clip, true);
-        private void PlayOneShot(AudioClip clip) => soundManager.PlaySameUiSound(audioSource, clip);
+        private void PlaySound(AudioSource source, AudioClip clip)
+        {
+            soundManager.PlayUiSound(source, clip, false);
+        }
 
-        public void PlayAdding() => PlaySound(adding);
-        public void PlayClick() => PlaySound(click);
-        public void PlayError() => PlayOneShot(error);
-        public void PlayHardAdding() => PlayOneShot(hardAdding);
-        public void PlayLevelUp() => PlaySound(levelUp);
-        public void PlayLootbox() => PlaySound(lootbox);
-        public void PlayMenu(bool closing) => soundManager.PlayUiSound(audioSource, menuOpen, closing);
-        public void PlayMenuOpen() => PlaySound(menuOpen);
-        public void PlayMenuClose() => PlaySoundReversed(menuOpen);
-        public void PlayPointsAdding() => PlayOneShot(pointsAdding);
-        public void PlayPurchase() => PlaySound(purchase);
-        public void PlayRatingAdding() => PlayOneShot(ratingAdding);
-        public void PlaySoftAdding() => PlayOneShot(softAdding);
-        public void PlayStart() => PlaySound(start);
-        public void PlayStop() => PlaySoundReversed(start);
-        public void PlayWarshipChangingLeft() => PlaySound(warshipChanging);
-        public void PlayWarshipChangingRight() => PlaySoundReversed(warshipChanging);
-        public void PlayLightning() => PlaySound(lightning);
+        private void PlaySoundReversed(AudioSource source, AudioClip clip)
+        {
+            soundManager.PlayUiSound(source, clip, true);
+        }
+
+        private void PlayOneShot(AudioSource source, AudioClip clip)
+        {
+            soundManager.PlaySameUiSound(source, clip);
+        }
+        
+        public void PlayAdding() => PlaySound(mainAudioSource, adding);
+        public void PlayClick() => PlaySound(mainAudioSource, click);
+        public void PlayError() => PlayOneShot(mainAudioSource, error);
+        public void PlayHardAdding() => PlayOneShot(mainAudioSource, hardAdding);
+        public void PlayLevelUp() => PlaySound(mainAudioSource, levelUp);
+        public void PlayLootbox() => PlaySound(mainAudioSource, lootbox);
+        public void PlayMenu(bool closing) => soundManager.PlayUiSound(mainAudioSource, menuOpen, closing);
+        public void PlayMenuOpen() => PlaySound(mainAudioSource, menuOpen);
+        public void PlayMenuClose() => PlaySoundReversed(mainAudioSource, menuOpen);
+        public void PlayPointsAdding() => PlayOneShot(mainAudioSource, pointsAdding);
+        public void PlayPurchase() => PlaySound(mainAudioSource, purchase);
+        public void PlayRatingAdding() => PlayOneShot(mainAudioSource, ratingAdding);
+        public void PlaySoftAdding() => soundManager.PlayDich(mainAudioSource, softAdding);
+        public void PlayStart() => PlaySound(mainAudioSource, start);
+        public void PlayStop() => PlaySoundReversed(mainAudioSource, start);
+        public void PlayWarshipChangingLeft() => PlaySound(mainAudioSource, warshipChanging);
+        public void PlayWarshipChangingRight() => PlaySoundReversed(mainAudioSource, warshipChanging);
+        public void PlayWarshipPowerPointsAccrual() => soundManager.PlayDich(mainAudioSource, wpp03);
     }
 }

@@ -49,6 +49,15 @@ namespace Code.Common
             source.PlayOneShot(clip);
         }
 
+        
+        public void PlayDich(AudioSource source, AudioClip clip)
+        {
+            source.pitch = 1f;
+            source.volume = InterfaceVolume;
+            source.PlayOneShot(clip);
+        }
+
+        
         public void PlayUiSound(AudioSource source, AudioClip clip, bool reversed)
         {
             source.volume = InterfaceVolume;
