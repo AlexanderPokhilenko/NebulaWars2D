@@ -30,6 +30,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
     public class LootboxWarshipPowerPointsModel
     {
         [Index(0)] public virtual string WarshipPrefabName { get; set; }
+        [Index(1)] public virtual int Amount { get; set; }
     }
 
     public enum LootboxPrizeType

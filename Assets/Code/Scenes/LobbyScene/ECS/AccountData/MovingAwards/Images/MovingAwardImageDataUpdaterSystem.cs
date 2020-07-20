@@ -10,8 +10,8 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
     /// </summary>
     public class MovingAwardImageDataUpdaterSystem:IExecuteSystem
     {
-        private readonly ILog log = LogManager.CreateLogger(typeof(MovingAwardImageDataUpdaterSystem));
         private readonly IGroup<LobbyUiEntity> movingAwardsGroup;
+        private readonly ILog log = LogManager.CreateLogger(typeof(MovingAwardImageDataUpdaterSystem));
 
         public MovingAwardImageDataUpdaterSystem(Contexts contexts)
         {

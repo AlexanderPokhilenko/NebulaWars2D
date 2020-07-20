@@ -19,6 +19,7 @@ namespace Code.Common
         [SerializeField] private AudioClip softAdding;
         [SerializeField] private AudioClip start;
         [SerializeField] private AudioClip warshipChanging;
+        [SerializeField] private AudioClip lightning;
         private AudioSource audioSource;
         private SoundManager soundManager;
 
@@ -49,5 +50,6 @@ namespace Code.Common
         public void PlayStop() => PlaySoundReversed(start);
         public void PlayWarshipChangingLeft() => PlaySound(warshipChanging);
         public void PlayWarshipChangingRight() => PlaySoundReversed(warshipChanging);
+        public void PlayLightning() => PlaySound(lightning);
     }
 }

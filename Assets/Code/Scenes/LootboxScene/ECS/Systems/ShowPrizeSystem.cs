@@ -81,7 +81,8 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                     LootboxWarshipPowerPointsModel lootboxWarshipPowerPointsModel =
                         ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel
                             .SerializedModel);
-                    script.SetData(lootboxWarshipPowerPointsModel.WarshipPrefabName);
+                    script.SetData(lootboxWarshipPowerPointsModel.WarshipPrefabName,
+                        lootboxWarshipPowerPointsModel.Amount);
                     break;
                 }
                 default:
