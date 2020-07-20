@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
+using Code.Common.Logger;
 using Code.Scenes.LootboxScene.PrefabScripts;
 using Code.Scenes.LootboxScene.PrefabScripts.Wpp;
 using Code.Scenes.LootboxScene.Scripts;
@@ -18,11 +19,15 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
     public class ShowPrizeSystem:ReactiveSystem<LootboxEntity>
     {
         private readonly LootboxUiStorage uiStorage;
-        
-        public ShowPrizeSystem(Contexts contexts, LootboxUiStorage uiStorage) 
+        private readonly CirclesOnAWaterColorUpdater circlesOnAWaterColorUpdater;
+        private readonly ILog log = LogManager.CreateLogger(typeof(ShowPrizeSystem));
+
+        public ShowPrizeSystem(Contexts contexts, LootboxUiStorage uiStorage,
+            CirclesOnAWaterColorUpdater circlesOnAWaterColorUpdater) 
             : base(contexts.lootbox)
         {
             this.uiStorage = uiStorage;
+            this.circlesOnAWaterColorUpdater = circlesOnAWaterColorUpdater;
         }
         
         protected override ICollector<LootboxEntity> GetTrigger(IContext<LootboxEntity> context)
@@ -53,6 +58,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         {
             ShowPrizeComponent prize = currentPrize.showPrize;
             Transform parent = uiStorage.resourcesRoot.transform;
+            
             switch (prize.LootboxPrizeModel.LootboxPrizeType)
             {
                 case LootboxPrizeType.SoftCurrency:
@@ -63,6 +69,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                         ZeroFormatterSerializer.Deserialize<LootboxSoftCurrencyModel>(prize.LootboxPrizeModel
                             .SerializedModel);
                     script.SetData(lootboxSoftCurrencyModel.Amount);
+                    circlesOnAWaterColorUpdater.SetStartColor(Color.blue);
                     break;
                 }
                 case LootboxPrizeType.HardCurrency:
@@ -73,6 +80,9 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                         ZeroFormatterSerializer.Deserialize<LootboxHardCurrencyModel>(prize.LootboxPrizeModel
                             .SerializedModel);
                     script.SetData(lootboxHardCurrencyModel.Amount);
+
+                    Color purple = new Color(209, 0, 4);
+                    circlesOnAWaterColorUpdater.SetStartColor(purple);
                     break;
                 }
                 case LootboxPrizeType.WarshipPowerPoints:
@@ -84,6 +94,8 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                             .SerializedModel);
                     script.SetData(lootboxWarshipPowerPointsModel.WarshipPrefabName,
                         lootboxWarshipPowerPointsModel.Amount);
+                    Color red = new Color(209, 0, 0);
+                    circlesOnAWaterColorUpdater.SetStartColor(red);
                     break;
                 }
                 default:

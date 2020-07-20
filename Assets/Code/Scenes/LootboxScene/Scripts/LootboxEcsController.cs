@@ -21,6 +21,7 @@ namespace Code.Scenes.LootboxScene.Scripts
         private LootboxSceneSwitcher lobbyLoaderController;
         private LootboxOpeningController lootboxOpenEffectController;
         private readonly ILog log = LogManager.CreateLogger(typeof(LootboxEcsController));
+        private CirclesOnAWaterColorUpdater circlesOnAWaterColorUpdater;
 
         private void Awake()
         {
@@ -30,6 +31,8 @@ namespace Code.Scenes.LootboxScene.Scripts
                                 ?? throw new NullReferenceException(nameof(LootboxUiStorage));
             lootboxOpenEffectController = FindObjectOfType<LootboxOpeningController>()
                                 ?? throw new NullReferenceException(nameof(LootboxOpeningController));
+            circlesOnAWaterColorUpdater = FindObjectOfType<CirclesOnAWaterColorUpdater>()
+                                ?? throw new NullReferenceException(nameof(CirclesOnAWaterColorUpdater));
         }
 
         private void Start()
@@ -39,7 +42,7 @@ namespace Code.Scenes.LootboxScene.Scripts
                 UiSoundsManager.Instance(), lootboxUiStorage);
             systems = new Systems()
                 .Add(clickHandlerSystem)
-                .Add(new ShowPrizeSystem(contexts, lootboxUiStorage))
+                .Add(new ShowPrizeSystem(contexts, lootboxUiStorage, circlesOnAWaterColorUpdater))
                 .Add(new ItemsLeftChangedSystem(contexts, lootboxUiStorage))
                 ;
             
