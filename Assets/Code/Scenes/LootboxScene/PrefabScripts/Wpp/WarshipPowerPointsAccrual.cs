@@ -103,7 +103,11 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             Vector3 spawnPosition = new Vector3(Screen.width/2, Screen.height/2);
             Vector3 finishPosition = canvasRect.gameObject.transform.Find("Empty_PowerValueRoot/Image_PowerValue")
                 .GetComponent<RectTransform>().position;
-            WppIconTrajectoryFactory trajectoryFactory = new WppIconTrajectoryFactory();
+            
+            log.Debug(spawnPosition.x+" "+spawnPosition.y);
+            log.Debug(finishPosition.x+" "+finishPosition.y);
+            
+            var trajectoryFactory = new WppIconTrajectoryFactory();
             var random = new Random();
             for (int index = 0; index < amount; index++)
             {
@@ -115,7 +119,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
                 IconTrajectory iconTrajectory = new IconTrajectory()
                 {
                     controlPoints = controlPoints,
-                    currentControlPointIndex = 1
+                    currentControlPointIndex = 0
                 };
                 entity.AddMovingIcon(1, iconTrajectory, AwardTypeEnum.WarshipPowerPoints);
                 entity.AddPosition(controlPoints.First().position);

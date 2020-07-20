@@ -10,21 +10,21 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
     /// </summary>
     public class IconsDataUpdaterSystem:IExecuteSystem
     {
-        private readonly IGroup<WppAccrualEntity> movingAwardsGroup;
+        private readonly IGroup<WppAccrualEntity> movingIconsGroup;
         private readonly ILog log = LogManager.CreateLogger(typeof(IconsDataUpdaterSystem));
 
         public IconsDataUpdaterSystem(Contexts contexts)
         {
             var context = contexts.wppAccrual;
-            movingAwardsGroup = context.GetGroup(WppAccrualMatcher.AllOf(
+            movingIconsGroup = context.GetGroup(WppAccrualMatcher.AllOf(
                 WppAccrualMatcher.MovingIcon, WppAccrualMatcher.Alpha, WppAccrualMatcher.Position,
                 WppAccrualMatcher.Scale));
         }
         
         public void Execute()
         {
-            DateTime now = DateTime.Now;
-            foreach (var entity in movingAwardsGroup)
+            DateTime now = DateTime.UtcNow;
+            foreach (var entity in movingIconsGroup)
             {
                 var movingAward = entity.movingIcon;
                 DateTime currentTargetArrivalTime = movingAward.GetCurrentTargetArrivalTime();

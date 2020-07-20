@@ -16,7 +16,6 @@ namespace Code.Scenes.LootboxScene.Scripts
 
         private void Awake()
         {
-            //todo тут ругается
             closedBox = transform.Find("Sprite_ClosedLootbox");
             openedBox = transform.Find("Sprite_OpenedLootbox");
 

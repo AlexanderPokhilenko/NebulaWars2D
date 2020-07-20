@@ -14,14 +14,14 @@ public partial class LobbyUiEntity {
     public void AddImage(UnityEngine.UI.Image newImage) {
         var index = LobbyUiComponentsLookup.Image;
         var component = (Code.Scenes.LobbyScene.ECS.ImageComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.ImageComponent));
-        component.image = newImage;
+        // component.image = newImage;
         AddComponent(index, component);
     }
 
     public void ReplaceImage(UnityEngine.UI.Image newImage) {
         var index = LobbyUiComponentsLookup.Image;
         var component = (Code.Scenes.LobbyScene.ECS.ImageComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.ImageComponent));
-        component.image = newImage;
+        // component.image = newImage;
         ReplaceComponent(index, component);
     }
 

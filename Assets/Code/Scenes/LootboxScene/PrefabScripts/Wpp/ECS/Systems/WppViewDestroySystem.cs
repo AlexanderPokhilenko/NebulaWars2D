@@ -27,7 +27,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
         
         public void Execute()
         {
-            DateTime now = DateTime.Now;
+            DateTime now = DateTime.UtcNow;
             var awards = movingAwardsGroup.GetEntities();
             for (int index = 0; index < awards.Length; index++)
             {
@@ -35,6 +35,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
                 DateTime arrivalTime = entity.movingIcon.iconTrajectory.controlPoints.Last().arrivalTime;
                 if (arrivalTime <= now)
                 {
+                    log.Debug("Уничтожение");
                     int increment = entity.movingIcon.increment;
                     Object.Destroy(entity.view.gameObject);
                     entity.Destroy();

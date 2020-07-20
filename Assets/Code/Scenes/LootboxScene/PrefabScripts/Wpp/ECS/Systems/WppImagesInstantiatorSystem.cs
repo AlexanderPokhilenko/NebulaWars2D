@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Code.Common.Logger;
 using Code.Scenes.LobbyScene.ECS;
 using Entitas;
 using UnityEngine;
@@ -12,12 +13,17 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
     {
         private readonly RectTransform parent;
         private readonly GameObject wppIconPrefab;
-
+        private readonly ILog log = LogManager.CreateLogger(typeof(WppImagesInstantiatorSystem));
+        
         public WppImagesInstantiatorSystem(Contexts contexts, RectTransform parent, GameObject wppIconPrefab) 
             : base(contexts.wppAccrual)
         {
             this.parent = parent;
             this.wppIconPrefab = wppIconPrefab;
+            if (wppIconPrefab == null)
+            {
+                throw new NullReferenceException("Префаб не установлен");
+            }
         }
 
         protected override ICollector<WppAccrualEntity> GetTrigger(IContext<WppAccrualEntity> context)
@@ -36,6 +42,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
             int index = 0;
             foreach (var entity in entities)
             {
+                log.Debug("Создание");
                 GameObject awardGo = Object.Instantiate(wppIconPrefab, parent,false);
                 awardGo.name += (index++).ToString();
                 entity.AddView(awardGo);

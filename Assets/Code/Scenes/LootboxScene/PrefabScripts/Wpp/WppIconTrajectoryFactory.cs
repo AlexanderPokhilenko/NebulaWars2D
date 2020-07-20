@@ -10,16 +10,16 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
 {
     public class WppIconTrajectoryFactory
     {
-        private static readonly TimeSpan DelayBeforeTheStartOfMovement = TimeSpan.FromMilliseconds(15);
+        private static readonly TimeSpan DelayBeforeTheStartOfMovement = TimeSpan.FromMilliseconds(20);
         
-        public List<ControlPoint> Create( int index, DateTime startSpawnTime, Vector3 spawnPosition, Vector3 finalPointPosition,
-            Random random)
+        public List<ControlPoint> Create( int index, DateTime startSpawnTime, Vector3 spawnPosition, 
+            Vector3 finalPointPosition, Random random)
         {
             //[0, 1]
             double randomDouble3 = random.NextDouble();
             
-            //точка после смещения с точки спавна
-            var secondPoint = GetSecondPoint(random, spawnPosition);
+            //вторая точка
+            Vector3 secondPoint = GetSecondPoint(random, spawnPosition);
             List<ControlPoint> result = new List<ControlPoint>();
             
             //точка спавна. прозрачно
@@ -31,15 +31,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
                 alpha = 0
             });
             
-            //точка спавна. не прозрачно
-            result.Add(new ControlPoint
-            {
-                position = spawnPosition,
-                arrivalTime = startSpawnTime + DelayBeforeTheStartOfMovement,
-                scale = new Vector3(1,1,1)*3/4,
-                alpha = 1
-            });
-            
+        
             //время ожидания на точке спавна
             //это нужно, чтобы награды по одной выходили из точки спавна
             TimeSpan delay1 = DelayBeforeTheStartOfMovement.Multiply(index);
@@ -48,11 +40,11 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
                 position = spawnPosition,
                 arrivalTime = result.Last().arrivalTime +delay1,
                 scale = new Vector3(1,1,1)*3/4,
-                alpha = 1
+                alpha = 0
             });
             
             //время на перемещение ко второй точке
-            TimeSpan delay2 = TimeSpan.FromSeconds(0.3);
+            TimeSpan delay2 = TimeSpan.FromSeconds(0.5);
             result.Add(new ControlPoint
             {
                 position = secondPoint,

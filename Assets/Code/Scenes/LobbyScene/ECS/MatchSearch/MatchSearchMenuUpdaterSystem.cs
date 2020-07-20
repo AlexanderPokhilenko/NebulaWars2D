@@ -53,9 +53,9 @@ namespace Code.Scenes.LobbyScene.ECS.MatchSearch
                 if (lobbyUiContext.hasStartButtonPressTime)
                 {
                     numberOfPlayersInQueueGameObject.text = "Number of players in the queue: " +
-                                                            matchSearchDataForMenuComponent.NumberOfPlayersInQueue;
+                                                            matchSearchDataForMenuComponent.numberOfPlayersInQueue;
                     numberOfPlayersInBattlesGameObject.text = "Number of players in the match: " + 
-                                                              matchSearchDataForMenuComponent.NumberOfPlayersInMatch;
+                                                              matchSearchDataForMenuComponent.numberOfPlayersInMatch;
                 }
             }
         }
