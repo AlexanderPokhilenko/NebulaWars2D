@@ -8,16 +8,16 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
     /// <summary>
     /// Меняет позицию компонента движущейся награды.
     /// </summary>
-    public class MovingAwardImageDataUpdaterSystem:IExecuteSystem
+    public class MovingIconDataUpdaterSystem:IExecuteSystem
     {
         private readonly IGroup<LobbyUiEntity> movingAwardsGroup;
-        private readonly ILog log = LogManager.CreateLogger(typeof(MovingAwardImageDataUpdaterSystem));
+        private readonly ILog log = LogManager.CreateLogger(typeof(MovingIconDataUpdaterSystem));
 
-        public MovingAwardImageDataUpdaterSystem(Contexts contexts)
+        public MovingIconDataUpdaterSystem(Contexts contexts)
         {
-            var contextsLobbyUi = contexts.lobbyUi;
+            LobbyUiContext contextsLobbyUi = contexts.lobbyUi;
             movingAwardsGroup = contextsLobbyUi.GetGroup(LobbyUiMatcher.AllOf(
-                LobbyUiMatcher.MovingAward, LobbyUiMatcher.Alpha, LobbyUiMatcher.Position,
+                LobbyUiMatcher.MovingIcon, LobbyUiMatcher.Alpha, LobbyUiMatcher.Position,
                 LobbyUiMatcher.Scale));
         }
         
@@ -26,7 +26,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
             DateTime now = DateTime.Now;
             foreach (LobbyUiEntity award in movingAwardsGroup)
             {
-                var movingAward = award.movingAward;
+                var movingAward = award.movingIcon;
                 DateTime currentTargetArrivalTime = movingAward.GetCurrentTargetArrivalTime();
 
                 //Если уже нужно переходить на новый отрезок пути 
@@ -36,9 +36,9 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
                     award.position.value = movingAward.GetCurrentTargetPoint(); 
                     
                     //если отрезки ещё есть, то перейти дальше
-                    if (movingAward.currentTargetIndex + 1 < movingAward.controlPoints.Count)
+                    if (movingAward.iconTrajectory.currentControlPointIndex + 1 < movingAward.iconTrajectory.controlPoints.Count)
                     {
-                        movingAward.currentTargetIndex++;
+                        movingAward.iconTrajectory.currentControlPointIndex++;
                     }
                 }
                 //иначе сдвинуть в зависимости от времени

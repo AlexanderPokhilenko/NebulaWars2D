@@ -13,9 +13,9 @@ namespace Code.Scenes.LobbyScene.ECS.Extensions
 
         public static float GetDistanceCoveragePercentage(this AwardTextComponent awardTextComponent, DateTime now)
         {
-            float distanceCoveragePercentage = (float) ((now - awardTextComponent.CreationTime).TotalMilliseconds
+            float distanceCoveragePercentage = (float) ((now - awardTextComponent.creationTime).TotalMilliseconds
                                                         /
-                                                        (awardTextComponent.FadeTime - awardTextComponent.CreationTime).TotalMilliseconds)
+                                                        (awardTextComponent.fadeTime - awardTextComponent.creationTime).TotalMilliseconds)
                 ;
             return distanceCoveragePercentage;
         }

@@ -30,8 +30,8 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText
                 
                 
                 
-                var startTime = awardText.awardText.CreationTime;
-                var finishTime = awardText.awardText.FadeTime;
+                var startTime = awardText.awardText.creationTime;
+                var finishTime = awardText.awardText.fadeTime;
 
                 float percentAttenuation = awardText.awardText.GetDistanceCoveragePercentage(now);
                 awardTextEntities[i].position.value = awardText.awardText.CalculatePosition(now);

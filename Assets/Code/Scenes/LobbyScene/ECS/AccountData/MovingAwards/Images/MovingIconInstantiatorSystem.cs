@@ -10,7 +10,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
     /// <summary>
     /// Создаёт GameObject-ы для двигающихся наград из префабов в зависимости от типа награды.
     /// </summary>
-    public class MovingAwardImagesGameObjectCreationSystem:ReactiveSystem<LobbyUiEntity>
+    public class MovingIconInstantiatorSystem:ReactiveSystem<LobbyUiEntity>
     {
         private GameObject trophyGameObjectCache;
         private GameObject lootboxPointGameObjectCache;
@@ -18,7 +18,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
         private GameObject premiumCurrencyGameObjectCache;
         private readonly RectTransform movingAwardsParentRectTransform;
         
-        public MovingAwardImagesGameObjectCreationSystem(Contexts contexts,
+        public MovingIconInstantiatorSystem(Contexts contexts,
             RectTransform movingAwardsParentRectTransform) 
             : base(contexts.lobbyUi)
         {
@@ -27,13 +27,13 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
 
         protected override ICollector<LobbyUiEntity> GetTrigger(IContext<LobbyUiEntity> context)
         {
-            return context.CreateCollector(LobbyUiMatcher.AllOf(LobbyUiMatcher.MovingAward)
+            return context.CreateCollector(LobbyUiMatcher.AllOf(LobbyUiMatcher.MovingIcon)
                 .NoneOf(LobbyUiMatcher.View, LobbyUiMatcher.Image));
         }
 
         protected override bool Filter(LobbyUiEntity entity)
         {
-            return entity.hasMovingAward && !entity.hasView && !entity.hasImage;
+            return entity.hasMovingIcon && !entity.hasView && !entity.hasImage;
         }
 
         protected override void Execute(List<LobbyUiEntity> entities)
@@ -41,32 +41,32 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
             int index = 0;
             foreach (var entity in entities)
             {
-                GameObject awardGo = SpawnAwardPrefab(entity.movingAward.awardType);
+                GameObject awardGo = SpawnAwardPrefab(entity.movingIcon.awardTypeEnum);
                 awardGo.name += (index++).ToString();
                 entity.AddView(awardGo);
                 entity.AddImage(awardGo.GetComponent<Image>());    
             }
         }
 
-        private GameObject SpawnAwardPrefab(AwardType awardType)
+        private GameObject SpawnAwardPrefab(AwardTypeEnum awardTypeEnum)
         {
             GameObject prefab;
-            switch (awardType)
+            switch (awardTypeEnum)
             {
-                case AwardType.SoftCurrency:
+                case AwardTypeEnum.SoftCurrency:
                     prefab = GetRegularCurrencyPrefab();
                     break;
-                case AwardType.AccountRating:
+                case AwardTypeEnum.AccountRating:
                     prefab = GetTrophyPrefab();
                     break;
-                case AwardType.HardCurrency:
+                case AwardTypeEnum.HardCurrency:
                     prefab = GetPremiumCurrencyPrefab();
                     break;
-                case AwardType.LootboxPoints:
+                case AwardTypeEnum.LootboxPoints:
                     prefab = GetLootboxPointPrefab();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(awardType), awardType, null);
+                    throw new ArgumentOutOfRangeException(nameof(awardTypeEnum), awardTypeEnum, null);
             }
             GameObject result = Object.Instantiate(prefab, movingAwardsParentRectTransform,false);
             return result;

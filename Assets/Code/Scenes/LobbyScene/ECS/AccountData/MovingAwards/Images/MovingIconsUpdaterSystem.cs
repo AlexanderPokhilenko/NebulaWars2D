@@ -8,34 +8,33 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
     /// <summary>
     /// Меняет позиции GO движущихся наград.
     /// </summary>
-    public class MovingAwardGameObjectUpdaterSystem:IExecuteSystem
+    public class MovingIconsUpdaterSystem:IExecuteSystem
     {
         private readonly RectTransform upperObject;
         private readonly IGroup<LobbyUiEntity> movingAwardsGroup;
-        private readonly ILog log = LogManager.CreateLogger(typeof(MovingAwardImageDataUpdaterSystem));
+        private readonly ILog log = LogManager.CreateLogger(typeof(MovingIconDataUpdaterSystem));
 
-        public MovingAwardGameObjectUpdaterSystem(Contexts contexts, RectTransform upperObject)
+        public MovingIconsUpdaterSystem(Contexts contexts, RectTransform upperObject)
         {
             this.upperObject = upperObject;
             var contextsLobbyUi = contexts.lobbyUi;
             movingAwardsGroup = contextsLobbyUi.GetGroup(LobbyUiMatcher
-                .AllOf(LobbyUiMatcher.MovingAward, LobbyUiMatcher.View, LobbyUiMatcher.Position));
+                .AllOf(LobbyUiMatcher.MovingIcon, LobbyUiMatcher.View, LobbyUiMatcher.Position));
         }
         
         public void Execute()
         {
-            foreach (var movingAward in movingAwardsGroup)
+            foreach (LobbyUiEntity movingAward in movingAwardsGroup)
             {
-                movingAward.view.GameObject.transform.position = movingAward.position.value;
-                movingAward.view.GameObject.transform.localScale = movingAward.scale.scale;
+                movingAward.view.gameObject.transform.position = movingAward.position.value;
+                movingAward.view.gameObject.transform.localScale = movingAward.scale.scale;
                 var oldColor =  movingAward.image.image.color; 
                 movingAward.image.image.color = new Color(oldColor.r, oldColor.g, oldColor.b, movingAward.alpha.alpha);
 
-
-                if (movingAward.movingAward.IsRaiseUpNeeded())
+                if (movingAward.movingIcon.IsRaiseUpNeeded())
                 {
-                    movingAward.view.GameObject.transform.SetParent(upperObject, false);
-                    movingAward.movingAward.TurnOffRaiseUp();
+                    movingAward.view.gameObject.transform.SetParent(upperObject, false);
+                    movingAward.movingIcon.TurnOffRaiseUp();
                 }
             }
         }

@@ -14,14 +14,14 @@ public partial class LobbyUiEntity {
     public void AddView(UnityEngine.GameObject newGameObject) {
         var index = LobbyUiComponentsLookup.View;
         var component = (Code.Scenes.LobbyScene.ECS.ViewComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.ViewComponent));
-        component.GameObject = newGameObject;
+        component.gameObject = newGameObject;
         AddComponent(index, component);
     }
 
     public void ReplaceView(UnityEngine.GameObject newGameObject) {
         var index = LobbyUiComponentsLookup.View;
         var component = (Code.Scenes.LobbyScene.ECS.ViewComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.ViewComponent));
-        component.GameObject = newGameObject;
+        component.gameObject = newGameObject;
         ReplaceComponent(index, component);
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
 using Code.Scenes.LootboxScene.PrefabScripts;
+using Code.Scenes.LootboxScene.PrefabScripts.Wpp;
 using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;

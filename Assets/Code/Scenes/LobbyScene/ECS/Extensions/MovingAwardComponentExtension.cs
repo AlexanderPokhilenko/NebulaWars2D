@@ -5,66 +5,66 @@ namespace Code.Scenes.LobbyScene.ECS.Extensions
 {
     public static class MovingAwardComponentExtension
     {
-        public static DateTime GetCurrentTargetArrivalTime(this MovingAwardComponent movingAward)
+        public static DateTime GetCurrentTargetArrivalTime(this MovingIconComponent movingIcon)
         {
-            return movingAward.controlPoints[movingAward.currentTargetIndex].ArrivalTime;
+            return movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex].arrivalTime;
         }
         
-        public static Vector3 GetCurrentTargetPoint(this MovingAwardComponent movingAward)
+        public static Vector3 GetCurrentTargetPoint(this MovingIconComponent movingIcon)
         {
-            return movingAward.controlPoints[movingAward.currentTargetIndex].position;
+            return movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex].position;
         }
 
-        public static bool IsRaiseUpNeeded(this MovingAwardComponent movingAwardComponent)
+        public static bool IsRaiseUpNeeded(this MovingIconComponent movingIconComponent)
         {
-            return movingAwardComponent.controlPoints[movingAwardComponent.currentTargetIndex].moveToUp;
+            return movingIconComponent.iconTrajectory.controlPoints[movingIconComponent.iconTrajectory.currentControlPointIndex].moveToUp;
         }
 
-        public static void TurnOffRaiseUp(this MovingAwardComponent movingAwardComponent)
+        public static void TurnOffRaiseUp(this MovingIconComponent movingIconComponent)
         {
-            movingAwardComponent.controlPoints[movingAwardComponent.currentTargetIndex].moveToUp = false;
+            movingIconComponent.iconTrajectory.controlPoints[movingIconComponent.iconTrajectory.currentControlPointIndex].moveToUp = false;
         }
 
-        private static DateTime GetCurrentLineStartTime(this MovingAwardComponent movingAward)
+        private static DateTime GetCurrentLineStartTime(this MovingIconComponent movingIcon)
         {
-            return movingAward.controlPoints[movingAward.currentTargetIndex-1].ArrivalTime;
+            return movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex-1].arrivalTime;
         }
 
-        private static Vector3 GetCurrentLineStartPosition(this MovingAwardComponent movingAward)
+        private static Vector3 GetCurrentLineStartPosition(this MovingIconComponent movingIcon)
         {
-            return movingAward.controlPoints[movingAward.currentTargetIndex-1].position;
+            return movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex-1].position;
         }
 
-        private static float GetPercentageOfCoveredDistance(this MovingAwardComponent movingAward, DateTime now)
+        private static float GetPercentageOfCoveredDistance(this MovingIconComponent movingIcon, DateTime now)
         {
-            return (float) ((now - movingAward.GetCurrentLineStartTime()).TotalMilliseconds
+            return (float) ((now - movingIcon.GetCurrentLineStartTime()).TotalMilliseconds
                             /
-                            (movingAward.GetCurrentTargetArrivalTime() - movingAward.GetCurrentLineStartTime()).TotalMilliseconds);
+                            (movingIcon.GetCurrentTargetArrivalTime() - movingIcon.GetCurrentLineStartTime()).TotalMilliseconds);
         }
 
-        private static Vector3 GetDeltaVector3(this MovingAwardComponent movingAward)
+        private static Vector3 GetDeltaVector3(this MovingIconComponent movingIcon)
         {
-            return movingAward.GetCurrentTargetPoint() - movingAward.controlPoints[movingAward.currentTargetIndex - 1].position;
+            return movingIcon.GetCurrentTargetPoint() - movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex - 1].position;
         }
 
-        public static Vector3 CalculateScale(this MovingAwardComponent movingAward,DateTime now)
+        public static Vector3 CalculateScale(this MovingIconComponent movingIcon,DateTime now)
         {
-            var deltaScale = movingAward.controlPoints[movingAward.currentTargetIndex].scale 
-                             - movingAward.controlPoints[movingAward.currentTargetIndex - 1].scale;
-            return movingAward.controlPoints[movingAward.currentTargetIndex - 1].scale + movingAward.GetPercentageOfCoveredDistance(now) * deltaScale;
+            Vector3 deltaScale = movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex].scale 
+                                 - movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex - 1].scale;
+            return movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex - 1].scale + movingIcon.GetPercentageOfCoveredDistance(now) * deltaScale;
         }
 
-        public static float CalculateAlpha(this MovingAwardComponent movingAward, DateTime now)
+        public static float CalculateAlpha(this MovingIconComponent movingIcon, DateTime now)
         {
-            float deltaAlpha = movingAward.controlPoints[movingAward.currentTargetIndex].alpha - movingAward.controlPoints[movingAward.currentTargetIndex - 1].alpha;
-            return movingAward.controlPoints[movingAward.currentTargetIndex - 1].alpha + movingAward.GetPercentageOfCoveredDistance(now) * deltaAlpha;
+            float deltaAlpha = movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex].alpha - movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex - 1].alpha;
+            return movingIcon.iconTrajectory.controlPoints[movingIcon.iconTrajectory.currentControlPointIndex - 1].alpha + movingIcon.GetPercentageOfCoveredDistance(now) * deltaAlpha;
         }
 
-        public static Vector3 CalculatePosition(this MovingAwardComponent movingAward, DateTime now)
+        public static Vector3 CalculatePosition(this MovingIconComponent movingIcon, DateTime now)
         {
-            Vector3 deltaPositionForTime = movingAward.GetDeltaVector3() * 
-                                           movingAward.GetPercentageOfCoveredDistance(now);
-            return movingAward.GetCurrentLineStartPosition() +  deltaPositionForTime;
+            Vector3 deltaPositionForTime = movingIcon.GetDeltaVector3() * 
+                                           movingIcon.GetPercentageOfCoveredDistance(now);
+            return movingIcon.GetCurrentLineStartPosition() +  deltaPositionForTime;
         }
     }
 }

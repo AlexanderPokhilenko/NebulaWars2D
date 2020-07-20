@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images.Experimental;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Entitas;
 using UnityEngine;
 using Random = System.Random;
@@ -12,22 +13,22 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
     /// <summary>
     /// Создаёт компоненты для наград. Внутри компонента указан его путь.
     /// </summary>
-    public class MovingAwardImagesDataCreationSystem:ReactiveSystem<LobbyUiEntity>
+    public class MovingIconsDataCreationSystem:ReactiveSystem<LobbyUiEntity>
     {
         private readonly float screenHeight;
         
         private readonly Random random = new Random();
         private readonly LobbyUiContext contextsLobbyUi;
         
-        private readonly ILog log = LogManager.CreateLogger(typeof(MovingAwardImagesDataCreationSystem));
-        private readonly MovingAwardControlPointsFactoryFacade awardControlPointsFactoryFacade;
+        private readonly ILog log = LogManager.CreateLogger(typeof(MovingIconsDataCreationSystem));
+        private readonly MovingAwardTrajectoryFactory awardTrajectoryFactory;
 
-        public MovingAwardImagesDataCreationSystem(Contexts contexts, RectTransform movingAwardsParentRectTransform)
+        public MovingIconsDataCreationSystem(Contexts contexts, RectTransform movingAwardsParentRectTransform)
             :base(contexts.lobbyUi)
         {
             contextsLobbyUi = contexts.lobbyUi;
             screenHeight = movingAwardsParentRectTransform.sizeDelta.y;
-            awardControlPointsFactoryFacade = new MovingAwardControlPointsFactoryFacade();
+            awardTrajectoryFactory = new MovingAwardTrajectoryFactory();
         }
 
         protected override ICollector<LobbyUiEntity> GetTrigger(IContext<LobbyUiEntity> context)
@@ -45,7 +46,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
             const int maxNumberOfImagesPerAwardType = 100;
             foreach (var command in entities.Select(entity => entity.commandToCreateAwardImages))
             {
-                AwardType awardType = command.awardType;
+                AwardTypeEnum awardTypeEnum = command.awardTypeEnum;
                 DateTime spawnStartTime = command.startSpawnTime;
                 int remainder = command.quantity;
                 int numberOfImages;
@@ -69,8 +70,12 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
                 {
                     index++;
                     LobbyUiEntity entity = contextsLobbyUi.CreateEntity();
-                    List<ControlPoint> controlPoints = awardControlPointsFactoryFacade
-                        .Create(index, spawnStartTime, random, screenHeight, awardType);
+                    
+                    Vector3 spawnPoint = MovingAwardsUiElementsStorage.Instance().GetStartPoint(awardTypeEnum);
+                    Vector3 finishPoint = MovingAwardsUiElementsStorage.Instance().GetFinishPoint(awardTypeEnum);
+                    
+                    var controlPoints =  awardTrajectoryFactory
+                        .Create(index, spawnStartTime, spawnPoint, finishPoint, random, screenHeight);
 
                     int increment;
                     if (roundedAverageIncrement < remainder)
@@ -81,7 +86,12 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
                     {
                         increment = remainder;
                     }
-                    entity.AddMovingAward( increment, awardType,1  , controlPoints);
+                    IconTrajectory iconTrajectory = new IconTrajectory()
+                    {
+                        controlPoints =  controlPoints,
+                        currentControlPointIndex = 1
+                    };
+                    entity.AddMovingIcon( increment, iconTrajectory, awardTypeEnum);
                     entity.AddPosition(controlPoints.First().position);
                     entity.AddAlpha(0);
                     entity.AddScale(new Vector3(1,1,1));

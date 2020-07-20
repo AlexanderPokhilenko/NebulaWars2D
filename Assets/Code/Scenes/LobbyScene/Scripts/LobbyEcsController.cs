@@ -56,7 +56,7 @@ namespace Code.Scenes.LobbyScene.Scripts
         private PurchaseConfirmationWindow purchaseConfirmationWindow;
         private MatchSearchDataUpdaterSystem matchSearchDataUpdaterSystem;
         private AccountDataComponentsCreatorSystem accountDataComponentsCreatorSystem;
-        private MovingAwardImagesDataCreationSystem movingAwardImagesDataCreationSystem;
+        private MovingIconsDataCreationSystem movingIconsDataCreationSystem;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyEcsController));
         private StartCancelMatchComponentsCreatorSystem startCancelMatchComponentsCreatorSystem;
 
@@ -95,7 +95,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             startCancelMatchComponentsCreatorSystem = new StartCancelMatchComponentsCreatorSystem(contexts.lobbyUi);
             matchSearchDataUpdaterSystem = new MatchSearchDataUpdaterSystem(contexts);
             
-            movingAwardImagesDataCreationSystem = new MovingAwardImagesDataCreationSystem(contexts,
+            movingIconsDataCreationSystem = new MovingIconsDataCreationSystem(contexts,
                 movingAwardsUiStorage.movingAwardImageParentRectTransform);
             
             movingAwardsMainSystem = new MovingAwardsMainSystem(contexts);
@@ -114,11 +114,11 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new MovingAwardsTextDeleteSystem(contexts))
                     
                     //Движение наград
-                    .Add(movingAwardImagesDataCreationSystem)
-                    .Add(new MovingAwardImagesGameObjectCreationSystem(contexts,  movingAwardsUiStorage.movingAwardImageParentRectTransform))
-                    .Add(new MovingAwardImageDataUpdaterSystem(contexts))
-                    .Add(new MovingAwardGameObjectUpdaterSystem(contexts, movingAwardsUiStorage.movingAwardImageUpperObject))
-                    .Add(new MovingAwardImageDestroySystem(contexts))
+                    .Add(movingIconsDataCreationSystem)
+                    .Add(new MovingIconInstantiatorSystem(contexts,  movingAwardsUiStorage.movingAwardImageParentRectTransform))
+                    .Add(new MovingIconDataUpdaterSystem(contexts))
+                    .Add(new MovingIconsUpdaterSystem(contexts, movingAwardsUiStorage.movingAwardImageUpperObject))
+                    .Add(new MovingIconDestroySystem(contexts))
                     
                     //Поиск матча
                     .Add(matchSearchDataUpdaterSystem)
