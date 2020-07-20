@@ -18,8 +18,19 @@ namespace Code.Common
                     instance = FindObjectOfType<T>();
                     if (instance == null)
                     {
-                        GameObject singleton = new GameObject(typeof(T).Name);
-                        instance = singleton.AddComponent<T>();
+                        GameObject singleton = Resources.Load<GameObject>("Singletons/" + typeof(T).Name);
+                        if (singleton == null)
+                        {
+                            singleton = new GameObject(typeof(T).Name);
+                            instance = singleton.AddComponent<T>();
+                        }
+                        else
+                        {
+                            singleton = Instantiate(singleton);
+                            singleton.name = typeof(T).Name;
+                            instance = singleton.GetComponent<T>();
+                            if(instance == null) throw new System.NullReferenceException("Синглтон из префаба не содержал необходимый компонент.");
+                        }
                     }
                 }
             }
