@@ -45,13 +45,13 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             Contexts contexts = Contexts.sharedInstance;
             canvasRect = transform.Find("Canvas").GetComponent<RectTransform>();
             var movingAwardImagesDataCreationSystem = new MovingIconsDataCreationSystem(contexts, canvasRect);
-
+            RectTransform upperObject = transform.Find("Canvas/Empty_UpperObject").GetComponent<RectTransform>();
             context = contexts.wppAccrual;
             systems = new Systems()
                 //Движение наград
                 .Add(new WppImagesInstantiatorSystem(contexts, canvasRect, wppIconPrefab))
                 .Add(new IconsDataUpdaterSystem(contexts))
-                .Add(new IconsUpdaterSystem(contexts, canvasRect))
+                .Add(new IconsUpdaterSystem(contexts, upperObject))
                 .Add(new WppViewDestroySystem(contexts))
                 ;
 
@@ -103,9 +103,6 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             Vector3 spawnPosition = new Vector3(Screen.width/2, Screen.height/2);
             Vector3 finishPosition = canvasRect.gameObject.transform.Find("Empty_PowerValueRoot/Image_PowerValue")
                 .GetComponent<RectTransform>().position;
-            
-            log.Debug(spawnPosition.x+" "+spawnPosition.y);
-            log.Debug(finishPosition.x+" "+finishPosition.y);
             
             var trajectoryFactory = new WppIconTrajectoryFactory();
             var random = new Random();

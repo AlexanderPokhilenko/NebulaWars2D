@@ -53,7 +53,7 @@ public partial class LobbyUiEntity {
         var index = LobbyUiComponentsLookup.MatchSearchDataForMenu;
         var component = (Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent));
         component.numberOfPlayersInMatch = newNumberOfPlayersInMatch;
-        component.numberOfPlayersInQueue = newNumberOfPlayersInQueue;
+        component.NumberOfPlayersInQueue = newNumberOfPlayersInQueue;
         AddComponent(index, component);
     }
 
@@ -61,7 +61,7 @@ public partial class LobbyUiEntity {
         var index = LobbyUiComponentsLookup.MatchSearchDataForMenu;
         var component = (Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent));
         component.numberOfPlayersInMatch = newNumberOfPlayersInMatch;
-        component.numberOfPlayersInQueue = newNumberOfPlayersInQueue;
+        component.NumberOfPlayersInQueue = newNumberOfPlayersInQueue;
         ReplaceComponent(index, component);
     }
 

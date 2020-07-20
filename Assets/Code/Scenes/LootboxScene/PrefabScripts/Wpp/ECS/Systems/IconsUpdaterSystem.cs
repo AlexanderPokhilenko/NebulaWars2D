@@ -1,4 +1,5 @@
     using Code.Common.Logger;
+    using Code.Scenes.LobbyScene.ECS.Extensions;
     using Entitas;
     using UnityEngine;
 
@@ -25,16 +26,22 @@
             {
                 foreach (var entity in movingAwardsGroup)
                 {
+                   
                     entity.view.gameObject.transform.position = entity.position.value;
                     entity.view.gameObject.transform.localScale = entity.scale.scale;
-                    var oldColor =  entity.image.image.color; 
-                    entity.image.image.color = new Color(oldColor.r, oldColor.g, oldColor.b, entity.alpha.alpha);
+                    if (entity.image.image != null)
+                    {
+                        var tmpColor =  entity.image.image.color;
+                        tmpColor.a = entity.alpha.alpha;
+                        entity.image.image.color = tmpColor;
 
-                    // if (entity.movingIcon.IsRaiseUpNeeded())
-                    // {
-                    //     entity.view.gameObject.transform.SetParent(upperObject, false);
-                    //     entity.movingAward.TurnOffRaiseUp();
-                    // }
+                    }
+
+                    if (entity.movingIcon.IsRaiseUpNeeded())
+                    {
+                        entity.view.gameObject.transform.SetParent(upperObject, false);
+                        entity.movingIcon.TurnOffRaiseUp();
+                    }
                 }
             }
         }

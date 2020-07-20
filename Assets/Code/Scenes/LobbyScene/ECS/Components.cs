@@ -109,7 +109,7 @@ namespace Code.Scenes.LobbyScene.ECS
     public class MatchSearchDataForMenuComponent: IComponent
     {
         public int numberOfPlayersInMatch;
-        public int numberOfPlayersInQueue;
+        public int NumberOfPlayersInQueue;
     }
 
     [LobbyUi, Game, WppAccrual]

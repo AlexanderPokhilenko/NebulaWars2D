@@ -24,17 +24,19 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
         
         public void Execute()
         {
-            foreach (LobbyUiEntity movingAward in movingAwardsGroup)
+            foreach (LobbyUiEntity entity in movingAwardsGroup)
             {
-                movingAward.view.gameObject.transform.position = movingAward.position.value;
-                movingAward.view.gameObject.transform.localScale = movingAward.scale.scale;
-                var oldColor =  movingAward.image.image.color; 
-                movingAward.image.image.color = new Color(oldColor.r, oldColor.g, oldColor.b, movingAward.alpha.alpha);
+                entity.view.gameObject.transform.position = entity.position.value;
+                entity.view.gameObject.transform.localScale = entity.scale.scale;
+            
+                Color tmpColor = entity.image.image.color;
+                tmpColor.a = entity.alpha.alpha;
+                entity.image.image.color = tmpColor;
 
-                if (movingAward.movingIcon.IsRaiseUpNeeded())
+                if (entity.movingIcon.IsRaiseUpNeeded())
                 {
-                    movingAward.view.gameObject.transform.SetParent(upperObject, false);
-                    movingAward.movingIcon.TurnOffRaiseUp();
+                    entity.view.gameObject.transform.SetParent(upperObject, false);
+                    entity.movingIcon.TurnOffRaiseUp();
                 }
             }
         }
