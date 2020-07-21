@@ -42,5 +42,6 @@ public enum ViewTypeId:byte
     SagePlayer,
     BlasterShoot,
     IncineratorBeam,
-    AbyssBeam
+    AbyssBeam,
+    PelletShoot
 }
