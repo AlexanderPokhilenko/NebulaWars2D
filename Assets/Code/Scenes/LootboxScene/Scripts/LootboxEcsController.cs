@@ -57,8 +57,13 @@ namespace Code.Scenes.LootboxScene.Scripts
 
         private void OnDestroy()
         {
-            systems.TearDown();
-            contexts.lootbox.DestroyAllEntities();
+            if (systems != null)
+            {
+                systems.DeactivateReactiveSystems();
+                systems.TearDown();
+                contexts.lootbox.DestroyAllEntities();
+                systems.ClearReactiveSystems();    
+            }
         }
 
         public void CanvasButton_OnClick()

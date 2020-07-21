@@ -35,7 +35,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
                 DateTime arrivalTime = entity.movingIcon.iconTrajectory.controlPoints.Last().arrivalTime;
                 if (arrivalTime <= now)
                 {
-                    int increment = entity.movingIcon.increment;
+                    // int increment = entity.movingIcon.increment;
                     Object.Destroy(entity.view.gameObject);
                     entity.Destroy();
                     uiSoundsManager.PlayWarshipPowerPointsAccrual();

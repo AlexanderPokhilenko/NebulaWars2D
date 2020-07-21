@@ -42,11 +42,11 @@ namespace Code.Scenes.LootboxScene.Scripts
 
         private void StartAnimation(LootboxModel lootboxModelArg)
         {
-            log.Info("Начать анимацию");
-            foreach (LootboxPrizeModel prize in lootboxModelArg.Prizes)
-            {
-                log.Info($"{nameof(prize.LootboxPrizeType)} {prize.LootboxPrizeType}");
-            }
+            // log.Info("Начать анимацию");
+            // foreach (LootboxPrizeModel prize in lootboxModelArg.Prizes)
+            // {
+            //     log.Info($"{nameof(prize.LootboxPrizeType)} {prize.LootboxPrizeType}");
+            // }
             
             lootboxEcsController.SetLootboxModel(lootboxModelArg);
         }

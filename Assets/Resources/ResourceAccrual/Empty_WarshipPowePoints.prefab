@@ -511,8 +511,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wppIconPrefab: {fileID: 3274882579307936501}
-  wppDestroySoundPrefab: {fileID: 8074756566575054609, guid: 525321c56af31554bb32f2b3878aed4a,
-    type: 3}
 --- !u!1001 &981008441431998669
 PrefabInstance:
   m_ObjectHideFlags: 0

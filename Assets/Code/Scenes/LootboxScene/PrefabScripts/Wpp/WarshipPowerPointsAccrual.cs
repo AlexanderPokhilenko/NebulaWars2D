@@ -42,12 +42,22 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
 
         private void Start()
         {
+            StartCoroutine(DichStart());
+        }
+        
+        private IEnumerator DichStart()
+        {
+            yield return null;
+            
             lightningParticleSystem.SetActive(false);
             Contexts contexts = Contexts.sharedInstance;
+            
             canvasRect = transform.Find("Canvas").GetComponent<RectTransform>();
             Text text = transform.Find("Canvas/Empty_PowerValueRoot/Text").GetComponent<Text>();
             RectTransform upperObject = transform.Find("Canvas/Empty_UpperObject").GetComponent<RectTransform>();
             wppContext = Contexts.sharedInstance.wppAccrual;
+            wppContext.DestroyAllEntities();
+            
             GameObject redScale = transform.Find("Canvas/Empty_PowerValueRoot").gameObject;
             GameObject greenScale = transform.Find("Canvas/Empty_FilledPowerScale").gameObject;
             systems = new Systems()
@@ -63,8 +73,12 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             {
                 throw new NullReferenceException("context is null in start");
             }
+
+            wppContext.CreateEntity().AddWarshipPowerPoints(0,0);
+            
         }
 
+        
         private void Update()
         {
             if (systems != null)
@@ -74,12 +88,25 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             }
         }
 
+        private void OnDestroy()
+        {
+            
+            if (systems != null)
+            {
+              systems.DeactivateReactiveSystems();
+              systems.TearDown();
+              wppContext.DestroyAllEntities();
+              systems.ClearReactiveSystems();    
+            }
+            
+        }
+
         private IEnumerator Animation(LootboxWarshipPowerPointsModel model)
         {
             yield return new WaitUntil(()=>wppContext!=null);
             int startValue = model.StartValue;
             int maxValue = model.MaxValueForLevel;
-            wppContext.CreateEntity().ReplaceWarshipPowerPoints(startValue,maxValue);
+            wppContext.ReplaceWarshipPowerPoints(startValue,maxValue);
             int amount = model.FinishValue - model.StartValue;
             StartCoroutine(WarshipAnimation(model.WarshipSkinName, amount));
         }

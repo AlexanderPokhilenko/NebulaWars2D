@@ -89,13 +89,12 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             if (currentPrizeIndex == lootboxModel.Prizes.Count)
             {
                 //Вернуться в лобби
+                lootboxUiStorage.resourcesRoot.transform.DestroyAllChildren();
                 lootboxLobbyLoaderController.LoadLobbyScene();
                 return;
             }
             
             //Если есть ресурсы, которые нужно показать
-            
-            
             uiSoundsManager.PlayAdding();
             LootboxPrizeModel lootboxPrizeModel = lootboxModel.Prizes[currentPrizeIndex];
             LootboxEntity entity1 = lootboxContext.CreateEntity();

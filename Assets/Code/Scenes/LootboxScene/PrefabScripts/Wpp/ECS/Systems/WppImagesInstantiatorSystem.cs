@@ -42,7 +42,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
             int index = 0;
             foreach (var entity in entities)
             {
-                log.Debug("Создание");
+                // log.Debug("Создание");
                 GameObject awardGo = Object.Instantiate(wppIconPrefab, parent,false);
                 awardGo.name += (index++).ToString();
                 entity.AddView(awardGo);

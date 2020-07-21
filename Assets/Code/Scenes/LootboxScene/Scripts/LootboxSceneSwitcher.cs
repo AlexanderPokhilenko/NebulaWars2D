@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Code.Common.Logger;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,12 @@ namespace Code.Scenes.LootboxScene.Scripts
         public void LoadLobbyScene()
         {
             Destroy(ecsController);
+            StartCoroutine(Suka());
+        }
+
+        private IEnumerator Suka()
+        {
+            yield return null;
             SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
         }
     }

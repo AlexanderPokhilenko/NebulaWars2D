@@ -42,33 +42,60 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
             // {
             //     Prizes = new List<LootboxPrizeModel>()
             //     {
-            //         new LootboxPrizeModel()
-            //         {
-            //             LootboxPrizeType = LootboxPrizeType.SoftCurrency,
-            //             SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxSoftCurrencyModel()
-            //             {
-            //                 Amount = 53
-            //             })
-            //         },
-            //         new LootboxPrizeModel()
-            //         {
-            //             LootboxPrizeType = LootboxPrizeType.HardCurrency,
-            //             SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
-            //             {
-            //                 Amount = 53
-            //             })
-            //         },
+            //         // new LootboxPrizeModel()
+            //         // {
+            //         //     LootboxPrizeType = LootboxPrizeType.SoftCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxSoftCurrencyModel()
+            //         //     {
+            //         //         Amount = 53
+            //         //     })
+            //         // },
+            //         // new LootboxPrizeModel()
+            //         // {
+            //         //     LootboxPrizeType = LootboxPrizeType.HardCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
+            //         //     {
+            //         //         Amount = 53
+            //         //     })
+            //         // },
             //         new LootboxPrizeModel()
             //         {
             //             LootboxPrizeType = LootboxPrizeType.WarshipPowerPoints,
             //             SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxWarshipPowerPointsModel()
             //             {
-            //                 WarshipPrefabName = "hare",
+            //                 WarshipSkinName = "hare",
             //                 StartValue = 9,
             //                 FinishValue = 20,
             //                 MaxValueForLevel = 15
             //             })
-            //         }
+            //         },
+            //         // new LootboxPrizeModel()
+            //         // {
+            //         //     LootboxPrizeType = LootboxPrizeType.HardCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
+            //         //     {
+            //         //         Amount = 53
+            //         //     })
+            //         // },
+            //         new LootboxPrizeModel()
+            //         {
+            //             LootboxPrizeType = LootboxPrizeType.WarshipPowerPoints,
+            //             SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxWarshipPowerPointsModel()
+            //             {
+            //                 WarshipSkinName = "hare",
+            //                 StartValue = 9,
+            //                 FinishValue = 20,
+            //                 MaxValueForLevel = 15
+            //             })
+            //         },
+            //         // new LootboxPrizeModel()
+            //         // {
+            //         //     LootboxPrizeType = LootboxPrizeType.HardCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
+            //         //     {
+            //         //         Amount = 53
+            //         //     })
+            //         // }
             //     }
             // };
             // return lootboxModel;
