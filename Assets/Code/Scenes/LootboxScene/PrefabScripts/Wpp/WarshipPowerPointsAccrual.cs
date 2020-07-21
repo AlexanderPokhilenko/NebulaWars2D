@@ -50,14 +50,15 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             Text text = transform.Find("Canvas/Empty_PowerValueRoot/Text").GetComponent<Text>();
             RectTransform upperObject = transform.Find("Canvas/Empty_UpperObject").GetComponent<RectTransform>();
             wppContext = Contexts.sharedInstance.wppAccrual;
-            
+            GameObject redScale = transform.Find("Canvas/Empty_PowerValueRoot").gameObject;
+            GameObject greenScale = transform.Find("Canvas/Empty_FilledPowerScale").gameObject;
             systems = new Systems()
                 //Движение наград
                 .Add(new WppImagesInstantiatorSystem(contexts, canvasRect, wppIconPrefab))
                 .Add(new IconsDataUpdaterSystem(contexts))
                 .Add(new IconsUpdaterSystem(contexts, upperObject))
                 .Add(new WppViewDestroySystem(contexts))
-                .Add(new WppScaleUpdaterSystem(contexts.wppAccrual, text))
+                .Add(new WppScaleUpdaterSystem(contexts.wppAccrual, text, redScale, greenScale))
                 ;
             
             if (wppContext == null)
@@ -85,7 +86,6 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             wppContext.CreateEntity().ReplaceWarshipPowerPoints(startValue,maxValue);
             int amount = lootboxWarshipPowerPointsModel.FinishValue - lootboxWarshipPowerPointsModel.StartValue;
             StartCoroutine(WarshipAnimation(lootboxWarshipPowerPointsModel.WarshipPrefabName, amount));
-            yield break;
         }
         
         private IEnumerator WarshipAnimation(string warshipPrefabNameArg, int amount)
