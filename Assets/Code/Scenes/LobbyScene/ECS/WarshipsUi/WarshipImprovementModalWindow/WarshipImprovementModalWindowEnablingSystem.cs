@@ -80,8 +80,8 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipImprovementModalWindow
                     log.Debug("После ожидания");
                     //Показать текущее меню
                     newLobbyEcs.ShowWarshipList();
-                    warshipDto.PowerLevel++;
-                    newLobbyEcs.ShowWarshipOverview(warshipDto);
+                    
+                    newLobbyEcs.ShowWarshipOverviewById(warshipDto.Id);
                 }
                 else
                 {

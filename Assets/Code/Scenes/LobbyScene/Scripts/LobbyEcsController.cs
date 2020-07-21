@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.BattleScene.ECS.Systems.TearDownSystems;
@@ -314,6 +315,16 @@ namespace Code.Scenes.LobbyScene.Scripts
             contexts.lobbyUi.CreateEntity().messageEnableWarshipListUiLayer = true;
         }
 
+        public void ShowWarshipOverviewById(int warshipId)
+        {
+            var warshipDto = contexts.lobbyUi
+                .GetGroup(LobbyUiMatcher.Warship)
+                .AsEnumerable()
+                .Last(entity => entity.warship.warshipDto.Id == warshipId).warship.warshipDto;
+            
+            contexts.lobbyUi.CreateEntity().AddEnableWarshipOverviewUiLayer(warshipDto);
+        }
+        
         public void ShowWarshipOverview(WarshipDto warshipDto)
         {
             contexts.lobbyUi.CreateEntity().AddEnableWarshipOverviewUiLayer(warshipDto);
