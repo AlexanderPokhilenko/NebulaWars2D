@@ -24,12 +24,9 @@ namespace Code.Scenes.LootboxScene.PrefabScripts
     
         private void Awake()
         {
-            headerGo = transform.Find("Canvas/Text_Header").gameObject
-                       ?? throw new NullReferenceException("Text_Header");
-            imageGo = transform.Find("Canvas/Image").gameObject
-                      ?? throw new NullReferenceException("Image");
-            amountGo = transform.Find("Canvas/Text_Amount").gameObject
-                       ?? throw new NullReferenceException("Text_Amount");
+            imageGo = transform.Find("Canvas/Image").gameObject;
+            headerGo = transform.Find("Canvas/Text_Header").gameObject;
+            amountGo = transform.Find("Canvas/Text_Amount").gameObject;
             foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(false);
@@ -48,6 +45,9 @@ namespace Code.Scenes.LootboxScene.PrefabScripts
             {
                 child.gameObject.SetActive(true);
             }
+
+            var amountText = amountGo.GetComponent<Text>();
+            amountText.text = $"x{amount}";
             StartCoroutine(HeaderAnimation());
             StartCoroutine(ImageAnimation());
             StartCoroutine(AmountAnimation());

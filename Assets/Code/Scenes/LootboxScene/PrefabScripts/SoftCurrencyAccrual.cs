@@ -45,6 +45,8 @@ namespace Code.Scenes.LootboxScene.PrefabScripts
             {
                 child.gameObject.SetActive(true);
             }
+            var amountText = amountGo.GetComponent<Text>();
+            amountText.text = $"x{amount}";
             StartCoroutine(HeaderAnimation());
             StartCoroutine(ImageAnimation());
             StartCoroutine(AmountAnimation());
