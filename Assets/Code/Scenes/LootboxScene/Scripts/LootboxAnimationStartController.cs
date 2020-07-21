@@ -48,8 +48,7 @@ namespace Code.Scenes.LootboxScene.Scripts
             log.Info("Старт анимации");
             foreach (LootboxPrizeModel prize in lootboxModelArg.Prizes)
             {
-                log.Info($"{nameof(prize.LootboxPrizeType)} {prize.LootboxPrizeType}" +
-                         $" {nameof(prize.Quantity)} {prize.Quantity}");
+                log.Info($"{nameof(prize.LootboxPrizeType)} {prize.LootboxPrizeType}");
             }
             
             lootboxEcsController.SetLootboxData(lootboxModelArg);

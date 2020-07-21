@@ -71,7 +71,8 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         {
             log.Info($"{nameof(ShiftCurrentPrize)} {nameof(currentPrizeIndex)} {currentPrizeIndex}");
             var entity = lootboxContext.CreateEntity();
-            entity.AddShowPrize(lootboxData.Prizes[currentPrizeIndex].Quantity, lootboxData.Prizes[currentPrizeIndex].LootboxPrizeType);
+            UnityEngine.Debug.Log(string.Join(", ", lootboxData.Prizes[currentPrizeIndex].SerializedModel));
+            entity.AddShowPrize(lootboxData.Prizes[currentPrizeIndex].SerializedModel[12]/*Кое-кто не отправил изменения на клиенте*/, lootboxData.Prizes[currentPrizeIndex].LootboxPrizeType);
             currentPrizeIndex++;
         }
     }

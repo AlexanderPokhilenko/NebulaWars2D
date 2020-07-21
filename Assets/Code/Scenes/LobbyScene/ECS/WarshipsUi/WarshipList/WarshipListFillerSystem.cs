@@ -90,8 +90,9 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
                 
                 //Проверить на кол-во ресурсов для перехода на новый уровень
                 int softCurrency = lobbyEcsController.GetSoftCurrency();
-                int improvementCost = WarshipPowerScaleStorage.Instance.GetCost(warshipDto.PowerLevel);
-                int maxPowerPoints = WarshipPowerScaleStorage.Instance.GetMaxPowerPoints(warshipDto.PowerLevel);
+                var model = WarshipPowerScale.GetModel(warshipDto.PowerLevel);
+                int improvementCost = model.SoftCurrencyCost;
+                int maxPowerPoints = model.PowerPointsCost;
                 
                 bool showImproveAnimation = softCurrency >= improvementCost && warshipDto.PowerPoints >= maxPowerPoints;
 
@@ -107,11 +108,12 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
 
                     //Установить кол-во баллов текущего уровня силы на шкале прогресса
                     Slider slider = item.transform.Find("Empty_PowerValueRoot/Slider").GetComponent<Slider>();
-                    slider.value = WarshipPowerScaleStorage.Instance.GetProgress(warshipDto.PowerLevel, warshipDto.PowerPoints);
+                    slider.maxValue = maxPowerPoints;
+                    slider.value = warshipDto.PowerPoints;
                 
                     //Установить текст кол-ва баллов текущего уровня силы 
                     Text sliderText = item.transform.Find("Empty_PowerValueRoot/Text").GetComponent<Text>();
-                    sliderText.text = warshipDto.PowerPoints + "/"+WarshipPowerScaleStorage.Instance.GetMaxPowerPoints(warshipDto.PowerLevel);
+                    sliderText.text = warshipDto.PowerPoints + "/"+ maxPowerPoints;
                 }
 
              

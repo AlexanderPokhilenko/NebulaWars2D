@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using ZeroFormatter;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
 {
@@ -8,6 +8,5 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(0)] public virtual AccountDto AccountDto { get; set; }
         [Index(1)] public virtual RewardsThatHaveNotBeenShown RewardsThatHaveNotBeenShown { get; set; }
         [Index(2)] public virtual WarshipRatingScaleModel WarshipRatingScaleModel { get; set; }
-        [Index(3)] public virtual WarshipPowerScaleModel WarshipPowerScaleModel { get; set; }
     }
 }
