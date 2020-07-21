@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
@@ -138,20 +139,18 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipImprovementModalWindow
                 parameterName.text = warshipCharacteristic.Name;
                 Text parameterValue = go.transform.Find("Text_ParameterValue").GetComponent<Text>();
 
+                var currentValue = warshipCharacteristic.GetCurrentValue(powerLevel);
                 if (warshipCharacteristic.UiIncrementTypeEnum != UiIncrementTypeEnum.None
-                    && warshipCharacteristic.Increments.Length > powerLevel
-                    && warshipCharacteristic.Increments[powerLevel] != null)
+                    && warshipCharacteristic.Increment != IncrementCoefficient.None)
                 {
                     go.transform.Find("Particle System").gameObject.SetActive(true);
-                    string incrementValue = warshipCharacteristic.Increments[powerLevel];
-                    string currentValue = warshipCharacteristic.Values[powerLevel];
-                    parameterValue.text = $"{currentValue} <color=#00CE00>+ {incrementValue}</color>";
+                    var incrementValue = warshipCharacteristic.GetCurrentValue(powerLevel + 1) - currentValue;
+                    parameterValue.text = $"{currentValue} <color=#00CE00>+ {incrementValue:0.###}</color>";
                 }
                 else
                 {
                     go.transform.Find("Particle System").gameObject.SetActive(false);
-                    string currentValue = warshipCharacteristic.Values[powerLevel];
-                    parameterValue.text = currentValue;
+                    parameterValue.text = currentValue.ToString("0.###");
                 }
             }
         }

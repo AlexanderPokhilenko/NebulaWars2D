@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 1) Для того, чтобы сериализация работала нужно выполнить генерацию кода
+=======
+﻿1) Для того, чтобы сериализация работала нужно выполнить генерацию кода
+>>>>>>> origin/master
 ... SpaceRoyal\Assets\Libraries\Unity_Releases_1.6.4>
 zfc.exe -i "..\..\..\Assembly-CSharp.csproj" -o "ZeroFormatterGenerated.cs" -e
 

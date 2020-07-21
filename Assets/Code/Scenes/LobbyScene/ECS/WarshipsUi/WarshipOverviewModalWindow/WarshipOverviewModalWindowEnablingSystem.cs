@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
@@ -94,7 +95,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverviewModalWindow
                     parameterName.text = warshipCharacteristic.Name;
                 
                     Text parameterValue = go.transform.Find("Text_ParameterValue").GetComponent<Text>();
-                    parameterValue.text = warshipCharacteristic.Values[powerLevel];
+                    parameterValue.text = warshipCharacteristic.GetCurrentValue(powerLevel).ToString("0.###");
                 
                     go.transform.Find("Particle System").gameObject.SetActive(false);
                 }
