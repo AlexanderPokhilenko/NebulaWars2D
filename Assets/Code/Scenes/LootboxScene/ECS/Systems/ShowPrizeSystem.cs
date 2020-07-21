@@ -89,11 +89,13 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.warshipPowerPointsPrefab, parent);
                     var script = go.GetComponent<WarshipPowerPointsAccrual>();
-                    LootboxWarshipPowerPointsModel lootboxWarshipPowerPointsModel =
-                        ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel
-                            .SerializedModel);
-                    script.SetData(lootboxWarshipPowerPointsModel.WarshipPrefabName,
-                        lootboxWarshipPowerPointsModel.Amount);
+                    var lootboxWarshipPowerPointsModel =
+                        ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel.SerializedModel);
+                    log.Debug(lootboxWarshipPowerPointsModel.StartValue);
+                    log.Debug(lootboxWarshipPowerPointsModel.FinishValue);
+                    log.Debug(lootboxWarshipPowerPointsModel.WarshipPrefabName);
+                    log.Debug(lootboxWarshipPowerPointsModel.MaxValueForLevel);
+                    script.SetData(lootboxWarshipPowerPointsModel);
                     Color red = new Color(209, 0, 0);
                     circlesOnAWaterColorUpdater.SetStartColor(red);
                     break;

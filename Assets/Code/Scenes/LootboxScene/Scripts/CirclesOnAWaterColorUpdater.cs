@@ -19,17 +19,8 @@ namespace Code.Scenes.LootboxScene.Scripts
 
         public void SetStartColor(Color color)
         {
-            log.Debug($"{color.r} {color.g} {color.b}");
-            log.Error("Вызов");
             ParticleSystem.MainModule mainModule = circlesOnAWater.main;
             mainModule.startColor = color;
-            mainModule.startColor = color;
-            mainModule.startColor = color;
-            
-            if (mainModule.startColor.color != color)
-            {
-                throw new Exception("Цвет не установлен");
-            }
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Code.Common
         }
 
         
-        public void PlayDich(AudioSource source, AudioClip clip)
+        public void PlayParallel(AudioSource source, AudioClip clip)
         {
             source.pitch = 1f;
             source.volume = InterfaceVolume;

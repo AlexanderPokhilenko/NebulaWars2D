@@ -2,9 +2,8 @@ using System;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
-using Code.Scenes.LobbyScene.ECS;
 using Entitas;
-using UnityEngine;
+using Entitas.Unity;
 using Object = UnityEngine.Object;
 
 namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
@@ -36,13 +35,13 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
                 DateTime arrivalTime = entity.movingIcon.iconTrajectory.controlPoints.Last().arrivalTime;
                 if (arrivalTime <= now)
                 {
-                    log.Debug("Уничтожение");
                     int increment = entity.movingIcon.increment;
                     Object.Destroy(entity.view.gameObject);
                     entity.Destroy();
-                    //звук добавления
                     uiSoundsManager.PlayWarshipPowerPointsAccrual();
-                    //todo обновить значение шкалы
+                    //обновить значение шкалы
+                    int oldValue = context.warshipPowerPoints.value;
+                    context.ReplaceWarshipPowerPoints(oldValue + 1, context.warshipPowerPoints.maxValueForLevel);
                 }
             }
         }

@@ -14,8 +14,9 @@ public static class WppAccrualComponentsLookup {
     public const int MovingIcon = 3;
     public const int Position = 4;
     public const int Scale = 5;
+    public const int WarshipPowerPoints = 6;
 
-    public const int TotalComponents = 6;
+    public const int TotalComponents = 7;
 
     public static readonly string[] componentNames = {
         "View",
@@ -23,7 +24,8 @@ public static class WppAccrualComponentsLookup {
         "Image",
         "MovingIcon",
         "Position",
-        "Scale"
+        "Scale",
+        "WarshipPowerPoints"
     };
 
     public static readonly System.Type[] componentTypes = {
@@ -32,6 +34,7 @@ public static class WppAccrualComponentsLookup {
         typeof(Code.Scenes.LobbyScene.ECS.ImageComponent),
         typeof(Code.Scenes.LobbyScene.ECS.MovingIconComponent),
         typeof(Code.Scenes.LobbyScene.ECS.PositionComponent),
-        typeof(Code.Scenes.LobbyScene.ECS.ScaleComponent)
+        typeof(Code.Scenes.LobbyScene.ECS.ScaleComponent),
+        typeof(Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.WarshipPowerPointsComponent)
     };
 }

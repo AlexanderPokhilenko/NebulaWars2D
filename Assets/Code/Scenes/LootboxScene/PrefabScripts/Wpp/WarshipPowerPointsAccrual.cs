@@ -8,7 +8,9 @@ using Code.Scenes.LobbyScene.ECS;
 using Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images;
 using Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems;
 using Entitas;
+using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
@@ -20,14 +22,14 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
     {
         private Systems systems;
         private RectTransform canvasRect;
-        private WppAccrualContext context;
+        private WppAccrualContext wppContext;
         private GameObject lightningParticleSystem;
         [SerializeField] private GameObject wppIconPrefab;
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipPowerPointsAccrual));
 
-        public void SetData(string warshipPrefabNameArg, int amount)
+        public void SetData(LootboxWarshipPowerPointsModel lootboxWarshipPowerPointsModel)
         {
-            StartCoroutine(Animation(warshipPrefabNameArg, amount));
+            StartCoroutine(Animation(lootboxWarshipPowerPointsModel));
         }
     
         private void Awake()
@@ -41,19 +43,27 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
 
         private void Start()
         {
+            log.Error("start called");
             lightningParticleSystem.SetActive(false);
             Contexts contexts = Contexts.sharedInstance;
             canvasRect = transform.Find("Canvas").GetComponent<RectTransform>();
+            Text text = transform.Find("Canvas/Empty_PowerValueRoot/Text").GetComponent<Text>();
             RectTransform upperObject = transform.Find("Canvas/Empty_UpperObject").GetComponent<RectTransform>();
-            context = contexts.wppAccrual;
+            wppContext = Contexts.sharedInstance.wppAccrual;
+            
             systems = new Systems()
                 //Движение наград
                 .Add(new WppImagesInstantiatorSystem(contexts, canvasRect, wppIconPrefab))
                 .Add(new IconsDataUpdaterSystem(contexts))
                 .Add(new IconsUpdaterSystem(contexts, upperObject))
                 .Add(new WppViewDestroySystem(contexts))
+                .Add(new WppScaleUpdaterSystem(contexts.wppAccrual, text))
                 ;
-
+            
+            if (wppContext == null)
+            {
+                throw new NullReferenceException("context is null in start");
+            }
         }
 
         private void Update()
@@ -65,9 +75,16 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             }
         }
 
-        private IEnumerator Animation(string warshipPrefabNameArg, int amount)
+        private IEnumerator Animation(LootboxWarshipPowerPointsModel lootboxWarshipPowerPointsModel)
         {
-            StartCoroutine(WarshipAnimation(warshipPrefabNameArg, amount));
+            yield return new WaitUntil(()=>wppContext!=null);
+            log.Error("Animation called");
+            int startValue = lootboxWarshipPowerPointsModel.StartValue;
+            int maxValue = lootboxWarshipPowerPointsModel.MaxValueForLevel;
+            log.Error($"{nameof(startValue)} {startValue}");
+            wppContext.CreateEntity().ReplaceWarshipPowerPoints(startValue,maxValue);
+            int amount = lootboxWarshipPowerPointsModel.FinishValue - lootboxWarshipPowerPointsModel.StartValue;
+            StartCoroutine(WarshipAnimation(lootboxWarshipPowerPointsModel.WarshipPrefabName, amount));
             yield break;
         }
         
@@ -105,7 +122,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             for (int index = 0; index < amount; index++)
             {
                 DateTime spawnStartTime = DateTime.UtcNow;
-                var entity = context.CreateEntity();
+                var entity = Contexts.sharedInstance.wppAccrual.CreateEntity();
                 List<ControlPoint> controlPoints = trajectoryFactory
                     .Create(index, spawnStartTime, spawnPosition, finishPosition, random);
                 

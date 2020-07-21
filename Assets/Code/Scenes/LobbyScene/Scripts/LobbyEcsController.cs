@@ -55,8 +55,8 @@ namespace Code.Scenes.LobbyScene.Scripts
         private MovingAwardsUiElementsStorage movingAwardsUiStorage;
         private PurchaseConfirmationWindow purchaseConfirmationWindow;
         private MatchSearchDataUpdaterSystem matchSearchDataUpdaterSystem;
-        private AccountDataComponentsCreatorSystem accountDataComponentsCreatorSystem;
         private MovingIconsDataCreationSystem movingIconsDataCreationSystem;
+        private AccountDataComponentsCreatorSystem accountDataComponentsCreatorSystem;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyEcsController));
         private StartCancelMatchComponentsCreatorSystem startCancelMatchComponentsCreatorSystem;
 

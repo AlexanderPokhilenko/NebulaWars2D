@@ -64,7 +64,9 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
                         SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxWarshipPowerPointsModel()
                         {
                             WarshipPrefabName = "hare",
-                            Amount = 20
+                            StartValue = 9,
+                            FinishValue = 20,
+                            MaxValueForLevel = 15
                         })
                     }
                 }

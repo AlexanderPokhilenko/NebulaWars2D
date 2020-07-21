@@ -32,38 +32,38 @@ namespace Code.Common
             soundManager = SoundManager.Instance();
         }
 
-        private void PlaySound(AudioSource source, AudioClip clip)
+        private void PlaySound(AudioClip clip)
         {
-            soundManager.PlayUiSound(source, clip, false);
+            soundManager.PlayUiSound(mainAudioSource, clip, false);
         }
 
-        private void PlaySoundReversed(AudioSource source, AudioClip clip)
+        private void PlaySoundReversed(AudioClip clip)
         {
-            soundManager.PlayUiSound(source, clip, true);
+            soundManager.PlayUiSound(mainAudioSource, clip, true);
         }
 
-        private void PlayOneShot(AudioSource source, AudioClip clip)
+        private void PlayOneShot(AudioClip clip)
         {
-            soundManager.PlaySameUiSound(source, clip);
+            soundManager.PlaySameUiSound(mainAudioSource, clip);
         }
         
-        public void PlayAdding() => PlaySound(mainAudioSource, adding);
-        public void PlayClick() => PlaySound(mainAudioSource, click);
-        public void PlayError() => PlayOneShot(mainAudioSource, error);
-        public void PlayHardAdding() => PlayOneShot(mainAudioSource, hardAdding);
-        public void PlayLevelUp() => PlaySound(mainAudioSource, levelUp);
-        public void PlayLootbox() => PlaySound(mainAudioSource, lootbox);
+        public void PlayAdding() => PlaySound(adding);
+        public void PlayClick() => PlaySound(click);
+        public void PlayError() => PlayOneShot(error);
+        public void PlayHardAdding() => PlayOneShot(hardAdding);
+        public void PlayLevelUp() => PlaySound(levelUp);
+        public void PlayLootbox() => PlaySound(lootbox);
         public void PlayMenu(bool closing) => soundManager.PlayUiSound(mainAudioSource, menuOpen, closing);
-        public void PlayMenuOpen() => PlaySound(mainAudioSource, menuOpen);
-        public void PlayMenuClose() => PlaySoundReversed(mainAudioSource, menuOpen);
-        public void PlayPointsAdding() => PlayOneShot(mainAudioSource, pointsAdding);
-        public void PlayPurchase() => PlaySound(mainAudioSource, purchase);
-        public void PlayRatingAdding() => PlayOneShot(mainAudioSource, ratingAdding);
-        public void PlaySoftAdding() => soundManager.PlayDich(mainAudioSource, softAdding);
-        public void PlayStart() => PlaySound(mainAudioSource, start);
-        public void PlayStop() => PlaySoundReversed(mainAudioSource, start);
-        public void PlayWarshipChangingLeft() => PlaySound(mainAudioSource, warshipChanging);
-        public void PlayWarshipChangingRight() => PlaySoundReversed(mainAudioSource, warshipChanging);
-        public void PlayWarshipPowerPointsAccrual() => soundManager.PlayDich(mainAudioSource, wpp03);
+        public void PlayMenuOpen() => PlaySound(menuOpen);
+        public void PlayMenuClose() => PlaySoundReversed(menuOpen);
+        public void PlayPointsAdding() => PlayOneShot(pointsAdding);
+        public void PlayPurchase() => PlaySound(purchase);
+        public void PlayRatingAdding() => PlayOneShot(ratingAdding);
+        public void PlaySoftAdding() => PlayOneShot(softAdding);
+        public void PlayStart() => PlaySound(start);
+        public void PlayStop() => PlaySoundReversed(start);
+        public void PlayWarshipChangingLeft() => PlaySound(warshipChanging);
+        public void PlayWarshipChangingRight() => PlaySoundReversed(warshipChanging);
+        public void PlayWarshipPowerPointsAccrual() => soundManager.PlayParallel(mainAudioSource, wpp03);
     }
 }

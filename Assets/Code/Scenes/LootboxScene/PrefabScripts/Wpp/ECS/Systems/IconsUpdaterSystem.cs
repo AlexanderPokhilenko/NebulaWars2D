@@ -26,7 +26,6 @@
             {
                 foreach (var entity in movingAwardsGroup)
                 {
-                   
                     entity.view.gameObject.transform.position = entity.position.value;
                     entity.view.gameObject.transform.localScale = entity.scale.scale;
                     if (entity.image.image != null)
