@@ -20,8 +20,8 @@ namespace Code.Scenes.LootboxScene.Scripts
         private ClickHandlerSystem clickHandlerSystem;
         private LootboxSceneSwitcher lobbyLoaderController;
         private LootboxOpeningController lootboxOpenEffectController;
-        private readonly ILog log = LogManager.CreateLogger(typeof(LootboxEcsController));
         private CirclesOnAWaterColorUpdater circlesOnAWaterColorUpdater;
+        private readonly ILog log = LogManager.CreateLogger(typeof(LootboxEcsController));
 
         private void Awake()
         {

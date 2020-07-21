@@ -2,10 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.ECS;
-using Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images;
 using Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -15,6 +13,7 @@ using Random = System.Random;
 
 namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
 {
+    
     /// <summary>
     /// Находится на префабе премиум-валюты. Управляет анимацией при появлении префаба.
     /// </summary>
@@ -27,9 +26,9 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
         [SerializeField] private GameObject wppIconPrefab;
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipPowerPointsAccrual));
 
-        public void SetData(LootboxWarshipPowerPointsModel lootboxWarshipPowerPointsModel)
+        public void SetData(LootboxWarshipPowerPointsModel model)
         {
-            StartCoroutine(Animation(lootboxWarshipPowerPointsModel));
+            StartCoroutine(Animation(model));
         }
     
         private void Awake()
@@ -43,7 +42,6 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
 
         private void Start()
         {
-            log.Error("start called");
             lightningParticleSystem.SetActive(false);
             Contexts contexts = Contexts.sharedInstance;
             canvasRect = transform.Find("Canvas").GetComponent<RectTransform>();
@@ -76,16 +74,14 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             }
         }
 
-        private IEnumerator Animation(LootboxWarshipPowerPointsModel lootboxWarshipPowerPointsModel)
+        private IEnumerator Animation(LootboxWarshipPowerPointsModel model)
         {
             yield return new WaitUntil(()=>wppContext!=null);
-            log.Error("Animation called");
-            int startValue = lootboxWarshipPowerPointsModel.StartValue;
-            int maxValue = lootboxWarshipPowerPointsModel.MaxValueForLevel;
-            log.Error($"{nameof(startValue)} {startValue}");
+            int startValue = model.StartValue;
+            int maxValue = model.MaxValueForLevel;
             wppContext.CreateEntity().ReplaceWarshipPowerPoints(startValue,maxValue);
-            int amount = lootboxWarshipPowerPointsModel.FinishValue - lootboxWarshipPowerPointsModel.StartValue;
-            StartCoroutine(WarshipAnimation(lootboxWarshipPowerPointsModel.WarshipPrefabName, amount));
+            int amount = model.FinishValue - model.StartValue;
+            StartCoroutine(WarshipAnimation(model.WarshipSkinName, amount));
         }
         
         private IEnumerator WarshipAnimation(string warshipPrefabNameArg, int amount)

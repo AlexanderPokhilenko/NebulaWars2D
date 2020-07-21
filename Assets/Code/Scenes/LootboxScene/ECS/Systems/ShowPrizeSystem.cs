@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
+using Code.Common.Statistics;
 using Code.Scenes.LootboxScene.PrefabScripts;
 using Code.Scenes.LootboxScene.PrefabScripts.Wpp;
 using Code.Scenes.LootboxScene.Scripts;
@@ -18,6 +19,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
     /// </summary>
     public class ShowPrizeSystem:ReactiveSystem<LootboxEntity>
     {
+        private LobbyUiContext lobbyContext;
         private readonly LootboxUiStorage uiStorage;
         private readonly CirclesOnAWaterColorUpdater circlesOnAWaterColorUpdater;
         private readonly ILog log = LogManager.CreateLogger(typeof(ShowPrizeSystem));
@@ -27,6 +29,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             : base(contexts.lootbox)
         {
             this.uiStorage = uiStorage;
+            lobbyContext = contexts.lobbyUi;
             this.circlesOnAWaterColorUpdater = circlesOnAWaterColorUpdater;
         }
         
@@ -90,11 +93,8 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                     var go = UnityEngine.Object.Instantiate(uiStorage.warshipPowerPointsPrefab, parent);
                     var script = go.GetComponent<WarshipPowerPointsAccrual>();
                     var lootboxWarshipPowerPointsModel =
-                        ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel.SerializedModel);
-                    log.Debug(lootboxWarshipPowerPointsModel.StartValue);
-                    log.Debug(lootboxWarshipPowerPointsModel.FinishValue);
-                    log.Debug(lootboxWarshipPowerPointsModel.WarshipPrefabName);
-                    log.Debug(lootboxWarshipPowerPointsModel.MaxValueForLevel);
+                        ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel
+                            .SerializedModel);
                     script.SetData(lootboxWarshipPowerPointsModel);
                     Color red = new Color(209, 0, 0);
                     circlesOnAWaterColorUpdater.SetStartColor(red);
