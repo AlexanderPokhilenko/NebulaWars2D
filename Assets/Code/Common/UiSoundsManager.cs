@@ -28,6 +28,7 @@ namespace Code.Common
 
         protected override void Awake()
         {
+            base.Awake();
             mainAudioSource = GetComponent<AudioSource>();
             soundManager = SoundManager.Instance();
         }
