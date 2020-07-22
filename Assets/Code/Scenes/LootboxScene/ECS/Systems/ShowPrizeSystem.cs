@@ -20,16 +20,16 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
     {
         private LobbyUiContext lobbyContext;
         private readonly LootboxUiStorage uiStorage;
-        private readonly CirclesOnAWaterColorUpdater circlesOnAWaterColorUpdater;
+        private readonly ParticlesColorUpdater particlesColorUpdater;
         private readonly ILog log = LogManager.CreateLogger(typeof(ShowPrizeSystem));
 
         public ShowPrizeSystem(Contexts contexts, LootboxUiStorage uiStorage,
-            CirclesOnAWaterColorUpdater circlesOnAWaterColorUpdater) 
+            ParticlesColorUpdater particlesColorUpdater) 
             : base(contexts.lootbox)
         {
             this.uiStorage = uiStorage;
             lobbyContext = contexts.lobbyUi;
-            this.circlesOnAWaterColorUpdater = circlesOnAWaterColorUpdater;
+            this.particlesColorUpdater = particlesColorUpdater;
         }
         
         protected override ICollector<LootboxEntity> GetTrigger(IContext<LootboxEntity> context)
@@ -71,7 +71,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                         ZeroFormatterSerializer.Deserialize<LootboxSoftCurrencyModel>(prize.LootboxPrizeModel
                             .SerializedModel);
                     script.SetData(lootboxSoftCurrencyModel.Amount);
-                    circlesOnAWaterColorUpdater.SetStartColor(Color.blue);
+                    particlesColorUpdater.SetStartColor(Color.blue);
                     break;
                 }
                 case LootboxPrizeType.HardCurrency:
@@ -84,7 +84,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                     script.SetData(lootboxHardCurrencyModel.Amount);
 
                     Color purple = new Color(209, 0, 4);
-                    circlesOnAWaterColorUpdater.SetStartColor(purple);
+                    particlesColorUpdater.SetStartColor(purple);
                     break;
                 }
                 case LootboxPrizeType.WarshipPowerPoints:
@@ -103,7 +103,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                     
                     script.SetData(lootboxWarshipPowerPointsModel);
                     Color red = new Color(209, 0, 0);
-                    circlesOnAWaterColorUpdater.SetStartColor(red);
+                    particlesColorUpdater.SetStartColor(red);
                     break;
                 }
                 default:

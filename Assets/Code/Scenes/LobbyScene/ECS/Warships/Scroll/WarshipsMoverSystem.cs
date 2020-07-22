@@ -37,14 +37,11 @@ namespace Code.Scenes.LobbyScene.ECS.Warships.Scroll
             foreach (var entity in withTransformGroup)
             {
                 int delta = (currentWarshipIndex - newWarshipIndex) * LobbyUiGlobals.DistanceBetweenWarships;
-                // log .Debug($"{nameof(delta)} {delta}");
                 var oldTransform = entity.transform;
                 var newPosition = new Vector2(delta, 0);
                 entity.ReplaceTransform(newPosition, oldTransform.angle);
                 currentWarshipIndex++;
             }
-
-            CurrentWarshipIndexStorage.Set(newWarshipIndex);
         }
     }
 }

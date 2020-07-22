@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.ECS.Warships.Scroll;
 using Entitas;
 using Entitas.Unity;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -28,7 +29,8 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
             gameContext = contexts.game;
             isWarshipCreationCompleted = false;
             lobbyUiContext = contexts.lobbyUi;
-            gameContext.GetGroup(GameMatcher.AllOf(GameMatcher.View, GameMatcher.Id, GameMatcher.Transform ));
+            gameContext.GetGroup(GameMatcher
+                .AllOf(GameMatcher.View, GameMatcher.Id, GameMatcher.Transform ));
         }
         
         public bool IsWarshipCreationCompleted()
@@ -53,8 +55,7 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                 log.Info("Спавн корабля с id = "+warshipComponent.index);
                 WarshipDto warshipDto = warshipComponent.warshipDto;
                 
-                int skinIndex = CurrentWarshipSkinIndexStorage.Get(warshipDto.WarshipName);
-                string skinName = warshipDto.Skins[skinIndex].Name;
+                string skinName = warshipDto.GetCurrentSkinName();
                 int horizontalPosition = LobbyUiGlobals.DistanceBetweenWarships * warshipComponent.index;
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/" + skinName);
                 GameObject go = Object.Instantiate(prefab, gameViewsParent, false);
@@ -77,8 +78,7 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                 }
             }
             
-            int currentWarshipIndex = CurrentWarshipIndexStorage.Get();
-            lobbyUiContext.ReplaceCurrentWarshipIndex(currentWarshipIndex);
+            // lobbyUiContext.ReplaceCurrentWarshipIndex(currentWarshipIndex);
             isWarshipCreationCompleted = true;
         }
     }

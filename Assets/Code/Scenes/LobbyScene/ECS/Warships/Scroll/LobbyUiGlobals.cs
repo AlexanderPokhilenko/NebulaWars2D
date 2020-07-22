@@ -1,4 +1,4 @@
-namespace Code.Scenes.LobbyScene
+namespace Code.Scenes.LobbyScene.ECS.Warships.Scroll
 {
     public static class LobbyUiGlobals
     {

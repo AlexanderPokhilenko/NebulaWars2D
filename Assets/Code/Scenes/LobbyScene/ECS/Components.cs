@@ -273,15 +273,16 @@ namespace Code.Scenes.LobbyScene.ECS
         
     }
 
+    /// <summary>
+    /// Хранит информацию про текущий скин для окна обзора скина
+    /// </summary>
     [LobbyUi, Unique]
-    public class CurrentSkinIndex : IComponent
+    public class WarshipOverviewCurrentSkinModel : IComponent
     {
-        public int index;
-    }
-
-    [LobbyUi, Unique]
-    public class WarshipOverviewDto : IComponent
-    {
-        public WarshipDto WarshipDto;
+        public int skinIndex;
+        /// <summary>
+        /// Нужно для перелистывания скинов
+        /// </summary>
+        public WarshipDto warshipDto;
     }
 }

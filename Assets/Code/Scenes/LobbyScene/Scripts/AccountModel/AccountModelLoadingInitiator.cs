@@ -5,10 +5,12 @@ using Code.Common.Logger;
 using Code.Common.NetworkStatistics;
 using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.Utils;
+using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.AccountModel
 {
     /// <summary>
     /// Упраляет обновлением всех данных аккаунта при старте сцены.
@@ -17,11 +19,13 @@ namespace Code.Scenes.LobbyScene.Scripts
     {
         private CancellationTokenSource cts;
         private LobbyEcsController lobbyEcsController;
+        private UpdateGameMenuSwitcher updateGameVersionMenuSwitcher;
         private readonly ILog log = LogManager.CreateLogger(typeof(AccountModelLoadingInitiator));
 
         private void Awake()
         {
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
+            updateGameVersionMenuSwitcher = FindObjectOfType<UpdateGameMenuSwitcher>();
         }
 
         private void Start()
@@ -34,7 +38,6 @@ namespace Code.Scenes.LobbyScene.Scripts
         {
             cts = new CancellationTokenSource();
             Task<LobbyModel> task = new AccountModelLoader().Load(cts.Token);
-            //todo говно
             yield return new WaitUntil(()=>task.IsCompleted);
             if (task.IsFaulted||task.IsCanceled)
             {
@@ -46,13 +49,16 @@ namespace Code.Scenes.LobbyScene.Scripts
 
         private void SetData(LobbyModel lobbyModel)
         {
+            //Заблокировать ui, если версия игры старая
+            updateGameVersionMenuSwitcher.CheckBundleVersion(lobbyModel.BundleVersion);
+            
             //Отнять от данных аккаунта значения, которые будут начислены с анимацией
             AccountDto accountData =
                 lobbyModel.AccountDto.Subtract(lobbyModel.RewardsThatHaveNotBeenShown);
 
             foreach (WarshipDto accountDataWarship in accountData.Warships)
             {
-                log.Debug(accountDataWarship.CurrentSkinType.Name);
+                log.Debug(accountDataWarship.GetCurrentSkinName());
             }
             //Установить данные аккаунта
             lobbyEcsController.SetAccountData(accountData);

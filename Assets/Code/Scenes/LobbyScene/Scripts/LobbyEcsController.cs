@@ -5,6 +5,7 @@ using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.BattleScene.ECS.Systems.TearDownSystems;
 using Code.Scenes.BattleScene.ECS.Systems.ViewSystems;
+using Code.Scenes.LobbyScene.ECS;
 using Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers;
 using Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards;
 using Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images;
@@ -44,8 +45,8 @@ namespace Code.Scenes.LobbyScene.Scripts
     {
         private Systems systems;
         private Contexts contexts;
-        private ShopUiStorage shopUiStorage;
         private ShopUiSpawner shopUiSpawner;
+        private ShopUiStorage shopUiStorage;
         private LobbyUiStorage lobbyUiStorage;
         private UiLayersStorage uiLayersStorage;
         private WarshipsUiStorage warshipsUiStorage;
@@ -191,7 +192,6 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new ShiftSkinLeftSystem(contexts, lobbyUiStorage.lobbySoundsManager))
                     .Add(new SkinButtonsSwitcherSystem(contexts, warshipsUiStorage))
                     .Add(new SkinSwitcherSystem(contexts, warshipsUiStorage))
-                    .Add(new SkinChangingNotifierSystem(contexts))
                     
                     
                     //Модальное окно с характеристиками корабля
@@ -315,6 +315,20 @@ namespace Code.Scenes.LobbyScene.Scripts
             contexts.lobbyUi.CreateEntity().messageEnableWarshipListUiLayer = true;
         }
 
+        public ushort GetWarshipIndexById(int warshipId)
+        {
+            foreach (WarshipComponent warshipComponent in contexts.lobbyUi
+                .GetGroup(LobbyUiMatcher.Warship).AsEnumerable().Select((entity=>entity.warship)))
+            {
+                if (warshipComponent.warshipDto.Id == warshipId)
+                {
+                    return warshipComponent.index;
+                }
+            }
+            
+            throw new Exception("В лобби нет такого корабля");
+        }
+        
         public void ShowWarshipOverviewById(int warshipId)
         {
             var warshipDto = contexts.lobbyUi
@@ -358,10 +372,8 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 return contexts.lobbyUi.softCurrency.value;
             }
-            else
-            {
-                return 0;
-            }
+
+            return 0;
         }
         
         public int GetHardCurrency()

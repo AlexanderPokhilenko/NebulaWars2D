@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,9 +6,8 @@ using Code.Common;
 using Code.Common.Logger;
 using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
-using Code.Scenes.LobbyScene.ECS.Warships;
+using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins;
 using Code.Scenes.LobbyScene.Scripts;
-using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -65,10 +65,8 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
         {
             UpdateData(warshipDto);
             
-            //Установить значения компонентов для выбора скинов
-            lobbyUiContext.ReplaceWarshipOverviewDto(warshipDto);
-            int currenctSkinIndex = CurrentWarshipSkinIndexStorage.Get(warshipDto.WarshipName);
-            lobbyUiContext.ReplaceCurrentSkinIndex(currenctSkinIndex);
+            //Обновить уникальный компонент для листания и переключения скинов
+            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel( warshipDto.CurrentSkinIndex, warshipDto);
         }
         
         private void UpdateData(WarshipDto warshipDto)
@@ -146,11 +144,38 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                     }
                 }
             });
-            //Установить слушатель для кнопки выбора корабля\   
+            //Установить слушатель для кнопки выбора корабля   
             warshipsUiStorage.chooseButton.onClick.RemoveAllListeners();
             warshipsUiStorage.chooseButton.onClick.AddListener(() =>
             {
-                //TODO добавить эту фигню
+                log.Debug("Слушатель работает");
+                //todo звук
+                //заменить скин если нужно
+                int actualSkinIndex = lobbyUiContext.warshipOverviewCurrentSkinModel.skinIndex;
+                if (actualSkinIndex != warshipDto.CurrentSkinIndex)
+                {
+                    warshipDto.CurrentSkinIndex = actualSkinIndex;
+                    int warshipId = warshipDto.Id;
+                    string skinName = warshipDto.GetCurrentSkinName();
+                    var task = new SkinChangingNotifier().ChangeSkinOnServerAsync(warshipId, skinName);
+                }
+                else
+                {
+                    log.Debug("Скин не был изменён");
+                }
+                //изменить индекс текущего корабля
+                ushort warshipIndex = lobbyEcsController.GetWarshipIndexById(warshipDto.Id);
+                lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
+                //заменть компонент корабля
+                var warshipEntity = lobbyUiContext.GetGroup(LobbyUiMatcher.Warship)
+                    .AsEnumerable()
+                    .Single(entity => entity.warship.warshipDto.Id == warshipDto.Id);
+                warshipEntity.Destroy();
+                lobbyUiContext.CreateEntity().AddWarship(warshipIndex, warshipDto);
+                //выключить меню обзора корабля
+                lobbyUiContext.CreateEntity().messageDisableWarshipOverviewUiLayer = true;
+                //выключить меню со списком кораблей
+                lobbyUiContext.CreateEntity().messageDisableWarshipListUiLayer = true;
             });
             
             //Установить стоимость для кнопки покупки улучшения
@@ -169,21 +194,6 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             {
                 lobbyEcsController.ShowWarshipCharacteristics(warshipDto);
             });
-        }
-    }
-
-    public static class TransformExtensions
-    {
-        public static void SetOpacity(this Transform parentTransform, float alphaValue)
-        {
-            Material material = parentTransform.GetComponent<Renderer>().material;
-            Color color = material.color;
-            material.color = new Color(color.r, color.g, color.b, alphaValue);
-            
-            foreach (Transform transform in parentTransform)
-            {
-                transform.SetOpacity(alphaValue);
-            }
         }
     }
 }
