@@ -60,8 +60,6 @@ namespace Code.Scenes.LobbyScene.Scripts
             lobbyEcsController.CreateUnshownRewardsComponent(lobbyModel.RewardsThatHaveNotBeenShown);
             //Установить данные для шкалы рейтинга кораблей
             WarshipRatingScaleStorage.Instance.SetValue(lobbyModel.WarshipRatingScaleModel);
-            //Установить данные для шкалы силы коралей
-            WarshipPowerScaleStorage.Instance.SetValue(lobbyModel.WarshipPowerScaleModel);
         }
 
         private void OnDestroy()

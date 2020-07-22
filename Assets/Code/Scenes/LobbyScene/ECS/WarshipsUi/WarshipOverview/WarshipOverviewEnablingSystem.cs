@@ -92,8 +92,9 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             
             //Проверить на кол-во ресурсов для перехода на новый уровень
             int softCurrency = lobbyEcsController.GetSoftCurrency();
-            int improvementCost = WarshipPowerScaleStorage.Instance.GetCost(warshipDto.PowerLevel);
-            int maxPowerPoints = WarshipPowerScaleStorage.Instance.GetMaxPowerPoints(warshipDto.PowerLevel);
+            var model = WarshipPowerScale.GetModel(warshipDto.PowerLevel);
+            int improvementCost = model.SoftCurrencyCost;
+            int maxPowerPoints = model.PowerPointsCost;
                 
             bool showImproveAnimation = softCurrency >= improvementCost && warshipDto.PowerPoints >= maxPowerPoints;
 
@@ -111,22 +112,21 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                 warshipsUiStorage.greenScale.SetActive(false);
                 powerPointsValueText = warshipsUiStorage.powerValueText;
             }
-            
+
             //Установить кол-во очков силы для текущего уровня
-            powerPointsValueText.text =  warshipDto.PowerPoints + "/" + 
-                                         WarshipPowerScaleStorage.Instance.GetMaxPowerPoints(warshipDto.PowerLevel);
+            powerPointsValueText.text =  warshipDto.PowerPoints + "/" + maxPowerPoints;
 
             //Установить слайдер для кол-ва очков силы
-            warshipsUiStorage.powerSlider.value =
-                WarshipPowerScaleStorage.Instance.GetProgress(warshipDto.PowerLevel, warshipDto.PowerPoints);
+            warshipsUiStorage.powerSlider.maxValue = maxPowerPoints;
+            warshipsUiStorage.powerSlider.value = warshipDto.PowerPoints;
             
             //Установить цену улучшения
-            warshipsUiStorage.improveButtonCost.text = WarshipPowerScaleStorage.Instance.GetCost(warshipDto.PowerLevel).ToString();
+            warshipsUiStorage.improveButtonCost.text = improvementCost.ToString();
             //Установить слушатель для кнопки улучшения
             warshipsUiStorage.improveButton.onClick.RemoveAllListeners();
             warshipsUiStorage.improveButton.onClick.AddListener(() =>
             {
-                if (warshipDto.PowerPoints >= WarshipPowerScaleStorage.Instance.GetMaxPowerPoints(warshipDto.PowerLevel))
+                if (warshipDto.PowerPoints >= maxPowerPoints)
                 {
                     //показать окно покупки улучшения
                     lobbyEcsController.ShowWarshipImprovementModalWindow(warshipDto);
@@ -154,8 +154,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             });
             
             //Установить стоимость для кнопки покупки улучшения
-            warshipsUiStorage.popupWindowCostText.text = WarshipPowerScaleStorage.Instance
-                .GetCost(warshipDto.PowerLevel).ToString();
+            warshipsUiStorage.popupWindowCostText.text = improvementCost.ToString();
             
             //Установить слушатель для кнопки покупки улучшения
             warshipsUiStorage.popupWindowBuyButton.onClick.RemoveAllListeners();
