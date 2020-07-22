@@ -6,6 +6,7 @@ using Code.Common;
 using Code.Common.Logger;
 using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
+using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins;
 using Code.Scenes.LobbyScene.Scripts;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
@@ -149,11 +150,28 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             {
                 log.Debug("Слушатель работает");
                 //todo звук
-                //todo заменить скин
-                
+                //заменить скин если нужно
+                int actualSkinIndex = lobbyUiContext.warshipOverviewCurrentSkinModel.skinIndex;
+                if (actualSkinIndex != warshipDto.CurrentSkinIndex)
+                {
+                    warshipDto.CurrentSkinIndex = actualSkinIndex;
+                    int warshipId = warshipDto.Id;
+                    string skinName = warshipDto.GetCurrentSkinName();
+                    var task = new SkinChangingNotifier().ChangeSkinOnServerAsync(warshipId, skinName);
+                }
+                else
+                {
+                    log.Debug("Скин не был изменён");
+                }
                 //изменить индекс текущего корабля
-                int warshipIndex = lobbyEcsController.GetWarshipIndexById(warshipDto.Id);
+                ushort warshipIndex = lobbyEcsController.GetWarshipIndexById(warshipDto.Id);
                 lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
+                //заменть компонент корабля
+                var warshipEntity = lobbyUiContext.GetGroup(LobbyUiMatcher.Warship)
+                    .AsEnumerable()
+                    .Single(entity => entity.warship.warshipDto.Id == warshipDto.Id);
+                warshipEntity.Destroy();
+                lobbyUiContext.CreateEntity().AddWarship(warshipIndex, warshipDto);
                 //выключить меню обзора корабля
                 lobbyUiContext.CreateEntity().messageDisableWarshipOverviewUiLayer = true;
                 //выключить меню со списком кораблей

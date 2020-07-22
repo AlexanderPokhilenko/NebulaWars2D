@@ -192,7 +192,6 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new ShiftSkinLeftSystem(contexts, lobbyUiStorage.lobbySoundsManager))
                     .Add(new SkinButtonsSwitcherSystem(contexts, warshipsUiStorage))
                     .Add(new SkinSwitcherSystem(contexts, warshipsUiStorage))
-                    .Add(new SkinChangingNotifierSystem(contexts))
                     
                     
                     //Модальное окно с характеристиками корабля
