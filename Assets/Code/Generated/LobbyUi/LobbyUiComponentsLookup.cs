@@ -52,10 +52,9 @@ public static class LobbyUiComponentsLookup {
     public const int View = 41;
     public const int WarningEnabled = 42;
     public const int Warship = 43;
-    public const int WarshipOverviewCurrentSkinIndex = 44;
-    public const int WarshipOverviewDto = 45;
+    public const int WarshipOverviewCurrentSkinModel = 44;
 
-    public const int TotalComponents = 46;
+    public const int TotalComponents = 45;
 
     public static readonly string[] componentNames = {
         "AccountRating",
@@ -102,8 +101,7 @@ public static class LobbyUiComponentsLookup {
         "View",
         "WarningEnabled",
         "Warship",
-        "WarshipOverviewCurrentSkinIndex",
-        "WarshipOverviewDto"
+        "WarshipOverviewCurrentSkinModel"
     };
 
     public static readonly System.Type[] componentTypes = {
@@ -151,7 +149,6 @@ public static class LobbyUiComponentsLookup {
         typeof(Code.Scenes.LobbyScene.ECS.ViewComponent),
         typeof(Code.Scenes.LobbyScene.ECS.WarningEnabledComponent),
         typeof(Code.Scenes.LobbyScene.ECS.WarshipComponent),
-        typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinIndex),
-        typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewDto)
+        typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinModel)
     };
 }

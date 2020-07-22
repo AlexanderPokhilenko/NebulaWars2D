@@ -41,20 +41,21 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
         
         protected override ICollector<LobbyUiEntity> GetTrigger(IContext<LobbyUiEntity> context)
         {
-            return context.CreateCollector(LobbyUiMatcher.WarshipOverviewCurrentSkinIndex);
+            return context.CreateCollector(LobbyUiMatcher.WarshipOverviewCurrentSkinModel);
         }
 
         protected override bool Filter(LobbyUiEntity entity)
         {
-            return entity.hasWarshipOverviewCurrentSkinIndex;
+            return entity.hasWarshipOverviewCurrentSkinModel;
         }
 
         protected override void Execute(List<LobbyUiEntity> entities)
         {
-            int currentSkinIndex = entities.Last().warshipOverviewCurrentSkinIndex.index;
+            var skinModel = entities.Last().warshipOverviewCurrentSkinModel;
+            int currentSkinIndex = skinModel.skinIndex;
 
             leftButton.SetActive(currentSkinIndex != 0);
-            rightButton.SetActive(currentSkinIndex != lobbyUiContext.warshipOverviewDto.warshipDto.Skins.Count-1);
+            rightButton.SetActive(currentSkinIndex != skinModel.warshipDto.Skins.Count-1);
         }
     }
 }

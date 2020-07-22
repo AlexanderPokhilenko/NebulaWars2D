@@ -273,15 +273,22 @@ namespace Code.Scenes.LobbyScene.ECS
         
     }
 
+    /// <summary>
+    /// Хранит информацию про текущий скин для окна обзора скина
+    /// </summary>
     [LobbyUi, Unique]
-    public class WarshipOverviewCurrentSkinIndex : IComponent
+    public class WarshipOverviewCurrentSkinModel : IComponent
     {
-        public int index;
-    }
-
-    [LobbyUi, Unique]
-    public class WarshipOverviewDto : IComponent
-    {
+        public int skinIndex;
+        // /// <summary>
+        // /// Нужно для перелистывания скинов
+        // /// </summary>
+        // public List<SkinTypeDto> skins;
+        // /// <summary>
+        // /// Нужно для уведомления серевера при смене скина
+        // /// </summary>
+        // public int warshipId;
+        // public string warshipName;
         public WarshipDto warshipDto;
     }
 }

@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
-using Code.Scenes.LobbyScene.ECS.Warships;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
 {
@@ -30,28 +30,28 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
 
         protected override ICollector<LobbyUiEntity> GetTrigger(IContext<LobbyUiEntity> context)
         {
-            return context.CreateCollector(LobbyUiMatcher.WarshipOverviewCurrentSkinIndex);
+            return context.CreateCollector(LobbyUiMatcher.WarshipOverviewCurrentSkinModel);
         }
 
         protected override bool Filter(LobbyUiEntity entity)
         {
-            return entity.hasWarshipOverviewCurrentSkinIndex;
+            return entity.hasWarshipOverviewCurrentSkinModel;
         }
 
         protected override void Execute(List<LobbyUiEntity> entities)
         {
-            int newSkinIndex = entities.Last().warshipOverviewCurrentSkinIndex.index;
-            string skinName = lobbyUiContext.warshipOverviewDto.warshipDto.Skins[newSkinIndex].Name;
+            var skinModel = entities.Last().warshipOverviewCurrentSkinModel;
+            int newSkinIndex = skinModel.skinIndex;
+            string skinName = skinModel.warshipDto.Skins[newSkinIndex].Name;
             DestroyCurrentSkin();
             SpawnSkin(skinName);
-            CurrentWarshipSkinIndexStorage.Set(lobbyUiContext.warshipOverviewDto.warshipDto.WarshipName, newSkinIndex);
             
             LobbyUiEntity warshipComponent = warshipsGroup
                 .GetEntities()
                 .Single(entity => 
-                    entity.warship.warshipDto.Id == lobbyUiContext.warshipOverviewDto.warshipDto.Id);
+                    entity.warship.warshipDto.Id == skinModel.warshipDto.Id);
             
-            ReloadWarshipView(warshipComponent.warship.index, lobbyUiContext.warshipOverviewDto.warshipDto);
+            ReloadWarshipView(warshipComponent.warship.index, skinModel.warshipDto);
             warshipComponent.Destroy();
         }
 

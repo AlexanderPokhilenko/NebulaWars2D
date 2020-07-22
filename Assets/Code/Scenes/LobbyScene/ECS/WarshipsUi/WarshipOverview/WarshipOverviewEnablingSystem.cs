@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -5,7 +6,6 @@ using Code.Common;
 using Code.Common.Logger;
 using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
-using Code.Scenes.LobbyScene.ECS.Warships;
 using Code.Scenes.LobbyScene.Scripts;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
@@ -65,9 +65,21 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             UpdateData(warshipDto);
             
             //Установить значения компонентов для выбора скинов
-            lobbyUiContext.ReplaceWarshipOverviewDto(warshipDto);
-            int currenctSkinIndex = CurrentWarshipSkinIndexStorage.Get(warshipDto.WarshipName);
-            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinIndex(currenctSkinIndex);
+            int index = -1;
+            for (var i = 0; i < warshipDto.Skins.Count; i++)
+            {
+                var skinTypeDto = warshipDto.Skins[i];
+                if (skinTypeDto.Id == warshipDto.CurrentSkinType.Id)
+                {
+                    index = i;
+                }
+            }
+
+            if (index == -1)
+            {
+                throw new Exception("Не удалось достать текущий скин.");
+            }
+            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel(index, warshipDto);
         }
         
         private void UpdateData(WarshipDto warshipDto)

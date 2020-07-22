@@ -56,8 +56,7 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                 log.Info("Спавн корабля с id = "+warshipComponent.index);
                 WarshipDto warshipDto = warshipComponent.warshipDto;
                 
-                int skinIndex = CurrentWarshipSkinIndexStorage.Get(warshipDto.WarshipName);
-                string skinName = warshipDto.Skins[skinIndex].Name;
+                string skinName = warshipDto.CurrentSkinType.Name;
                 int horizontalPosition = LobbyUiGlobals.DistanceBetweenWarships * warshipComponent.index;
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/" + skinName);
                 GameObject go = Object.Instantiate(prefab, gameViewsParent, false);

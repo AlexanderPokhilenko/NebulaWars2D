@@ -22,19 +22,20 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
 
         protected override ICollector<LobbyUiEntity> GetTrigger(IContext<LobbyUiEntity> context)
         {
-            return context.CreateCollector(LobbyUiMatcher.WarshipOverviewCurrentSkinIndex);
+            return context.CreateCollector(LobbyUiMatcher.WarshipOverviewCurrentSkinModel);
         }
 
         protected override bool Filter(LobbyUiEntity entity)
         {
-            return entity.hasWarshipOverviewCurrentSkinIndex;
+            return entity.hasWarshipOverviewCurrentSkinModel;
         }
 
         protected override void Execute(List<LobbyUiEntity> entities)
         {
-            int newSkinIndex = entities.Last().warshipOverviewCurrentSkinIndex.index;
-            int warshipId = lobbyUiContext.warshipOverviewDto.warshipDto.Id;
-            string skinName = lobbyUiContext.warshipOverviewDto.warshipDto.Skins[newSkinIndex].Name;
+            var model = entities.Last().warshipOverviewCurrentSkinModel;
+            int newSkinIndex = model.skinIndex;
+            int warshipId = model.warshipDto.Id;
+            string skinName = model.warshipDto.Skins[newSkinIndex].Name;
             cancellationTokenSource?.Cancel();
             cancellationTokenSource = new CancellationTokenSource();
             Task task = ChangeSkinOnServerAsync(warshipId, skinName, cancellationTokenSource.Token);
