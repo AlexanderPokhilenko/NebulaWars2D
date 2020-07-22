@@ -45,8 +45,8 @@ namespace Code.Scenes.LobbyScene.Scripts
     {
         private Systems systems;
         private Contexts contexts;
-        private ShopUiStorage shopUiStorage;
         private ShopUiSpawner shopUiSpawner;
+        private ShopUiStorage shopUiStorage;
         private LobbyUiStorage lobbyUiStorage;
         private UiLayersStorage uiLayersStorage;
         private WarshipsUiStorage warshipsUiStorage;

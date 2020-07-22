@@ -1513,12 +1513,13 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             {
                 var startOffset = offset;
 
-                offset += (8 + 4 * (2 + 1));
+                offset += (8 + 4 * (3 + 1));
                 offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.AccountDto>(ref bytes, startOffset, offset, 0, value.AccountDto);
                 offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.RewardsThatHaveNotBeenShown>(ref bytes, startOffset, offset, 1, value.RewardsThatHaveNotBeenShown);
                 offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipRatingScaleModel>(ref bytes, startOffset, offset, 2, value.WarshipRatingScaleModel);
+                offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, string>(ref bytes, startOffset, offset, 3, value.BundleVersion);
 
-                return ObjectSegmentHelper.WriteSize(ref bytes, startOffset, offset, 2);
+                return ObjectSegmentHelper.WriteSize(ref bytes, startOffset, offset, 3);
             }
         }
 
@@ -1537,7 +1538,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
     public class LobbyModelObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.LobbyModel, IZeroFormatterSegment
         where TTypeResolver : ITypeResolver, new()
     {
-        static readonly int[] __elementSizes = new int[]{ 0, 0, 0 };
+        static readonly int[] __elementSizes = new int[]{ 0, 0, 0, 0 };
 
         readonly ArraySegment<byte> __originalBytes;
         readonly global::ZeroFormatter.DirtyTracker __tracker;
@@ -1547,6 +1548,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         global::NetworkLibrary.NetworkLibrary.Http.AccountDto _AccountDto;
         global::NetworkLibrary.NetworkLibrary.Http.RewardsThatHaveNotBeenShown _RewardsThatHaveNotBeenShown;
         global::NetworkLibrary.NetworkLibrary.Http.WarshipRatingScaleModel _WarshipRatingScaleModel;
+        CacheSegment<TTypeResolver, string> _BundleVersion;
 
         // 0
         public override global::NetworkLibrary.NetworkLibrary.Http.AccountDto AccountDto
@@ -1590,6 +1592,19 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             }
         }
 
+        // 3
+        public override string BundleVersion
+        {
+            get
+            {
+                return _BundleVersion.Value;
+            }
+            set
+            {
+                _BundleVersion.Value = value;
+            }
+        }
+
 
         public LobbyModelObjectSegment(global::ZeroFormatter.DirtyTracker dirtyTracker, ArraySegment<byte> originalBytes)
         {
@@ -1599,11 +1614,12 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             this.__tracker = dirtyTracker = dirtyTracker.CreateChild();
             this.__binaryLastIndex = BinaryUtil.ReadInt32(ref __array, originalBytes.Offset + 4);
 
-            this.__extraFixedBytes = ObjectSegmentHelper.CreateExtraFixedBytes(this.__binaryLastIndex, 2, __elementSizes);
+            this.__extraFixedBytes = ObjectSegmentHelper.CreateExtraFixedBytes(this.__binaryLastIndex, 3, __elementSizes);
 
             _AccountDto = ObjectSegmentHelper.DeserializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.AccountDto>(originalBytes, 0, __binaryLastIndex, __tracker);
             _RewardsThatHaveNotBeenShown = ObjectSegmentHelper.DeserializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.RewardsThatHaveNotBeenShown>(originalBytes, 1, __binaryLastIndex, __tracker);
             _WarshipRatingScaleModel = ObjectSegmentHelper.DeserializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipRatingScaleModel>(originalBytes, 2, __binaryLastIndex, __tracker);
+            _BundleVersion = new CacheSegment<TTypeResolver, string>(__tracker, ObjectSegmentHelper.GetSegment(originalBytes, 3, __binaryLastIndex, __tracker));
         }
 
         public bool CanDirectCopy()
@@ -1621,13 +1637,14 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             if (__extraFixedBytes != null || __tracker.IsDirty)
             {
                 var startOffset = offset;
-                offset += (8 + 4 * (2 + 1));
+                offset += (8 + 4 * (3 + 1));
 
                 offset += ObjectSegmentHelper.SerializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.AccountDto>(ref targetBytes, startOffset, offset, 0, _AccountDto);
                 offset += ObjectSegmentHelper.SerializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.RewardsThatHaveNotBeenShown>(ref targetBytes, startOffset, offset, 1, _RewardsThatHaveNotBeenShown);
                 offset += ObjectSegmentHelper.SerializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipRatingScaleModel>(ref targetBytes, startOffset, offset, 2, _WarshipRatingScaleModel);
+                offset += ObjectSegmentHelper.SerializeCacheSegment<TTypeResolver, string>(ref targetBytes, startOffset, offset, 3, ref _BundleVersion);
 
-                return ObjectSegmentHelper.WriteSize(ref targetBytes, startOffset, offset, 2);
+                return ObjectSegmentHelper.WriteSize(ref targetBytes, startOffset, offset, 3);
             }
             else
             {
