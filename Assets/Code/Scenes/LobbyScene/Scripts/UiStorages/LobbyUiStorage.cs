@@ -14,7 +14,7 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
     {
         [Header("Загрузка боя")]
         [Tooltip("Описание")]
-        public GameObject blurImage;
+        public Image blurImage;
         public GameObject battleLoadingMenu;
         public Text waitTimeText;
         public Text numberOfPlayersInQueueText;
@@ -55,6 +55,8 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
 
         [HideInInspector] public UiSoundsManager lobbySoundsManager;
         [HideInInspector] public Material blurMaterial;
+        [HideInInspector] public Material uiBlurDefaultMaterial;
+        [HideInInspector] public bool blurIsActive = true;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyUiStorage));
 
         private void Awake()
@@ -65,14 +67,30 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
             {
                 button.onClick.AddListener(lobbySoundsManager.PlayClick);
             }
+
             try
             {
-                blurMaterial = blurImage.GetComponent<Image>().material;
+                blurMaterial = blurImage.material;
             }
             catch (Exception e)
             {
                 log.Fatal("Start method throw an exception " + e.Message);
+                blurIsActive = false;
             }
+
+            var qualityLevel = QualitySettings.GetQualityLevel();
+            if(qualityLevel < 2) blurIsActive = false;
+
+            if (!blurIsActive)
+            {
+                uiBlurDefaultMaterial = new Material(Shader.Find("UI/Default"));
+                blurImage.material = uiBlurDefaultMaterial;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if(uiBlurDefaultMaterial) DestroyImmediate(uiBlurDefaultMaterial);
         }
 
         public void Check()

@@ -135,9 +135,9 @@ namespace Code.Scenes.LobbyScene.Scripts
                     //Установка размытия при поике матча
                     .Add(new BlurInitializeSystem(contexts.lobbyUi))
                     .Add(new BlurImageStateUpdaterSystem(contexts.lobbyUi))
-                    .Add(new BlurValueUpdatingSystem(contexts.lobbyUi, lobbyUiStorage.blurMaterial))
-                    .Add(new BlurImageDisableHandler(contexts.lobbyUi, lobbyUiStorage.blurImage))
-                    .Add(new BlurImageEnableHandler(contexts.lobbyUi, lobbyUiStorage.blurImage))
+                    .Add(new BlurValueUpdatingSystem(contexts.lobbyUi, lobbyUiStorage.blurMaterial, lobbyUiStorage.uiBlurDefaultMaterial, !lobbyUiStorage.blurIsActive))
+                    .Add(new BlurImageDisableHandler(contexts.lobbyUi, lobbyUiStorage.blurImage.gameObject))
+                    .Add(new BlurImageEnableHandler(contexts.lobbyUi, lobbyUiStorage.blurImage.gameObject))
                     
                     //Анимация кнопки START
                     .Add(new StartButtonAnimationSystem(contexts.lobbyUi, lobbyUiStorage.startButtonSatellites))

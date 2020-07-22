@@ -14,11 +14,13 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
         private const float BlurValueDecrement = BlurValueIncrement * 3;
         private const float BlurToAlphaCoefficient = 1f / MaxBlurValue;
         private readonly Material blurMaterial;
+        private readonly Material uiDefaultMaterial;
+        private readonly bool useDefault;
         private readonly LobbyUiContext context;
         private static readonly int BlurValueId = Shader.PropertyToID("_BlurValue");
         private static readonly int AlphaId = Shader.PropertyToID("_Alpha");
 
-        public BlurValueUpdatingSystem(LobbyUiContext context, Material blurMaterial)
+        public BlurValueUpdatingSystem(LobbyUiContext context, Material blurMaterial, Material uiDefaultMaterial, bool useDefault)
         {
             this.context = context;
             if (blurMaterial == null)
@@ -26,6 +28,8 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
                 throw new Exception($"{nameof(blurMaterial)} was null");
             }
             this.blurMaterial = blurMaterial;
+            this.uiDefaultMaterial = uiDefaultMaterial;
+            this.useDefault = useDefault;
         }
         public void Execute()
         {
@@ -71,8 +75,15 @@ namespace Code.Scenes.LobbyScene.ECS.Blur
         
         private void SetBlurValue()
         {
-            blurMaterial.SetFloat(BlurValueId, context.blurValue.blurValue);
-            blurMaterial.SetFloat(AlphaId, context.blurValue.blurValue * BlurToAlphaCoefficient);
+            if (useDefault)
+            {
+                uiDefaultMaterial.color = new Color(1f, 1f, 1f, context.blurValue.blurValue / MaxBlurValue);
+            }
+            else
+            {
+                blurMaterial.SetFloat(BlurValueId, context.blurValue.blurValue);
+                blurMaterial.SetFloat(AlphaId, context.blurValue.blurValue * BlurToAlphaCoefficient);
+            }
         }
     }
 }
