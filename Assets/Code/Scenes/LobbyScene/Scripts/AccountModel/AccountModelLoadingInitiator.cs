@@ -52,7 +52,7 @@ namespace Code.Scenes.LobbyScene.Scripts
 
             foreach (WarshipDto accountDataWarship in accountData.Warships)
             {
-                log.Debug(accountDataWarship.CurrentSkinType.Name);
+                log.Debug(accountDataWarship.GetCurrentSkinName());
             }
             //Установить данные аккаунта
             lobbyEcsController.SetAccountData(accountData);

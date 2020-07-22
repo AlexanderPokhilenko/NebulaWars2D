@@ -280,15 +280,9 @@ namespace Code.Scenes.LobbyScene.ECS
     public class WarshipOverviewCurrentSkinModel : IComponent
     {
         public int skinIndex;
-        // /// <summary>
-        // /// Нужно для перелистывания скинов
-        // /// </summary>
-        // public List<SkinTypeDto> skins;
-        // /// <summary>
-        // /// Нужно для уведомления серевера при смене скина
-        // /// </summary>
-        // public int warshipId;
-        // public string warshipName;
+        /// <summary>
+        /// Нужно для перелистывания скинов
+        /// </summary>
         public WarshipDto warshipDto;
     }
 }

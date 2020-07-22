@@ -789,7 +789,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, string>(ref bytes, startOffset, offset, 6, value.WarshipName);
                 offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipCharacteristics>(ref bytes, startOffset, offset, 7, value.WarshipCharacteristics);
                 offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto>>(ref bytes, startOffset, offset, 8, value.Skins);
-                offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto>(ref bytes, startOffset, offset, 9, value.CurrentSkinType);
+                offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, int>(ref bytes, startOffset, offset, 9, value.CurrentSkinIndex);
 
                 return ObjectSegmentHelper.WriteSize(ref bytes, startOffset, offset, 9);
             }
@@ -810,7 +810,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
     public class WarshipDtoObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.WarshipDto, IZeroFormatterSegment
         where TTypeResolver : ITypeResolver, new()
     {
-        static readonly int[] __elementSizes = new int[]{ 4, 4, 4, 4, 0, 0, 0, 0, 0, 0 };
+        static readonly int[] __elementSizes = new int[]{ 4, 4, 4, 4, 0, 0, 0, 0, 0, 4 };
 
         readonly ArraySegment<byte> __originalBytes;
         readonly global::ZeroFormatter.DirtyTracker __tracker;
@@ -822,7 +822,6 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         CacheSegment<TTypeResolver, string> _WarshipName;
         global::NetworkLibrary.NetworkLibrary.Http.WarshipCharacteristics _WarshipCharacteristics;
         CacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto>> _Skins;
-        global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto _CurrentSkinType;
 
         // 0
         public override int Id
@@ -943,16 +942,15 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         }
 
         // 9
-        public override global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto CurrentSkinType
+        public override int CurrentSkinIndex
         {
             get
             {
-                return _CurrentSkinType;
+                return ObjectSegmentHelper.GetFixedProperty<TTypeResolver, int>(__originalBytes, 9, __binaryLastIndex, __extraFixedBytes, __tracker);
             }
             set
             {
-                __tracker.Dirty();
-                _CurrentSkinType = value;
+                ObjectSegmentHelper.SetFixedProperty<TTypeResolver, int>(__originalBytes, 9, __binaryLastIndex, __extraFixedBytes, value, __tracker);
             }
         }
 
@@ -972,7 +970,6 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             _WarshipName = new CacheSegment<TTypeResolver, string>(__tracker, ObjectSegmentHelper.GetSegment(originalBytes, 6, __binaryLastIndex, __tracker));
             _WarshipCharacteristics = ObjectSegmentHelper.DeserializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipCharacteristics>(originalBytes, 7, __binaryLastIndex, __tracker);
             _Skins = new CacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto>>(__tracker, ObjectSegmentHelper.GetSegment(originalBytes, 8, __binaryLastIndex, __tracker));
-            _CurrentSkinType = ObjectSegmentHelper.DeserializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto>(originalBytes, 9, __binaryLastIndex, __tracker);
         }
 
         public bool CanDirectCopy()
@@ -1001,7 +998,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 offset += ObjectSegmentHelper.SerializeCacheSegment<TTypeResolver, string>(ref targetBytes, startOffset, offset, 6, ref _WarshipName);
                 offset += ObjectSegmentHelper.SerializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipCharacteristics>(ref targetBytes, startOffset, offset, 7, _WarshipCharacteristics);
                 offset += ObjectSegmentHelper.SerializeCacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto>>(ref targetBytes, startOffset, offset, 8, ref _Skins);
-                offset += ObjectSegmentHelper.SerializeSegment<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto>(ref targetBytes, startOffset, offset, 9, _CurrentSkinType);
+                offset += ObjectSegmentHelper.SerializeFixedLength<TTypeResolver, int>(ref targetBytes, startOffset, offset, 9, __binaryLastIndex, __originalBytes, __extraFixedBytes, __tracker);
 
                 return ObjectSegmentHelper.WriteSize(ref targetBytes, startOffset, offset, 9);
             }

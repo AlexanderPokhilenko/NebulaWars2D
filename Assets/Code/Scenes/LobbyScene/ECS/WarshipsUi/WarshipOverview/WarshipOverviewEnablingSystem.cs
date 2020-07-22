@@ -64,22 +64,8 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
         {
             UpdateData(warshipDto);
             
-            //Установить значения компонентов для выбора скинов
-            int index = -1;
-            for (var i = 0; i < warshipDto.Skins.Count; i++)
-            {
-                var skinTypeDto = warshipDto.Skins[i];
-                if (skinTypeDto.Id == warshipDto.CurrentSkinType.Id)
-                {
-                    index = i;
-                }
-            }
-
-            if (index == -1)
-            {
-                throw new Exception("Не удалось достать текущий скин.");
-            }
-            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel(index, warshipDto);
+            //Обновить уникальный компонент для листания и переключения скинов
+            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel( warshipDto.CurrentSkinIndex, warshipDto);
         }
         
         private void UpdateData(WarshipDto warshipDto)
@@ -165,12 +151,12 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                 //todo звук
                 //todo заменить скин
                 
-                //todo изменить индекс текущего корабля
+                //изменить индекс текущего корабля
                 int warshipIndex = lobbyEcsController.GetWarshipIndexById(warshipDto.Id);
                 lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
-                //todo выключить меню обзора корабля
+                //выключить меню обзора корабля
                 lobbyUiContext.CreateEntity().messageDisableWarshipOverviewUiLayer = true;
-                //todo выключить меню со списком кораблей
+                //выключить меню со списком кораблей
                 lobbyUiContext.CreateEntity().messageDisableWarshipListUiLayer = true;
             });
             
@@ -190,21 +176,6 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             {
                 lobbyEcsController.ShowWarshipCharacteristics(warshipDto);
             });
-        }
-    }
-
-    public static class TransformExtensions
-    {
-        public static void SetOpacity(this Transform parentTransform, float alphaValue)
-        {
-            Material material = parentTransform.GetComponent<Renderer>().material;
-            Color color = material.color;
-            material.color = new Color(color.r, color.g, color.b, alphaValue);
-            
-            foreach (Transform transform in parentTransform)
-            {
-                transform.SetOpacity(alphaValue);
-            }
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Linq;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.ECS.Warships.Scroll;
-using Code.Scenes.LobbyScene.ECS.Warships.Utils;
 using Entitas;
 using Entitas.Unity;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -56,7 +55,7 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                 log.Info("Спавн корабля с id = "+warshipComponent.index);
                 WarshipDto warshipDto = warshipComponent.warshipDto;
                 
-                string skinName = warshipDto.CurrentSkinType.Name;
+                string skinName = warshipDto.GetCurrentSkinName();
                 int horizontalPosition = LobbyUiGlobals.DistanceBetweenWarships * warshipComponent.index;
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/" + skinName);
                 GameObject go = Object.Instantiate(prefab, gameViewsParent, false);
@@ -79,8 +78,7 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                 }
             }
             
-            int currentWarshipIndex = CurrentWarshipIndexStorage.Get();
-            lobbyUiContext.ReplaceCurrentWarshipIndex(currentWarshipIndex);
+            // lobbyUiContext.ReplaceCurrentWarshipIndex(currentWarshipIndex);
             isWarshipCreationCompleted = true;
         }
     }
