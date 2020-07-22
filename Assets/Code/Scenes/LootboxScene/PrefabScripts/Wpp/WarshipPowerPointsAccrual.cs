@@ -73,9 +73,6 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             {
                 throw new NullReferenceException("context is null in start");
             }
-
-            wppContext.CreateEntity().AddWarshipPowerPoints(0,0);
-            
         }
 
         
@@ -90,7 +87,6 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
 
         private void OnDestroy()
         {
-            
             if (systems != null)
             {
               systems.DeactivateReactiveSystems();

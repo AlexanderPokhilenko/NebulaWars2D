@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Screensaver
 {
     public class ScreensaverSpinner : MonoBehaviour
     {

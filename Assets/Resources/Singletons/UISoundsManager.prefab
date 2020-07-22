@@ -58,9 +58,8 @@ MonoBehaviour:
   start: {fileID: 8300000, guid: d1f3786d7d439bb4793f41bf83b5d088, type: 3}
   warshipChanging: {fileID: 8300000, guid: 9f3679c14fe436947be25f311b183c1a, type: 3}
   lightning: {fileID: 8300000, guid: a7a1ab8ea9047ed4eb81179cb2de4fab, type: 3}
-  wpp01: {fileID: 8300000, guid: 69bcd54022d58e245902f3f3daef10db, type: 3}
-  wpp02: {fileID: 8300000, guid: d2c4467cca8c2344f80d89069145ad1a, type: 3}
   wpp03: {fileID: 8300000, guid: 67c02f36cdcf9cf4cbd55c5de34c17e1, type: 3}
+  lobbyAmbience: {fileID: 8300000, guid: 9d0b5cfeb838bf446acf4e90b11f824f, type: 3}
 --- !u!82 &7466030759123409141
 AudioSource:
   m_ObjectHideFlags: 0

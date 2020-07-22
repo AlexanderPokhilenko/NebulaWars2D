@@ -20,9 +20,8 @@ namespace Code.Common
         [SerializeField] private AudioClip start;
         [SerializeField] private AudioClip warshipChanging;
         [SerializeField] private AudioClip lightning;
-        [SerializeField] private AudioClip wpp01;
-        [SerializeField] private AudioClip wpp02;
         [SerializeField] private AudioClip wpp03;
+        [SerializeField] private AudioClip lobbyAmbience;
         private SoundManager soundManager;
         private AudioSource mainAudioSource;
 
@@ -61,10 +60,12 @@ namespace Code.Common
         public void PlayPurchase() => PlaySound(purchase);
         public void PlayRatingAdding() => PlayOneShot(ratingAdding);
         public void PlaySoftAdding() => PlayOneShot(softAdding);
+        public void PlayLightning() => PlayOneShot(lightning);
         public void PlayStart() => PlaySound(start);
         public void PlayStop() => PlaySoundReversed(start);
         public void PlayWarshipChangingLeft() => PlaySound(warshipChanging);
         public void PlayWarshipChangingRight() => PlaySoundReversed(warshipChanging);
         public void PlayWarshipPowerPointsAccrual() => soundManager.PlayParallel(mainAudioSource, wpp03);
+        public void PlayLobbyAmbience() => soundManager.PlayParallel(mainAudioSource, lobbyAmbience);
     }
 }

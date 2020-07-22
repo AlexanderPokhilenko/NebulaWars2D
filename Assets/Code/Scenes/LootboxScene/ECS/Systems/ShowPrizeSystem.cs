@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
-using Code.Common.Statistics;
 using Code.Scenes.LootboxScene.PrefabScripts;
 using Code.Scenes.LootboxScene.PrefabScripts.Wpp;
 using Code.Scenes.LootboxScene.Scripts;
@@ -95,6 +94,13 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                     var lootboxWarshipPowerPointsModel =
                         ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel
                             .SerializedModel);
+                    
+                    log.Debug(lootboxWarshipPowerPointsModel.StartValue);
+                    log.Debug(lootboxWarshipPowerPointsModel.FinishValue);
+                    log.Debug(lootboxWarshipPowerPointsModel.WarshipId);
+                    log.Debug(lootboxWarshipPowerPointsModel.WarshipSkinName);
+                    log.Debug(lootboxWarshipPowerPointsModel.MaxValueForLevel);
+                    
                     script.SetData(lootboxWarshipPowerPointsModel);
                     Color red = new Color(209, 0, 0);
                     circlesOnAWaterColorUpdater.SetStartColor(red);
