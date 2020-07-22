@@ -19,35 +19,53 @@ namespace Code.Common
         [SerializeField] private AudioClip softAdding;
         [SerializeField] private AudioClip start;
         [SerializeField] private AudioClip warshipChanging;
-        private AudioSource audioSource;
+        [SerializeField] private AudioClip lightning;
+        [SerializeField] private AudioClip wpp03;
+        [SerializeField] private AudioClip lobbyAmbience;
         private SoundManager soundManager;
+        private AudioSource mainAudioSource;
 
-        public void Start()
+        protected override void Awake()
         {
-            audioSource = GetComponent<AudioSource>();
+            base.Awake();
+            mainAudioSource = GetComponent<AudioSource>();
             soundManager = SoundManager.Instance();
         }
 
-        private void PlaySound(AudioClip clip) => soundManager.PlayUiSound(audioSource, clip, false);
-        private void PlaySoundReversed(AudioClip clip) => soundManager.PlayUiSound(audioSource, clip, true);
-        private void PlayOneShot(AudioClip clip) => soundManager.PlaySameUiSound(audioSource, clip);
+        private void PlaySound(AudioClip clip)
+        {
+            soundManager.PlayUiSound(mainAudioSource, clip, false);
+        }
 
+        private void PlaySoundReversed(AudioClip clip)
+        {
+            soundManager.PlayUiSound(mainAudioSource, clip, true);
+        }
+
+        private void PlayOneShot(AudioClip clip)
+        {
+            soundManager.PlaySameUiSound(mainAudioSource, clip);
+        }
+        
         public void PlayAdding() => PlaySound(adding);
         public void PlayClick() => PlaySound(click);
         public void PlayError() => PlayOneShot(error);
         public void PlayHardAdding() => PlayOneShot(hardAdding);
         public void PlayLevelUp() => PlaySound(levelUp);
         public void PlayLootbox() => PlaySound(lootbox);
-        public void PlayMenu(bool closing) => soundManager.PlayUiSound(audioSource, menuOpen, closing);
+        public void PlayMenu(bool closing) => soundManager.PlayUiSound(mainAudioSource, menuOpen, closing);
         public void PlayMenuOpen() => PlaySound(menuOpen);
         public void PlayMenuClose() => PlaySoundReversed(menuOpen);
         public void PlayPointsAdding() => PlayOneShot(pointsAdding);
         public void PlayPurchase() => PlaySound(purchase);
         public void PlayRatingAdding() => PlayOneShot(ratingAdding);
         public void PlaySoftAdding() => PlayOneShot(softAdding);
+        public void PlayLightning() => PlayOneShot(lightning);
         public void PlayStart() => PlaySound(start);
         public void PlayStop() => PlaySoundReversed(start);
         public void PlayWarshipChangingLeft() => PlaySound(warshipChanging);
         public void PlayWarshipChangingRight() => PlaySoundReversed(warshipChanging);
+        public void PlayWarshipPowerPointsAccrual() => soundManager.PlayParallel(mainAudioSource, wpp03);
+        public void PlayLobbyAmbience() => soundManager.PlayParallel(mainAudioSource, lobbyAmbience);
     }
 }

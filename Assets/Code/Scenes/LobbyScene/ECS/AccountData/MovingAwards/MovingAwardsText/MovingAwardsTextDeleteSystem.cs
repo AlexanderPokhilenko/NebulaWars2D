@@ -28,10 +28,10 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText
             {
                 var awardText = awardTextEntities[i];
                 
-                if (awardText.awardText.FadeTime < now)
+                if (awardText.awardText.fadeTime < now)
                 {
                     //TODO посмотреть зачем нужен Link
-                    Object.Destroy(awardText.view.GameObject);
+                    Object.Destroy(awardText.view.gameObject);
                     awardText.Destroy();
                 }
             }

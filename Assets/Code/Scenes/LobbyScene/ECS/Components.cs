@@ -108,51 +108,43 @@ namespace Code.Scenes.LobbyScene.ECS
     [LobbyUi] [Unique]
     public class MatchSearchDataForMenuComponent: IComponent
     {
-        public int NumberOfPlayersInMatch;
+        public int numberOfPlayersInMatch;
         public int NumberOfPlayersInQueue;
     }
 
-    [LobbyUi, Game]
+    [LobbyUi, Game, WppAccrual]
     public sealed class PositionComponent : IComponent
     {
         public Vector3 value;
     }
 
-    [LobbyUi]
+    [LobbyUi, WppAccrual]
     public class ImageComponent: IComponent
     {
         public Image image;
     }
 
-
-    [LobbyUi]
-    public class MovingAwardComponent: IComponent
+    [LobbyUi, WppAccrual]
+    public class MovingIconComponent: IComponent
     {
-        public int Increment;
-        public AwardType awardType;
-        public int currentTargetIndex;
+        public int increment;
+        public IconTrajectory iconTrajectory;
+        public AwardTypeEnum awardTypeEnum;
+    }
+    
+    public class IconTrajectory
+    {
+        public int currentControlPointIndex;
         public List<ControlPoint> controlPoints;
     }
 
-    public class ControlPoint
-    {
-        public Vector3 position;
-        public DateTime ArrivalTime;
-        public Vector3 scale;
-        /// <summary>
-        /// 0 - прозрачный, 1 - не прозрачный
-        /// </summary>
-        public float alpha;
-        public bool moveToUp;
-    }
-
-    [LobbyUi]
+    [LobbyUi, WppAccrual]
     public class ScaleComponent: IComponent
     {
         public Vector3 scale;
     }
 
-    [LobbyUi]
+    [LobbyUi, WppAccrual]
     public class AlphaComponent: IComponent
     {
         /// <summary>
@@ -166,14 +158,14 @@ namespace Code.Scenes.LobbyScene.ECS
     {
         public int quantity;
         public Vector3 startPosition;
-        public DateTime CreationTime;
-        public DateTime FadeTime;
+        public DateTime creationTime;
+        public DateTime fadeTime;
     }
 
     [LobbyUi]
     public class ViewComponent: IComponent
     {
-        public GameObject GameObject;
+        public GameObject gameObject;
     }
 
     [LobbyUi]
@@ -186,16 +178,17 @@ namespace Code.Scenes.LobbyScene.ECS
     public class CommandToCreateAwardImagesComponent: IComponent
     {
         public int quantity;
-        public AwardType awardType;
+        public AwardTypeEnum awardTypeEnum;
         public DateTime startSpawnTime;
     }
 
-    public enum AwardType:sbyte
+    public enum AwardTypeEnum:sbyte
     {
         SoftCurrency,
         AccountRating,
         HardCurrency,
-        LootboxPoints
+        LootboxPoints,
+        WarshipPowerPoints
     }
 
     [LobbyUi, FlagPrefix("message")]

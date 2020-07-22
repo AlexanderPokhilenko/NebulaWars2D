@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.BattleScene.ECS.Systems.TearDownSystems;
@@ -55,8 +56,8 @@ namespace Code.Scenes.LobbyScene.Scripts
         private MovingAwardsUiElementsStorage movingAwardsUiStorage;
         private PurchaseConfirmationWindow purchaseConfirmationWindow;
         private MatchSearchDataUpdaterSystem matchSearchDataUpdaterSystem;
+        private MovingIconsDataCreationSystem movingIconsDataCreationSystem;
         private AccountDataComponentsCreatorSystem accountDataComponentsCreatorSystem;
-        private MovingAwardImagesDataCreationSystem movingAwardImagesDataCreationSystem;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyEcsController));
         private StartCancelMatchComponentsCreatorSystem startCancelMatchComponentsCreatorSystem;
 
@@ -95,7 +96,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             startCancelMatchComponentsCreatorSystem = new StartCancelMatchComponentsCreatorSystem(contexts.lobbyUi);
             matchSearchDataUpdaterSystem = new MatchSearchDataUpdaterSystem(contexts);
             
-            movingAwardImagesDataCreationSystem = new MovingAwardImagesDataCreationSystem(contexts,
+            movingIconsDataCreationSystem = new MovingIconsDataCreationSystem(contexts,
                 movingAwardsUiStorage.movingAwardImageParentRectTransform);
             
             movingAwardsMainSystem = new MovingAwardsMainSystem(contexts);
@@ -114,11 +115,11 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new MovingAwardsTextDeleteSystem(contexts))
                     
                     //Движение наград
-                    .Add(movingAwardImagesDataCreationSystem)
-                    .Add(new MovingAwardImagesGameObjectCreationSystem(contexts,  movingAwardsUiStorage.movingAwardImageParentRectTransform))
-                    .Add(new MovingAwardImageDataUpdaterSystem(contexts))
-                    .Add(new MovingAwardGameObjectUpdaterSystem(contexts, movingAwardsUiStorage.movingAwardImageUpperObject))
-                    .Add(new MovingAwardImageDestroySystem(contexts))
+                    .Add(movingIconsDataCreationSystem)
+                    .Add(new MovingIconInstantiatorSystem(contexts,  movingAwardsUiStorage.movingAwardImageParentRectTransform))
+                    .Add(new MovingIconDataUpdaterSystem(contexts))
+                    .Add(new MovingIconsUpdaterSystem(contexts, movingAwardsUiStorage.movingAwardImageUpperObject))
+                    .Add(new MovingIconDestroySystem(contexts))
                     
                     //Поиск матча
                     .Add(matchSearchDataUpdaterSystem)
@@ -314,6 +315,16 @@ namespace Code.Scenes.LobbyScene.Scripts
             contexts.lobbyUi.CreateEntity().messageEnableWarshipListUiLayer = true;
         }
 
+        public void ShowWarshipOverviewById(int warshipId)
+        {
+            var warshipDto = contexts.lobbyUi
+                .GetGroup(LobbyUiMatcher.Warship)
+                .AsEnumerable()
+                .Last(entity => entity.warship.warshipDto.Id == warshipId).warship.warshipDto;
+            
+            contexts.lobbyUi.CreateEntity().AddEnableWarshipOverviewUiLayer(warshipDto);
+        }
+        
         public void ShowWarshipOverview(WarshipDto warshipDto)
         {
             contexts.lobbyUi.CreateEntity().AddEnableWarshipOverviewUiLayer(warshipDto);

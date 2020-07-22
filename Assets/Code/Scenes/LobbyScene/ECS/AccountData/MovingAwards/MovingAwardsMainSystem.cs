@@ -36,25 +36,25 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards
 
                     if (rewardsThatHaveNotBeenShown.AccountRatingDelta > 0)
                     {
-                        AddAwardSpawnCommand(AwardType.AccountRating, rewardsThatHaveNotBeenShown.AccountRatingDelta, startSpawnTime);
+                        AddAwardSpawnCommand(AwardTypeEnum.AccountRating, rewardsThatHaveNotBeenShown.AccountRatingDelta, startSpawnTime);
                         startSpawnTime += TimeSpan.FromSeconds(2);
                     }
 
                     if (rewardsThatHaveNotBeenShown.SoftCurrencyDelta > 0)
                     {
-                        AddAwardSpawnCommand(AwardType.SoftCurrency, rewardsThatHaveNotBeenShown.SoftCurrencyDelta, startSpawnTime);
+                        AddAwardSpawnCommand(AwardTypeEnum.SoftCurrency, rewardsThatHaveNotBeenShown.SoftCurrencyDelta, startSpawnTime);
                         startSpawnTime += TimeSpan.FromSeconds(2);
                     }
                     
                     if (rewardsThatHaveNotBeenShown.HardCurrencyDelta > 0)
                     {
-                        AddAwardSpawnCommand(AwardType.HardCurrency, rewardsThatHaveNotBeenShown.HardCurrencyDelta, startSpawnTime);
+                        AddAwardSpawnCommand(AwardTypeEnum.HardCurrency, rewardsThatHaveNotBeenShown.HardCurrencyDelta, startSpawnTime);
                         startSpawnTime += TimeSpan.FromSeconds(2);
                     }
                     
                     if (rewardsThatHaveNotBeenShown.LootboxPointsDelta > 0)
                     {
-                        AddAwardSpawnCommand(AwardType.LootboxPoints, rewardsThatHaveNotBeenShown.LootboxPointsDelta, startSpawnTime);
+                        AddAwardSpawnCommand(AwardTypeEnum.LootboxPoints, rewardsThatHaveNotBeenShown.LootboxPointsDelta, startSpawnTime);
                         startSpawnTime += TimeSpan.FromSeconds(2);
                     }
                     
@@ -65,10 +65,10 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards
             }
         }
 
-        private void AddAwardSpawnCommand(AwardType awardType, int quantity, DateTime spawnStartTime)
+        private void AddAwardSpawnCommand(AwardTypeEnum awardTypeEnum, int quantity, DateTime spawnStartTime)
         {
             LobbyUiEntity entity = lobbyUiContext.CreateEntity();
-            entity.AddCommandToCreateAwardImages(quantity, awardType , spawnStartTime);
+            entity.AddCommandToCreateAwardImages(quantity, awardTypeEnum , spawnStartTime);
         }
     }
 }

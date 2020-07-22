@@ -55,7 +55,7 @@ namespace Code.Scenes.LobbyScene.ECS.MatchSearch
                     numberOfPlayersInQueueGameObject.text = "Number of players in the queue: " +
                                                             matchSearchDataForMenuComponent.NumberOfPlayersInQueue;
                     numberOfPlayersInBattlesGameObject.text = "Number of players in the match: " + 
-                                                              matchSearchDataForMenuComponent.NumberOfPlayersInMatch;
+                                                              matchSearchDataForMenuComponent.numberOfPlayersInMatch;
                 }
             }
         }

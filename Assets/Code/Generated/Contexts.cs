@@ -25,14 +25,16 @@ public partial class Contexts : Entitas.IContexts {
     public InputContext input { get; set; }
     public LobbyUiContext lobbyUi { get; set; }
     public LootboxContext lootbox { get; set; }
+    public WppAccrualContext wppAccrual { get; set; }
 
-    public Entitas.IContext[] allContexts { get { return new Entitas.IContext [] { game, input, lobbyUi, lootbox }; } }
+    public Entitas.IContext[] allContexts { get { return new Entitas.IContext [] { game, input, lobbyUi, lootbox, wppAccrual }; } }
 
     public Contexts() {
         game = new GameContext();
         input = new InputContext();
         lobbyUi = new LobbyUiContext();
         lootbox = new LootboxContext();
+        wppAccrual = new WppAccrualContext();
 
         var postConstructors = System.Linq.Enumerable.Where(
             GetType().GetMethods(),
@@ -126,6 +128,7 @@ public partial class Contexts {
             CreateContextObserver(input);
             CreateContextObserver(lobbyUi);
             CreateContextObserver(lootbox);
+            CreateContextObserver(wppAccrual);
         } catch(System.Exception) {
         }
     }

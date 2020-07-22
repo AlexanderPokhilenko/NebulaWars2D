@@ -1,3 +1,4 @@
+using System;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -10,9 +11,13 @@ namespace Code.Scenes.LootboxScene.ECS
 
    [Lootbox]
    public class ShowPrizeComponent:IComponent
-
    {
-   public int amount;
-   public LootboxPrizeType LootboxPrizeType;
+      public LootboxPrizeModel LootboxPrizeModel;
+   }
+
+   [Lootbox]
+   public class ItemsLeftComponent : IComponent
+   {
+      public int Value;
    }
 }

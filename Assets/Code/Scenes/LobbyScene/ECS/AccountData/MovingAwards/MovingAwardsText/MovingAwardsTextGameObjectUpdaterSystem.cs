@@ -25,7 +25,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText
             for (int i = 0; i < awardTextEntities.Length; i++)
             {
                 var awardText = awardTextEntities[i];
-                awardText.view.GameObject.transform.position = awardText.position.value;
+                awardText.view.gameObject.transform.position = awardText.position.value;
                 var currentColor = awardText.text.Text.color;
                 
                 var newAlpha = awardText.alpha.alpha;

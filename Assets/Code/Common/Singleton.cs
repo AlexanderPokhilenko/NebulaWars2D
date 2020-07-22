@@ -29,11 +29,15 @@ namespace Code.Common
                             singleton = Instantiate(singleton);
                             singleton.name = typeof(T).Name;
                             instance = singleton.GetComponent<T>();
-                            if(instance == null) throw new System.NullReferenceException("Синглтон из префаба не содержал необходимый компонент.");
+                            if (instance == null)
+                            {
+                                throw new System.NullReferenceException("Синглтон из префаба не содержал необходимый компонент.");
+                            }
                         }
                     }
                 }
             }
+            
             return instance;
         }
 

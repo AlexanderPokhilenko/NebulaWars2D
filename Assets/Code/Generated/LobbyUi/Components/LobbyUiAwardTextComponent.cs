@@ -16,8 +16,8 @@ public partial class LobbyUiEntity {
         var component = (Code.Scenes.LobbyScene.ECS.AwardTextComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.AwardTextComponent));
         component.quantity = newQuantity;
         component.startPosition = newStartPosition;
-        component.CreationTime = newCreationTime;
-        component.FadeTime = newFadeTime;
+        component.creationTime = newCreationTime;
+        component.fadeTime = newFadeTime;
         AddComponent(index, component);
     }
 
@@ -26,8 +26,8 @@ public partial class LobbyUiEntity {
         var component = (Code.Scenes.LobbyScene.ECS.AwardTextComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.AwardTextComponent));
         component.quantity = newQuantity;
         component.startPosition = newStartPosition;
-        component.CreationTime = newCreationTime;
-        component.FadeTime = newFadeTime;
+        component.creationTime = newCreationTime;
+        component.fadeTime = newFadeTime;
         ReplaceComponent(index, component);
     }
 

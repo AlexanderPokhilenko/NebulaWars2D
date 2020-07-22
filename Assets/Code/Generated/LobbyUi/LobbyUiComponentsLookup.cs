@@ -36,7 +36,7 @@ public static class LobbyUiComponentsLookup {
     public const int ImproveWarshipButtonPressed = 25;
     public const int MatchLoadingTableEnabled = 26;
     public const int MatchSearchDataForMenu = 27;
-    public const int MovingAward = 28;
+    public const int MovingIcon = 28;
     public const int PointsForBigLootbox = 29;
     public const int PointsForSmallLootbox = 30;
     public const int Position = 31;
@@ -86,7 +86,7 @@ public static class LobbyUiComponentsLookup {
         "ImproveWarshipButtonPressed",
         "MatchLoadingTableEnabled",
         "MatchSearchDataForMenu",
-        "MovingAward",
+        "MovingIcon",
         "PointsForBigLootbox",
         "PointsForSmallLootbox",
         "Position",
@@ -135,7 +135,7 @@ public static class LobbyUiComponentsLookup {
         typeof(Code.Scenes.LobbyScene.ECS.ImproveWarshipButtonPressedComponent),
         typeof(Code.Scenes.LobbyScene.ECS.MatchLoadingTableEnabledComponent),
         typeof(Code.Scenes.LobbyScene.ECS.MatchSearchDataForMenuComponent),
-        typeof(Code.Scenes.LobbyScene.ECS.MovingAwardComponent),
+        typeof(Code.Scenes.LobbyScene.ECS.MovingIconComponent),
         typeof(Code.Scenes.LobbyScene.ECS.PointsForBigLootboxComponent),
         typeof(Code.Scenes.LobbyScene.ECS.PointsForSmallLootboxComponent),
         typeof(Code.Scenes.LobbyScene.ECS.PositionComponent),

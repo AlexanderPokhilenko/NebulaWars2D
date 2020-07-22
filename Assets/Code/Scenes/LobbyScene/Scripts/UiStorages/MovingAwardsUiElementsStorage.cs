@@ -43,37 +43,37 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
             return instance;
         }
         
-        public Vector3 GetStartPoint(AwardType awardType)
+        public Vector3 GetStartPoint(AwardTypeEnum awardTypeEnum)
         {
-            switch (awardType)
+            switch (awardTypeEnum)
             {
-                case AwardType.SoftCurrency:
+                case AwardTypeEnum.SoftCurrency:
                     return softCurrencyStartPoint.position;
-                case AwardType.AccountRating:
+                case AwardTypeEnum.AccountRating:
                     return trophyStartPoint.position;
-                case AwardType.HardCurrency:
+                case AwardTypeEnum.HardCurrency:
                     return hardCurrencyStartPoint.position;
-                case AwardType.LootboxPoints:
+                case AwardTypeEnum.LootboxPoints:
                     return smallLootboxStartPoint.position;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(awardType), awardType, null);
+                    throw new ArgumentOutOfRangeException(nameof(awardTypeEnum), awardTypeEnum, null);
             }
         }
         
-        public Vector3 GetFinishPoint(AwardType awardType)
+        public Vector3 GetFinishPoint(AwardTypeEnum awardTypeEnum)
         {
-            switch (awardType)
+            switch (awardTypeEnum)
             {
-                case AwardType.SoftCurrency:
+                case AwardTypeEnum.SoftCurrency:
                     return softCurrencyFinishPoint.position;
-                case AwardType.AccountRating:
+                case AwardTypeEnum.AccountRating:
                     return trophyFinishPoint.position;
-                case AwardType.HardCurrency:
+                case AwardTypeEnum.HardCurrency:
                     return hardCurrencyFinishPoint.position;
-                case AwardType.LootboxPoints:
+                case AwardTypeEnum.LootboxPoints:
                     return smallLootboxFinishPoint.position;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(awardType), awardType, null);
+                    throw new ArgumentOutOfRangeException(nameof(awardTypeEnum), awardTypeEnum, null);
             }
         }
 

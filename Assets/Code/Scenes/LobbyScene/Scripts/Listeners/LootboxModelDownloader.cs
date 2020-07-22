@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
@@ -23,6 +24,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
 
         public bool IsDownloadingCompleted()
         {
+            // return true;
             if (task == null)
             {
                 log.Debug("task is null");
@@ -36,6 +38,67 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
         public LootboxModel GetLootboxModel()
         {
             return task.Result;
+            // LootboxModel lootboxModel = new LootboxModel()
+            // {
+            //     Prizes = new List<LootboxPrizeModel>()
+            //     {
+            //         // new LootboxPrizeModel()
+            //         // {
+            //         //     LootboxPrizeType = LootboxPrizeType.SoftCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxSoftCurrencyModel()
+            //         //     {
+            //         //         Amount = 53
+            //         //     })
+            //         // },
+            //         // new LootboxPrizeModel()
+            //         // {
+            //         //     LootboxPrizeType = LootboxPrizeType.HardCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
+            //         //     {
+            //         //         Amount = 53
+            //         //     })
+            //         // },
+            //         new LootboxPrizeModel()
+            //         {
+            //             LootboxPrizeType = LootboxPrizeType.WarshipPowerPoints,
+            //             SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxWarshipPowerPointsModel()
+            //             {
+            //                 WarshipSkinName = "hare",
+            //                 StartValue = 9,
+            //                 FinishValue = 20,
+            //                 MaxValueForLevel = 15
+            //             })
+            //         },
+            //         // new LootboxPrizeModel()
+            //         // {
+            //         //     LootboxPrizeType = LootboxPrizeType.HardCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
+            //         //     {
+            //         //         Amount = 53
+            //         //     })
+            //         // },
+            //         new LootboxPrizeModel()
+            //         {
+            //             LootboxPrizeType = LootboxPrizeType.WarshipPowerPoints,
+            //             SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxWarshipPowerPointsModel()
+            //             {
+            //                 WarshipSkinName = "hare",
+            //                 StartValue = 9,
+            //                 FinishValue = 20,
+            //                 MaxValueForLevel = 15
+            //             })
+            //         },
+            //         // new LootboxPrizeModel()
+            //         // {
+            //         //     LootboxPrizeType = LootboxPrizeType.HardCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
+            //         //     {
+            //         //         Amount = 53
+            //         //     })
+            //         // }
+            //     }
+            // };
+            // return lootboxModel;
         }
         
         private async Task<LootboxModel> DownloadLootboxData()

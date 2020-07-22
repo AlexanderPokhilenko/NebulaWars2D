@@ -35,8 +35,8 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText
             {
                 var command = lobbyUiEntity.commandToCreateAwardImages;
                 var textEntity = lobbyUiContext.CreateEntity();
-                Vector3 startPosition= MovingAwardsUiElementsStorage.Instance().GetStartPoint(command.awardType);
-                textEntity.AddAwardText(command.quantity, MovingAwardsUiElementsStorage.Instance().GetStartPoint(command.awardType),
+                Vector3 startPosition= MovingAwardsUiElementsStorage.Instance().GetStartPoint(command.awardTypeEnum);
+                textEntity.AddAwardText(command.quantity, MovingAwardsUiElementsStorage.Instance().GetStartPoint(command.awardTypeEnum),
                      command.startSpawnTime,
                      command.startSpawnTime + TimeSpan.FromSeconds(1.5)
                 );

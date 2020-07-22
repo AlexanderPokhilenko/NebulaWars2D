@@ -11,20 +11,20 @@ public partial class LobbyUiEntity {
     public Code.Scenes.LobbyScene.ECS.CommandToCreateAwardImagesComponent commandToCreateAwardImages { get { return (Code.Scenes.LobbyScene.ECS.CommandToCreateAwardImagesComponent)GetComponent(LobbyUiComponentsLookup.CommandToCreateAwardImages); } }
     public bool hasCommandToCreateAwardImages { get { return HasComponent(LobbyUiComponentsLookup.CommandToCreateAwardImages); } }
 
-    public void AddCommandToCreateAwardImages(int newQuantity, Code.Scenes.LobbyScene.ECS.AwardType newAwardType, System.DateTime newStartSpawnTime) {
+    public void AddCommandToCreateAwardImages(int newQuantity, Code.Scenes.LobbyScene.ECS.AwardTypeEnum newAwardTypeEnum, System.DateTime newStartSpawnTime) {
         var index = LobbyUiComponentsLookup.CommandToCreateAwardImages;
         var component = (Code.Scenes.LobbyScene.ECS.CommandToCreateAwardImagesComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.CommandToCreateAwardImagesComponent));
         component.quantity = newQuantity;
-        component.awardType = newAwardType;
+        component.awardTypeEnum = newAwardTypeEnum;
         component.startSpawnTime = newStartSpawnTime;
         AddComponent(index, component);
     }
 
-    public void ReplaceCommandToCreateAwardImages(int newQuantity, Code.Scenes.LobbyScene.ECS.AwardType newAwardType, System.DateTime newStartSpawnTime) {
+    public void ReplaceCommandToCreateAwardImages(int newQuantity, Code.Scenes.LobbyScene.ECS.AwardTypeEnum newAwardTypeEnum, System.DateTime newStartSpawnTime) {
         var index = LobbyUiComponentsLookup.CommandToCreateAwardImages;
         var component = (Code.Scenes.LobbyScene.ECS.CommandToCreateAwardImagesComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.CommandToCreateAwardImagesComponent));
         component.quantity = newQuantity;
-        component.awardType = newAwardType;
+        component.awardTypeEnum = newAwardTypeEnum;
         component.startSpawnTime = newStartSpawnTime;
         ReplaceComponent(index, component);
     }
