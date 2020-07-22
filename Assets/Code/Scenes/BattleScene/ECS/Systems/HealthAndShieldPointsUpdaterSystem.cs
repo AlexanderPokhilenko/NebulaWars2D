@@ -23,6 +23,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         private readonly Slider _shieldSlider;
         private readonly Text _shieldText;
         private readonly IApproximator<float> approximator;
+        private const float vignetteStartValue = 1000f;
         private readonly Vignette vignette;
         private const float vignetteWeight = 0.5f;
         private static readonly Vector3 deltaPosition = new Vector3(0f, -10f, 0f);
@@ -48,7 +49,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
             _healthText = healthText;
             _shieldSlider = shieldSlider;
             _shieldText = shieldText;
-            maxHealthPoints = 1000f;
+            maxHealthPoints = vignetteStartValue;
             maxShieldPoints = 0f;
             _shieldSlider.gameObject.SetActive(false);
             _healthSlider.transform.localPosition += deltaPosition;
@@ -128,9 +129,10 @@ namespace Code.Scenes.BattleScene.ECS.Systems
             _healthSlider.value = healthPoints;
             _healthText.text = healthPoints.ToString("F0") + '/' + maxHealthPoints.ToString("F0");
 
-            var healthPercentage = healthPoints / maxHealthPoints;
+            var vignetteHealthRatio = healthPoints / vignetteStartValue;
+            vignetteHealthRatio *= vignetteHealthRatio;
 
-            vignette.intensity.value = (1f - healthPercentage) * vignetteWeight;
+            vignette.intensity.value = (1f - vignetteHealthRatio) * vignetteWeight;
 
             if (_shieldEnabled)
             {
