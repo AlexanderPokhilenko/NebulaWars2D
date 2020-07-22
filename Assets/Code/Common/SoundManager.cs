@@ -15,6 +15,7 @@ namespace Code.Common
         private float _cameraDistance;
         private float _listeningDistance;
         private AnimationCurve _soundSpreadCurve;
+        private bool valuesWereLoad = false;
 #if AddRandomSounding
         private readonly System.Random _random = new System.Random();
         private const float PitchDelta = 0.2f;
@@ -22,6 +23,8 @@ namespace Code.Common
 
         public void LoadValues()
         {
+            if(valuesWereLoad) return;
+            valuesWereLoad = true;
             InterfaceVolume = PlayerPrefs.GetFloat(nameof(InterfaceVolume), 1f);
             SoundsVolume = PlayerPrefs.GetFloat(nameof(SoundsVolume), 1f);
             MusicVolume = PlayerPrefs.GetFloat(nameof(MusicVolume), 1f);
