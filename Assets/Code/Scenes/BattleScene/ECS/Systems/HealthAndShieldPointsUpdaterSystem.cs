@@ -25,7 +25,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         private readonly IApproximator<float> approximator;
         private const float vignetteStartValue = 1000f;
         private readonly Vignette vignette;
-        private const float vignetteWeight = 0.5f;
+        private const float vignetteWeight = 0.4f;
         private static readonly Vector3 deltaPosition = new Vector3(0f, -10f, 0f);
         private static readonly Vector3 bigScale = new Vector3(1f, 1.25f, 1f);
         private readonly ILog log = LogManager.CreateLogger(typeof(HealthAndShieldPointsUpdaterSystem));
