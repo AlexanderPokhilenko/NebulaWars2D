@@ -19,40 +19,40 @@ public static class LobbyUiComponentsLookup {
     public const int BlurValue = 8;
     public const int CancelButtonClicked = 9;
     public const int CommandToCreateAwardImages = 10;
-    public const int CurrentSkinIndex = 11;
-    public const int CurrentWarshipIndex = 12;
-    public const int DisableShopUiLayer = 13;
-    public const int DisableWarshipImprovementModalWindow = 14;
-    public const int DisableWarshipListUiLayer = 15;
-    public const int DisableWarshipOverviewModalWindow = 16;
-    public const int DisableWarshipOverviewUiLayer = 17;
-    public const int EnableShopUiLayer = 18;
-    public const int EnableWarshipImprovementModalWindow = 19;
-    public const int EnableWarshipListUiLayer = 20;
-    public const int EnableWarshipOverviewModalWindow = 21;
-    public const int EnableWarshipOverviewUiLayer = 22;
-    public const int HardCurrency = 23;
-    public const int Image = 24;
-    public const int ImproveWarshipButtonPressed = 25;
-    public const int MatchLoadingTableEnabled = 26;
-    public const int MatchSearchDataForMenu = 27;
-    public const int MovingIcon = 28;
-    public const int PointsForBigLootbox = 29;
-    public const int PointsForSmallLootbox = 30;
-    public const int Position = 31;
-    public const int Scale = 32;
-    public const int ShiftSkinLeft = 33;
-    public const int ShiftSkinRight = 34;
-    public const int ShiftWarshipsLeftCommand = 35;
-    public const int ShiftWarshipsRightCommand = 36;
-    public const int SoftCurrency = 37;
-    public const int StartButtonClicked = 38;
-    public const int StartButtonPressTime = 39;
-    public const int Text = 40;
-    public const int Username = 41;
-    public const int View = 42;
-    public const int WarningEnabled = 43;
-    public const int Warship = 44;
+    public const int CurrentWarshipIndex = 11;
+    public const int DisableShopUiLayer = 12;
+    public const int DisableWarshipImprovementModalWindow = 13;
+    public const int DisableWarshipListUiLayer = 14;
+    public const int DisableWarshipOverviewModalWindow = 15;
+    public const int DisableWarshipOverviewUiLayer = 16;
+    public const int EnableShopUiLayer = 17;
+    public const int EnableWarshipImprovementModalWindow = 18;
+    public const int EnableWarshipListUiLayer = 19;
+    public const int EnableWarshipOverviewModalWindow = 20;
+    public const int EnableWarshipOverviewUiLayer = 21;
+    public const int HardCurrency = 22;
+    public const int Image = 23;
+    public const int ImproveWarshipButtonPressed = 24;
+    public const int MatchLoadingTableEnabled = 25;
+    public const int MatchSearchDataForMenu = 26;
+    public const int MovingIcon = 27;
+    public const int PointsForBigLootbox = 28;
+    public const int PointsForSmallLootbox = 29;
+    public const int Position = 30;
+    public const int Scale = 31;
+    public const int ShiftSkinLeft = 32;
+    public const int ShiftSkinRight = 33;
+    public const int ShiftWarshipsLeftCommand = 34;
+    public const int ShiftWarshipsRightCommand = 35;
+    public const int SoftCurrency = 36;
+    public const int StartButtonClicked = 37;
+    public const int StartButtonPressTime = 38;
+    public const int Text = 39;
+    public const int Username = 40;
+    public const int View = 41;
+    public const int WarningEnabled = 42;
+    public const int Warship = 43;
+    public const int WarshipOverviewCurrentSkinIndex = 44;
     public const int WarshipOverviewDto = 45;
 
     public const int TotalComponents = 46;
@@ -69,7 +69,6 @@ public static class LobbyUiComponentsLookup {
         "BlurValue",
         "CancelButtonClicked",
         "CommandToCreateAwardImages",
-        "CurrentSkinIndex",
         "CurrentWarshipIndex",
         "DisableShopUiLayer",
         "DisableWarshipImprovementModalWindow",
@@ -103,6 +102,7 @@ public static class LobbyUiComponentsLookup {
         "View",
         "WarningEnabled",
         "Warship",
+        "WarshipOverviewCurrentSkinIndex",
         "WarshipOverviewDto"
     };
 
@@ -118,7 +118,6 @@ public static class LobbyUiComponentsLookup {
         typeof(Code.Scenes.LobbyScene.ECS.BlurValueComponent),
         typeof(Code.Scenes.LobbyScene.ECS.CancelButtonClickedComponent),
         typeof(Code.Scenes.LobbyScene.ECS.CommandToCreateAwardImagesComponent),
-        typeof(Code.Scenes.LobbyScene.ECS.CurrentSkinIndex),
         typeof(Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent),
         typeof(Code.Scenes.LobbyScene.ECS.DisableShopUiLayerComponent),
         typeof(Code.Scenes.LobbyScene.ECS.DisableWarshipImprovementModalWindowComponent),
@@ -152,6 +151,7 @@ public static class LobbyUiComponentsLookup {
         typeof(Code.Scenes.LobbyScene.ECS.ViewComponent),
         typeof(Code.Scenes.LobbyScene.ECS.WarningEnabledComponent),
         typeof(Code.Scenes.LobbyScene.ECS.WarshipComponent),
+        typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinIndex),
         typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewDto)
     };
 }

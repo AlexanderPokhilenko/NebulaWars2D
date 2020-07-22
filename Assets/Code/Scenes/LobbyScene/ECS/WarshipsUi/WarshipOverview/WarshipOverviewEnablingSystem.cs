@@ -67,7 +67,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             //Установить значения компонентов для выбора скинов
             lobbyUiContext.ReplaceWarshipOverviewDto(warshipDto);
             int currenctSkinIndex = CurrentWarshipSkinIndexStorage.Get(warshipDto.WarshipName);
-            lobbyUiContext.ReplaceCurrentSkinIndex(currenctSkinIndex);
+            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinIndex(currenctSkinIndex);
         }
         
         private void UpdateData(WarshipDto warshipDto)

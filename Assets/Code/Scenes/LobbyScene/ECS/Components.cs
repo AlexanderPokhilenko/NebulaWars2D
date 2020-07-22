@@ -274,7 +274,7 @@ namespace Code.Scenes.LobbyScene.ECS
     }
 
     [LobbyUi, Unique]
-    public class CurrentSkinIndex : IComponent
+    public class WarshipOverviewCurrentSkinIndex : IComponent
     {
         public int index;
     }
@@ -282,6 +282,6 @@ namespace Code.Scenes.LobbyScene.ECS
     [LobbyUi, Unique]
     public class WarshipOverviewDto : IComponent
     {
-        public WarshipDto WarshipDto;
+        public WarshipDto warshipDto;
     }
 }

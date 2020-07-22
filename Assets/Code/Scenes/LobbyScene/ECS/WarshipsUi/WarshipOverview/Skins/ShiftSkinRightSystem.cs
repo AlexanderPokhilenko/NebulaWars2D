@@ -33,14 +33,14 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
 
         protected override void Execute(List<LobbyUiEntity> entities)
         {
-            int currentSkinIndex = lobbyUiContext.currentSkinIndex.index;
+            int currentSkinIndex = lobbyUiContext.warshipOverviewCurrentSkinIndex.index;
             if (currentSkinIndex == 0)
             {
                 log.Warn("Нельзя сдвинуть скин вправо. Сейчас показывается крайний левый.");
             }
             else
             {
-                lobbyUiContext.ReplaceCurrentSkinIndex(--currentSkinIndex);
+                lobbyUiContext.ReplaceWarshipOverviewCurrentSkinIndex(--currentSkinIndex);
                 lobbySoundsManager.PlayWarshipChangingRight();
             }
         }

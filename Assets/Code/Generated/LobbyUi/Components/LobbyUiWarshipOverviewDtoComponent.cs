@@ -52,14 +52,14 @@ public partial class LobbyUiEntity {
     public void AddWarshipOverviewDto(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.WarshipOverviewDto;
         var component = (Code.Scenes.LobbyScene.ECS.WarshipOverviewDto)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewDto));
-        component.WarshipDto = newWarshipDto;
+        component.warshipDto = newWarshipDto;
         AddComponent(index, component);
     }
 
     public void ReplaceWarshipOverviewDto(NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
         var index = LobbyUiComponentsLookup.WarshipOverviewDto;
         var component = (Code.Scenes.LobbyScene.ECS.WarshipOverviewDto)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewDto));
-        component.WarshipDto = newWarshipDto;
+        component.warshipDto = newWarshipDto;
         ReplaceComponent(index, component);
     }
 
