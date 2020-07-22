@@ -146,11 +146,16 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                     }
                 }
             });
-            //Установить слушатель для кнопки выбора корабля\   
+            //Установить слушатель для кнопки выбора корабля   
             warshipsUiStorage.chooseButton.onClick.RemoveAllListeners();
             warshipsUiStorage.chooseButton.onClick.AddListener(() =>
             {
-                //TODO добавить эту фигню
+                log.Debug("Слушатель работает");
+                //todo звук
+                //todo изменить индекс текущего корабля
+                //todo заменить скин
+                //todo выключить меню обзора корабля
+                //todo выключить меню со списком кораблей
             });
             
             //Установить стоимость для кнопки покупки улучшения
