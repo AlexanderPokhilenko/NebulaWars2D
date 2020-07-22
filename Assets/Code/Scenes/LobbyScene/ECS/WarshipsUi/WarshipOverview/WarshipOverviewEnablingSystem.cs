@@ -7,7 +7,6 @@ using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
 using Code.Scenes.LobbyScene.ECS.Warships;
 using Code.Scenes.LobbyScene.Scripts;
-using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -152,10 +151,15 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             {
                 log.Debug("Слушатель работает");
                 //todo звук
-                //todo изменить индекс текущего корабля
                 //todo заменить скин
+                
+                //todo изменить индекс текущего корабля
+                int warshipIndex = lobbyEcsController.GetWarshipIndexById(warshipDto.Id);
+                lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
                 //todo выключить меню обзора корабля
+                lobbyUiContext.CreateEntity().messageDisableWarshipOverviewUiLayer = true;
                 //todo выключить меню со списком кораблей
+                lobbyUiContext.CreateEntity().messageDisableWarshipListUiLayer = true;
             });
             
             //Установить стоимость для кнопки покупки улучшения

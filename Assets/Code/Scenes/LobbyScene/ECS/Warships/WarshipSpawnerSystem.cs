@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.ECS.Warships.Scroll;
+using Code.Scenes.LobbyScene.ECS.Warships.Utils;
 using Entitas;
 using Entitas.Unity;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -28,7 +30,8 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
             gameContext = contexts.game;
             isWarshipCreationCompleted = false;
             lobbyUiContext = contexts.lobbyUi;
-            gameContext.GetGroup(GameMatcher.AllOf(GameMatcher.View, GameMatcher.Id, GameMatcher.Transform ));
+            gameContext.GetGroup(GameMatcher
+                .AllOf(GameMatcher.View, GameMatcher.Id, GameMatcher.Transform ));
         }
         
         public bool IsWarshipCreationCompleted()
