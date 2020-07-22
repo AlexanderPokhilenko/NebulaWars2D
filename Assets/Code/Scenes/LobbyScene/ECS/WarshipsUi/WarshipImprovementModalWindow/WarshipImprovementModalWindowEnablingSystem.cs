@@ -145,7 +145,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipImprovementModalWindow
                 {
                     go.transform.Find("Particle System").gameObject.SetActive(true);
                     var incrementValue = warshipCharacteristic.GetCurrentValue(powerLevel + 1) - currentValue;
-                    parameterValue.text = $"{currentValue} <color=#00CE00>+ {incrementValue:0.###}</color>";
+                    parameterValue.text = $"{currentValue:0.###} <color=#00CE00>+ {incrementValue:0.###}</color>";
                 }
                 else
                 {
