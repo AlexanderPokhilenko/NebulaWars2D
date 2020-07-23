@@ -162,12 +162,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new WarshipListFillerSystem(contexts, warshipsUiStorage, this))
                     
                     //Листание кораблей
-                    .Add(new ShiftWarshipsLeftReactiveSystem(contexts, lobbyUiStorage.lobbySoundsManager))
-                    .Add(new ShiftWarshipsRightReactiveSystem(contexts, lobbyUiStorage.lobbySoundsManager))
                     .Add(new WarshipsMoverSystem(contexts))
-                    //Включение/выключение кнопок после листания кораблей
-                    .Add(new ScrollButtonSwitcherSystem(contexts, lobbyUiStorage.buttonScrollLeft, 
-                        lobbyUiStorage.buttonScrollRight))
                     //Обновление рейтинга и ранга для текущего корабля
                     .Add(new WarshipDataUpdaterSystem(contexts, lobbyUiStorage.rankText,
                         lobbyUiStorage.ratingText, lobbyUiStorage.ratingSlider))

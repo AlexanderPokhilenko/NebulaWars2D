@@ -11,6 +11,20 @@ using Vector2 = NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessage
 
 namespace Code.Scenes.LobbyScene.ECS.Warships
 {
+    public static class WarshipIndexStorage
+    {
+        private const string PlayerPrefsKey = "warshipIndex";
+        public static void WriteWarshipIndex(int warshipIndex)
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKey, warshipIndex);
+            PlayerPrefs.Save();
+        }
+
+        public static int ReadWarshipIndex()
+        {
+            return PlayerPrefs.GetInt(PlayerPrefsKey, 0);
+        }
+    }
     /// <summary>
     /// Создаёт корабли в лобби при инициализации лобби и при смене скина.
     /// </summary>
@@ -19,16 +33,14 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
         private bool isWarshipCreationCompleted;
         private readonly GameContext gameContext;
         private readonly Transform gameViewsParent;
-        private readonly LobbyUiContext lobbyUiContext;
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipSpawnerSystem));
 
         public WarshipSpawnerSystem(Contexts contexts, Transform gameViewsParent) 
             : base(contexts.lobbyUi)
         {
-            this.gameViewsParent = gameViewsParent;
             gameContext = contexts.game;
             isWarshipCreationCompleted = false;
-            lobbyUiContext = contexts.lobbyUi;
+            this.gameViewsParent = gameViewsParent;
             gameContext.GetGroup(GameMatcher
                 .AllOf(GameMatcher.View, GameMatcher.Id, GameMatcher.Transform ));
         }
@@ -76,9 +88,10 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                     gameEntity.ReplaceView(go);
                     go.Link(gameEntity);
                 }
+                
+                WarshipIndexStorage.WriteWarshipIndex(warshipComponent.index);
             }
             
-            // lobbyUiContext.ReplaceCurrentWarshipIndex(currentWarshipIndex);
             isWarshipCreationCompleted = true;
         }
     }
