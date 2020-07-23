@@ -64,6 +64,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         public static void SetHealthPoints(float healthPointsArg)
         {
             healthPoints = healthPointsArg;
+            if (healthPoints < 0f) healthPoints = 0f;
             wasChanged = true;
         }
         
@@ -76,6 +77,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         public static void SetShieldPoints(float shieldPointsArg)
         {
             shieldPoints = shieldPointsArg;
+            if (shieldPoints < 0f) shieldPoints = 0f;
             wasChanged = true;
         }
 
@@ -93,6 +95,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
 
             if (wasChanged)
             {
+                wasChanged = false;
                 _healthSlider.maxValue = maxHealthPoints;
 
                 if (maxShieldPoints > 0f)
@@ -122,8 +125,6 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                     { 0, HealthAndShieldPointsUpdaterSystem.healthPoints },
                     { 1, HealthAndShieldPointsUpdaterSystem.shieldPoints }
                 }, Time.time);
-
-                wasChanged = false;
             }
 
             _healthSlider.value = healthPoints;

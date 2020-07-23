@@ -74,6 +74,8 @@ namespace Code.Scenes.BattleScene.Scripts
             
             contexts = Contexts.sharedInstance;
             systems = new Systems()
+                    .Add(new TimeSpeedSystem(contexts, new FloatLinearInterpolator(prevFrameTime)))
+
                     .Add(new UpdateTransformSystem(contexts))
                     .Add(new UpdateRadiusSystem(contexts, new FloatLinearInterpolator(prevFrameTime)))
                     .Add(new UpdateParentsSystem(contexts))

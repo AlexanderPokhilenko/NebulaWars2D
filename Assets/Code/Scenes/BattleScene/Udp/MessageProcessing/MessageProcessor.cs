@@ -30,6 +30,7 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
         private readonly ShowPlayerAchievementsHandler playerAchievementsHandler;
         private readonly CooldownsInfosHandler cooldownInfoHandler;
         private readonly CooldownsHandler cooldownHandler;
+        private readonly FrameRateHandler frameRateHandler;
 
         public MessageProcessor(UdpSendUtils udpSendUtils, int matchId)
         {
@@ -51,6 +52,7 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
             playerAchievementsHandler = new ShowPlayerAchievementsHandler(matchId);
             cooldownInfoHandler = new CooldownsInfosHandler();
             cooldownHandler = new CooldownsHandler();
+            frameRateHandler = new FrameRateHandler();
         }
         
         public void Handle(MessageWrapper messageWrapper)
@@ -117,6 +119,9 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
                     break;
                 case MessageType.Hides:
                     hidesMessageHandler.Handle(messageWrapper);
+                    break;
+                case MessageType.FrameRate:
+                    frameRateHandler.Handle(messageWrapper);
                     break;
                 default: 
                     throw new Exception($"Пришло сообщение с неожиданным типом = {messageWrapper.MessageType}");

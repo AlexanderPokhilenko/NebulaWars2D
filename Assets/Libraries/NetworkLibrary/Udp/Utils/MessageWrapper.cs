@@ -47,6 +47,7 @@ namespace NetworkLibrary.NetworkLibrary.Udp
         Parents = 24,
         Detaches = 25,
         Destroys = 26,
-        Hides = 27
+        Hides = 27,
+        FrameRate = 28
     }
 }
