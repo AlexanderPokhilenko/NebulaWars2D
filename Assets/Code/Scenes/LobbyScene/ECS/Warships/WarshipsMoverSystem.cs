@@ -4,7 +4,7 @@ using Code.Common.Logger;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.ECS.Warships.Scroll
+namespace Code.Scenes.LobbyScene.ECS.Warships
 {
     /// <summary>
     /// Сдвигает объекты кораблей при изменении индекса текущего

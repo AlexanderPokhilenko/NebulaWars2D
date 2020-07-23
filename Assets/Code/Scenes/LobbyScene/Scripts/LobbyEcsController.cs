@@ -18,7 +18,6 @@ using Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton;
 using Code.Scenes.LobbyScene.ECS.MatchSearch.StartButton;
 using Code.Scenes.LobbyScene.ECS.Shop;
 using Code.Scenes.LobbyScene.ECS.Warships;
-using Code.Scenes.LobbyScene.ECS.Warships.Scroll;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipImprovementModalWindow;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList;
