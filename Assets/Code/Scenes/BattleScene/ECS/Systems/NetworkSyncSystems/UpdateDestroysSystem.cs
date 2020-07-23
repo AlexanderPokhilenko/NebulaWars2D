@@ -37,7 +37,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
                     if (destroys.Contains(entity.id.value))
                     {
                         entity.isDestroyed = true;
-                        if (entity.hasSpeed) entity.ReplaceSpeed(Vector2.zero);
+                        if (entity.hasSpeed) entity.ReplaceSpeed(Vector2.zero, 0f);
                     }
                 }
             }

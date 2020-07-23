@@ -28,22 +28,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         {
             foreach (GameEntity e in entities)
             {
-                if (e.hasParent)
-                {
-                    var parent = gameContext.GetEntityWithId(e.parent.id);
-                    if (parent != null && parent.hasSpeed)
-                    {
-                        e.AddSpeed(parent.speed.value);
-                    }
-                    else
-                    {
-                        e.AddSpeed(Vector2.zero);
-                    }
-                }
-                else
-                {
-                    e.AddSpeed(Vector2.zero);
-                }
+                e.AddSpeed(Vector2.zero, 0f);
             }
         }
     }

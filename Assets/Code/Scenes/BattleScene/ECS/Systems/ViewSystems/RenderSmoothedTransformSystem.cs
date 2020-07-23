@@ -24,11 +24,9 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
                 foreach (var gameEntity in positionedGroup)
                 {
                     var transform = gameEntity.view.gameObject.transform;
-                    //Vector3 position = gameEntity.transform.position;
-                    //transform.position = (Vector3)Vector2.SmoothDamp(transform.position, position, ref gameEntity.speed.value, SmoothTime) - Vector3.forward * (0.00001f * gameEntity.id.value);
-                    //transform.rotation = Quaternion.AngleAxis(gameEntity.transform.angle, Vector3.forward);
-                    transform.localPosition = (Vector3)Vector2.SmoothDamp(transform.localPosition, gameEntity.position.value, ref gameEntity.speed.value, SmoothTime) - Vector3.forward * (0.00001f * gameEntity.id.value);
-                    transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.AngleAxis(gameEntity.direction.angle, Vector3.forward), 0.5f);
+                    transform.localPosition = (Vector3)Vector2.SmoothDamp(transform.localPosition, gameEntity.position.value, ref gameEntity.speed.linear, SmoothTime) - Vector3.forward * (0.00001f * gameEntity.id.value);
+                    var newAngle = Mathf.SmoothDampAngle(transform.localRotation.eulerAngles.z, gameEntity.direction.angle, ref gameEntity.speed.angular, SmoothTime);
+                    transform.localRotation = Quaternion.Euler(0f, 0f, newAngle);
                 }
             }
             catch
