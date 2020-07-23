@@ -12,14 +12,17 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
         private readonly Text text;
         private readonly GameObject redScale;
         private readonly GameObject greenScale;
+        private readonly Slider powerScaleSlider;
         private readonly ILog log = LogManager.CreateLogger(typeof(WppScaleUpdaterSystem));
 
         public WppScaleUpdaterSystem(IContext<WppAccrualEntity> context, Text text, GameObject redScale,
-            GameObject greenScale) : base(context)
+            GameObject greenScale, Slider powerScaleSlider)
+            : base(context)
         {
             this.text = text;
             this.redScale = redScale;
             this.greenScale = greenScale;
+            this.powerScaleSlider = powerScaleSlider;
         }
 
         protected override ICollector<WppAccrualEntity> GetTrigger(IContext<WppAccrualEntity> context)
@@ -41,6 +44,8 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
             if (actual.value < actual.maxValueForLevel)
             {
                 text.text = $"{actual.value}/{actual.maxValueForLevel}";
+                powerScaleSlider.maxValue = actual.maxValueForLevel;
+                powerScaleSlider.value = actual.value;
             }
             else
             {
