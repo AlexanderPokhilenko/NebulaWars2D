@@ -18,7 +18,6 @@ using Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton;
 using Code.Scenes.LobbyScene.ECS.MatchSearch.StartButton;
 using Code.Scenes.LobbyScene.ECS.Shop;
 using Code.Scenes.LobbyScene.ECS.Warships;
-using Code.Scenes.LobbyScene.ECS.Warships.Scroll;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipImprovementModalWindow;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList;
@@ -162,12 +161,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new WarshipListFillerSystem(contexts, warshipsUiStorage, this))
                     
                     //Листание кораблей
-                    .Add(new ShiftWarshipsLeftReactiveSystem(contexts, lobbyUiStorage.lobbySoundsManager))
-                    .Add(new ShiftWarshipsRightReactiveSystem(contexts, lobbyUiStorage.lobbySoundsManager))
                     .Add(new WarshipsMoverSystem(contexts))
-                    //Включение/выключение кнопок после листания кораблей
-                    .Add(new ScrollButtonSwitcherSystem(contexts, lobbyUiStorage.buttonScrollLeft, 
-                        lobbyUiStorage.buttonScrollRight))
                     //Обновление рейтинга и ранга для текущего корабля
                     .Add(new WarshipDataUpdaterSystem(contexts, lobbyUiStorage.rankText,
                         lobbyUiStorage.ratingText, lobbyUiStorage.ratingSlider))

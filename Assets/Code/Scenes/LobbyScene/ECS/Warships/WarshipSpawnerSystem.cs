@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
-using Code.Scenes.LobbyScene.ECS.Warships.Scroll;
 using Entitas;
 using Entitas.Unity;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -19,16 +19,14 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
         private bool isWarshipCreationCompleted;
         private readonly GameContext gameContext;
         private readonly Transform gameViewsParent;
-        private readonly LobbyUiContext lobbyUiContext;
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipSpawnerSystem));
 
         public WarshipSpawnerSystem(Contexts contexts, Transform gameViewsParent) 
             : base(contexts.lobbyUi)
         {
-            this.gameViewsParent = gameViewsParent;
             gameContext = contexts.game;
             isWarshipCreationCompleted = false;
-            lobbyUiContext = contexts.lobbyUi;
+            this.gameViewsParent = gameViewsParent;
             gameContext.GetGroup(GameMatcher
                 .AllOf(GameMatcher.View, GameMatcher.Id, GameMatcher.Transform ));
         }
@@ -58,14 +56,15 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                 string skinName = warshipDto.GetCurrentSkinName();
                 int horizontalPosition = LobbyUiGlobals.DistanceBetweenWarships * warshipComponent.index;
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/" + skinName);
-                GameObject go = Object.Instantiate(prefab, gameViewsParent, false);
+                GameObject warship = Object.Instantiate(prefab, gameViewsParent, false);
+                warship.transform.localScale = new Vector3(1.4f,1.4f,1.4f);
 
                 GameEntity gameEntity = gameContext.GetEntityWithId(warshipComponent.index);
                 if (gameEntity == null)
                 {
                     gameEntity = gameContext.CreateEntity();
-                    go.Link(gameEntity);
-                    gameEntity.AddView(go);
+                    warship.Link(gameEntity);
+                    gameEntity.AddView(warship);
                     gameEntity.AddId(warshipComponent.index);
                     gameEntity.AddTransform(new Vector2(horizontalPosition, 0), 0);    
                 }
@@ -73,12 +72,13 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                 {
                     gameEntity.view.gameObject.Unlink();
                     Object.Destroy(gameEntity.view.gameObject);
-                    gameEntity.ReplaceView(go);
-                    go.Link(gameEntity);
+                    gameEntity.ReplaceView(warship);
+                    warship.Link(gameEntity);
                 }
+                
+                WarshipIndexStorage.WriteWarshipIndex(warshipComponent.index);
             }
             
-            // lobbyUiContext.ReplaceCurrentWarshipIndex(currentWarshipIndex);
             isWarshipCreationCompleted = true;
         }
     }

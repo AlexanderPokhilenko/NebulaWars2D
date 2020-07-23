@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using Code.Common.Logger;
 using Code.Scenes.BattleScene.Scripts;
+using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +12,8 @@ namespace Code.Common
     public class MenuButtonListener : MonoBehaviour
     {
         [SerializeField] private BaseMenuManager menu;
-
+        private readonly ILog log = LogManager.CreateLogger(typeof(MenuButtonListener));
+        
         private void Awake()
         {
             GetComponent<Button>().onClick.AddListener(menu.ShowMenu);
@@ -19,6 +23,7 @@ namespace Code.Common
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                log.Debug("Нажата клавиша Escape");
                 menu.SwitchMenu();
             }
         }

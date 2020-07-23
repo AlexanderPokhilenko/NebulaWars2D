@@ -10944,17 +10944,22 @@ PrefabInstance:
     - target: {fileID: 1545563024500888664, guid: 813d1763fe273a848af15d16e6b0fa93,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1545563024500888664, guid: 813d1763fe273a848af15d16e6b0fa93,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3938367722710996452, guid: 813d1763fe273a848af15d16e6b0fa93,
         type: 3}
       propertyPath: m_Name
       value: Empty_WarshipPowePoints
+      objectReference: {fileID: 0}
+    - target: {fileID: 3938367722710996452, guid: 813d1763fe273a848af15d16e6b0fa93,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3938367722710996475, guid: 813d1763fe273a848af15d16e6b0fa93,
         type: 3}

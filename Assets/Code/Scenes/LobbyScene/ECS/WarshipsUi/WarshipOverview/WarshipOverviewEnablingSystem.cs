@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +10,6 @@ using Code.Scenes.LobbyScene.Scripts;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
@@ -28,10 +26,10 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
            LobbyLayoutSwitcher lobbyLayoutSwitcher, LobbyEcsController lobbyEcsController) 
             : base(contexts.lobbyUi)
         {
-            this.warshipsUiStorage = warshipsUiStorage;
-            this.lobbyLayoutSwitcher = lobbyLayoutSwitcher;
-            this.lobbyEcsController = lobbyEcsController;
             lobbyUiContext = contexts.lobbyUi;
+            this.warshipsUiStorage = warshipsUiStorage;
+            this.lobbyEcsController = lobbyEcsController;
+            this.lobbyLayoutSwitcher = lobbyLayoutSwitcher;
         }
         
         protected override ICollector<LobbyUiEntity> GetTrigger(IContext<LobbyUiEntity> context)
@@ -46,7 +44,6 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
 
         protected override void Execute(List<LobbyUiEntity> entities)
         {
-            // log.Debug(nameof(WarshipOverviewEnablingSystem));
             LobbyUiEntity entity = entities.Last();
             ShowOverviewLayer(entity.enableWarshipOverviewUiLayer.WarshipDto);
             lobbyLayoutSwitcher.SetCurrentLayer(ShittyUiLayerState.WarshipOverview);

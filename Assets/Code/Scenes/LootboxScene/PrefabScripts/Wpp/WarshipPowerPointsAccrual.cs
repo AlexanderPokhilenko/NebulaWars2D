@@ -13,7 +13,6 @@ using Random = System.Random;
 
 namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
 {
-    
     /// <summary>
     /// Находится на префабе премиум-валюты. Управляет анимацией при появлении префаба.
     /// </summary>
@@ -57,7 +56,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             RectTransform upperObject = transform.Find("Canvas/Empty_UpperObject").GetComponent<RectTransform>();
             wppContext = Contexts.sharedInstance.wppAccrual;
             wppContext.DestroyAllEntities();
-            
+            Slider powerScaleSlider = transform.Find("Canvas/Empty_PowerValueRoot/Slider").GetComponent<Slider>();
             GameObject redScale = transform.Find("Canvas/Empty_PowerValueRoot").gameObject;
             GameObject greenScale = transform.Find("Canvas/Empty_FilledPowerScale").gameObject;
             systems = new Systems()
@@ -66,7 +65,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
                 .Add(new IconsDataUpdaterSystem(contexts))
                 .Add(new IconsUpdaterSystem(contexts, upperObject))
                 .Add(new WppViewDestroySystem(contexts))
-                .Add(new WppScaleUpdaterSystem(contexts.wppAccrual, text, redScale, greenScale))
+                .Add(new WppScaleUpdaterSystem(contexts.wppAccrual, text, redScale, greenScale, powerScaleSlider))
                 ;
             
             if (wppContext == null)

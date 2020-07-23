@@ -4,7 +4,7 @@ using Code.Common.Statistics;
 using Entitas;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.ECS.Warships.Scroll
+namespace Code.Scenes.LobbyScene.ECS.Warships
 {
     /// <summary>
     /// Обновляет рейтинг и ранг при листании кораблей в ui.

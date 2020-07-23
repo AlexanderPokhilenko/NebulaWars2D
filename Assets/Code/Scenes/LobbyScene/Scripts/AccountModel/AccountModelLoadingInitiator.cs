@@ -44,6 +44,7 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
                 log.Fatal("Не удалось скачать модель аккаунта");
                 yield break;
             }
+            
             SetData(task.Result);
         }
 
@@ -53,8 +54,7 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
             updateGameVersionMenuSwitcher.CheckBundleVersion(lobbyModel.BundleVersion);
             
             //Отнять от данных аккаунта значения, которые будут начислены с анимацией
-            AccountDto accountData =
-                lobbyModel.AccountDto.Subtract(lobbyModel.RewardsThatHaveNotBeenShown);
+            AccountDto accountData = lobbyModel.AccountDto.Subtract(lobbyModel.RewardsThatHaveNotBeenShown);
 
             foreach (WarshipDto accountDataWarship in accountData.Warships)
             {
