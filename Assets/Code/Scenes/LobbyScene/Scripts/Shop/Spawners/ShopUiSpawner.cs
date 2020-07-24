@@ -16,8 +16,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
         private GameObject sectionsParentGo;
         private SectionSpawner sectionSpawner;
         private FooterPointerUiSpawner sectionPointerUiSpawner;
-        private readonly ILog log = LogManager.CreateLogger(typeof(ShopUiSpawner));
         private ScrollViewSmoothMovementBehaviour scrollViewSmoothMovement;
+        private readonly ILog log = LogManager.CreateLogger(typeof(ShopUiSpawner));
 
         private void Awake()
         {
@@ -41,6 +41,9 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
             {
                 sectionSpawner.SpawnSection(shopSectionModel, shopModel.Id);
             }
+
+            var requiredSectionNames = shopModel.GetRequiredSectionNames();
+            scrollViewSmoothMovement.InitRequiredSections(requiredSectionNames);
         }
 
         public void SpawnFooterPointers()
@@ -61,8 +64,9 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
                 }
             }
             
+            
             //иниуиализировать скрипт для листания разделов
-            scrollViewSmoothMovement.SetSectionPositions(sectionStartPositions);
+            scrollViewSmoothMovement.Initialize(sectionStartPositions);
             
             //создать кнопки-указатели
             sectionPointerUiSpawner.SpawnButtons(sectionStartPositions);

@@ -78,7 +78,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             log.Debug("Операция покупки прошла успешно");
         }
 
-        private bool InsufficientResources(ProductModel productModel, out InsufficientResourceEnum? insufficientResource)
+        private bool InsufficientResources(ProductModel productModel, out SectionTypeEnum? sectionTypeEnum)
         {
             switch (productModel.CurrencyTypeEnum)
             {
@@ -86,32 +86,32 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                     if (lobbyEcsController.GetSoftCurrency() < productModel.Cost)
                     {
                         log.Error("Не хватает обычной валюты");
-                        insufficientResource = InsufficientResourceEnum.SoftCurrency;
+                        sectionTypeEnum = SectionTypeEnum.SoftCurrency;
                         return true;
                     }
                     else
                     {
-                        insufficientResource = null;
+                        sectionTypeEnum = null;
                         return false;
                     }
                 case CurrencyTypeEnum.HardCurrency:
                     if (lobbyEcsController.GetHardCurrency() < productModel.Cost)
                     {
                         log.Error("Не хватает премиум валюты");
-                        insufficientResource = InsufficientResourceEnum.HardCurrency;
+                        sectionTypeEnum = SectionTypeEnum.HardCurrency;
                         return true;
                     }
                     else
                     {
-                        insufficientResource = null;
+                        sectionTypeEnum = null;
                         return false;
                     }
                 case CurrencyTypeEnum.RealCurrency:
                     log.Fatal("Покупка за реальную валюту не должна тут обрабатываться");
-                    insufficientResource = null;
+                    sectionTypeEnum = null;
                     return true;
                 case CurrencyTypeEnum.Free:
-                    insufficientResource = null;
+                    sectionTypeEnum = null;
                     return false;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -1,8 +1,6 @@
 using System;
 using Code.Common;
 using Code.Common.Logger;
-using Code.Scenes.DebugScene;
-using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -16,32 +14,34 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
     public class ProductClickHandlerScript : MonoBehaviour
     {
         private PurchasingService purchasingService;
-        private PurchaseConfirmationWindowController purchaseConfirmationWindowController;
+        private LobbyEcsController lobbyEcsController;
         private readonly ILog log = LogManager.CreateLogger(typeof(ProductClickHandlerScript));
 
         private void Awake()
         {
             purchasingService = FindObjectOfType<PurchasingService>()
-                ?? throw new Exception(nameof(PurchasingService));
-            purchaseConfirmationWindowController = FindObjectOfType<PurchaseConfirmationWindowController>()
-                ?? throw new Exception(nameof(PurchaseConfirmationWindowController));;
+                                ?? throw new NullReferenceException(nameof(PurchasingService));
+            lobbyEcsController = FindObjectOfType<LobbyEcsController>()
+                                 ?? throw new NullReferenceException(nameof(lobbyEcsController));
         }
 
         public void Product_OnClick([NotNull] PurchaseModel purchaseModel)
         {
-            log.Debug($"{nameof(Product_OnClick)} {nameof(purchaseModel.productModel.Id)} {purchaseModel.productModel.Id}");
-            log.Debug("Тип валюты "+purchaseModel.productModel.CurrencyTypeEnum);
+            UiSoundsManager.Instance().PlayClick();
+            log.Info($"{nameof(Product_OnClick)} {nameof(purchaseModel.productModel.Id)} {purchaseModel.productModel.Id}");
+            log.Info("Тип валюты "+purchaseModel.productModel.CurrencyTypeEnum);
             //Если покупка за реальную валюту, то вызвать api платёжной системы
             if (purchaseModel.productModel.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
             {
-                log.Debug("Покупка за реальную валюту");
+                log.Info("Покупка за реальную валюту");
                 purchasingService.BuyProduct(purchaseModel);
             }
             else
             {
-                log.Debug("Показ окна подтверждения покупки");
+                log.Info("Показ окна подтверждения покупки");
                 //Если покупка за внутриигровую валюту, то показать меню подтверждения покупки
-                purchaseConfirmationWindowController.Show(purchaseModel);    
+
+                lobbyEcsController.ShowPurchaseConfirmationWindow(purchaseModel);    
             }
         }
 

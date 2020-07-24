@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
-using Code.Scenes.LobbyScene.Scripts;
 using Code.Scenes.LobbyScene.Scripts.Shop;
 using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
@@ -11,7 +10,7 @@ using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Code.Scenes.LobbyScene.ECS.Shop
+namespace Code.Scenes.LobbyScene.ECS.Shop.Layer
 {
     /// <summary>
     /// Реагирует на команду показать магазин
@@ -75,12 +74,11 @@ namespace Code.Scenes.LobbyScene.ECS.Shop
         private IEnumerator SetStoreContentWidth()
         {
             yield return null;
-            var sectionsParentRect = shopUiStorage.shopSectionsParent.GetComponent<RectTransform>();
+            RectTransform sectionsParentRect = shopUiStorage.shopSectionsParent.GetComponent<RectTransform>();
             // log.Info("sectionsParentRect.rect.width = "+sectionsParentRect.rect.width);
             shopUiStorage.shopScrollViewContent
                 .SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, sectionsParentRect.rect.width);
             
-            //todo это кусок говна
             //обновить список указателей
             shopUiSpawner.SpawnFooterPointers();
         }

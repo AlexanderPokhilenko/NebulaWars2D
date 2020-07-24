@@ -41,7 +41,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                 .GetComponent<Text>();
             string text1 = productModel.WarshipPowerPointsProduct.CurrentPowerPointsAmount + "/" +
                            productModel.WarshipPowerPointsProduct.CurrentMaxPowerPointsAmount;
-            log.Debug("текущее кол-во очков силы корабля "+text1);
+            // log.Debug("текущее кол-во очков силы корабля "+text1);
             text.text = text1;
             //установить значение слайдера
             Slider slider = powerPointsContent.transform

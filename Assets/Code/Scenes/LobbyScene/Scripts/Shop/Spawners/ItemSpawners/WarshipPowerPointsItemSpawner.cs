@@ -23,7 +23,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
             //Заполнить картинку
             Image itemPreview = wppGo.transform.Find("Image_WarshipPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.productModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>("SkinPreview/"+purchaseModel.productModel.ImagePreviewPath);
 
             //Заполнить текущий показатель силы
             Text currentPowerValue = wppGo.transform.Find("Empty_PowerValueRoot/Text").GetComponent<Text>();
