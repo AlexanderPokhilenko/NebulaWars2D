@@ -11,17 +11,17 @@ public partial class LootboxEntity {
     public Code.Scenes.LootboxScene.ECS.ShowPrizeComponent showPrize { get { return (Code.Scenes.LootboxScene.ECS.ShowPrizeComponent)GetComponent(LootboxComponentsLookup.ShowPrize); } }
     public bool hasShowPrize { get { return HasComponent(LootboxComponentsLookup.ShowPrize); } }
 
-    public void AddShowPrize(NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel newLootboxPrizeModel) {
+    public void AddShowPrize(NetworkLibrary.NetworkLibrary.Http.ResourceModel newResourceModel) {
         var index = LootboxComponentsLookup.ShowPrize;
         var component = (Code.Scenes.LootboxScene.ECS.ShowPrizeComponent)CreateComponent(index, typeof(Code.Scenes.LootboxScene.ECS.ShowPrizeComponent));
-        component.LootboxPrizeModel = newLootboxPrizeModel;
+        component.resourceModel = newResourceModel;
         AddComponent(index, component);
     }
 
-    public void ReplaceShowPrize(NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel newLootboxPrizeModel) {
+    public void ReplaceShowPrize(NetworkLibrary.NetworkLibrary.Http.ResourceModel newResourceModel) {
         var index = LootboxComponentsLookup.ShowPrize;
         var component = (Code.Scenes.LootboxScene.ECS.ShowPrizeComponent)CreateComponent(index, typeof(Code.Scenes.LootboxScene.ECS.ShowPrizeComponent));
-        component.LootboxPrizeModel = newLootboxPrizeModel;
+        component.resourceModel = newResourceModel;
         ReplaceComponent(index, component);
     }
 

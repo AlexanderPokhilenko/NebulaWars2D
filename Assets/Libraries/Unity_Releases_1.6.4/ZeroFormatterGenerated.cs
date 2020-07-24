@@ -40,8 +40,8 @@ namespace ZeroFormatter
             ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.SkinTypeEnum>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.SkinTypeEnumFormatter<ZeroFormatter.Formatters.DefaultResolver>());
             ZeroFormatter.Comparers.ZeroFormatterEqualityComparer<global::NetworkLibrary.NetworkLibrary.Http.SkinTypeEnum>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.SkinTypeEnumEqualityComparer());
             
-            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.LootboxPrizeTypeFormatter<ZeroFormatter.Formatters.DefaultResolver>());
-            ZeroFormatter.Comparers.ZeroFormatterEqualityComparer<global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.LootboxPrizeTypeEqualityComparer());
+            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.ResourceType>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.ResourceTypeFormatter<ZeroFormatter.Formatters.DefaultResolver>());
+            ZeroFormatter.Comparers.ZeroFormatterEqualityComparer<global::NetworkLibrary.NetworkLibrary.Http.ResourceType>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.ResourceTypeEqualityComparer());
             
             ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.MarkType>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.MarkTypeFormatter<ZeroFormatter.Formatters.DefaultResolver>());
             ZeroFormatter.Comparers.ZeroFormatterEqualityComparer<global::NetworkLibrary.NetworkLibrary.Http.MarkType>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.MarkTypeEqualityComparer());
@@ -74,11 +74,11 @@ namespace ZeroFormatter
             ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.RewardsThatHaveNotBeenShown>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.RewardsThatHaveNotBeenShownFormatter<ZeroFormatter.Formatters.DefaultResolver>());
             ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipRatingScaleModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.WarshipRatingScaleModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
             ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.LobbyModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.LobbyModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
-            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
+            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.ResourceModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.ResourceModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
             ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.LootboxModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
-            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxSoftCurrencyModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.LootboxSoftCurrencyModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
-            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxHardCurrencyModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.LootboxHardCurrencyModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
-            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxWarshipPowerPointsModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.LootboxWarshipPowerPointsModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
+            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.SoftCurrencyResourceModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.SoftCurrencyResourceModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
+            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.HardCurrencyResourceModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.HardCurrencyResourceModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
+            ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipPowerPointsResourceModel>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.WarshipPowerPointsResourceModelFormatter<ZeroFormatter.Formatters.DefaultResolver>());
             ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.DiscountPrice>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.DiscountPriceFormatter<ZeroFormatter.Formatters.DefaultResolver>());
             ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.ForeignServiceProduct>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.ForeignServiceProductFormatter<ZeroFormatter.Formatters.DefaultResolver>());
             ZeroFormatter.Formatters.Formatter<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.ProductMark>.Register(new ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http.ProductMarkFormatter<ZeroFormatter.Formatters.DefaultResolver>());
@@ -245,8 +245,8 @@ namespace ZeroFormatter
             ZeroFormatter.Formatters.Formatter.RegisterArray<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipParameter>();
             ZeroFormatter.Formatters.Formatter.RegisterArray<ZeroFormatter.Formatters.DefaultResolver, string>();
             ZeroFormatter.Formatters.Formatter.RegisterCollection<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.BotModel, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.BotModel>>();
-            ZeroFormatter.Formatters.Formatter.RegisterCollection<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel>>();
             ZeroFormatter.Formatters.Formatter.RegisterCollection<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.PlayerModel, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.PlayerModel>>();
+            ZeroFormatter.Formatters.Formatter.RegisterCollection<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.ResourceModel, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.ResourceModel>>();
             ZeroFormatter.Formatters.Formatter.RegisterCollection<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.SectionModel, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.SectionModel>>();
             ZeroFormatter.Formatters.Formatter.RegisterCollection<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto>>();
             ZeroFormatter.Formatters.Formatter.RegisterCollection<ZeroFormatter.Formatters.DefaultResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipDto, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.WarshipDto>>();
@@ -1658,7 +1658,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         }
     }
 
-    public class LootboxPrizeModelFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel>
+    public class ResourceModelFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.ResourceModel>
         where TTypeResolver : ITypeResolver, new()
     {
         public override int? GetLength()
@@ -1666,7 +1666,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             return null;
         }
 
-        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel value)
+        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.ResourceModel value)
         {
             var segment = value as IZeroFormatterSegment;
             if (segment != null)
@@ -1683,14 +1683,14 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 var startOffset = offset;
 
                 offset += (8 + 4 * (1 + 1));
-                offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType>(ref bytes, startOffset, offset, 0, value.LootboxPrizeType);
+                offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.ResourceType>(ref bytes, startOffset, offset, 0, value.ResourceType);
                 offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, byte[]>(ref bytes, startOffset, offset, 1, value.SerializedModel);
 
                 return ObjectSegmentHelper.WriteSize(ref bytes, startOffset, offset, 1);
             }
         }
 
-        public override global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
+        public override global::NetworkLibrary.NetworkLibrary.Http.ResourceModel Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
         {
             byteSize = BinaryUtil.ReadInt32(ref bytes, offset);
             if (byteSize == -1)
@@ -1698,11 +1698,11 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 byteSize = 4;
                 return null;
             }
-            return new LootboxPrizeModelObjectSegment<TTypeResolver>(tracker, new ArraySegment<byte>(bytes, offset, byteSize));
+            return new ResourceModelObjectSegment<TTypeResolver>(tracker, new ArraySegment<byte>(bytes, offset, byteSize));
         }
     }
 
-    public class LootboxPrizeModelObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel, IZeroFormatterSegment
+    public class ResourceModelObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.ResourceModel, IZeroFormatterSegment
         where TTypeResolver : ITypeResolver, new()
     {
         static readonly int[] __elementSizes = new int[]{ 4, 0 };
@@ -1715,15 +1715,15 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         CacheSegment<TTypeResolver, byte[]> _SerializedModel;
 
         // 0
-        public override global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType LootboxPrizeType
+        public override global::NetworkLibrary.NetworkLibrary.Http.ResourceType ResourceType
         {
             get
             {
-                return ObjectSegmentHelper.GetFixedProperty<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType>(__originalBytes, 0, __binaryLastIndex, __extraFixedBytes, __tracker);
+                return ObjectSegmentHelper.GetFixedProperty<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.ResourceType>(__originalBytes, 0, __binaryLastIndex, __extraFixedBytes, __tracker);
             }
             set
             {
-                ObjectSegmentHelper.SetFixedProperty<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType>(__originalBytes, 0, __binaryLastIndex, __extraFixedBytes, value, __tracker);
+                ObjectSegmentHelper.SetFixedProperty<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.ResourceType>(__originalBytes, 0, __binaryLastIndex, __extraFixedBytes, value, __tracker);
             }
         }
 
@@ -1741,7 +1741,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         }
 
 
-        public LootboxPrizeModelObjectSegment(global::ZeroFormatter.DirtyTracker dirtyTracker, ArraySegment<byte> originalBytes)
+        public ResourceModelObjectSegment(global::ZeroFormatter.DirtyTracker dirtyTracker, ArraySegment<byte> originalBytes)
         {
             var __array = originalBytes.Array;
 
@@ -1771,7 +1771,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 var startOffset = offset;
                 offset += (8 + 4 * (1 + 1));
 
-                offset += ObjectSegmentHelper.SerializeFixedLength<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType>(ref targetBytes, startOffset, offset, 0, __binaryLastIndex, __originalBytes, __extraFixedBytes, __tracker);
+                offset += ObjectSegmentHelper.SerializeFixedLength<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.ResourceType>(ref targetBytes, startOffset, offset, 0, __binaryLastIndex, __originalBytes, __extraFixedBytes, __tracker);
                 offset += ObjectSegmentHelper.SerializeCacheSegment<TTypeResolver, byte[]>(ref targetBytes, startOffset, offset, 1, ref _SerializedModel);
 
                 return ObjectSegmentHelper.WriteSize(ref targetBytes, startOffset, offset, 1);
@@ -1808,7 +1808,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 var startOffset = offset;
 
                 offset += (8 + 4 * (0 + 1));
-                offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel>>(ref bytes, startOffset, offset, 0, value.Prizes);
+                offset += ObjectSegmentHelper.SerializeFromFormatter<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.ResourceModel>>(ref bytes, startOffset, offset, 0, value.Prizes);
 
                 return ObjectSegmentHelper.WriteSize(ref bytes, startOffset, offset, 0);
             }
@@ -1836,10 +1836,10 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         readonly int __binaryLastIndex;
         readonly byte[] __extraFixedBytes;
 
-        CacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel>> _Prizes;
+        CacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.ResourceModel>> _Prizes;
 
         // 0
-        public override global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel> Prizes
+        public override global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.ResourceModel> Prizes
         {
             get
             {
@@ -1862,7 +1862,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
 
             this.__extraFixedBytes = ObjectSegmentHelper.CreateExtraFixedBytes(this.__binaryLastIndex, 0, __elementSizes);
 
-            _Prizes = new CacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel>>(__tracker, ObjectSegmentHelper.GetSegment(originalBytes, 0, __binaryLastIndex, __tracker));
+            _Prizes = new CacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.ResourceModel>>(__tracker, ObjectSegmentHelper.GetSegment(originalBytes, 0, __binaryLastIndex, __tracker));
         }
 
         public bool CanDirectCopy()
@@ -1882,7 +1882,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 var startOffset = offset;
                 offset += (8 + 4 * (0 + 1));
 
-                offset += ObjectSegmentHelper.SerializeCacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeModel>>(ref targetBytes, startOffset, offset, 0, ref _Prizes);
+                offset += ObjectSegmentHelper.SerializeCacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.ResourceModel>>(ref targetBytes, startOffset, offset, 0, ref _Prizes);
 
                 return ObjectSegmentHelper.WriteSize(ref targetBytes, startOffset, offset, 0);
             }
@@ -1893,7 +1893,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         }
     }
 
-    public class LootboxSoftCurrencyModelFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxSoftCurrencyModel>
+    public class SoftCurrencyResourceModelFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.SoftCurrencyResourceModel>
         where TTypeResolver : ITypeResolver, new()
     {
         public override int? GetLength()
@@ -1901,7 +1901,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             return null;
         }
 
-        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.LootboxSoftCurrencyModel value)
+        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.SoftCurrencyResourceModel value)
         {
             var segment = value as IZeroFormatterSegment;
             if (segment != null)
@@ -1924,7 +1924,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             }
         }
 
-        public override global::NetworkLibrary.NetworkLibrary.Http.LootboxSoftCurrencyModel Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
+        public override global::NetworkLibrary.NetworkLibrary.Http.SoftCurrencyResourceModel Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
         {
             byteSize = BinaryUtil.ReadInt32(ref bytes, offset);
             if (byteSize == -1)
@@ -1932,11 +1932,11 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 byteSize = 4;
                 return null;
             }
-            return new LootboxSoftCurrencyModelObjectSegment<TTypeResolver>(tracker, new ArraySegment<byte>(bytes, offset, byteSize));
+            return new SoftCurrencyResourceModelObjectSegment<TTypeResolver>(tracker, new ArraySegment<byte>(bytes, offset, byteSize));
         }
     }
 
-    public class LootboxSoftCurrencyModelObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.LootboxSoftCurrencyModel, IZeroFormatterSegment
+    public class SoftCurrencyResourceModelObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.SoftCurrencyResourceModel, IZeroFormatterSegment
         where TTypeResolver : ITypeResolver, new()
     {
         static readonly int[] __elementSizes = new int[]{ 4 };
@@ -1961,7 +1961,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         }
 
 
-        public LootboxSoftCurrencyModelObjectSegment(global::ZeroFormatter.DirtyTracker dirtyTracker, ArraySegment<byte> originalBytes)
+        public SoftCurrencyResourceModelObjectSegment(global::ZeroFormatter.DirtyTracker dirtyTracker, ArraySegment<byte> originalBytes)
         {
             var __array = originalBytes.Array;
 
@@ -2001,7 +2001,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         }
     }
 
-    public class LootboxHardCurrencyModelFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxHardCurrencyModel>
+    public class HardCurrencyResourceModelFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.HardCurrencyResourceModel>
         where TTypeResolver : ITypeResolver, new()
     {
         public override int? GetLength()
@@ -2009,7 +2009,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             return null;
         }
 
-        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.LootboxHardCurrencyModel value)
+        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.HardCurrencyResourceModel value)
         {
             var segment = value as IZeroFormatterSegment;
             if (segment != null)
@@ -2032,7 +2032,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             }
         }
 
-        public override global::NetworkLibrary.NetworkLibrary.Http.LootboxHardCurrencyModel Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
+        public override global::NetworkLibrary.NetworkLibrary.Http.HardCurrencyResourceModel Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
         {
             byteSize = BinaryUtil.ReadInt32(ref bytes, offset);
             if (byteSize == -1)
@@ -2040,11 +2040,11 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 byteSize = 4;
                 return null;
             }
-            return new LootboxHardCurrencyModelObjectSegment<TTypeResolver>(tracker, new ArraySegment<byte>(bytes, offset, byteSize));
+            return new HardCurrencyResourceModelObjectSegment<TTypeResolver>(tracker, new ArraySegment<byte>(bytes, offset, byteSize));
         }
     }
 
-    public class LootboxHardCurrencyModelObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.LootboxHardCurrencyModel, IZeroFormatterSegment
+    public class HardCurrencyResourceModelObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.HardCurrencyResourceModel, IZeroFormatterSegment
         where TTypeResolver : ITypeResolver, new()
     {
         static readonly int[] __elementSizes = new int[]{ 4 };
@@ -2069,7 +2069,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         }
 
 
-        public LootboxHardCurrencyModelObjectSegment(global::ZeroFormatter.DirtyTracker dirtyTracker, ArraySegment<byte> originalBytes)
+        public HardCurrencyResourceModelObjectSegment(global::ZeroFormatter.DirtyTracker dirtyTracker, ArraySegment<byte> originalBytes)
         {
             var __array = originalBytes.Array;
 
@@ -2109,7 +2109,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         }
     }
 
-    public class LootboxWarshipPowerPointsModelFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxWarshipPowerPointsModel>
+    public class WarshipPowerPointsResourceModelFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.WarshipPowerPointsResourceModel>
         where TTypeResolver : ITypeResolver, new()
     {
         public override int? GetLength()
@@ -2117,7 +2117,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             return null;
         }
 
-        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.LootboxWarshipPowerPointsModel value)
+        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.WarshipPowerPointsResourceModel value)
         {
             var segment = value as IZeroFormatterSegment;
             if (segment != null)
@@ -2144,7 +2144,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             }
         }
 
-        public override global::NetworkLibrary.NetworkLibrary.Http.LootboxWarshipPowerPointsModel Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
+        public override global::NetworkLibrary.NetworkLibrary.Http.WarshipPowerPointsResourceModel Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
         {
             byteSize = BinaryUtil.ReadInt32(ref bytes, offset);
             if (byteSize == -1)
@@ -2152,11 +2152,11 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
                 byteSize = 4;
                 return null;
             }
-            return new LootboxWarshipPowerPointsModelObjectSegment<TTypeResolver>(tracker, new ArraySegment<byte>(bytes, offset, byteSize));
+            return new WarshipPowerPointsResourceModelObjectSegment<TTypeResolver>(tracker, new ArraySegment<byte>(bytes, offset, byteSize));
         }
     }
 
-    public class LootboxWarshipPowerPointsModelObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.LootboxWarshipPowerPointsModel, IZeroFormatterSegment
+    public class WarshipPowerPointsResourceModelObjectSegment<TTypeResolver> : global::NetworkLibrary.NetworkLibrary.Http.WarshipPowerPointsResourceModel, IZeroFormatterSegment
         where TTypeResolver : ITypeResolver, new()
     {
         static readonly int[] __elementSizes = new int[]{ 0, 4, 4, 4, 5 };
@@ -2234,7 +2234,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         }
 
 
-        public LootboxWarshipPowerPointsModelObjectSegment(global::ZeroFormatter.DirtyTracker dirtyTracker, ArraySegment<byte> originalBytes)
+        public WarshipPowerPointsResourceModelObjectSegment(global::ZeroFormatter.DirtyTracker dirtyTracker, ArraySegment<byte> originalBytes)
         {
             var __array = originalBytes.Array;
 
@@ -7361,7 +7361,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
 
 
 
-    public class LootboxPrizeTypeFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType>
+    public class ResourceTypeFormatter<TTypeResolver> : Formatter<TTypeResolver, global::NetworkLibrary.NetworkLibrary.Http.ResourceType>
         where TTypeResolver : ITypeResolver, new()
     {
         public override int? GetLength()
@@ -7369,28 +7369,28 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
             return 4;
         }
 
-        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType value)
+        public override int Serialize(ref byte[] bytes, int offset, global::NetworkLibrary.NetworkLibrary.Http.ResourceType value)
         {
             return BinaryUtil.WriteInt32(ref bytes, offset, (Int32)value);
         }
 
-        public override global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
+        public override global::NetworkLibrary.NetworkLibrary.Http.ResourceType Deserialize(ref byte[] bytes, int offset, global::ZeroFormatter.DirtyTracker tracker, out int byteSize)
         {
             byteSize = 4;
-            return (global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType)BinaryUtil.ReadInt32(ref bytes, offset);
+            return (global::NetworkLibrary.NetworkLibrary.Http.ResourceType)BinaryUtil.ReadInt32(ref bytes, offset);
         }
     }
 
 
 
-    public class LootboxPrizeTypeEqualityComparer : IEqualityComparer<global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType>
+    public class ResourceTypeEqualityComparer : IEqualityComparer<global::NetworkLibrary.NetworkLibrary.Http.ResourceType>
     {
-        public bool Equals(global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType x, global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType y)
+        public bool Equals(global::NetworkLibrary.NetworkLibrary.Http.ResourceType x, global::NetworkLibrary.NetworkLibrary.Http.ResourceType y)
         {
             return (Int32)x == (Int32)y;
         }
 
-        public int GetHashCode(global::NetworkLibrary.NetworkLibrary.Http.LootboxPrizeType x)
+        public int GetHashCode(global::NetworkLibrary.NetworkLibrary.Http.ResourceType x)
         {
             return (int)x;
         }

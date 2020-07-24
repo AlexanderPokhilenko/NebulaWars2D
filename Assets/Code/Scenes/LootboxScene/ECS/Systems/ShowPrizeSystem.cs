@@ -61,38 +61,38 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             ShowPrizeComponent prize = currentPrize.showPrize;
             Transform parent = uiStorage.resourcesRoot.transform;
             
-            switch (prize.LootboxPrizeModel.LootboxPrizeType)
+            switch (prize.resourceModel.ResourceType)
             {
-                case LootboxPrizeType.SoftCurrency:
+                case ResourceType.SoftCurrency:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.softCurrencyPrefab, parent);
                     var script = go.GetComponent<SoftCurrencyAccrual>();
-                    LootboxSoftCurrencyModel lootboxSoftCurrencyModel =
-                        ZeroFormatterSerializer.Deserialize<LootboxSoftCurrencyModel>(prize.LootboxPrizeModel
+                    SoftCurrencyResourceModel softCurrencyResourceModel =
+                        ZeroFormatterSerializer.Deserialize<SoftCurrencyResourceModel>(prize.resourceModel
                             .SerializedModel);
-                    script.SetData(lootboxSoftCurrencyModel.Amount);
+                    script.SetData(softCurrencyResourceModel.Amount);
                     particlesColorUpdater.SetStartColor(Color.blue);
                     break;
                 }
-                case LootboxPrizeType.HardCurrency:
+                case ResourceType.HardCurrency:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.hardCurrencyPrefab, parent);
                     var script = go.GetComponent<HardCurrencyAccrual>();
-                    LootboxHardCurrencyModel lootboxHardCurrencyModel =
-                        ZeroFormatterSerializer.Deserialize<LootboxHardCurrencyModel>(prize.LootboxPrizeModel
+                    HardCurrencyResourceModel hardCurrencyResourceModel =
+                        ZeroFormatterSerializer.Deserialize<HardCurrencyResourceModel>(prize.resourceModel
                             .SerializedModel);
-                    script.SetData(lootboxHardCurrencyModel.Amount);
+                    script.SetData(hardCurrencyResourceModel.Amount);
 
                     Color purple = new Color(209, 0, 4);
                     particlesColorUpdater.SetStartColor(purple);
                     break;
                 }
-                case LootboxPrizeType.WarshipPowerPoints:
+                case ResourceType.WarshipPowerPoints:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.warshipPowerPointsPrefab, parent);
                     var script = go.GetComponent<WarshipPowerPointsAccrual>();
                     var lootboxWarshipPowerPointsModel =
-                        ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel
+                        ZeroFormatterSerializer.Deserialize<WarshipPowerPointsResourceModel>(prize.resourceModel
                             .SerializedModel);
                     
                     // log.Debug(lootboxWarshipPowerPointsModel.StartValue);

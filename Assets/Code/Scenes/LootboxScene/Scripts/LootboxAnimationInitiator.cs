@@ -22,14 +22,14 @@ namespace Code.Scenes.LootboxScene.Scripts
         {
             lootboxEcsController = FindObjectOfType<LootboxEcsController>()
                                    ?? throw new NullReferenceException(nameof(lootboxEcsController));
-            lootboxSceneSwitcher = FindObjectOfType<LootboxSceneSwitcher>();
+            lootboxSceneSwitcher = FindObjectOfType<LootboxSceneSwitcher>()
+                                   ?? throw new NullReferenceException(nameof(lootboxSceneSwitcher));
         }
 
         private void Start()
         {
             StartCoroutine(ShowResourcesAccrual());
         }
-
         private IEnumerator ShowResourcesAccrual()
         {
             DateTime delayTime = DateTime.UtcNow + maxWaitingTime;
@@ -37,7 +37,7 @@ namespace Code.Scenes.LootboxScene.Scripts
             {
                 return LootboxModelDownloader.Instance.IsDownloadingCompleted() || DateTime.UtcNow > delayTime;
             });
-
+        
             if (!LootboxModelDownloader.Instance.IsDownloadingCompleted())
             {
                 //За отведённое время не удалось купить лутбокс на сервере
@@ -51,12 +51,12 @@ namespace Code.Scenes.LootboxScene.Scripts
                 log.Error("Не удалось скачать данные о лутбоксе");
                 yield break; 
             }
-
+        
             log.Info("Данные о лутбоксе успешно скачаны");
             StartAnimation(lootboxModel);
         }
 
-        private void StartAnimation(LootboxModel lootboxModelArg)
+        public void StartAnimation(LootboxModel lootboxModelArg)
         {
             lootboxEcsController.SetLootboxModel(lootboxModelArg);
         }

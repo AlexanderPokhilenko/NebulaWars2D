@@ -131,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 132731220}
   - component: {fileID: 132731219}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Sprite_ClosedLootbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 464692424}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Empty_ItemsLeftRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 523306635}
   - component: {fileID: 523306637}
   - component: {fileID: 523306636}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 601200514}
   - component: {fileID: 601200513}
   - component: {fileID: 601200512}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 772140211}
   - component: {fileID: 772140216}
   - component: {fileID: 772140217}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SceneController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 873843112}
   - component: {fileID: 873843110}
   - component: {fileID: 873843114}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -616,7 +616,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 257
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -704,7 +704,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 951353777}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ResourcesRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 1107193754}
   - component: {fileID: 1107193753}
   - component: {fileID: 1107193752}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,7 +840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1152085170}
   - component: {fileID: 1152085169}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Sprite_OpenedLootbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -921,7 +921,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1173376247}
   - component: {fileID: 1173376248}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprites_Lootbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -969,7 +969,7 @@ GameObject:
   - component: {fileID: 1426392831}
   - component: {fileID: 1426392830}
   - component: {fileID: 1426392829}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1035,7 +1035,7 @@ GameObject:
   - component: {fileID: 1534189567}
   - component: {fileID: 1534189569}
   - component: {fileID: 1534189568}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image_ItemsLeftBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1166,11 +1166,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty_HardCurrency
       objectReference: {fileID: 0}
-    - target: {fileID: 3538313733093073114, guid: 832c8b7b365e7d548a9082f584d09dfa,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 832c8b7b365e7d548a9082f584d09dfa, type: 3}
 --- !u!4 &1981736055 stripped
@@ -1246,11 +1241,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Empty_SoftCurrency
       objectReference: {fileID: 0}
-    - target: {fileID: 7185928406799176031, guid: a51d4a08b8e0373428075120faadf4cc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a51d4a08b8e0373428075120faadf4cc, type: 3}
 --- !u!4 &2074796294 stripped
@@ -1270,7 +1260,7 @@ GameObject:
   - component: {fileID: 2099588998}
   - component: {fileID: 2099589000}
   - component: {fileID: 2099588999}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text_ItemsLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1399,6 +1389,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5456167950352985927, guid: e026078522aa3254fa333530c2a78cc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5456263575224631895, guid: e026078522aa3254fa333530c2a78cc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5456570348340808441, guid: e026078522aa3254fa333530c2a78cc8,
         type: 3}
       propertyPath: m_Name
@@ -1408,6 +1408,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5456570348340808441, guid: e026078522aa3254fa333530c2a78cc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5456660330463752627, guid: e026078522aa3254fa333530c2a78cc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5456838428939848505, guid: e026078522aa3254fa333530c2a78cc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457008227559921535, guid: e026078522aa3254fa333530c2a78cc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457147424075701305, guid: e026078522aa3254fa333530c2a78cc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457223251507277949, guid: e026078522aa3254fa333530c2a78cc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457908968907670371, guid: e026078522aa3254fa333530c2a78cc8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e026078522aa3254fa333530c2a78cc8, type: 3}
@@ -6164,7 +6199,7 @@ GameObject:
   - component: {fileID: 5905646297197578912}
   - component: {fileID: 5905646297197578913}
   - component: {fileID: 5905646297197578914}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Particle_Dots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6182,7 +6217,7 @@ GameObject:
   - component: {fileID: 6897119181186193235}
   - component: {fileID: 6897119181186193234}
   - component: {fileID: 6897119181186193233}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Particle_CirclesOnTheWater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10935,22 +10970,17 @@ PrefabInstance:
     - target: {fileID: 1545563024500888664, guid: 813d1763fe273a848af15d16e6b0fa93,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1545563024500888664, guid: 813d1763fe273a848af15d16e6b0fa93,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3938367722710996452, guid: 813d1763fe273a848af15d16e6b0fa93,
         type: 3}
       propertyPath: m_Name
       value: Empty_WarshipPowePoints
-      objectReference: {fileID: 0}
-    - target: {fileID: 3938367722710996452, guid: 813d1763fe273a848af15d16e6b0fa93,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3938367722710996475, guid: 813d1763fe273a848af15d16e6b0fa93,
         type: 3}

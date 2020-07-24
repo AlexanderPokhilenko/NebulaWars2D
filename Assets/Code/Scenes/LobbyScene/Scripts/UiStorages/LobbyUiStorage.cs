@@ -12,6 +12,9 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
     /// </summary>
     public class LobbyUiStorage : MonoBehaviour
     {
+        public GameObject gameViewsRoot;
+        public GameObject overlayCanvas;
+        
         [Header("Загрузка боя")]
         [Tooltip("Описание")]
         public Image blurImage;
@@ -95,6 +98,8 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
 
         public void Check()
         {
+            Assert.IsNotNull(gameViewsRoot);
+            Assert.IsNotNull(overlayCanvas);
             Assert.IsNotNull(blurImage);
             Assert.IsNotNull(battleLoadingMenu);
             Assert.IsNotNull(waitTimeText);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
@@ -13,10 +12,10 @@ using Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText;
 using Code.Scenes.LobbyScene.ECS.Blur;
 using Code.Scenes.LobbyScene.ECS.Clear;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
+using Code.Scenes.LobbyScene.ECS.LobbySceneUi;
 using Code.Scenes.LobbyScene.ECS.MatchSearch;
 using Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton;
 using Code.Scenes.LobbyScene.ECS.MatchSearch.StartButton;
-using Code.Scenes.LobbyScene.ECS.Shop;
 using Code.Scenes.LobbyScene.ECS.Shop.Layer;
 using Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow;
 using Code.Scenes.LobbyScene.ECS.Warships;
@@ -27,7 +26,6 @@ using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverviewModalWindow;
 using Code.Scenes.LobbyScene.Scripts.Shop;
-using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
@@ -203,6 +201,10 @@ namespace Code.Scenes.LobbyScene.Scripts
                     
                     //Слушатель кнопки покупки улучшения
                     .Add(new WarshipImproveOnClickSystem(contexts.lobbyUi))
+                    
+                    //Показ начисления наград
+                    .Add(new LobbySceneUiEnablingSystem(contexts.lobbyUi, lobbyUiStorage))
+                    .Add(new LobbySceneUiDisablingSystem(contexts.lobbyUi, lobbyUiStorage))
                     
                     //Очистка
                     .Add(new ContextsClearSystem(contexts))
@@ -394,5 +396,15 @@ namespace Code.Scenes.LobbyScene.Scripts
         {
             contexts.lobbyUi.CreateEntity().AddEnablePurchaseConfirmationWindow(purchaseModel);
         }
+
+        public void DisableLobbySceneUi()
+        {
+            contexts.lobbyUi.CreateEntity().isDisableLobbySceneUi = true;
+        } 
+        
+        public void EnableLobbySceneUi()
+        {
+            contexts.lobbyUi.CreateEntity().isEnableLobbySceneUi = true;
+        } 
     }
 }

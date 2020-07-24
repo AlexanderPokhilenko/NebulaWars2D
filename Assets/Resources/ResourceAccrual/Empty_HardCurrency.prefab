@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3538313731421339288}
   - component: {fileID: 3538313731421339290}
   - component: {fileID: 3538313731421339291}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 3538313731950117113}
   - component: {fileID: 3538313731950117115}
   - component: {fileID: 3538313731950117112}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text_Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 3538313732082842797}
   - component: {fileID: 3538313732082842799}
   - component: {fileID: 3538313732082842796}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text_Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 3538313732237502207}
   - component: {fileID: 3538313732237502204}
   - component: {fileID: 3538313732237502205}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 3538313732329783069}
   - component: {fileID: 3538313732329783071}
   - component: {fileID: 3538313732329783068}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image_BrawlStarExample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3538313733093073093}
   - component: {fileID: 7343637733338610644}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Empty_HardCurrency
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -517,6 +517,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_Stardust_01_Epic
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853339070717919409, guid: 6d1282c7e920cd043b77086eb22c5dc9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853351199083915341, guid: 6d1282c7e920cd043b77086eb22c5dc9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853382444122547405, guid: 6d1282c7e920cd043b77086eb22c5dc9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853787396034488213, guid: 6d1282c7e920cd043b77086eb22c5dc9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853963652771166771, guid: 6d1282c7e920cd043b77086eb22c5dc9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5854179717647613259, guid: 6d1282c7e920cd043b77086eb22c5dc9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d1282c7e920cd043b77086eb22c5dc9, type: 3}

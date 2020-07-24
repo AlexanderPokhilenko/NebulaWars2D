@@ -26,7 +26,7 @@ namespace Code.Scenes.LootboxScene.Scripts
         private IEnumerator Suka()
         {
             yield return null;
-            SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
+            SceneManager.UnloadSceneAsync("2dLootboxScene");
         }
     }
 }

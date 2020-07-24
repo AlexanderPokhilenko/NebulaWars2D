@@ -96,9 +96,9 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             
             //Если есть ресурсы, которые нужно показать
             uiSoundsManager.PlayAdding();
-            LootboxPrizeModel lootboxPrizeModel = lootboxModel.Prizes[currentPrizeIndex];
+            ResourceModel resourceModel = lootboxModel.Prizes[currentPrizeIndex];
             LootboxEntity entity1 = lootboxContext.CreateEntity();
-            entity1.AddShowPrize(lootboxPrizeModel);
+            entity1.AddShowPrize(resourceModel);
 
             
             LootboxEntity entity2 = lootboxContext.CreateEntity();

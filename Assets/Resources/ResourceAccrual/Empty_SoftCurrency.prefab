@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7185928406799176000}
   - component: {fileID: 2450296936045321899}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Empty_SoftCurrency
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 7185928407274753821}
   - component: {fileID: 7185928407274753823}
   - component: {fileID: 7185928407274753822}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 7185928407554086778}
   - component: {fileID: 7185928407554086777}
   - component: {fileID: 7185928407554086776}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 7185928407646359192}
   - component: {fileID: 7185928407646359194}
   - component: {fileID: 7185928407646359193}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image_BrawlStarExample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 7185928407676243240}
   - component: {fileID: 7185928407676243242}
   - component: {fileID: 7185928407676243241}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text_Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 7185928407803720060}
   - component: {fileID: 7185928407803720062}
   - component: {fileID: 7185928407803720061}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text_Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,10 +513,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2321920188939994332, guid: a23f2553d2d7fd64185e4a7419769330,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2321971334694229116, guid: a23f2553d2d7fd64185e4a7419769330,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322181805886693964, guid: a23f2553d2d7fd64185e4a7419769330,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2322442520413639790, guid: a23f2553d2d7fd64185e4a7419769330,
         type: 3}
       propertyPath: m_Name
       value: P_Stardust_01_Uncommon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322442520413639790, guid: a23f2553d2d7fd64185e4a7419769330,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322573729190051048, guid: a23f2553d2d7fd64185e4a7419769330,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2322683451659489192, guid: a23f2553d2d7fd64185e4a7419769330,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a23f2553d2d7fd64185e4a7419769330, type: 3}

@@ -298,4 +298,15 @@ namespace Code.Scenes.LobbyScene.ECS
     {
         public PurchaseModel purchase;
     }
+    
+    [LobbyUi]
+    public class EnableLobbySceneUi : IComponent
+    {
+        
+    }  
+    [LobbyUi]
+    public class DisableLobbySceneUi : IComponent
+    {
+        
+    }
 }

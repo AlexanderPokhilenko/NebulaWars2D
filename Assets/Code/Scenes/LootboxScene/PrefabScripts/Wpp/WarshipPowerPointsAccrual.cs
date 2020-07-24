@@ -25,9 +25,9 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
         [SerializeField] private GameObject wppIconPrefab;
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipPowerPointsAccrual));
 
-        public void SetData(LootboxWarshipPowerPointsModel model)
+        public void SetData(WarshipPowerPointsResourceModel resourceModel)
         {
-            StartCoroutine(Animation(model));
+            StartCoroutine(Animation(resourceModel));
         }
     
         private void Awake()
@@ -96,14 +96,14 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             
         }
 
-        private IEnumerator Animation(LootboxWarshipPowerPointsModel model)
+        private IEnumerator Animation(WarshipPowerPointsResourceModel resourceModel)
         {
             yield return new WaitUntil(()=>wppContext!=null);
-            int startValue = model.StartValue;
-            int maxValue = model.MaxValueForLevel;
+            int startValue = resourceModel.StartValue;
+            int maxValue = resourceModel.MaxValueForLevel;
             wppContext.ReplaceWarshipPowerPoints(startValue,maxValue);
-            int amount = model.FinishValue - model.StartValue;
-            StartCoroutine(WarshipAnimation(model.WarshipSkinName, amount));
+            int amount = resourceModel.FinishValue - resourceModel.StartValue;
+            StartCoroutine(WarshipAnimation(resourceModel.WarshipSkinName, amount));
         }
         
         private IEnumerator WarshipAnimation(string warshipPrefabNameArg, int amount)

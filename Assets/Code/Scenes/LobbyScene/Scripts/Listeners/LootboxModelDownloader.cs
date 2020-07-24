@@ -22,7 +22,6 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
 
         public bool IsDownloadingCompleted()
         {
-            // return true;
             if (task == null)
             {
                 log.Debug("task is null");
