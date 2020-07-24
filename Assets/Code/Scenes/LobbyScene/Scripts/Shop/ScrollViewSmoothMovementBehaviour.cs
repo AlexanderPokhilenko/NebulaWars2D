@@ -94,7 +94,10 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
         /// <returns></returns>
         private IEnumerator Move(float xTargetPosition)
         {
-            scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
+            DisableElasticity();
+            
+            
+            //начать перемотку к нужному разделу
             if (xTargetPosition + screenWidth > scrollViewContent.rect.width)
             {
                 xTargetPosition = scrollViewContent.rect.width - screenWidth;
@@ -120,9 +123,18 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             } 
             while (pathLength > 0.001);
             
-            scrollRect.movementType = ScrollRect.MovementType.Elastic;
+            EnableElasticity();
         }
 
+        private void DisableElasticity()
+        {
+            scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
+        }
+
+        private void EnableElasticity()
+        {
+            scrollRect.movementType = ScrollRect.MovementType.Elastic;
+        }
         private float GetCurrentScrollViewPosition()
         {
             return -scrollViewContent.anchoredPosition.x;

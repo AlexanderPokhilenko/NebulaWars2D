@@ -576,7 +576,6 @@ GameObject:
   - component: {fileID: 873843113}
   - component: {fileID: 873843109}
   - component: {fileID: 873843112}
-  - component: {fileID: 873843111}
   - component: {fileID: 873843110}
   - component: {fileID: 873843114}
   m_Layer: 0
@@ -643,14 +642,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeTimer: 0
   shakeAmount: 0
---- !u!81 &873843111
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 873843108}
-  m_Enabled: 1
 --- !u!124 &873843112
 Behaviour:
   m_ObjectHideFlags: 0

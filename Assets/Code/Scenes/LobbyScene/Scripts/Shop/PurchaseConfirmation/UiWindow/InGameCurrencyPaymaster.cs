@@ -5,6 +5,7 @@ using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using ZeroFormatter;
 
 namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
@@ -76,6 +77,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             }
             
             log.Debug("Операция покупки прошла успешно");
+            //todo показать анимацию начисления приза
+            // SceneManager.LoadSceneAsync("2dLootboxScene", LoadSceneMode.Additive);
         }
 
         private bool InsufficientResources(ProductModel productModel, out SectionTypeEnum? sectionTypeEnum)

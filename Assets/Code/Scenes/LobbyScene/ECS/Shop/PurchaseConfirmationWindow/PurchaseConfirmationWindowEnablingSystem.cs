@@ -8,7 +8,6 @@ using Code.Scenes.LobbyScene.Scripts.Shop;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using DataLayer.Tables;
 using Entitas;
-using Entitas.VisualDebugging.Unity;
 using UnityEngine.UI;
 
 namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
@@ -18,23 +17,24 @@ namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
     /// </summary>
     public class PurchaseConfirmationWindowEnablingSystem:ReactiveSystem<LobbyUiEntity>
     {
-        private ShopUiStorage shopUiStorage;
+        private readonly ShopUiStorage shopUiStorage;
         private readonly LobbyEcsController lobbyEcsController;
-        private SkinPurchaseConfirmationWindowController skinPurchaseConfirmationWindowController;
-        private LootboxPurchaseConfirmationWindowController lootboxPurchaseConfirmationWindowController;
-        private WarshipPurchaseConfirmationWindowController warshipPurchaseConfirmationWindowController;
+        private readonly SkinPurchaseConfirmationWindowController skinPurchaseConfirmationWindowController;
         private readonly ILog log = LogManager.CreateLogger(typeof(PurchaseConfirmationWindowEnablingSystem));
-        private SoftCurrencyPurchaseConfirmationWindowController softCurrencyPurchaseConfirmationWindowController;
-        private WarshipPowerPointsPurchaseConfirmationWindowController warshipPowerPointsPurchaseConfirmationWindowController;
+        private readonly LootboxPurchaseConfirmationWindowController lootboxPurchaseConfirmationWindowController;
+        private readonly WarshipPurchaseConfirmationWindowController warshipPurchaseConfirmationWindowController;
+        private readonly SoftCurrencyPurchaseConfirmationWindowController softCurrencyPurchaseConfirmationWindowController;
+        private readonly WarshipPowerPointsPurchaseConfirmationWindowController warshipPowerPointsPurchaseConfirmationWindowController;
 
-        public PurchaseConfirmationWindowEnablingSystem(IContext<LobbyUiEntity> context, LobbyEcsController lobbyEcsController,
-            InGameCurrencyPaymaster inGameCurrencyPaymaster, ShopUiStorage shopUiStorage) 
+        public PurchaseConfirmationWindowEnablingSystem(IContext<LobbyUiEntity> context,
+            LobbyEcsController lobbyEcsController, InGameCurrencyPaymaster inGameCurrencyPaymaster,
+            ShopUiStorage shopUiStorage) 
             : base(context)
         {
             this.lobbyEcsController = lobbyEcsController;
             this.shopUiStorage = shopUiStorage;
-            softCurrencyPurchaseConfirmationWindowController = new SoftCurrencyPurchaseConfirmationWindowController();
-            skinPurchaseConfirmationWindowController = new SkinPurchaseConfirmationWindowController();
+            softCurrencyPurchaseConfirmationWindowController = new SoftCurrencyPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
+            skinPurchaseConfirmationWindowController = new SkinPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
             lootboxPurchaseConfirmationWindowController = new LootboxPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
             warshipPurchaseConfirmationWindowController = new WarshipPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
             warshipPowerPointsPurchaseConfirmationWindowController =
@@ -100,7 +100,7 @@ namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
                     log.Fatal(message);
                     throw new Exception(message);
                 case TransactionTypeEnum.SoftCurrency:
-                    softCurrencyPurchaseConfirmationWindowController.Spawn(purchaseModel.productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                    softCurrencyPurchaseConfirmationWindowController.Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
                 case TransactionTypeEnum.DailyPrize:
                     break;

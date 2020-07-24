@@ -7,8 +7,14 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 {
     public class SkinPurchaseConfirmationWindowController
     {
+        private readonly InGameCurrencyPaymaster inGameCurrencyPaymaster;
         private readonly ILog log = LogManager.CreateLogger(typeof(SkinPurchaseConfirmationWindowController));
-        
+
+        public SkinPurchaseConfirmationWindowController(InGameCurrencyPaymaster inGameCurrencyPaymaster)
+        {
+            this.inGameCurrencyPaymaster = inGameCurrencyPaymaster;
+        }
+
         public void Spawn(ProductModel productModel, Transform parent)
         {
             GameObject skinPrefab = Resources
