@@ -1,10 +1,8 @@
 ﻿using System.Collections;
-using Code.Common;
 using Code.Common.Logger;
-using Code.Scenes.DebugScene;
 using UnityEngine;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Screensaver
 {
     /// <summary>
     /// Отвечает за выключение заставки перед лобби.
@@ -51,7 +49,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             bool result = initializationCompleted || isUnityEditor;
             
             
-            log.Debug($"{nameof(isAuthorizationCompleted)} {isAuthorizationCompleted}" +
+            log.Info($"{nameof(isAuthorizationCompleted)} {isAuthorizationCompleted}" +
                       $" {nameof(warshipsCreationCompleted)} {warshipsCreationCompleted}");
             return result;
         }

@@ -7,16 +7,23 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 {
     public class WarshipPurchaseConfirmationWindowController
     {
+        private readonly InGameCurrencyPaymaster inGameCurrencyPaymaster;
+
         private readonly ILog log =
             LogManager.CreateLogger(typeof(WarshipPurchaseConfirmationWindowController));
 
-        public void Spawn(ProductModel productModel, Transform parent)
+        public WarshipPurchaseConfirmationWindowController(InGameCurrencyPaymaster inGameCurrencyPaymaster)
+        {
+            this.inGameCurrencyPaymaster = inGameCurrencyPaymaster;
+        }
+
+        public void Spawn(PurchaseModel purchaseModel, Transform parent)
         {
             GameObject skinPrefab = Resources
                 .Load<GameObject>("Prefabs/LobbyShop/PurchasesConfirmation/WarshipContent");
             GameObject skinContent = Object.Instantiate(skinPrefab, parent, false);
-            FillData(skinContent, productModel);
-            AddListeners(skinContent, productModel);
+            FillData(skinContent, purchaseModel.productModel);
+            AddListeners(skinContent, purchaseModel);
         }
 
         private void FillData(GameObject skinContent, ProductModel productModel)
@@ -42,9 +49,10 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             //TODO сделать установку типа валюты
         }
 
-        private void AddListeners(GameObject skinContent, ProductModel productModel)
+        private void AddListeners(GameObject skinContent, PurchaseModel purchaseModel)
         {
             //устновить слушатель на кнопку покупки
+            inGameCurrencyPaymaster.StartBuying(purchaseModel);
         }
     }
 }

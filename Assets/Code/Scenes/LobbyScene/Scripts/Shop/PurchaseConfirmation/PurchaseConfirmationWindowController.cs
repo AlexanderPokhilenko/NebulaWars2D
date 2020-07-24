@@ -22,28 +22,27 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation
         private readonly ILog log = LogManager.CreateLogger(typeof(PurchaseConfirmationWindowController));
         private SoftCurrencyPurchaseConfirmationWindowController softCurrencyPurchaseConfirmationWindowController;
         private WarshipPowerPointsPurchaseConfirmationWindowController warshipPowerPointsPurchaseConfirmationWindowController;
-        private Paymaster paymaster;
 
         private void Awake()
         {
             shopUiStorage = FindObjectOfType<ShopUiStorage>();
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
             purchaseConfirmationWindow = FindObjectOfType<PurchaseConfirmationWindow>();
-            paymaster = FindObjectOfType<Paymaster>();
-
+            var inGameCurrencyPaymaster = FindObjectOfType<InGameCurrencyPaymaster>();
+            
             softCurrencyPurchaseConfirmationWindowController = new SoftCurrencyPurchaseConfirmationWindowController();
             skinPurchaseConfirmationWindowController = new SkinPurchaseConfirmationWindowController();
-            lootboxPurchaseConfirmationWindowController = new LootboxPurchaseConfirmationWindowController(paymaster);
-            warshipPurchaseConfirmationWindowController = new WarshipPurchaseConfirmationWindowController();
+            lootboxPurchaseConfirmationWindowController = new LootboxPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
+            warshipPurchaseConfirmationWindowController = new WarshipPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
             warshipPowerPointsPurchaseConfirmationWindowController =
-                new WarshipPowerPointsPurchaseConfirmationWindowController(paymaster);
+                new WarshipPowerPointsPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
         }
 
         public void Show([NotNull] PurchaseModel purchaseModel)
         {
             purchaseConfirmationWindow.ClearWindow();
             
-            switch (purchaseModel.ProductModel.TransactionType)
+            switch (purchaseModel.productModel.TransactionType)
             {
                 case TransactionTypeEnum.Lootbox:
                     lootboxPurchaseConfirmationWindowController
@@ -51,11 +50,11 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation
                     break;
                 case TransactionTypeEnum.Skin:
                     skinPurchaseConfirmationWindowController
-                        .Spawn(purchaseModel.ProductModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                        .Spawn(purchaseModel.productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
                 case TransactionTypeEnum.Warship:
                     warshipPurchaseConfirmationWindowController
-                        .Spawn(purchaseModel.ProductModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                        .Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
                 case TransactionTypeEnum.WarshipAndSkin:
                     break;
@@ -69,7 +68,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation
                     throw new Exception(message);
                 case TransactionTypeEnum.SoftCurrency:
                     softCurrencyPurchaseConfirmationWindowController
-                        .Spawn(purchaseModel.ProductModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                        .Spawn(purchaseModel.productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
                 case TransactionTypeEnum.DailyPrize:
                     break;

@@ -145,7 +145,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             warshipsUiStorage.chooseButton.onClick.RemoveAllListeners();
             warshipsUiStorage.chooseButton.onClick.AddListener(() =>
             {
-                log.Debug("Слушатель работает");
+                // log.Debug("Слушатель работает");
                 //todo звук
                 //заменить скин если нужно
                 int actualSkinIndex = lobbyUiContext.warshipOverviewCurrentSkinModel.skinIndex;
@@ -158,7 +158,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                 }
                 else
                 {
-                    log.Debug("Скин не был изменён");
+                    log.Info("Скин не был изменён");
                 }
                 //изменить индекс текущего корабля
                 ushort warshipIndex = lobbyEcsController.GetWarshipIndexById(warshipDto.Id);

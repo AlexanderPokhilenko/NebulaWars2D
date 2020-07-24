@@ -95,11 +95,11 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                         ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel
                             .SerializedModel);
                     
-                    log.Debug(lootboxWarshipPowerPointsModel.StartValue);
-                    log.Debug(lootboxWarshipPowerPointsModel.FinishValue);
-                    log.Debug(lootboxWarshipPowerPointsModel.WarshipId);
-                    log.Debug(lootboxWarshipPowerPointsModel.WarshipSkinName);
-                    log.Debug(lootboxWarshipPowerPointsModel.MaxValueForLevel);
+                    // log.Debug(lootboxWarshipPowerPointsModel.StartValue);
+                    // log.Debug(lootboxWarshipPowerPointsModel.FinishValue);
+                    // log.Debug(lootboxWarshipPowerPointsModel.WarshipId);
+                    // log.Debug(lootboxWarshipPowerPointsModel.WarshipSkinName);
+                    // log.Debug(lootboxWarshipPowerPointsModel.MaxValueForLevel);
                     
                     script.SetData(lootboxWarshipPowerPointsModel);
                     Color red = new Color(209, 0, 0);

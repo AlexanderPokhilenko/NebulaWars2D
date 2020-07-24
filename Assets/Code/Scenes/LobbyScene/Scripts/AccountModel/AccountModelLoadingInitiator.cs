@@ -58,7 +58,7 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
 
             foreach (WarshipDto accountDataWarship in accountData.Warships)
             {
-                log.Debug(accountDataWarship.GetCurrentSkinName());
+                log.Info(accountDataWarship.GetCurrentSkinName());
             }
             //Установить данные аккаунта
             lobbyEcsController.SetAccountData(accountData);

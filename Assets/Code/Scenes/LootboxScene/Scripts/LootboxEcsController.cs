@@ -19,8 +19,8 @@ namespace Code.Scenes.LootboxScene.Scripts
         private LootboxUiStorage lootboxUiStorage;
         private ClickHandlerSystem clickHandlerSystem;
         private LootboxSceneSwitcher lobbyLoaderController;
-        private LootboxOpeningController lootboxOpenEffectController;
         private ParticlesColorUpdater particlesColorUpdater;
+        private LootboxOpeningController lootboxOpenEffectController;
         private readonly ILog log = LogManager.CreateLogger(typeof(LootboxEcsController));
 
         private void Awake()
@@ -68,7 +68,7 @@ namespace Code.Scenes.LootboxScene.Scripts
 
         public void CanvasButton_OnClick()
         {
-            log.Debug("Click");
+            log.Info("Click");
             LootboxEntity entity = contexts.lootbox.CreateEntity();
             entity.isCanvasClick = true;
         }

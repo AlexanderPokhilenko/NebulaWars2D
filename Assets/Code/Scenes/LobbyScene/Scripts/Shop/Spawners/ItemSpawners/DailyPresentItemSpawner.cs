@@ -18,11 +18,11 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
             //Заполнить картинку
             Image itemPreview = dailyPresentGameObject.transform.Find("Image_ItemPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.ProductModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.productModel.ImagePreviewPath);
        
             //Заполнить название
             Text itemName = dailyPresentGameObject.transform.Find("Image_ItemPreview/Text_ItemName").GetComponent<Text>();
-            itemName.text = purchaseModel.ProductModel.Name;
+            itemName.text = purchaseModel.productModel.Name;
             
             //Установить обработчик нажатия
             Button itemButton = dailyPresentGameObject.GetComponent<Button>();

@@ -31,7 +31,7 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
 
         public void CheckBundleVersion(string actualBundleVersionFromServer)
         {
-            log.Debug($"версия "+actualBundleVersionFromServer);
+            log.Info($"версия "+actualBundleVersionFromServer);
             
             string currentBundleVersion = Application.version;
             if (currentBundleVersion != actualBundleVersionFromServer)

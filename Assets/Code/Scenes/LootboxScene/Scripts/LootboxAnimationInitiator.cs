@@ -27,7 +27,6 @@ namespace Code.Scenes.LootboxScene.Scripts
 
         private void Start()
         {
-            
             StartCoroutine(ShowResourcesAccrual());
         }
 

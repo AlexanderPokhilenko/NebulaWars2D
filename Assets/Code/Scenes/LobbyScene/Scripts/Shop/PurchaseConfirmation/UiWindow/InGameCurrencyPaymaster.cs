@@ -12,35 +12,44 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
     /// <summary>
     /// При покупке за игровую валюту отправляет запрос на сервер для проведения транзакции.
     /// </summary>
-    public class Paymaster:MonoBehaviour
+    [RequireComponent(typeof(InsufficientResourceErrorHandler))]
+    public class InGameCurrencyPaymaster:MonoBehaviour
     {
-        private UiSoundsManager lobbySoundsManager;
         private LobbyEcsController lobbyEcsController;
-        private readonly ILog log = LogManager.CreateLogger(typeof(Paymaster));
+        
+        private InsufficientResourceErrorHandler insufficientResourceErrorHandler;
+        private readonly ILog log = LogManager.CreateLogger(typeof(InGameCurrencyPaymaster));
 
         private void Awake()
         {
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
-            lobbySoundsManager = UiSoundsManager.Instance();
+            insufficientResourceErrorHandler = FindObjectOfType<InsufficientResourceErrorHandler>();
         }
 
-        public void Buy(PurchaseModel purchaseModel)
+        public void StartBuying(PurchaseModel purchaseModel)
         {
-            //todo если не хватает показать уведомление и переместить магазин на секцию с нужными ресурсами
-            if (!IsPurchaseContinue(purchaseModel.ProductModel))
+            log.Debug("начало покупки");
+            //если не хватает ресурсов 
+            if (InsufficientResources(purchaseModel.productModel, out var insufficientResource))
             {
+                //показать уведомление и переместить магазин на секцию с нужными ресурсами
+                if (insufficientResource == null)
+                {
+                    throw new Exception("Ошибка при определении недостющего ресурса");
+                }
+                
+                insufficientResourceErrorHandler.ShowError(insufficientResource.Value);
                 return;
             }
             
             //отправить блокирующий запрос на сервер
-            if(!PlayerIdStorage.TryGetServiceId(out var playerServiceId))
+            if(!PlayerIdStorage.TryGetServiceId(out string playerServiceId))
             {
-                lobbySoundsManager.PlayError();
                 log.Error("Не удалось получить id игрока");
                 return;
             }
 
-            byte[] binaryProductModel = ZeroFormatterSerializer.Serialize(purchaseModel.ProductModel);
+            byte[] binaryProductModel = ZeroFormatterSerializer.Serialize(purchaseModel.productModel);
             string base64ProductModel = Convert.ToBase64String(binaryProductModel);
                     
             HttpClient httpClient = new HttpClient();
@@ -48,61 +57,62 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             using (MultipartFormDataContent formData = new MultipartFormDataContent())
             {
                 formData.Add(new StringContent(playerServiceId), "playerId");   
-                formData.Add(new StringContent(purchaseModel.ProductModel.Id.ToString()), "productId");   
+                formData.Add(new StringContent(purchaseModel.productModel.Id.ToString()), "productId");   
                 formData.Add(new StringContent(base64ProductModel), "base64ProductModel");   
-                formData.Add(new StringContent(purchaseModel.ShopModelId.ToString()), "shopModelId");   
+                formData.Add(new StringContent(purchaseModel.shopModelId.ToString()), "shopModelId");   
                 response = httpClient.PostAsync(NetworkGlobals.BuyProduct, formData).Result;
             }
 
             if (response == null)
             {
-                lobbySoundsManager.PlayError();
                 log.Error("Пустой ответ от сервера");
                 return;
             }
 
             if (!response.IsSuccessStatusCode)
             {
-                lobbySoundsManager.PlayError();
                 log.Error("Статус ответа от сервера "+ response.StatusCode);
                 return;
             }
             
             log.Debug("Операция покупки прошла успешно");
-            lobbySoundsManager.PlayPurchase();
         }
 
-        private bool IsPurchaseContinue(ProductModel productModel)
+        private bool InsufficientResources(ProductModel productModel, out InsufficientResourceEnum? insufficientResource)
         {
             switch (productModel.CurrencyTypeEnum)
             {
                 case CurrencyTypeEnum.SoftCurrency:
                     if (lobbyEcsController.GetSoftCurrency() < productModel.Cost)
                     {
-                        lobbySoundsManager.PlayError();
                         log.Error("Не хватает обычной валюты");
-                        return false;
+                        insufficientResource = InsufficientResourceEnum.SoftCurrency;
+                        return true;
                     }
                     else
                     {
-                        return true;
+                        insufficientResource = null;
+                        return false;
                     }
                 case CurrencyTypeEnum.HardCurrency:
                     if (lobbyEcsController.GetHardCurrency() < productModel.Cost)
                     {
-                        lobbySoundsManager.PlayError();
                         log.Error("Не хватает премиум валюты");
-                        return false;
+                        insufficientResource = InsufficientResourceEnum.HardCurrency;
+                        return true;
                     }
                     else
                     {
-                        return true;
+                        insufficientResource = null;
+                        return false;
                     }
                 case CurrencyTypeEnum.RealCurrency:
                     log.Fatal("Покупка за реальную валюту не должна тут обрабатываться");
-                    return false;
-                case CurrencyTypeEnum.Free:
+                    insufficientResource = null;
                     return true;
+                case CurrencyTypeEnum.Free:
+                    insufficientResource = null;
+                    return false;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

@@ -2,6 +2,7 @@
 using System.Linq;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.ECS.Warships;
+using Code.Scenes.LobbyScene.ECS.Warships.Utils;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 
@@ -52,7 +53,6 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
                 lobbyUiContext.ReplaceUsername(accountData.Username);
                 lobbyUiContext.ReplaceAccountRating(accountData.AccountRating);
                 lobbyUiContext.ReplaceHardCurrency(accountData.HardCurrency);
-                log.Debug("Устновка значения soft валюты");
                 lobbyUiContext.ReplaceSoftCurrency( accountData.SoftCurrency);
                 int warshipIndex = WarshipIndexStorage.ReadWarshipIndex();
                 lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);

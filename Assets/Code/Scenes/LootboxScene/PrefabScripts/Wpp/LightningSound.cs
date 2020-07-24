@@ -12,7 +12,6 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
         
         private void Awake()
         {
-            log.Debug("Запуск звука молнии 1");
             AudioSource audioSource = GetComponent<AudioSource>();
             if (audioSource == null)
             {
@@ -24,9 +23,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
                 throw new NullReferenceException(nameof(audioSource.clip));
             }
 
-            audioSource.volume = SoundManager.Instance().InterfaceVolume;
-            
-            log.Debug("Запуск звука молнии 2");
+            audioSource.volume = SoundManager.Instance().InterfaceVolume/5;
         }
     }
 }

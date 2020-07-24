@@ -79,7 +79,7 @@ namespace Code.Scenes.LobbyScene.Scripts
 
         public void BuyProduct(PurchaseModel purchaseModel)
         {
-            string sku = purchaseModel.ProductModel.ForeignServiceProduct.ProductGoogleId;
+            string sku = purchaseModel.productModel.ForeignServiceProduct.ProductGoogleId;
             log.Debug($"{nameof(sku)} "+sku);
             bool isStoreInitialized = IsStoreInitialized(); 
             log.Debug($"{nameof(isStoreInitialized)} {isStoreInitialized}");

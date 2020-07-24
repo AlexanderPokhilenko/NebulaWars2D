@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.ECS.Warships.Utils;
 using Entitas;
 using Entitas.Unity;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -74,9 +74,9 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                     Object.Destroy(gameEntity.view.gameObject);
                     gameEntity.ReplaceView(warship);
                     warship.Link(gameEntity);
+                    WarshipIndexStorage.WriteWarshipIndex(warshipComponent.index);
                 }
                 
-                WarshipIndexStorage.WriteWarshipIndex(warshipComponent.index);
             }
             
             isWarshipCreationCompleted = true;

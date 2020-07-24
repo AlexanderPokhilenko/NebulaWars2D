@@ -11,20 +11,20 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
     /// </summary>
     public class LootboxPurchaseConfirmationWindowController
     {
-        private readonly Paymaster paymaster;
+        private readonly InGameCurrencyPaymaster inGameCurrencyPaymaster;
         private readonly ILog log = LogManager.CreateLogger(typeof(LootboxPurchaseConfirmationWindowController));
 
-        public LootboxPurchaseConfirmationWindowController(Paymaster paymaster)
+        public LootboxPurchaseConfirmationWindowController(InGameCurrencyPaymaster inGameCurrencyPaymaster)
         {
-            this.paymaster = paymaster;
+            this.inGameCurrencyPaymaster = inGameCurrencyPaymaster;
         }
-
+        
         public void Spawn(PurchaseModel purchaseModel, Transform parent)
         {
             GameObject lootboxContentPrefab = Resources
                 .Load<GameObject>("Prefabs/LobbyShop/PurchasesConfirmation/LooboxContent");
             GameObject lootboxContent = Object.Instantiate(lootboxContentPrefab, parent, false);
-            FillData(lootboxContent, purchaseModel.ProductModel);
+            FillData(lootboxContent, purchaseModel.productModel);
             AddListeners(lootboxContent, purchaseModel);
         }
 
@@ -54,8 +54,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             buttonBuy.onClick.RemoveAllListeners();
             buttonBuy.onClick.AddListener(() =>
             {
-                log.Debug("Покупка лутбокса");
-                paymaster.Buy(purchaseModel);
+                log.Debug("Старт покупки лутбокса");
+                inGameCurrencyPaymaster.StartBuying(purchaseModel);
             });
             
             //todo повесить слушатель на кнопку подробной информации

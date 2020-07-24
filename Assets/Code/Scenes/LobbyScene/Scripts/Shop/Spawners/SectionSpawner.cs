@@ -98,12 +98,11 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
 
         private void SpawnItem(PurchaseModel purchaseModel, GameObject sectionGameObject)
         {
-            switch (purchaseModel.ProductModel.TransactionType)
+            switch (purchaseModel.productModel.TransactionType)
             {
                 case TransactionTypeEnum.Lootbox:
                     lootboxItemsSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
-                
                 case TransactionTypeEnum.Skin:
                     skinItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
@@ -125,7 +124,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
                     dailyPresentItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(purchaseModel.ProductModel.TransactionType));
+                    throw new ArgumentOutOfRangeException(nameof(purchaseModel.productModel.TransactionType));
             }
         }
     }

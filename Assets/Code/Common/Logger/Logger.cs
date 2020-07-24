@@ -21,7 +21,7 @@ namespace Code.Common.Logger
             const string levelName = " "+nameof(Debug)+" ";
             string log = DateTime.Now.ToLongTimeString() + levelName + typeName + message;
             logManager.AddLog(log);
-            UnityThread.Execute(()=>UnityEngine.Debug.LogWarning(log));
+            UnityThread.Execute(()=>UnityEngine.Debug.LogError(log));
         }
 
         public void Debug(object message)

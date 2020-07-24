@@ -17,6 +17,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
         private SectionSpawner sectionSpawner;
         private FooterPointerUiSpawner sectionPointerUiSpawner;
         private readonly ILog log = LogManager.CreateLogger(typeof(ShopUiSpawner));
+        private ScrollViewSmoothMovementBehaviour scrollViewSmoothMovement;
 
         private void Awake()
         {
@@ -26,6 +27,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
                             ?? throw new NullReferenceException(nameof(SectionSpawner));
             sectionPointerUiSpawner = FindObjectOfType<FooterPointerUiSpawner>()
                             ?? throw new NullReferenceException(nameof(FooterPointerUiSpawner));
+            scrollViewSmoothMovement = FindObjectOfType<ScrollViewSmoothMovementBehaviour>()
+                            ?? throw new NullReferenceException(nameof(ScrollViewSmoothMovementBehaviour));
             sectionsParentGo = shopUiStorageScript.shopSectionsParent;
         }
 
@@ -34,7 +37,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
             ClearShop();
             
             //Создать разделы
-            foreach (var shopSectionModel in shopModel.UiSections)
+            foreach (SectionModel shopSectionModel in shopModel.UiSections)
             {
                 sectionSpawner.SpawnSection(shopSectionModel, shopModel.Id);
             }
@@ -43,7 +46,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
         public void SpawnFooterPointers()
         {
             //название раздела + координата левого края раздела
-            Dictionary<string, float> sectionStartPosition = new Dictionary<string, float>();
+            Dictionary<string, float> sectionStartPositions = new Dictionary<string, float>();
             
             //Сохранить координаты интересующих разделов
             foreach (Transform section in sectionsParentGo.transform)
@@ -54,12 +57,15 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
                     RectTransform rect = section.gameObject.GetComponent<RectTransform>();
                     float sectionPosition = rect.localPosition.x;
                     // log.Debug("sectionPosition = "+sectionPosition);
-                    sectionStartPosition.Add(section.name, sectionPosition);    
+                    sectionStartPositions.Add(section.name, sectionPosition);    
                 }
             }
             
+            //иниуиализировать скрипт для листания разделов
+            scrollViewSmoothMovement.SetSectionPositions(sectionStartPositions);
+            
             //создать кнопки-указатели
-            sectionPointerUiSpawner.SpawnButtons(sectionStartPosition);
+            sectionPointerUiSpawner.SpawnButtons(sectionStartPositions);
         }
         
         /// <summary>

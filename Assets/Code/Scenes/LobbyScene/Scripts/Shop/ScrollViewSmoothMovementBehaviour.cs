@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Code.Common.Logger;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
         private float screenWidth;
         private ScrollRect scrollRect;
         private RectTransform scrollViewContent;
+        private Dictionary<string, float> sectionStartPosition;
         private readonly ILog log = LogManager.CreateLogger(typeof(ScrollViewSmoothMovementBehaviour));
 
         private void Awake()
@@ -23,10 +25,29 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             scrollRect = shopUiStorage.scrollRect;
         }
 
-        public void StartMovement(float xPosition)
+        public void SetSectionPositions(Dictionary<string, float> sectionStartPositionArg)
         {
-            StopAllCoroutines();
-            StartCoroutine(Move(xPosition));
+            sectionStartPosition = sectionStartPositionArg;
+        }
+
+        public void StartMovement(string sectionName)
+        {
+            if (sectionStartPosition != null)
+            {
+                if (sectionStartPosition.TryGetValue(sectionName, out float xPosition))
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(Move(xPosition));
+                }
+                else
+                {
+                    log.Error($"Не найдена координата раздела с именем {sectionName}");
+                }
+            }
+            else
+            {
+                log.Error("Позиции разделов не инициализированы.");
+            }
         }
 
         private IEnumerator Move(float xTargetPosition)

@@ -29,10 +29,10 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
 
         public void Product_OnClick([NotNull] PurchaseModel purchaseModel)
         {
-            log.Debug($"{nameof(Product_OnClick)} {nameof(purchaseModel.ProductModel.Id)} {purchaseModel.ProductModel.Id}");
-            log.Debug("Тип валюты "+purchaseModel.ProductModel.CurrencyTypeEnum);
+            log.Debug($"{nameof(Product_OnClick)} {nameof(purchaseModel.productModel.Id)} {purchaseModel.productModel.Id}");
+            log.Debug("Тип валюты "+purchaseModel.productModel.CurrencyTypeEnum);
             //Если покупка за реальную валюту, то вызвать api платёжной системы
-            if (purchaseModel.ProductModel.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
+            if (purchaseModel.productModel.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
             {
                 log.Debug("Покупка за реальную валюту");
                 purchasingService.BuyProduct(purchaseModel);

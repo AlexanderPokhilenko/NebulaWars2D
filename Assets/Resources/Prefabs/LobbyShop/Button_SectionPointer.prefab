@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.114698656, g: 0.076762185, b: 0.6509434, a: 0.6431373}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -150,6 +151,7 @@ GameObject:
   - component: {fileID: 4660112320032200538}
   - component: {fileID: 4660112320032200548}
   - component: {fileID: 4660112320032200549}
+  - component: {fileID: 6629998031991245211}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -199,6 +201,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.8160377, g: 0.9737197, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -216,3 +219,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: DAILY DEALS
+--- !u!114 &6629998031991245211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4660112320032200539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.20561352, g: 0.19063725, b: 0.9622642, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1

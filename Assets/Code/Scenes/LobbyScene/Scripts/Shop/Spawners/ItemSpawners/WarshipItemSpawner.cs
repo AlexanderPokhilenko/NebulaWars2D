@@ -21,17 +21,17 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
             //Заполнить картинку
             Image itemPreview = skinItemGameObject.transform.Find("Image_WarshipItem/Image_WarshipPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.ProductModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.productModel.ImagePreviewPath);
             
             //Заполнить название
             Text itemName = skinItemGameObject.transform.Find("Image_WarshipItem/Image_Name/Text_Name")
                 .GetComponent<Text>();
-            itemName.text = purchaseModel.ProductModel.Name;
+            itemName.text = purchaseModel.productModel.Name;
 
             //Заполнить цену
             Text itemCost = skinItemGameObject.transform.Find("Image_WarshipItem/Image_Cost/Text_Amount")
                 .GetComponent<Text>();
-            itemCost.text = purchaseModel.ProductModel.Cost.ToString(CultureInfo.InvariantCulture);
+            itemCost.text = purchaseModel.productModel.Cost.ToString(CultureInfo.InvariantCulture);
             
             //Установить обработчик нажатия
             Button itemButton = skinItemGameObject.GetComponent<Button>();

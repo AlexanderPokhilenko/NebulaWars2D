@@ -17,15 +17,15 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
             //Заполнить картинку
             Image itemPreview = premiumCurrencyItemGameObject.transform.Find("Image_ItemPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.ProductModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.productModel.ImagePreviewPath);
             
             //Заполнить цену
             Text itemCost = premiumCurrencyItemGameObject.transform.Find("Image_Cost/Text_Amount").GetComponent<Text>();
-            itemCost.text = purchaseModel.ProductModel.CostString;
+            itemCost.text = purchaseModel.productModel.CostString;
             
             //Заполнить название
             Text itemName = premiumCurrencyItemGameObject.transform.Find("Image_ItemPreview/Text_ItemName").GetComponent<Text>();
-            itemName.text = purchaseModel.ProductModel.Name;
+            itemName.text = purchaseModel.productModel.Name;
             
             //Установить обработчик нажатия
             Button itemButton = premiumCurrencyItemGameObject.GetComponent<Button>();

@@ -15,12 +15,12 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
         
         public async Task<LobbyModel> Load(CancellationToken cts)
         {
-            log.Debug("Старт скачивания модели аккаунта");
+            log.Info("Старт скачивания модели аккаунта");
             HttpClient httpClient = new HttpClient();
             int attemptNumber = 0;
             while (true)
             {
-                log.Debug("Номер попытки "+attemptNumber++);
+                log.Info("Номер попытки "+attemptNumber++);
                 await Task.Delay(1000, cts);
                 try
                 {
@@ -59,9 +59,9 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
                     }
 
                     byte[] data = Convert.FromBase64String(base64String);
-                    log.Debug("Длина ответа в байтах "+data.Length);
+                    log.Info("Длина ответа в байтах "+data.Length);
                     LobbyModel result = ZeroFormatterSerializer.Deserialize<LobbyModel>(data);
-                    log.Debug("Десериализация прошла нормально");
+                    log.Info("Десериализация прошла нормально");
                     return result;
                 }
                 catch (Exception e)

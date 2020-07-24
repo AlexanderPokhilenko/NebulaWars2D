@@ -20,19 +20,19 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
             //Заполнить картинку
             Image itemPreview = discountItemGameObject.transform.Find("Image_ItemPreview")
                 .GetComponentInChildren<Image>();
-            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.ProductModel.ImagePreviewPath);
+            itemPreview.sprite = Resources.Load<Sprite>(purchaseModel.productModel.ImagePreviewPath);
             
             //Заполнить текущую цену
             Text currentCost = discountItemGameObject.transform.Find("Image_Cost/Text_Amount").GetComponent<Text>();
-            currentCost.text = purchaseModel.ProductModel.Cost.ToString(CultureInfo.InvariantCulture);
+            currentCost.text = purchaseModel.productModel.Cost.ToString(CultureInfo.InvariantCulture);
             
             //Заполнить старую цену
             Text oldCost = discountItemGameObject.transform.Find("Image_Cost/Text_OldAmount").GetComponent<Text>();
-            oldCost.text = purchaseModel.ProductModel.Cost.ToString(CultureInfo.InvariantCulture);
+            oldCost.text = purchaseModel.productModel.Cost.ToString(CultureInfo.InvariantCulture);
             
             //Заполнить название
             Text itemName = discountItemGameObject.transform.Find("Text_ItemName").GetComponent<Text>();
-            itemName.text = purchaseModel.ProductModel.Name;
+            itemName.text = purchaseModel.productModel.Name;
             
             //Установить обработчик нажатия
             Button itemButton = discountItemGameObject.GetComponent<Button>();

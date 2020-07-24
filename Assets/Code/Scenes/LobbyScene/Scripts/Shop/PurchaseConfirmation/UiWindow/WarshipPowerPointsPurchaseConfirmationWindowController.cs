@@ -1,28 +1,32 @@
+using System;
+using Code.Common;
 using Code.Common.Logger;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 {
     public class WarshipPowerPointsPurchaseConfirmationWindowController
     {
-        private readonly Paymaster paymaster;
+        private readonly InGameCurrencyPaymaster inGameCurrencyPaymaster;
 
         private readonly ILog log =
             LogManager.CreateLogger(typeof(WarshipPowerPointsPurchaseConfirmationWindowController));
 
-        public WarshipPowerPointsPurchaseConfirmationWindowController(Paymaster paymaster)
+        public WarshipPowerPointsPurchaseConfirmationWindowController(InGameCurrencyPaymaster inGameCurrencyPaymaster)
         {
-            this.paymaster = paymaster;
+            this.inGameCurrencyPaymaster = inGameCurrencyPaymaster;
         }
+        
         public void Spawn(PurchaseModel purchaseModel, Transform parent)
         {
             GameObject lootboxContentPrefab = Resources
                 .Load<GameObject>("Prefabs/LobbyShop/PurchasesConfirmation/WarshipPowerPointsContent");
             GameObject wpp = Object.Instantiate(lootboxContentPrefab, parent, false);
             Button buttonBuy = wpp.transform.Find("Button_Buy").GetComponent<Button>();
-            FillData(wpp, purchaseModel.ProductModel);
+            FillData(wpp, purchaseModel.productModel);
             AddListeners(buttonBuy, purchaseModel);
         }
 
@@ -60,11 +64,11 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 
         private void AddListeners(Button buttonBuy, PurchaseModel purchaseModel)
         {
-            //устновить слушатель на кнопку покупки
+            //установить слушатель на кнопку покупки
             buttonBuy.onClick.RemoveAllListeners();
             buttonBuy.onClick.AddListener(() =>
             {
-                paymaster.Buy(purchaseModel);
+                inGameCurrencyPaymaster.StartBuying(purchaseModel);
             });
         }
     }
