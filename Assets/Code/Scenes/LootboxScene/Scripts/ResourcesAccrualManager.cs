@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.Listeners;
@@ -11,12 +12,12 @@ namespace Code.Scenes.LootboxScene.Scripts
     /// <summary>
     /// Начинает анимацию после того как данные о сундуке были получены в LootboxModelDownloader.
     /// </summary>
-    public class LootboxAnimationInitiator : MonoBehaviour
+    public class ResourcesAccrualManager : MonoBehaviour
     {
         private LootboxEcsController lootboxEcsController;
         private LootboxSceneSwitcher lootboxSceneSwitcher;
         private readonly TimeSpan maxWaitingTime = TimeSpan.FromSeconds(3);
-        private readonly ILog log = LogManager.CreateLogger(typeof(LootboxAnimationInitiator));
+        private readonly ILog log = LogManager.CreateLogger(typeof(ResourcesAccrualManager));
 
         protected void Awake()
         {
@@ -28,37 +29,32 @@ namespace Code.Scenes.LootboxScene.Scripts
 
         private void Start()
         {
-            StartCoroutine(ShowResourcesAccrual());
+            StartCoroutine(StartAnimation());
         }
-        private IEnumerator ShowResourcesAccrual()
+
+        private IEnumerator StartAnimation()
         {
+            if (ResourcesAccrualStorage.Instance.IsLootboxNeeded)
+            {
+                log.Debug("LootboxNeeded");
+                lootboxEcsController.ShowLootbox();
+            }
+            
             DateTime delayTime = DateTime.UtcNow + maxWaitingTime;
             yield return new WaitUntil(()=>
             {
-                return LootboxModelDownloader.Instance.IsDownloadingCompleted() || DateTime.UtcNow > delayTime;
+                return ResourcesAccrualStorage.Instance.ResourceModels!=null || DateTime.UtcNow > delayTime;
             });
-        
-            if (!LootboxModelDownloader.Instance.IsDownloadingCompleted())
+
+            if (ResourcesAccrualStorage.Instance.ResourceModels != null)
             {
-                //За отведённое время не удалось купить лутбокс на сервере
+                lootboxEcsController.SetResourceModels(ResourcesAccrualStorage.Instance.ResourceModels );
+            }
+            else
+            {
                 UiSoundsManager.Instance().PlayError();
                 lootboxSceneSwitcher.LoadLobbyScene();
-                yield break;
             }
-            LootboxModel lootboxModel = LootboxModelDownloader.Instance.GetLootboxModel();
-            if (lootboxModel == null)
-            {
-                log.Error("Не удалось скачать данные о лутбоксе");
-                yield break; 
-            }
-        
-            log.Info("Данные о лутбоксе успешно скачаны");
-            StartAnimation(lootboxModel);
-        }
-
-        public void StartAnimation(LootboxModel lootboxModelArg)
-        {
-            lootboxEcsController.SetLootboxModel(lootboxModelArg);
         }
     }
 }

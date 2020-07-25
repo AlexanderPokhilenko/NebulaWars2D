@@ -64,10 +64,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
                 {
                     return ZeroFormatterSerializer.Deserialize<LootboxModel>(data);
                 }
-                else
-                {
-                    log.Error("Пустой ответ от сервера");
-                }
+
+                log.Error("Пустой ответ от сервера");
             }
             catch (Exception e)
             {

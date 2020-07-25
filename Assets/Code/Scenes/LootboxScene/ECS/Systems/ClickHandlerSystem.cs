@@ -1,11 +1,9 @@
-using System;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Code.Scenes.LootboxScene.ECS.Systems
 {
@@ -14,32 +12,28 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
     /// </summary>
     public class ClickHandlerSystem:ReactiveSystem<LootboxEntity>
     {
-        private bool isLootboxOpened;
         private int currentPrizeIndex;
-        private LootboxModel lootboxModel;
+        private List<ResourceModel> resourceModels;
         private readonly LootboxContext lootboxContext;
         private readonly UiSoundsManager uiSoundsManager;
         private readonly LootboxUiStorage lootboxUiStorage;
         private readonly LootboxSceneSwitcher lootboxLobbyLoaderController;
-        private readonly LootboxOpeningController lootboxOpenEffectController;
         private readonly ILog log = LogManager.CreateLogger(typeof(ClickHandlerSystem));
         
         public ClickHandlerSystem(Contexts contexts, LootboxSceneSwitcher lootboxLobbyLoaderController,
-            LootboxOpeningController lootboxOpenEffectController, UiSoundsManager uiSoundsManager,
-            LootboxUiStorage lootboxUiStorage) 
+            UiSoundsManager uiSoundsManager, LootboxUiStorage lootboxUiStorage) 
             : base(contexts.lootbox)
         {
             currentPrizeIndex = -1;
             lootboxContext = contexts.lootbox;
             this.uiSoundsManager = uiSoundsManager;
             this.lootboxUiStorage = lootboxUiStorage;
-            this.lootboxOpenEffectController = lootboxOpenEffectController;
             this.lootboxLobbyLoaderController = lootboxLobbyLoaderController;
         }
 
-        public void SetLootboxModel(LootboxModel lootboxDataArg)
+        public void SetResourceModels(List<ResourceModel> resourceModelsArg)
         {
-            lootboxModel = lootboxDataArg;
+            resourceModels = resourceModelsArg;
         } 
         
         protected override ICollector<LootboxEntity> GetTrigger(IContext<LootboxEntity> context)
@@ -54,8 +48,9 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
 
         protected override void Execute(List<LootboxEntity> entities)
         {
-            if (lootboxModel == null)
+            if (resourceModels == null)
             {
+                log.Info("Нажатие на канвас. Но ресурсы ещё не установлены.");
                 return;
             }
             
@@ -66,27 +61,12 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             }
         }
 
-        private void LootboxAnimationEnded()
-        {
-            if (currentPrizeIndex == -1)
-            {
-                HandleClick();
-            }   
-        }
-        
         private void HandleClick()
         {
-            if (!isLootboxOpened)
-            {
-                Transform parent = lootboxUiStorage.resourcesRoot.transform;
-                lootboxOpenEffectController.StartLootboxOpening(LootboxAnimationEnded, parent);
-                isLootboxOpened = true;
-                return;
-            }
             currentPrizeIndex++;
             
             //Если все призы уже показаны
-            if (currentPrizeIndex == lootboxModel.Prizes.Count)
+            if (currentPrizeIndex == resourceModels.Count)
             {
                 //Вернуться в лобби
                 lootboxUiStorage.resourcesRoot.transform.DestroyAllChildren();
@@ -96,13 +76,13 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             
             //Если есть ресурсы, которые нужно показать
             uiSoundsManager.PlayAdding();
-            ResourceModel resourceModel = lootboxModel.Prizes[currentPrizeIndex];
+            ResourceModel resourceModel = resourceModels[currentPrizeIndex];
             LootboxEntity entity1 = lootboxContext.CreateEntity();
             entity1.AddShowPrize(resourceModel);
 
             
             LootboxEntity entity2 = lootboxContext.CreateEntity();
-            int itemsLeftCount = lootboxModel.Prizes.Count - currentPrizeIndex-1;
+            int itemsLeftCount = resourceModels.Count - currentPrizeIndex-1;
             entity2.AddItemsLeft(itemsLeftCount);
         }
     }

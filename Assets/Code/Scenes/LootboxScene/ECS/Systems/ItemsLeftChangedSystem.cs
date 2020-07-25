@@ -35,7 +35,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                 uiStorage.itemsLeftRoot.SetActive(true);
             }
 
-            int value = entities.Last().itemsLeft.Value;
+            int value = entities.Last().itemsLeft.value;
             uiStorage.itemsLeftText.text = value.ToString();
         }
 

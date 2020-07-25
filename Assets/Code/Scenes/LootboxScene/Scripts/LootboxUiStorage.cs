@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 
 namespace Code.Scenes.LootboxScene.Scripts
@@ -16,8 +17,17 @@ namespace Code.Scenes.LootboxScene.Scripts
         public GameObject softCurrencyPrefab;
         public GameObject hardCurrencyPrefab;
         public GameObject warshipPowerPointsPrefab;
-        // public GameObject lootboxPointsPrefab;
-        // public GameObject warshipPowerPointsPrefab;
-        // public GameObject warshipPrefab;
+        public GameObject lootboxPrefab;
+
+        public void Check()
+        {
+            Assert.IsNotNull(resourcesRoot);
+            Assert.IsNotNull(itemsLeftRoot);
+            Assert.IsNotNull(itemsLeftText);
+            Assert.IsNotNull(softCurrencyPrefab);
+            Assert.IsNotNull(hardCurrencyPrefab);
+            Assert.IsNotNull(warshipPowerPointsPrefab);
+            Assert.IsNotNull(lootboxPrefab);
+        }
     }
 }

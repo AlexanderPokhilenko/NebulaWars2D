@@ -18,17 +18,14 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
     /// </summary>
     public class ShowPrizeSystem:ReactiveSystem<LootboxEntity>
     {
-        private LobbyUiContext lobbyContext;
         private readonly LootboxUiStorage uiStorage;
         private readonly ParticlesColorUpdater particlesColorUpdater;
         private readonly ILog log = LogManager.CreateLogger(typeof(ShowPrizeSystem));
 
-        public ShowPrizeSystem(Contexts contexts, LootboxUiStorage uiStorage,
-            ParticlesColorUpdater particlesColorUpdater) 
+        public ShowPrizeSystem(Contexts contexts, ParticlesColorUpdater particlesColorUpdater, LootboxUiStorage uiStorage) 
             : base(contexts.lootbox)
         {
             this.uiStorage = uiStorage;
-            lobbyContext = contexts.lobbyUi;
             this.particlesColorUpdater = particlesColorUpdater;
         }
         
@@ -53,7 +50,14 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
 
         private void ClearResources()
         {
-            uiStorage.resourcesRoot.transform.DestroyAllChildren();
+            try
+            {
+                uiStorage.resourcesRoot.transform.DestroyAllChildren();
+            }
+            catch (Exception e)
+            {
+                log.Error(e.StackTrace+" "+e.Message);
+            }
         }
 
         private void ShowPrize(LootboxEntity currentPrize)

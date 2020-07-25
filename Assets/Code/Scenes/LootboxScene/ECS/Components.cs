@@ -18,6 +18,12 @@ namespace Code.Scenes.LootboxScene.ECS
    [Lootbox]
    public class ItemsLeftComponent : IComponent
    {
-      public int Value;
+      public int value;
+   }
+
+   [Lootbox]
+   public class ShowLootboxComponent : IComponent
+   {
+      
    }
 }

@@ -62,7 +62,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             log.Debug($"Ожидание инициализации {nameof(purchasingService)}");
             List<ForeignServiceProduct> realCurrencyProducts = shopModel.GetRealCurrencyProducts();
             purchasingService.StartInitialization(realCurrencyProducts);
-            await TaskExtensions.WaitUntil(purchasingService.IsStoreInitialized);
+            await MyTaskExtensions.WaitUntil(purchasingService.IsStoreInitialized);
             log.Debug($"{nameof(purchasingService)} инициализирован");
             foreach (ProductModel item in shopModel.GetAllProducts())
             {

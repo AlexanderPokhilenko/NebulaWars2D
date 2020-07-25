@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Code.Scenes.LobbyScene.Scripts.Shop
 {
-    public static class TaskExtensions
+    public static class MyTaskExtensions
     {
         /// <summary>
         /// Blocks while condition is true or timeout occurs.

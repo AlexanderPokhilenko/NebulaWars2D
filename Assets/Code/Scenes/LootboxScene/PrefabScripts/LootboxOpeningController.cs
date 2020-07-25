@@ -4,7 +4,7 @@ using Code.Common;
 using Code.Common.Logger;
 using UnityEngine;
 
-namespace Code.Scenes.LootboxScene.Scripts
+namespace Code.Scenes.LootboxScene.PrefabScripts
 {
     public class LootboxOpeningController : MonoBehaviour 
     {

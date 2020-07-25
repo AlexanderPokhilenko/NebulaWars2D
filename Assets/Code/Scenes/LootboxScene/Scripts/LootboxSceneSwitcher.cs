@@ -20,12 +20,6 @@ namespace Code.Scenes.LootboxScene.Scripts
         public void LoadLobbyScene()
         {
             Destroy(ecsController);
-            StartCoroutine(Suka());
-        }
-
-        private IEnumerator Suka()
-        {
-            yield return null;
             SceneManager.UnloadSceneAsync("2dLootboxScene");
         }
     }

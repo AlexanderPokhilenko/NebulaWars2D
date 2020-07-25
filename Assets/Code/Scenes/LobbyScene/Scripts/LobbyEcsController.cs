@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
@@ -36,6 +37,7 @@ using UnityEngine;
 
 namespace Code.Scenes.LobbyScene.Scripts
 {
+    
     /// <summary>
     /// Создаёт ecs системы
     /// Вызывает системы
@@ -353,7 +355,6 @@ namespace Code.Scenes.LobbyScene.Scripts
 
         public void ShowWarshipCharacteristics(WarshipDto warshipDto)
         {
-            log.Debug(nameof(ShowWarshipCharacteristics));
             contexts.lobbyUi.CreateEntity().AddEnableWarshipOverviewModalWindow(warshipDto);
         }
 

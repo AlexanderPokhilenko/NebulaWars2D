@@ -5,10 +5,8 @@ using Code.Common.Logger;
 using Code.Common.NetworkStatistics;
 using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.Utils;
-using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Code.Scenes.LobbyScene.Scripts.AccountModel
 {
@@ -55,7 +53,6 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
             
             //Отнять от данных аккаунта значения, которые будут начислены с анимацией
             AccountDto accountData = lobbyModel.AccountDto.Subtract(lobbyModel.RewardsThatHaveNotBeenShown);
-
             foreach (WarshipDto accountDataWarship in accountData.Warships)
             {
                 log.Info(accountDataWarship.GetCurrentSkinName());
