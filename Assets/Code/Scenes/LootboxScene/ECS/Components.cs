@@ -33,4 +33,12 @@ namespace Code.Scenes.LootboxScene.ECS
    {
       public LootboxOpeningController lootboxOpeningController;
    }
+   
+   
+   [Lootbox]
+   public class DisableItemsLeftMenuComponent : IComponent
+   {
+      
+   }
+
 }

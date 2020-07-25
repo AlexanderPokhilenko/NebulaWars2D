@@ -1,18 +1,14 @@
 using System.Collections.Generic;
-using System.Linq;
 using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
 
 namespace Code.Scenes.LootboxScene.ECS.Systems
 {
-    /// <summary>
-    /// Включает текст "Осталось предметов" и обновляет его.
-    /// </summary>
-    public class ItemsLeftChangedSystem:ReactiveSystem<LootboxEntity>
+    public class ItemsLeftDisablingSystem:ReactiveSystem<LootboxEntity>
     {
         private readonly LootboxUiStorage uiStorage;
         
-        public ItemsLeftChangedSystem(Contexts contexts, LootboxUiStorage uiStorage) 
+        public ItemsLeftDisablingSystem(Contexts contexts, LootboxUiStorage uiStorage) 
             : base(contexts.lootbox)
         {
             this.uiStorage = uiStorage;
@@ -20,18 +16,17 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         
         protected override ICollector<LootboxEntity> GetTrigger(IContext<LootboxEntity> context)
         {
-            return context.CreateCollector(LootboxMatcher.ItemsLeft);
+            return context.CreateCollector(LootboxMatcher.DisableItemsLeftMenu);
         }
 
         protected override bool Filter(LootboxEntity entity)
         {
-            return entity.hasItemsLeft;
+            return entity.isDisableItemsLeftMenu;
         }
 
         protected override void Execute(List<LootboxEntity> entities)
         {
-            int value = entities.Last().itemsLeft.value;
-            uiStorage.itemsLeftText.text = "ITEMS LEFT: "+value;
+            uiStorage.itemsLeftRoot.SetActive(false);
         }
     }
 }

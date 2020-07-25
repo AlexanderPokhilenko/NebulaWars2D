@@ -15,6 +15,11 @@ namespace Code.Scenes.LootboxScene.Scripts
             ResourceModels = null;
         }
 
+        public void SetNoLootboxNeeded()
+        {
+            IsLootboxNeeded = false;
+        }
+        
         public void SetLootboxNeeded()
         {
             IsLootboxNeeded = true;

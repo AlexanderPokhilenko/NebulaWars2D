@@ -47,7 +47,7 @@ namespace Code.Scenes.LootboxScene.Scripts
                 .Add(canvasClickHandlerSystem)
                 .Add(new ShowPrizeSystem(contexts, particlesColorUpdater, lootboxUiStorage))
                 .Add(new ItemsLeftChangedSystem(contexts, lootboxUiStorage))
-                
+                .Add(new ItemsLeftDisablingSystem(contexts, lootboxUiStorage))
                 .Add(new ResourcesInitializeSystem(lootboxUiStorage))
                 ;
 
@@ -82,6 +82,10 @@ namespace Code.Scenes.LootboxScene.Scripts
         public void SetResourceModels(List<ResourceModel> resourceModels)
         {
             canvasClickHandlerSystem.SetResourceModels(resourceModels);
+            if (resourceModels.Count == 1)
+            {
+                contexts.lootbox.CreateEntity().isCanvasClick = true;
+            }
         }
 
         public void ShowLootbox()
@@ -92,6 +96,11 @@ namespace Code.Scenes.LootboxScene.Scripts
         public bool HasTheFirstResourceAlreadyBeenShown()
         {
             return canvasClickHandlerSystem.HasTheFirstResourceAlreadyBeenShown();
+        }
+
+        public void DisableItemsLeftMenu()
+        {
+            contexts.lootbox.CreateEntity().isDisableItemsLeftMenu = true;
         }
     }
 }

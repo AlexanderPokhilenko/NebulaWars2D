@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using Code.Common;
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.ResourcesAccrual;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
     public class InGameCurrencyPaymaster:MonoBehaviour
     {
         private LobbyEcsController lobbyEcsController;
-        
+        private ResourcesAccrualSceneManager resourcesAccrualSceneManager;
         private InsufficientResourceErrorHandler insufficientResourceErrorHandler;
         private readonly ILog log = LogManager.CreateLogger(typeof(InGameCurrencyPaymaster));
 
@@ -25,6 +26,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
         {
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
             insufficientResourceErrorHandler = FindObjectOfType<InsufficientResourceErrorHandler>();
+            resourcesAccrualSceneManager = FindObjectOfType<ResourcesAccrualSceneManager>();
         }
 
         public void StartBuying(PurchaseModel purchaseModel)
@@ -78,7 +80,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             
             log.Debug("Операция покупки прошла успешно");
             //todo показать анимацию начисления приза
-            // SceneManager.LoadSceneAsync("2dLootboxScene", LoadSceneMode.Additive);
+            resourcesAccrualSceneManager.ShowOneResource(purchaseModel);
         }
 
         private bool InsufficientResources(ProductModel productModel, out SectionTypeEnum? sectionTypeEnum)
