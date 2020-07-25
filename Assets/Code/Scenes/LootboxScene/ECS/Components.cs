@@ -1,16 +1,17 @@
 using System;
+using Code.Scenes.LootboxScene.PrefabScripts;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LootboxScene.ECS
 {
    [Lootbox]
-   public class CanvasClickComponent:IComponent
+   public class CanvasClickComponent : IComponent
    {
    }
 
    [Lootbox]
-   public class ShowPrizeComponent:IComponent
+   public class ShowPrizeComponent : IComponent
    {
       public ResourceModel resourceModel;
    }
@@ -24,6 +25,12 @@ namespace Code.Scenes.LootboxScene.ECS
    [Lootbox]
    public class ShowLootboxComponent : IComponent
    {
-      
+
+   }
+
+   [Lootbox]
+   public class NeedToOpenLootboxComponent : IComponent
+   {
+      public LootboxOpeningController lootboxOpeningController;
    }
 }

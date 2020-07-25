@@ -5,11 +5,12 @@ using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Code.Scenes.LootboxScene.Scripts
 {
-    /// <summary>
+   /// <summary>
     /// Создаёт/вызывает системы.
     /// Пропускает через себя нажатия на экран.
     /// </summary>
@@ -18,9 +19,9 @@ namespace Code.Scenes.LootboxScene.Scripts
         private Systems systems;
         private Contexts contexts;
         private LootboxUiStorage lootboxUiStorage;
-        private ClickHandlerSystem clickHandlerSystem;
         private LootboxSceneSwitcher lobbyLoaderController;
         private ParticlesColorUpdater particlesColorUpdater;
+        private CanvasClickHandlerSystem canvasClickHandlerSystem;
         private readonly ILog log = LogManager.CreateLogger(typeof(LootboxEcsController));
 
         private void Awake()
@@ -31,24 +32,26 @@ namespace Code.Scenes.LootboxScene.Scripts
                                 ?? throw new NullReferenceException(nameof(LootboxUiStorage));
             particlesColorUpdater = FindObjectOfType<ParticlesColorUpdater>()
                                 ?? throw new NullReferenceException(nameof(ParticlesColorUpdater));
-            lootboxUiStorage.Check();
         }
 
         private void Start()
         {
             contexts = Contexts.sharedInstance;
-            clickHandlerSystem = new ClickHandlerSystem(contexts, lobbyLoaderController, 
+            canvasClickHandlerSystem = new CanvasClickHandlerSystem(contexts, lobbyLoaderController, 
                 UiSoundsManager.Instance(), lootboxUiStorage);
-            systems = new Systems()
-                .Add(clickHandlerSystem)
-                .Add(new ShowLootboxSystem(contexts.lootbox, lootboxUiStorage.lootboxPrefab, 
+            
+            SystemsContainer systemsContainer = new SystemsContainer()
+                .Add(new LootboxSpawnSystem(contexts.lootbox, lootboxUiStorage.lootboxPrefab,
                     lootboxUiStorage.resourcesRoot.transform))
+                .Add(new LootboxOpeningSystem(contexts.lootbox, lootboxUiStorage.resourcesRoot.transform, this))
+                .Add(canvasClickHandlerSystem)
                 .Add(new ShowPrizeSystem(contexts, particlesColorUpdater, lootboxUiStorage))
                 .Add(new ItemsLeftChangedSystem(contexts, lootboxUiStorage))
                 
                 .Add(new ResourcesInitializeSystem(lootboxUiStorage))
                 ;
-            
+
+            systems = systemsContainer.GetSystems();
             systems.Initialize();
         }
 
@@ -78,12 +81,17 @@ namespace Code.Scenes.LootboxScene.Scripts
         
         public void SetResourceModels(List<ResourceModel> resourceModels)
         {
-            clickHandlerSystem.SetResourceModels(resourceModels);
+            canvasClickHandlerSystem.SetResourceModels(resourceModels);
         }
 
         public void ShowLootbox()
         {
             contexts.lootbox.CreateEntity().isShowLootbox = true;
+        }
+
+        public bool HasTheFirstResourceAlreadyBeenShown()
+        {
+            return canvasClickHandlerSystem.HasTheFirstResourceAlreadyBeenShown();
         }
     }
 }

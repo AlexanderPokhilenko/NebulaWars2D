@@ -12,6 +12,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         {
             this.lootboxUiStorage = lootboxUiStorage;
         }
+        
         public void Initialize()
         {
             lootboxUiStorage.resourcesRoot.transform.DestroyAllChildren();

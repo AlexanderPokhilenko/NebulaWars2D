@@ -32,6 +32,12 @@ namespace Code.Scenes.LootboxScene.PrefabScripts
             openedBox.gameObject.SetActive(false);
         }
 
+        public void InitClose()
+        {
+            closedBox.gameObject.SetActive(true);
+            openedBox.gameObject.SetActive(false);
+        }
+        
         public void StartLootboxOpening(Action callback, Transform parent)
         {
             if (isOpened) 

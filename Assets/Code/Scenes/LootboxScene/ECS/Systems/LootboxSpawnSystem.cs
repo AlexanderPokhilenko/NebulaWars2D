@@ -1,21 +1,24 @@
 using System;
 using System.Collections.Generic;
 using Code.Common.Logger;
+using Code.Scenes.LootboxScene.PrefabScripts;
 using Entitas;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Code.Scenes.LootboxScene.ECS.Systems
 {
-    public class ShowLootboxSystem : ReactiveSystem<LootboxEntity>
+    public class LootboxSpawnSystem : ReactiveSystem<LootboxEntity>
     {
         private readonly Transform contentParent;
         private readonly GameObject lootboxPrefab;
-        private readonly ILog log = LogManager.CreateLogger(typeof(ShowLootboxSystem));
+        private readonly IContext<LootboxEntity> lootboxContext;
+        private readonly ILog log = LogManager.CreateLogger(typeof(LootboxSpawnSystem));
         
-        public ShowLootboxSystem(IContext<LootboxEntity> context, GameObject lootboxPrefab, Transform contentParent) 
-            : base(context)
+        public LootboxSpawnSystem(IContext<LootboxEntity> lootboxContext, GameObject lootboxPrefab, Transform contentParent) 
+            : base(lootboxContext)
         {
+            this.lootboxContext = lootboxContext;
             this.lootboxPrefab = lootboxPrefab;
             this.contentParent = contentParent;
 
@@ -38,20 +41,9 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         protected override void Execute(List<LootboxEntity> entities)
         {
             GameObject go = Object.Instantiate(lootboxPrefab, contentParent);
-            GameObject closedLootbox = go.transform.Find("Sprite_ClosedLootbox").gameObject;
-            closedLootbox.SetActive(true);
-            GameObject openedLootbox = go.transform.Find("Sprite_OpenedLootbox").gameObject;
-            openedLootbox.SetActive(false);
-            // var lootboxOpeningController = go.GetComponent<LootboxOpeningController>();
-        }
-
-        private void LootboxAnimationEnded()
-        {
-            log.Debug(nameof(LootboxAnimationEnded));
-            // if (currentPrizeIndex == -1)
-            // {
-            //     HandleClick();
-            // }   
+            var lootboxOpeningController = go.GetComponent<LootboxOpeningController>();
+            lootboxOpeningController.InitClose();
+            lootboxContext.CreateEntity().AddNeedToOpenLootbox(lootboxOpeningController);
         }
     }
 }

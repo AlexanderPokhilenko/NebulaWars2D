@@ -1,3 +1,4 @@
+using System;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.LootboxScene.Scripts;
@@ -10,7 +11,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
     /// <summary>
     /// Реагирует на нажатие на канвас.
     /// </summary>
-    public class ClickHandlerSystem:ReactiveSystem<LootboxEntity>
+    public class CanvasClickHandlerSystem:ReactiveSystem<LootboxEntity>, IRequireSystemsInvocationOrderChecker
     {
         private int currentPrizeIndex;
         private List<ResourceModel> resourceModels;
@@ -18,9 +19,9 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         private readonly UiSoundsManager uiSoundsManager;
         private readonly LootboxUiStorage lootboxUiStorage;
         private readonly LootboxSceneSwitcher lootboxLobbyLoaderController;
-        private readonly ILog log = LogManager.CreateLogger(typeof(ClickHandlerSystem));
+        private readonly ILog log = LogManager.CreateLogger(typeof(CanvasClickHandlerSystem));
         
-        public ClickHandlerSystem(Contexts contexts, LootboxSceneSwitcher lootboxLobbyLoaderController,
+        public CanvasClickHandlerSystem(Contexts contexts, LootboxSceneSwitcher lootboxLobbyLoaderController,
             UiSoundsManager uiSoundsManager, LootboxUiStorage lootboxUiStorage) 
             : base(contexts.lootbox)
         {
@@ -48,6 +49,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
 
         protected override void Execute(List<LootboxEntity> entities)
         {
+            // log.Debug("Нажатие на канвас");
             if (resourceModels == null)
             {
                 log.Info("Нажатие на канвас. Но ресурсы ещё не установлены.");
@@ -84,6 +86,20 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             LootboxEntity entity2 = lootboxContext.CreateEntity();
             int itemsLeftCount = resourceModels.Count - currentPrizeIndex-1;
             entity2.AddItemsLeft(itemsLeftCount);
+        }
+
+        public bool HasTheFirstResourceAlreadyBeenShown()
+        {
+            return currentPrizeIndex != -1;
+        }
+        
+        public List<Type> After()
+        {
+            return new List<Type>()
+            {
+                typeof(ShowPrizeSystem),
+                typeof(ItemsLeftChangedSystem)
+            };
         }
     }
 }

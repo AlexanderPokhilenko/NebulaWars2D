@@ -15,7 +15,7 @@ namespace Code.Scenes.LootboxScene.Scripts
             ResourceModels = null;
         }
 
-        public void LootboxDownloadingStarted()
+        public void SetLootboxNeeded()
         {
             IsLootboxNeeded = true;
         }

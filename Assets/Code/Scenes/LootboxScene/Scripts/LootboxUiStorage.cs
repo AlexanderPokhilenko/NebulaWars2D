@@ -19,15 +19,5 @@ namespace Code.Scenes.LootboxScene.Scripts
         public GameObject warshipPowerPointsPrefab;
         public GameObject lootboxPrefab;
 
-        public void Check()
-        {
-            Assert.IsNotNull(resourcesRoot);
-            Assert.IsNotNull(itemsLeftRoot);
-            Assert.IsNotNull(itemsLeftText);
-            Assert.IsNotNull(softCurrencyPrefab);
-            Assert.IsNotNull(hardCurrencyPrefab);
-            Assert.IsNotNull(warshipPowerPointsPrefab);
-            Assert.IsNotNull(lootboxPrefab);
-        }
     }
 }
