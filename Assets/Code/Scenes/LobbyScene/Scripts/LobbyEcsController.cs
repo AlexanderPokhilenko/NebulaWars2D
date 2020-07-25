@@ -406,6 +406,11 @@ namespace Code.Scenes.LobbyScene.Scripts
         public void EnableLobbySceneUi()
         {
             contexts.lobbyUi.CreateEntity().isEnableLobbySceneUi = true;
-        } 
+        }
+
+        public void CloseShopLayer()
+        {
+            contexts.lobbyUi.CreateEntity().messageDisableShopUiLayer = true;
+        }
     }
 }

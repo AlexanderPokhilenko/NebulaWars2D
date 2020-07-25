@@ -4,7 +4,7 @@ using Entitas;
 
 namespace Code.Scenes.LootboxScene.ECS.Systems
 {
-    public class ItemsLeftDisablingSystem:ReactiveSystem<LootboxEntity>
+    public class ItemsLeftDisablingSystem:ReactiveSystem<LootboxEntity>, IInitializeSystem
     {
         private readonly LootboxUiStorage uiStorage;
         
@@ -25,6 +25,11 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
         }
 
         protected override void Execute(List<LootboxEntity> entities)
+        {
+            uiStorage.itemsLeftRoot.SetActive(false);
+        }
+
+        public void Initialize()
         {
             uiStorage.itemsLeftRoot.SetActive(false);
         }

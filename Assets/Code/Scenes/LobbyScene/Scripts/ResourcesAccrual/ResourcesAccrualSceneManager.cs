@@ -45,6 +45,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             });
             ResourcesAccrualStorage.Instance.SetNoLootboxNeeded();
             lobbyEcsController.ClosePurchaseConfirmationWindow();
+            lobbyEcsController.CloseShopLayer();
         }
         
         private IEnumerator SetLootboxResources()
