@@ -17,7 +17,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
         {
             foreach (var e in movableGroup)
             {
-                var percentage = e.speed.value.magnitude / e.maxSpeed.value;
+                var percentage = e.speed.linear.magnitude / e.maxSpeed.value;
                 if (percentage > 1f) percentage = 1f;
 
                 var particleSystems = e.view.gameObject.GetComponentsInChildren<ParticleSystem>();

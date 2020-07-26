@@ -11,17 +11,19 @@ public partial class GameEntity {
     public Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent speed { get { return (Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent)GetComponent(GameComponentsLookup.Speed); } }
     public bool hasSpeed { get { return HasComponent(GameComponentsLookup.Speed); } }
 
-    public void AddSpeed(UnityEngine.Vector2 newValue) {
+    public void AddSpeed(UnityEngine.Vector2 newLinear, float newAngular) {
         var index = GameComponentsLookup.Speed;
         var component = (Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent));
-        component.value = newValue;
+        component.linear = newLinear;
+        component.angular = newAngular;
         AddComponent(index, component);
     }
 
-    public void ReplaceSpeed(UnityEngine.Vector2 newValue) {
+    public void ReplaceSpeed(UnityEngine.Vector2 newLinear, float newAngular) {
         var index = GameComponentsLookup.Speed;
         var component = (Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent));
-        component.value = newValue;
+        component.linear = newLinear;
+        component.angular = newAngular;
         ReplaceComponent(index, component);
     }
 
