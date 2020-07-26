@@ -13,10 +13,10 @@ namespace Code.Common
 #if  LocalTesting
         public const string GameServerIp = "127.0.0.1";
         private const string GameMatcherUrl = "http://127.0.0.1:53846";
-              
+
 #else
         public const string GameServerIp = "65.52.151.136";
-        private const string GameMatcherUrl = "https://botsconstructor.com:53847";
+        private const string GameMatcherUrl = "https://tikaytech.games:53847";
 #endif
 
         public static readonly string GetMatchDataUrl =  $"{GameMatcherUrl}/Player/GetMatchData";
