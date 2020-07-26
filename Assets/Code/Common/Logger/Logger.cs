@@ -3,7 +3,7 @@ using System;
 namespace Code.Common.Logger
 {
     /// <summary>
-    /// Все методы могут вызываться из разных потоков
+    /// Все методы могут вызываться из разных потоков.
     /// </summary>
     public class Logger :ILog
     {

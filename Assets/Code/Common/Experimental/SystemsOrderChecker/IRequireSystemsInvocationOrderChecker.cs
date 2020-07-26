@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Code.Scenes.LootboxScene.Scripts
+namespace Code.Common.Experimental.SystemsOrderChecker
 {
     public interface IRequireSystemsInvocationOrderChecker
     {

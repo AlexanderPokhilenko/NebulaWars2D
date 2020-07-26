@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
 
-namespace Code.Scenes.LootboxScene.Scripts
+namespace Code.Common.Experimental.SystemsOrderChecker
 {
     public class SystemsContainer
     {
@@ -14,7 +15,9 @@ namespace Code.Scenes.LootboxScene.Scripts
 
         public Systems GetSystems()
         {
+            
             Check();
+            
             Systems result = new Systems();
             foreach (var system in systems)
             {

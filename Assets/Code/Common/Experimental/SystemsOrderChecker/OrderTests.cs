@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Code.Scenes.LootboxScene.Scripts;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LootboxScene.Scripts
+namespace Code.Common.Experimental.SystemsOrderChecker
 {
     public class TestSystem1 : IExecuteSystem, IRequireSystemsInvocationOrderChecker
     {
@@ -33,8 +34,8 @@ namespace Code.Scenes.LootboxScene.Scripts
         private void Awake()
         {
             SystemsContainer systemsContainer = new SystemsContainer()
-                .Add(new TestSystem2())
                 .Add(new TestSystem1())
+                .Add(new TestSystem2())
                 ;
 
             Systems systems = systemsContainer.GetSystems();

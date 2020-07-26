@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Common.Logger;
 using Entitas;
 using UnityEngine;
 
-namespace Code.Scenes.LootboxScene.Scripts
+namespace Code.Common.Experimental.SystemsOrderChecker
 {
     public class SystemsInvocationOrderChecker
     {
@@ -15,12 +14,6 @@ namespace Code.Scenes.LootboxScene.Scripts
             {
                 if (system is IRequireSystemsInvocationOrderChecker test)
                 {
-                    // List<Type> beforeTypes = test.Before();
-                    // if (beforeTypes != null)
-                    // {
-                    //     //проверить предыдущие системы
-                    //     
-                    // }
                     List<Type> afterTypes = test.After();
                     if (afterTypes != null && afterTypes.Count!=0)
                     {
