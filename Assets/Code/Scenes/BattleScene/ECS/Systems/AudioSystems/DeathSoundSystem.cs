@@ -47,7 +47,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.AudioSystems
 
                     if (e.hasDestroyTimer)
                     {
-                        if(e.destroyTimer.value < clip.length) e.ReplaceDestroyTimer(clip.length);
+                        if(e.destroyTimer.time < clip.length) e.ReplaceDestroyTimer(clip.length);
                     }
                     else
                     {

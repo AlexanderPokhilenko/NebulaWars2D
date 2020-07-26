@@ -22,7 +22,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
 
             foreach (var e in withTimerGroup.GetEntities(buffer))
             {
-                var newTime = e.destroyTimer.value - deltaTime;
+                var newTime = e.destroyTimer.time - deltaTime;
 
                 if (newTime > 0f)
                 {

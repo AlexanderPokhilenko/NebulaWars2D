@@ -12,14 +12,14 @@ public static class GameComponentsLookup {
     public const int LoopSound = 1;
     public const int SpawnSound = 2;
     public const int Destroyed = 3;
-    public const int DestroyTimer = 4;
-    public const int Direction = 5;
-    public const int Hidden = 6;
-    public const int MaxSpeed = 7;
-    public const int NicknameDistance = 8;
-    public const int Parent = 9;
-    public const int Player = 10;
-    public const int Speed = 11;
+    public const int Direction = 4;
+    public const int Hidden = 5;
+    public const int MaxSpeed = 6;
+    public const int NicknameDistance = 7;
+    public const int Parent = 8;
+    public const int Player = 9;
+    public const int Speed = 10;
+    public const int DestroyTimer = 11;
     public const int Transform = 12;
     public const int AnimatorController = 13;
     public const int Circle = 14;
@@ -40,7 +40,6 @@ public static class GameComponentsLookup {
         "LoopSound",
         "SpawnSound",
         "Destroyed",
-        "DestroyTimer",
         "Direction",
         "Hidden",
         "MaxSpeed",
@@ -48,6 +47,7 @@ public static class GameComponentsLookup {
         "Parent",
         "Player",
         "Speed",
+        "DestroyTimer",
         "Transform",
         "AnimatorController",
         "Circle",
@@ -67,7 +67,6 @@ public static class GameComponentsLookup {
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.LoopSoundComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.DestroyedComponent),
-        typeof(Code.Scenes.BattleScene.ECS.Components.Game.DestroyTimerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.HiddenComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.MaxSpeedComponent),
@@ -75,6 +74,7 @@ public static class GameComponentsLookup {
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.PlayerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DestroyTimerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TransformComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent),
