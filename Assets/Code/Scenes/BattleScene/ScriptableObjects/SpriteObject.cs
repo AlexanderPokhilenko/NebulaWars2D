@@ -8,13 +8,11 @@ namespace Code.Scenes.BattleScene.ScriptableObjects
         public Sprite sprite;
         public RuntimeAnimatorController controller;
 
-        public override GameEntity CreateEntity(GameContext context)
+        public override void FillEntity(GameContext context, GameEntity entity)
         {
-            var entity = base.CreateEntity(context);
+            base.FillEntity(context, entity);
             entity.AddSprite(sprite);
             if (controller != null) entity.AddAnimatorController(controller);
-
-            return entity;
         }
     }
 }

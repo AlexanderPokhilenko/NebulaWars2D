@@ -32,7 +32,7 @@ namespace Code.BattleScene.ECS.Systems
         public void Execute()
         {
             var playerEntity = gameContext.GetEntityWithId(PlayerIdStorage.PlayerEntityId);
-            if (playerEntity != null)
+            if (playerEntity != null && playerEntity.hasTransform)
             {
                 var position = playerEntity.transform.position;
 

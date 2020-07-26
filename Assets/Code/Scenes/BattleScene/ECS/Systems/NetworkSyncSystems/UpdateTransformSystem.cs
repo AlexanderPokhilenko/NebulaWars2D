@@ -4,6 +4,8 @@ using Entitas;
 using NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages;
 using System.Collections.Generic;
 using System.Linq;
+using Code.Scenes.BattleScene.Experimental;
+using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace
@@ -22,6 +24,7 @@ namespace Code.BattleScene.ECS.Systems
         private readonly IGroup<GameEntity> gameEntitiesGroup;
         private readonly List<GameEntity> buffer;
         private const int predictedCapacity = 128;
+        private const float TimeDelay = ClientTimeManager.TimeDelay;
 
         public UpdateTransformSystem(Contexts contexts)
         {
@@ -108,9 +111,9 @@ namespace Code.BattleScene.ECS.Systems
 
         private void AddNewObject(ushort id, ViewTransform newTransform)
         {
-            var obj = ViewObjectsBase.Instance.GetViewObject(newTransform.typeId);
-            var newObject = obj.CreateEntity(gameContext);
+            var newObject = gameContext.CreateEntity();
             newObject.AddId(id);
+            newObject.AddDelayedSpawn(newTransform.typeId, newTransform.X, newTransform.Y, newTransform.Angle, TimeDelay);
             newObject.AddPosition(new Vector3(newTransform.X, newTransform.Y, -0.00001f * id));
             newObject.AddDirection(newTransform.Angle);
         }

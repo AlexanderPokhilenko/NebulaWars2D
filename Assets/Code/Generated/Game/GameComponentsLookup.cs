@@ -19,21 +19,23 @@ public static class GameComponentsLookup {
     public const int Parent = 8;
     public const int Player = 9;
     public const int Speed = 10;
-    public const int DestroyTimer = 11;
-    public const int Transform = 12;
-    public const int AnimatorController = 13;
-    public const int Circle = 14;
-    public const int CircleLine = 15;
-    public const int Rectangle = 16;
-    public const int Sprite = 17;
-    public const int StraightLine = 18;
-    public const int TextMeshPro = 19;
-    public const int View = 20;
-    public const int ZoneInfo = 21;
-    public const int Id = 22;
-    public const int Position = 23;
+    public const int DelayedDestroy = 11;
+    public const int DelayedSpawn = 12;
+    public const int DestroyTimer = 13;
+    public const int Transform = 14;
+    public const int AnimatorController = 15;
+    public const int Circle = 16;
+    public const int CircleLine = 17;
+    public const int Rectangle = 18;
+    public const int Sprite = 19;
+    public const int StraightLine = 20;
+    public const int TextMeshPro = 21;
+    public const int View = 22;
+    public const int ZoneInfo = 23;
+    public const int Id = 24;
+    public const int Position = 25;
 
-    public const int TotalComponents = 24;
+    public const int TotalComponents = 26;
 
     public static readonly string[] componentNames = {
         "DeathSound",
@@ -47,6 +49,8 @@ public static class GameComponentsLookup {
         "Parent",
         "Player",
         "Speed",
+        "DelayedDestroy",
+        "DelayedSpawn",
         "DestroyTimer",
         "Transform",
         "AnimatorController",
@@ -74,6 +78,8 @@ public static class GameComponentsLookup {
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.PlayerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DelayedDestroyComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DelayedSpawnComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DestroyTimerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TransformComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent),

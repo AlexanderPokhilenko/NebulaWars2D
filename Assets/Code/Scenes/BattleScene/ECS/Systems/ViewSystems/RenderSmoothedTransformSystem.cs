@@ -1,4 +1,5 @@
-﻿using Entitas;
+﻿using Code.Scenes.BattleScene.Experimental;
+using Entitas;
 using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
     public class RenderSmoothedTransformSystem : IExecuteSystem
     {
         private const float ServerFps = ServerTimeConstants.MaxFps;
-        private const float DelayFramesCount = 2f;
+        private const float DelayFramesCount = ClientTimeManager.DelayFramesCount;
         private const float SmoothTime = DelayFramesCount / ServerFps;
         private readonly IGroup<GameEntity> positionedGroup;
 
