@@ -10,8 +10,12 @@ using UnityEngine.SceneManagement;
 
 namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
 {
+    /// <summary>
+    /// todo это говнокод
+    /// </summary>
     public class ResourcesAccrualSceneManager:MonoBehaviour
     {
+        private LootboxModel lastLootboxPrizesModel;
         private LobbyEcsController lobbyEcsController;
         private readonly ILog log = LogManager.CreateLogger(typeof(ResourcesAccrualSceneManager));
 
@@ -20,24 +24,23 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
         }
 
-        public void ShowWithLootboxScene()
+        public void ShowLootboxScene()
         {
             LootboxModelDownloader.Instance.StartDownloading();
-            OpenLootboxScene();
+            DisableLobbyUi();
+            SceneManager.LoadScene("2dLootboxScene", LoadSceneMode.Additive);
+            SceneManager.sceneUnloaded += LootboxSceneClosed;
+            ResourcesAccrualStorage.Instance.Clear();
             StartCoroutine(SetLootboxResources());
+            //todo отнять лутбокс
         }
 
-        private void OpenLootboxScene()
+        public void ShowOneResource(PurchaseModel purchaseModel)
         {
             DisableLobbyUi();
             SceneManager.LoadScene("2dLootboxScene", LoadSceneMode.Additive);
-            SceneManager.sceneUnloaded += EnableLobbyUi;
+            SceneManager.sceneUnloaded += OneResourceSceneClosed;
             ResourcesAccrualStorage.Instance.Clear();
-        }
-        
-        public void ShowOneResource(PurchaseModel purchaseModel)
-        {
-            OpenLootboxScene();
             var resourceModel = new ResourceModelMapper().Map(purchaseModel);
             ResourcesAccrualStorage.Instance.SetResourcesModels(new List<ResourceModel>()
             {
@@ -46,13 +49,39 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             ResourcesAccrualStorage.Instance.SetNoLootboxNeeded();
             lobbyEcsController.ClosePurchaseConfirmationWindow();
             lobbyEcsController.CloseShopLayer();
+            //todo запустить обновление ресурсов
+        }
+
+        private void OneResourceSceneClosed(Scene arg0)
+        {
+            SceneManager.sceneUnloaded -= OneResourceSceneClosed;
+            EnableLobbyUi();
+        }
+        
+        private void LootboxSceneClosed(Scene arg0)
+        {
+            SceneManager.sceneUnloaded -= LootboxSceneClosed;
+            EnableLobbyUi();
+            if (lastLootboxPrizesModel != null)
+            {
+                var rewardsThatHaveNotBeenShown = new RewardsThatHaveNotBeenShownFactory().Create(lastLootboxPrizesModel);
+                lobbyEcsController.CreateUnshownRewardsComponent(rewardsThatHaveNotBeenShown);
+                lastLootboxPrizesModel = null;
+            }
+            else
+            {
+                log.Error("Не удаётся показать движущиеся награды после открытия лутбокса." +
+                          " lastLootboxPrizesModel не установлена.");
+            }
         }
         
         private IEnumerator SetLootboxResources()
         {
             ResourcesAccrualStorage.Instance.SetLootboxNeeded();
             yield return new WaitUntil(() => LootboxModelDownloader.Instance.IsDownloadingCompleted());
-            var test = LootboxModelDownloader.Instance.GetLootboxModel().Prizes;
+            var lootboxPrize = LootboxModelDownloader.Instance.GetLootboxModel();
+            lastLootboxPrizesModel = lootboxPrize;
+            var test = lootboxPrize.Prizes;
             ResourcesAccrualStorage.Instance.SetResourcesModels(test);
         }
 
@@ -61,7 +90,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             lobbyEcsController.DisableLobbySceneUi();
         }
         
-        private void EnableLobbyUi(Scene arg0)
+        private void EnableLobbyUi()
         {
             lobbyEcsController.EnableLobbySceneUi();
         }

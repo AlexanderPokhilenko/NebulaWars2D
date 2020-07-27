@@ -478,15 +478,6 @@ MonoBehaviour:
     coefficient: 0.75
   - image: {fileID: 41922934}
     coefficient: 1
-  materials:
-  - material: {fileID: 2100000, guid: 98dc7d10a9f088a42bd33bce2d336cfd, type: 2}
-    offset: {x: -2.5, y: 0}
-  - material: {fileID: 2100000, guid: 8ab414670c1e3bf4aadc0f2e4de0f248, type: 2}
-    offset: {x: 0, y: 2}
-  - material: {fileID: 2100000, guid: 47b04df9b05c3c74a98319abd05b5b74, type: 2}
-    offset: {x: -5, y: 0}
-  - material: {fileID: 2100000, guid: 1a354a1c75727164bb3298a2a9684e6b, type: 2}
-    offset: {x: -5, y: 0}
   healthSlider: {fileID: 1196897013}
   healthText: {fileID: 1974690216}
   shieldSlider: {fileID: 1619348446}
@@ -4785,12 +4776,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 065d0901516d99946981639106ef2b15, type: 3}
+    m_Font: {fileID: 12800000, guid: 43ffd7a2fa4115c46b7f664e0251ebb1, type: 3}
     m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 55
+    m_MaxSize: 80
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

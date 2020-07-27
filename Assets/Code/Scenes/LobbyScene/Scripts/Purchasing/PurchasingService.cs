@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
 using UnityEngine.Purchasing.Security;
+using ZeroFormatter;
 using IGooglePlayStoreExtensions = Google.Play.Billing.IGooglePlayStoreExtensions;
 
 namespace Code.Scenes.LobbyScene.Scripts
@@ -30,17 +31,17 @@ namespace Code.Scenes.LobbyScene.Scripts
             serverValidator = GetComponent<ProfileServerPurchaseValidatorBehaviour>();
         }
 
-        public void StartInitialization(List<ForeignServiceProduct> serviceProducts)
+        public void StartInitialization(List<RealCurrencyCostModel> serviceProducts)
         {
 #warning нужно использовать полное название пространства имён
             AbstractPurchasingModule purchasingModule = Google.Play.Billing.GooglePlayStoreModule.Instance();
 #warning нужно использовать полное название пространства имён
             
             ConfigurationBuilder builder = ConfigurationBuilder.Instance(purchasingModule);
-            foreach (ForeignServiceProduct foreignServiceProduct in serviceProducts)
+            foreach (RealCurrencyCostModel realCurrencyCostModel in serviceProducts)
             {
-                string productId = foreignServiceProduct.ProductGoogleId;
-                ProductType productType = foreignServiceProduct.Consumable
+                string productId = realCurrencyCostModel.GoogleProductId;
+                ProductType productType = realCurrencyCostModel.IsConsumable
                     ? ProductType.Consumable
                     : ProductType.NonConsumable;
                 log.Debug($"{nameof(productId)} {productId} {nameof(productType)} {productType}");
@@ -79,7 +80,10 @@ namespace Code.Scenes.LobbyScene.Scripts
 
         public void BuyProduct(PurchaseModel purchaseModel)
         {
-            string sku = purchaseModel.productModel.ForeignServiceProduct.ProductGoogleId;
+            var realCurrencyCostModel =
+                ZeroFormatterSerializer.Deserialize<RealCurrencyCostModel>(purchaseModel.productModel.CostModel
+                    .SerializedCostModel);
+            string sku = realCurrencyCostModel.GoogleProductId;
             log.Debug($"{nameof(sku)} "+sku);
             bool isStoreInitialized = IsStoreInitialized(); 
             log.Debug($"{nameof(isStoreInitialized)} {isStoreInitialized}");

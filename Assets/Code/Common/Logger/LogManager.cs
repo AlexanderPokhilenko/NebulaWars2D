@@ -36,18 +36,19 @@ namespace Code.Common.Logger
         {
             if (!logs.Contains(condition))
             {
-                Debug.LogError("Новый лог");
-                string logType = type.ToString();
+                string logType;
                 if (type == LogType.Exception)
                 {
                     logType = LogType.Error.ToString();
                 }
+                else
+                {
+                    logType = type.ToString();
+                }
+                
                 AddLog($"UNITY LOG {logType} {nameof(condition)} {condition} {nameof(stacktrace)} {stacktrace}");
             }
-            else
-            {
-                Debug.LogError("Этот лог уже был");
-            }
+            
         }
 
         public static ILog CreateLogger(Type type)

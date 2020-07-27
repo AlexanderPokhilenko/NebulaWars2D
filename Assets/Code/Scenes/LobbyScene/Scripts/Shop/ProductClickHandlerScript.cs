@@ -29,9 +29,9 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
         {
             UiSoundsManager.Instance().PlayClick();
             log.Info($"{nameof(Product_OnClick)} {nameof(purchaseModel.productModel.Id)} {purchaseModel.productModel.Id}");
-            log.Info("Тип валюты "+purchaseModel.productModel.CurrencyTypeEnum);
+            log.Info("Тип валюты "+purchaseModel.productModel.CostModel.CostTypeEnum);
             //Если покупка за реальную валюту, то вызвать api платёжной системы
-            if (purchaseModel.productModel.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
+            if (purchaseModel.productModel.CostModel.CostTypeEnum == CostTypeEnum.RealCurrency)
             {
                 log.Info("Покупка за реальную валюту");
                 purchasingService.BuyProduct(purchaseModel);

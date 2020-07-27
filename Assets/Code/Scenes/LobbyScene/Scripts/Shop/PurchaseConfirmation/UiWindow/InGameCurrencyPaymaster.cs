@@ -3,10 +3,9 @@ using System.Net.Http;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.ResourcesAccrual;
-using Code.Scenes.LobbyScene.Scripts.UiStorages;
+using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using ZeroFormatter;
 
 namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
@@ -17,6 +16,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
     [RequireComponent(typeof(InsufficientResourceErrorHandler))]
     public class InGameCurrencyPaymaster:MonoBehaviour
     {
+        private SectionSpawner sectionSpawner;
         private LobbyEcsController lobbyEcsController;
         private ResourcesAccrualSceneManager resourcesAccrualSceneManager;
         private InsufficientResourceErrorHandler insufficientResourceErrorHandler;
@@ -24,9 +24,10 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 
         private void Awake()
         {
+            sectionSpawner = FindObjectOfType<SectionSpawner>();
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
-            insufficientResourceErrorHandler = FindObjectOfType<InsufficientResourceErrorHandler>();
             resourcesAccrualSceneManager = FindObjectOfType<ResourcesAccrualSceneManager>();
+            insufficientResourceErrorHandler = FindObjectOfType<InsufficientResourceErrorHandler>();
         }
 
         public void StartBuying(PurchaseModel purchaseModel)
@@ -81,14 +82,16 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             log.Debug("Операция покупки прошла успешно");
             //todo показать анимацию начисления приза
             resourcesAccrualSceneManager.ShowOneResource(purchaseModel);
+            sectionSpawner.DisableProduct(purchaseModel.productModel.Id);
         }
 
         private bool InsufficientResources(ProductModel productModel, out SectionTypeEnum? sectionTypeEnum)
         {
-            switch (productModel.CurrencyTypeEnum)
+            switch (productModel.CostModel.CostTypeEnum)
             {
-                case CurrencyTypeEnum.SoftCurrency:
-                    if (lobbyEcsController.GetSoftCurrency() < productModel.Cost)
+                case CostTypeEnum.SoftCurrency:
+                    int softCurrencyCost = ((SoftCurrencyProductModel) productModel).Amount;
+                    if (lobbyEcsController.GetSoftCurrency() < softCurrencyCost)
                     {
                         log.Error("Не хватает обычной валюты");
                         sectionTypeEnum = SectionTypeEnum.SoftCurrency;
@@ -99,8 +102,9 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                         sectionTypeEnum = null;
                         return false;
                     }
-                case CurrencyTypeEnum.HardCurrency:
-                    if (lobbyEcsController.GetHardCurrency() < productModel.Cost)
+                case CostTypeEnum.HardCurrency:
+                    int hardCurrencyCost = ((HardCurrencyProductModel) productModel).Amount;
+                    if (lobbyEcsController.GetHardCurrency() < hardCurrencyCost)
                     {
                         log.Error("Не хватает премиум валюты");
                         sectionTypeEnum = SectionTypeEnum.HardCurrency;
@@ -111,11 +115,11 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                         sectionTypeEnum = null;
                         return false;
                     }
-                case CurrencyTypeEnum.RealCurrency:
+                case CostTypeEnum.RealCurrency:
                     log.Fatal("Покупка за реальную валюту не должна тут обрабатываться");
                     sectionTypeEnum = null;
                     return true;
-                case CurrencyTypeEnum.Free:
+                case CostTypeEnum.Free:
                     sectionTypeEnum = null;
                     return false;
                 default:

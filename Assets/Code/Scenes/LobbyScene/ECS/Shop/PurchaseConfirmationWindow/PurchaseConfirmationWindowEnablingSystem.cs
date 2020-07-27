@@ -8,6 +8,7 @@ using Code.Scenes.LobbyScene.Scripts.Shop;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using DataLayer.Tables;
 using Entitas;
+using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine.UI;
 
 namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
@@ -19,10 +20,10 @@ namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
     {
         private readonly ShopUiStorage shopUiStorage;
         private readonly LobbyEcsController lobbyEcsController;
-        private readonly SkinPurchaseConfirmationWindowController skinPurchaseConfirmationWindowController;
+        // private readonly SkinPurchaseConfirmationWindowController skinPurchaseConfirmationWindowController;
         private readonly ILog log = LogManager.CreateLogger(typeof(PurchaseConfirmationWindowEnablingSystem));
-        private readonly LootboxPurchaseConfirmationWindowController lootboxPurchaseConfirmationWindowController;
-        private readonly WarshipPurchaseConfirmationWindowController warshipPurchaseConfirmationWindowController;
+        // private readonly LootboxPurchaseConfirmationWindowController lootboxPurchaseConfirmationWindowController;
+        // private readonly WarshipPurchaseConfirmationWindowController warshipPurchaseConfirmationWindowController;
         private readonly SoftCurrencyPurchaseConfirmationWindowController softCurrencyPurchaseConfirmationWindowController;
         private readonly WarshipPowerPointsPurchaseConfirmationWindowController warshipPowerPointsPurchaseConfirmationWindowController;
 
@@ -34,9 +35,9 @@ namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
             this.lobbyEcsController = lobbyEcsController;
             this.shopUiStorage = shopUiStorage;
             softCurrencyPurchaseConfirmationWindowController = new SoftCurrencyPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
-            skinPurchaseConfirmationWindowController = new SkinPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
-            lootboxPurchaseConfirmationWindowController = new LootboxPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
-            warshipPurchaseConfirmationWindowController = new WarshipPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
+            // skinPurchaseConfirmationWindowController = new SkinPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
+            // lootboxPurchaseConfirmationWindowController = new LootboxPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
+            // warshipPurchaseConfirmationWindowController = new WarshipPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
             warshipPowerPointsPurchaseConfirmationWindowController =
                 new WarshipPowerPointsPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
         }
@@ -79,31 +80,31 @@ namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
         
         private void Spawn1(PurchaseModel purchaseModel)
         {
-            switch (purchaseModel.productModel.TransactionType)
+            switch (purchaseModel.productModel.ResourceTypeEnum)
             {
-                case TransactionTypeEnum.Lootbox:
-                    lootboxPurchaseConfirmationWindowController.Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
-                    break;
-                case TransactionTypeEnum.Skin:
-                    skinPurchaseConfirmationWindowController.Spawn(purchaseModel.productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
-                    break;
-                case TransactionTypeEnum.Warship:
-                    warshipPurchaseConfirmationWindowController.Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
-                    break;
-                case TransactionTypeEnum.WarshipAndSkin:
-                    break;
-                case TransactionTypeEnum.WarshipPowerPoints:
+                // case TransactionTypeEnum.Lootbox:
+                //     lootboxPurchaseConfirmationWindowController.Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                //     break;
+                // case TransactionTypeEnum.Skin:
+                //     skinPurchaseConfirmationWindowController.Spawn(purchaseModel.productModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                //     break;
+                // case TransactionTypeEnum.Warship:
+                //     warshipPurchaseConfirmationWindowController.Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
+                //     break;
+                // case TransactionTypeEnum.WarshipAndSkin:
+                //     break;
+                case ResourceTypeEnum.WarshipPowerPoints:
                     warshipPowerPointsPurchaseConfirmationWindowController.Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
-                case TransactionTypeEnum.HardCurrency:
+                case ResourceTypeEnum.HardCurrency:
                     string message = "Жесткая валюта не должна покупать за внтриигровую валюту.";
                     log.Fatal(message);
                     throw new Exception(message);
-                case TransactionTypeEnum.SoftCurrency:
+                case ResourceTypeEnum.SoftCurrency:
                     softCurrencyPurchaseConfirmationWindowController.Spawn(purchaseModel, shopUiStorage.purchaseConfirmationWindowContent.transform);
                     break;
-                case TransactionTypeEnum.DailyPrize:
-                    break;
+                // case TransactionTypeEnum.DailyPrize:
+                //     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

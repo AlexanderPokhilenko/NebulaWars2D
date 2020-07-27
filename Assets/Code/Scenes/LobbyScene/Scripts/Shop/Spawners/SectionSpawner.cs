@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.AccessControl;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners;
@@ -16,10 +17,10 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
     public class SectionSpawner:MonoBehaviour
     {
         private ShopUiStorage shopUiStorage;
-        private SkinItemSpawner skinItemSpawner;
-        private WarshipItemSpawner warshipItemSpawner;
-        private LootboxItemsSpawner lootboxItemsSpawner;
-        private DailyPresentItemSpawner dailyPresentItemSpawner;
+        // private SkinItemSpawner skinItemSpawner;
+        // private WarshipItemSpawner warshipItemSpawner;
+        // private LootboxItemsSpawner lootboxItemsSpawner;
+        // private DailyPresentItemSpawner dailyPresentItemSpawner;
         private SoftCurrencyItemSpawner softCurrencyItemSpawner;
         private HardCurrencyItemSpawner hardCurrencyItemSpawner;
         private ProductClickHandlerScript productClickHandlerScript;
@@ -33,15 +34,22 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
             productClickHandlerScript = FindObjectOfType<ProductClickHandlerScript>()
                             ?? throw new Exception(nameof(ProductClickHandlerScript));
 
-            skinItemSpawner = new SkinItemSpawner();
-            warshipItemSpawner = new WarshipItemSpawner();
-            lootboxItemsSpawner = new LootboxItemsSpawner();
-            dailyPresentItemSpawner = new DailyPresentItemSpawner();
+            // skinItemSpawner = new SkinItemSpawner();
+            // warshipItemSpawner = new WarshipItemSpawner();
+            // lootboxItemsSpawner = new LootboxItemsSpawner();
+            // dailyPresentItemSpawner = new DailyPresentItemSpawner();
             softCurrencyItemSpawner = new SoftCurrencyItemSpawner();
             hardCurrencyItemSpawner = new HardCurrencyItemSpawner();
             warshipPowerPointsItemSpawner = new WarshipPowerPointsItemSpawner();
         }
 
+        
+        public void DisableProduct(int productId)
+        {
+            //todo говнокод
+            warshipPowerPointsItemSpawner.Disable(productId);
+        }
+        
         public void SpawnSection(SectionModel sectionModel, int shopModelId)
         {
             bool success = new ShopSectionModelValidator().Validate(sectionModel);
@@ -67,7 +75,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
             //Установить количество строк
             int linesCount;
             int yCellSize;
-            var shopItemSizeEnum = sectionModel.UiItems.First().First().ShopItemSize;
+            var shopItemSizeEnum = sectionModel.UiItems.First().First().ProductSizeEnum;
             switch (shopItemSizeEnum)
             {
                 case ProductSizeEnum.Big:
@@ -98,33 +106,33 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners
 
         private void SpawnItem(PurchaseModel purchaseModel, GameObject sectionGameObject)
         {
-            switch (purchaseModel.productModel.TransactionType)
+            switch (purchaseModel.productModel.ResourceTypeEnum)
             {
-                case TransactionTypeEnum.Lootbox:
-                    lootboxItemsSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
-                    return;
-                case TransactionTypeEnum.Skin:
-                    skinItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
-                    return;
-                case TransactionTypeEnum.Warship:
-                    warshipItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
-                    break;
-                case TransactionTypeEnum.WarshipAndSkin:
-                    throw new ArgumentOutOfRangeException();
-                case TransactionTypeEnum.WarshipPowerPoints:
+                // case TransactionTypeEnum.Lootbox:
+                //     lootboxItemsSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
+                //     return;
+                // case TransactionTypeEnum.Skin:
+                //     skinItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
+                //     return;
+                // case TransactionTypeEnum.Warship:
+                //     warshipItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
+                //     break;
+                // case TransactionTypeEnum.WarshipAndSkin:
+                //     throw new ArgumentOutOfRangeException();
+                case ResourceTypeEnum.WarshipPowerPoints:
                     warshipPowerPointsItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
-                case TransactionTypeEnum.HardCurrency:
+                case ResourceTypeEnum.HardCurrency:
                     hardCurrencyItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
-                case TransactionTypeEnum.SoftCurrency:
+                case ResourceTypeEnum.SoftCurrency:
                     softCurrencyItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
                     return;
-                case TransactionTypeEnum.DailyPrize:
-                    dailyPresentItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
-                    return;
+                // case TransactionTypeEnum.DailyPrize:
+                //     dailyPresentItemSpawner.Spawn(purchaseModel, sectionGameObject, productClickHandlerScript);
+                //     return;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(purchaseModel.productModel.TransactionType));
+                    throw new ArgumentOutOfRangeException(nameof(purchaseModel.productModel.ResourceTypeEnum));
             }
         }
     }

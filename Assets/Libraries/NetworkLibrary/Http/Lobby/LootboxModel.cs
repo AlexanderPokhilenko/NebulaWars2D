@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.Collections.Generic;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.Collections.Generic;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
@@ -12,7 +12,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
     [ZeroFormattable]
     public class ResourceModel
     {
-        [Index(0)] public virtual ResourceType ResourceType { get; set; }
+        [Index(0)] public virtual ResourceTypeEnum ResourceTypeEnum { get; set; }
         [Index(1)] public virtual byte[] SerializedModel { get; set; }
     }
 
@@ -38,10 +38,12 @@ namespace NetworkLibrary.NetworkLibrary.Http
         [Index(4)] public virtual int? WarshipId { get; set; }
     }
 
-    public enum ResourceType
+    public enum ResourceTypeEnum
     {
         SoftCurrency,
         WarshipPowerPoints,
-        HardCurrency
+        HardCurrency,
+        LootboxPoints,
+        LootboxSet
     }
 }

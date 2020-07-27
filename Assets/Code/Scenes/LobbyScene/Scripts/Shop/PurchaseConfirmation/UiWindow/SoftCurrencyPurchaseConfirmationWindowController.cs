@@ -29,22 +29,24 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 
         private void FillData(GameObject softCurrencyContent, ProductModel productModel)
         {
+            SoftCurrencyProductModel softCurrencyProductModel = productModel;
+            string amountStr = softCurrencyProductModel.Amount.ToString();
             //установить картинку
             Image image = softCurrencyContent.transform.Find("Image_ItemPreviewBg/Image_ItemPreview")
                 .GetComponent<Image>();
-            image.sprite = Resources.Load<Sprite>(productModel.ImagePreviewPath);
+            image.sprite = Resources.Load<Sprite>(productModel.PreviewImagePath);
             
             //установить прибавляемое кол-во товара
             Text textLabel = softCurrencyContent.transform.Find("Image_ItemPreviewBg/Image_ItemPreview/Text_Label")
                 .GetComponent<Text>();
-            textLabel.text = productModel.Name;
+            textLabel.text = amountStr;
             
             //установить описание
             Text description = softCurrencyContent.transform.Find("Text_Description").GetComponent<Text>();
-            description.text = $"Power points: {productModel.Name}. Collect power points to activate improvements for the spacecraft.";
+            description.text = $"Coins: {amountStr}. Use coins to improve warships.";
             //установить цену
             Text cost = softCurrencyContent.transform.Find("Button_Buy/Text_Cost").GetComponent<Text>();
-            cost.text = productModel.CostString;
+            cost.text = amountStr;
             //TODO сделать установку типа валюты
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NetworkLibrary.NetworkLibrary.Http;
+using ZeroFormatter;
 
 namespace Code.Scenes.LobbyScene.Scripts.Shop
 {
@@ -15,14 +16,13 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             return productModels;
         }
         
-        public static List<ForeignServiceProduct> GetRealCurrencyProducts(this ShopModel shopModel)
+        public static List<RealCurrencyCostModel> GetRealCurrencyProducts(this ShopModel shopModel)
         {
-            
-            List<ForeignServiceProduct> realCurrencyProducts =  shopModel.UiSections
+            List<RealCurrencyCostModel> realCurrencyProducts =  shopModel.UiSections
                 .SelectMany(container => container.UiItems)
                 .SelectMany(test1=>test1)
-                .Where(productModel => productModel.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
-                .Select(productModel => productModel.ForeignServiceProduct)
+                .Where(productModel => productModel.CostModel.CostTypeEnum == CostTypeEnum.RealCurrency)
+                .Select(productModel => ZeroFormatterSerializer.Deserialize<RealCurrencyCostModel>(productModel.CostModel.SerializedCostModel))
                 .ToList();
             return realCurrencyProducts;
         }

@@ -27,7 +27,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
                 return;
             }
             
-            resourcesAccrualSceneManager.ShowWithLootboxScene();
+            resourcesAccrualSceneManager.ShowLootboxScene();
         }
     }
 }

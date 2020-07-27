@@ -65,9 +65,9 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             ShowPrizeComponent prize = currentPrize.showPrize;
             Transform parent = uiStorage.resourcesRoot.transform;
             
-            switch (prize.resourceModel.ResourceType)
+            switch (prize.resourceModel.ResourceTypeEnum)
             {
-                case ResourceType.SoftCurrency:
+                case ResourceTypeEnum.SoftCurrency:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.softCurrencyPrefab, parent);
                     var script = go.GetComponent<SoftCurrencyAccrual>();
@@ -78,7 +78,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                     particlesColorUpdater.SetStartColor(Color.blue);
                     break;
                 }
-                case ResourceType.HardCurrency:
+                case ResourceTypeEnum.HardCurrency:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.hardCurrencyPrefab, parent);
                     var script = go.GetComponent<HardCurrencyAccrual>();
@@ -91,7 +91,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                     particlesColorUpdater.SetStartColor(purple);
                     break;
                 }
-                case ResourceType.WarshipPowerPoints:
+                case ResourceTypeEnum.WarshipPowerPoints:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.warshipPowerPointsPrefab, parent);
                     var script = go.GetComponent<WarshipPowerPointsAccrual>();
@@ -99,12 +99,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                         ZeroFormatterSerializer.Deserialize<WarshipPowerPointsResourceModel>(prize.resourceModel
                             .SerializedModel);
                     
-                    // log.Debug(lootboxWarshipPowerPointsModel.StartValue);
-                    // log.Debug(lootboxWarshipPowerPointsModel.FinishValue);
-                    // log.Debug(lootboxWarshipPowerPointsModel.WarshipId);
-                    // log.Debug(lootboxWarshipPowerPointsModel.WarshipSkinName);
-                    // log.Debug(lootboxWarshipPowerPointsModel.MaxValueForLevel);
-                    
+                   
                     script.SetData(lootboxWarshipPowerPointsModel);
                     Color red = new Color(209, 0, 0);
                     particlesColorUpdater.SetStartColor(red);
