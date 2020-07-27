@@ -18,6 +18,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         {
             var spawn = entity.delayedSpawn;
             var obj = ViewObjectsBase.Instance.GetViewObject(spawn.typeId);
+            if(obj.HasSpawnSound && entity.hasSpawnSound) entity.RemoveSpawnSound();
             obj.FillEntity(gameContext, entity);
             entity.ReplacePosition(new Vector3(spawn.positionX, spawn.positionY, -0.00001f * entity.id.value));
             entity.ReplaceDirection(spawn.direction);

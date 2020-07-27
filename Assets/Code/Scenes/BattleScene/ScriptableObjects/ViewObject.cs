@@ -18,6 +18,22 @@ namespace Code.Scenes.BattleScene.ScriptableObjects
             if (deathSound != null) entity.AddDeathSound(deathSound);
         }
 
+        public bool HasSpawnSound => spawnSound != null;
+
+        public virtual bool TryGetDeathDelay(out float delay)
+        {
+            if (deathSound == null)
+            {
+                delay = 0f;
+                return false;
+            }
+            else
+            {
+                delay = deathSound.length;
+                return true;
+            }
+        }
+
         public void RefillEntity(GameContext context, GameEntity entity, Vector3 position, float direction)
         {
             var id = entity.id.value;

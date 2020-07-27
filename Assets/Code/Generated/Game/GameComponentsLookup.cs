@@ -20,22 +20,25 @@ public static class GameComponentsLookup {
     public const int Player = 9;
     public const int Speed = 10;
     public const int DelayedDestroy = 11;
-    public const int DelayedSpawn = 12;
-    public const int DestroyTimer = 13;
-    public const int Transform = 14;
-    public const int AnimatorController = 15;
-    public const int Circle = 16;
-    public const int CircleLine = 17;
-    public const int Rectangle = 18;
-    public const int Sprite = 19;
-    public const int StraightLine = 20;
-    public const int TextMeshPro = 21;
-    public const int View = 22;
-    public const int ZoneInfo = 23;
-    public const int Id = 24;
-    public const int Position = 25;
+    public const int DelayedRecreation = 12;
+    public const int DelayedSpawn = 13;
+    public const int DestroyTimer = 14;
+    public const int ManyDelayedRecreations = 15;
+    public const int Transform = 16;
+    public const int AnimatorController = 17;
+    public const int Circle = 18;
+    public const int CircleLine = 19;
+    public const int Rectangle = 20;
+    public const int Sprite = 21;
+    public const int StraightLine = 22;
+    public const int TextMeshPro = 23;
+    public const int View = 24;
+    public const int ViewType = 25;
+    public const int ZoneInfo = 26;
+    public const int Id = 27;
+    public const int Position = 28;
 
-    public const int TotalComponents = 26;
+    public const int TotalComponents = 29;
 
     public static readonly string[] componentNames = {
         "DeathSound",
@@ -50,8 +53,10 @@ public static class GameComponentsLookup {
         "Player",
         "Speed",
         "DelayedDestroy",
+        "DelayedRecreation",
         "DelayedSpawn",
         "DestroyTimer",
+        "ManyDelayedRecreations",
         "Transform",
         "AnimatorController",
         "Circle",
@@ -61,6 +66,7 @@ public static class GameComponentsLookup {
         "StraightLine",
         "TextMeshPro",
         "View",
+        "ViewType",
         "ZoneInfo",
         "Id",
         "Position"
@@ -79,8 +85,10 @@ public static class GameComponentsLookup {
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.PlayerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DelayedDestroyComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DelayedRecreationComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DelayedSpawnComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DestroyTimerComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.ManyDelayedRecreationsComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TransformComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent),
@@ -90,6 +98,7 @@ public static class GameComponentsLookup {
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.StraightLineComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.TextMeshProComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.ViewTypeComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ZoneInfoComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.IdComponent),
         typeof(Code.Scenes.LobbyScene.ECS.PositionComponent)

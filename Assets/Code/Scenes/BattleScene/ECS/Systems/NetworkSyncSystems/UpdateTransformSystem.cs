@@ -4,6 +4,7 @@ using Entitas;
 using NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages;
 using System.Collections.Generic;
 using System.Linq;
+using Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents;
 using Code.Scenes.BattleScene.Experimental;
 using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
 using UnityEngine;
@@ -113,6 +114,7 @@ namespace Code.BattleScene.ECS.Systems
         {
             var newObject = gameContext.CreateEntity();
             newObject.AddId(id);
+            newObject.AddViewType(newTransform.typeId);
             newObject.AddDelayedSpawn(newTransform.typeId, newTransform.X, newTransform.Y, newTransform.Angle, TimeDelay);
             newObject.AddPosition(new Vector3(newTransform.X, newTransform.Y, -0.00001f * id));
             newObject.AddDirection(newTransform.Angle);
@@ -123,6 +125,42 @@ namespace Code.BattleScene.ECS.Systems
             entity.isHidden = false;
             entity.ReplacePosition(new Vector3(newTransform.X, newTransform.Y, entity.position.value.z));
             entity.ReplaceDirection(newTransform.Angle);
+            var oldViewType = entity.viewType.id;
+            if (oldViewType != newTransform.typeId)
+            {
+                var timeDelay = TimeDelay;
+                if (ViewObjectsBase.Instance.GetViewObject(oldViewType).TryGetDeathDelay(out var deathDelay))
+                {
+                    timeDelay -= deathDelay;
+                }
+                entity.ReplaceViewType(newTransform.typeId);
+                if (entity.hasDelayedRecreation)
+                {
+                    var component = new DelayedRecreationComponent
+                    {
+                        typeId = newTransform.typeId,
+                        positionX = newTransform.X,
+                        positionY = newTransform.Y,
+                        direction = newTransform.Angle,
+                        time = timeDelay
+                    };
+                    if (entity.hasManyDelayedRecreations)
+                    {
+                        entity.manyDelayedRecreations.components.Enqueue(component);
+                    }
+                    else
+                    {
+                        var queue = new Queue<DelayedRecreationComponent>();
+                        queue.Enqueue(component);
+
+                        entity.AddManyDelayedRecreations(queue);
+                    }
+                }
+                else
+                {
+                    entity.AddDelayedRecreation(newTransform.typeId, newTransform.X, newTransform.Y, newTransform.Angle, timeDelay);
+                }
+            }
         }
     }
 }

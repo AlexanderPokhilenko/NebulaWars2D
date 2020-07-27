@@ -23,7 +23,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.AudioSystems
 
         protected override bool Filter(GameEntity entity)
         {
-            return entity.hasView && entity.hasDeathSound && entity.isDestroyed && entity.hasTransform && !entity.isHidden;
+            return entity.hasView && entity.hasDeathSound && entity.isDestroyed && entity.hasTransform && !entity.isHidden && !entity.hasDelayedSpawn;
         }
 
         protected override void Execute(List<GameEntity> entities)

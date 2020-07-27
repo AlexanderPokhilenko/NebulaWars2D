@@ -78,6 +78,8 @@ namespace Code.Scenes.BattleScene.Scripts
 
                     .Add(new UpdateTransformSystem(contexts))
                     .Add(new DelayedSpawnSystem(contexts))
+                    .Add(new ManyDelayedRecreationsSystem(contexts))
+                    .Add(new DelayedRecreationSystem(contexts))
                     .Add(new UpdateRadiusSystem(contexts, new FloatLinearInterpolator(prevFrameTime)))
                     .Add(new UpdateParentsSystem(contexts))
                     .Add(new DetachParentsSystem(contexts))
