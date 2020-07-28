@@ -16,6 +16,11 @@ namespace Code.Scenes.BattleScene.ECS.Systems
 
         protected override void OnTimeExpired(GameEntity entity)
         {
+            if (entity.hasView)
+            {
+                Debug.LogWarning($"Сущность с id {entity.id.value} имела view, пересоздание отложено на один кадр.");
+                return;
+            }
             var spawn = entity.delayedSpawn;
             var obj = ViewObjectsBase.Instance.GetViewObject(spawn.typeId);
             if(obj.HasSpawnSound && entity.hasSpawnSound) entity.RemoveSpawnSound();

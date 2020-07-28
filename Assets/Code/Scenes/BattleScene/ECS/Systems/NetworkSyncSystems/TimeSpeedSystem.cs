@@ -64,8 +64,7 @@ namespace Code.BattleScene.ECS.Systems
             {
                 if (WasChanged)
                 {
-                    log.Debug("Server FPS: " + 1f / _serverDeltaTime);
-
+                    //log.Debug("Server FPS: " + 1f / _serverDeltaTime);
                     approximator.Set(new Dictionary<ushort, float>(1) { { 0, _serverDeltaTime } }, Time.time);
                     WasChanged = false;
                 }
