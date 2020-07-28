@@ -13,6 +13,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
     /// </summary>
     public class ProductClickHandlerScript : MonoBehaviour
     {
+        private ShopTextHint shopTextHint;
         private PurchasingService purchasingService;
         private LobbyEcsController lobbyEcsController;
         private readonly ILog log = LogManager.CreateLogger(typeof(ProductClickHandlerScript));
@@ -23,6 +24,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
                                 ?? throw new NullReferenceException(nameof(PurchasingService));
             lobbyEcsController = FindObjectOfType<LobbyEcsController>()
                                  ?? throw new NullReferenceException(nameof(lobbyEcsController));
+            shopTextHint = FindObjectOfType<ShopTextHint>()
+                           ?? throw new NullReferenceException(nameof(ShopTextHint));
         }
 
         public void Product_OnClick([NotNull] PurchaseModel purchaseModel)
@@ -30,6 +33,14 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             UiSoundsManager.Instance().PlayClick();
             log.Info($"{nameof(Product_OnClick)} {nameof(purchaseModel.productModel.Id)} {purchaseModel.productModel.Id}");
             log.Info("Тип валюты "+purchaseModel.productModel.CostModel.CostTypeEnum);
+
+            if (purchaseModel.productModel.IsDisabled)
+            {
+                shopTextHint.Enable("This product has already been purchased.");
+                log.Info("Попытка купить недоступный товар.");
+                return;
+            }
+            
             //Если покупка за реальную валюту, то вызвать api платёжной системы
             if (purchaseModel.productModel.CostModel.CostTypeEnum == CostTypeEnum.RealCurrency)
             {
