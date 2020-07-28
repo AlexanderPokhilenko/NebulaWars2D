@@ -65,7 +65,7 @@ namespace Code.Common
         public void PlayStop() => PlaySoundReversed(start);
         public void PlayWarshipChangingLeft() => PlaySound(warshipChanging);
         public void PlayWarshipChangingRight() => PlaySoundReversed(warshipChanging);
-        public void PlayWarshipPowerPointsAccrual() => soundManager.PlayParallel(mainAudioSource, wpp03);
-        public void PlayLobbyAmbience() => soundManager.PlayParallel(mainAudioSource, lobbyAmbience);
+        public void PlayWarshipPowerPointsAccrual() => soundManager.PlaySameUiSound(mainAudioSource, wpp03);
+        public void PlayLobbyAmbience() => soundManager.PlaySameUiSound(mainAudioSource, lobbyAmbience);
     }
 }

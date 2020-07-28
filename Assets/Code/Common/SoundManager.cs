@@ -32,7 +32,9 @@ namespace Code.Common
 
         public void PlayGameSound(AudioSource audioSource, AudioClip clip)
         {
+            if (audioSource.isPlaying) audioSource.Stop();
             audioSource.clip = clip;
+            audioSource.volume = SoundsVolume;
             audioSource.spatialBlend = 0.95f;
             audioSource.rolloffMode = AudioRolloffMode.Linear;
             audioSource.minDistance = cameraDistance;
@@ -41,23 +43,12 @@ namespace Code.Common
 #if AddRandomSounding
             audioSource.pitch = 1f + ((float)random.NextDouble() - 0.5f) * PitchDelta;
 #endif
-            audioSource.PlayOneShot(clip, SoundsVolume);
+            audioSource.Play();
         }
 
-        public void PlaySameUiSound(AudioSource audioSource, AudioClip clip)
+        public void PlaySameUiSound(AudioSource audioSource, AudioClip clip, bool stopCurrent = false)
         {
-            if (audioSource.isPlaying)
-            {
-                audioSource.Stop();
-            }
-            audioSource.pitch = 1f;
-            audioSource.volume = InterfaceVolume;
-            audioSource.PlayOneShot(clip);
-        }
-
-        
-        public void PlayParallel(AudioSource audioSource, AudioClip clip)
-        {
+            if (stopCurrent && audioSource.isPlaying) audioSource.Stop();
             audioSource.pitch = 1f;
             audioSource.volume = InterfaceVolume;
             audioSource.PlayOneShot(clip);
