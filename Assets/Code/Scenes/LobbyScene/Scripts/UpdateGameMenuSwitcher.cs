@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace Code.Scenes.LobbyScene.Scripts.AccountModel
 {
+    /// <summary>
+    /// Если версия сборки не последняя, то перенаправит в PlayMarket для обновления
+    /// </summary>
     public class UpdateGameMenuSwitcher:MonoBehaviour
     {
         [SerializeField] public Button updateGame;

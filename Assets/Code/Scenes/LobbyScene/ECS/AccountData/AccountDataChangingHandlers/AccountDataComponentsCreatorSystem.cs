@@ -72,6 +72,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
                 LobbyUiEntity entity = lobbyUiContextArg.CreateEntity();
                 
                 entity.AddWarship((ushort) i, warshipDto);
+                WarshipsStorage.Instance.AddOrUpdate(warshipDto.WarshipTypeEnum, warshipDto);
             }
 
             log.Info("Создание сущностей для кораблей окончено");

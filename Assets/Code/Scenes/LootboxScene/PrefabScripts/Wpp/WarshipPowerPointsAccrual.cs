@@ -103,11 +103,14 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             int maxValue = resourceModel.MaxValueForLevel;
             wppContext.ReplaceWarshipPowerPoints(startValue,maxValue);
             int amount = resourceModel.FinishValue - resourceModel.StartValue;
-            StartCoroutine(WarshipAnimation(resourceModel.WarshipSkinName, amount));
+           
+            string skinName = resourceModel.WarshipTypeEnum.ToString();
+            StartCoroutine(WarshipAnimation(skinName, amount));
         }
         
         private IEnumerator WarshipAnimation(string warshipPrefabNameArg, int amount)
         {
+            log.Debug($"{nameof(warshipPrefabNameArg)} {warshipPrefabNameArg}");
             //создать кораблик слева за сценой
             GameObject warshipPrefab = Resources.Load<GameObject>($"Prefabs/{warshipPrefabNameArg}");
             Vector3 position = new Vector3(-4,0);

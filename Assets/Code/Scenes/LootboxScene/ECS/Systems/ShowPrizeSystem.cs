@@ -95,12 +95,17 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.warshipPowerPointsPrefab, parent);
                     var script = go.GetComponent<WarshipPowerPointsAccrual>();
-                    var lootboxWarshipPowerPointsModel =
+                    var wppModel =
                         ZeroFormatterSerializer.Deserialize<WarshipPowerPointsResourceModel>(prize.resourceModel
                             .SerializedModel);
                     
                    
-                    script.SetData(lootboxWarshipPowerPointsModel);
+                    if (wppModel.WarshipTypeEnum == 0)
+                    {
+                        throw new Exception("Не указан тип корабля");
+                    }
+                    
+                    script.SetData(wppModel);
                     Color red = new Color(209, 0, 0);
                     particlesColorUpdater.SetStartColor(red);
                     break;

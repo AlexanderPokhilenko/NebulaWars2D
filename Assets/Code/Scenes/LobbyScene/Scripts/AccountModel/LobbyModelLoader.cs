@@ -9,9 +9,9 @@ using ZeroFormatter;
 
 namespace Code.Scenes.LobbyScene.Scripts.AccountModel
 {
-    public class AccountModelLoader
+    public class LobbyModelLoader
     {
-        private readonly ILog log = LogManager.CreateLogger(typeof(AccountModelLoader));
+        private readonly ILog log = LogManager.CreateLogger(typeof(LobbyModelLoader));
         
         public async Task<LobbyModel> Load(CancellationToken cts)
         {

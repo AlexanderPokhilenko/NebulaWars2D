@@ -19,14 +19,19 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
                 case ResourceTypeEnum.WarshipPowerPoints:
                     WarshipPowerPointsProductModel wppModel = purchaseModel.productModel;
                     resourceModel.ResourceTypeEnum = ResourceTypeEnum.WarshipPowerPoints;
+                    if (wppModel.WarshipTypeEnum == 0)
+                    {
+                        throw new Exception("В модели продукта не указан тип корабля");
+                    }
                     resourceModel.SerializedModel = ZeroFormatterSerializer.Serialize(
                         new WarshipPowerPointsResourceModel()
                         {
                             WarshipId = wppModel.WarshipId,
-                            WarshipSkinName = "hare",
+                            WarshipSkinName = null,
                             StartValue = wppModel.StartValue,
                             FinishValue = wppModel.FinishValue,
-                            MaxValueForLevel = wppModel.MaxValueForLevel 
+                            MaxValueForLevel = wppModel.MaxValueForLevel,
+                            WarshipTypeEnum = wppModel.WarshipTypeEnum
                         }); 
                     break;
                 case ResourceTypeEnum.SoftCurrency:
