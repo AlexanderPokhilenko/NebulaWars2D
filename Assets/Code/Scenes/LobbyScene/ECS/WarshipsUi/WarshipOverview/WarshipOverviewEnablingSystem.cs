@@ -7,6 +7,7 @@ using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
 using Code.Scenes.LobbyScene.ECS.Warships.Utils;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins;
+using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins.Utils;
 using Code.Scenes.LobbyScene.Scripts;
 using Code.Scenes.LobbyScene.Scripts.Shop;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
@@ -142,7 +143,8 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                     lobbyEcsController.ShowWarshipImprovementModalWindow(warshipDto);
                 }
             });
-            
+
+            string oldSkinName = warshipDto.GetCurrentSkinName();
             //Установить слушатель для кнопки выбора корабля   
             warshipsUiStorage.chooseButton.onClick.RemoveAllListeners();
             warshipsUiStorage.chooseButton.onClick.AddListener(() =>
@@ -152,16 +154,16 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                 UiSoundsManager.Instance().PlayClick();
                 //заменить скин если нужно
                 int actualSkinIndex = lobbyUiContext.warshipOverviewCurrentSkinModel.skinIndex;
-                if (actualSkinIndex != warshipDto.CurrentSkinIndex)
+                string newSkinName = warshipDto.GetCurrentSkinName();
+                if (oldSkinName != newSkinName)
                 {
                     warshipDto.CurrentSkinIndex = actualSkinIndex;
                     int warshipId = warshipDto.Id;
-                    string skinName = warshipDto.GetCurrentSkinName();
-                    var task = new SkinChangingNotifier().ChangeSkinOnServerAsync(warshipId, skinName);
+                    var task = new SkinChangingNotifier().ChangeSkinOnServerAsync(warshipId, newSkinName);
                 }
                 else
                 {
-                    log.Info("Скин не был изменён");
+                    log.Debug("Скин не был изменён");
                 }
                 //изменить тип текущего корабля
                 

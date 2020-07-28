@@ -58,7 +58,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
                 lobbyUiContext.ReplaceAccountRating(accountData.AccountRating);
                 lobbyUiContext.ReplaceHardCurrency(accountData.HardCurrency);
                 lobbyUiContext.ReplaceSoftCurrency( accountData.SoftCurrency);
-                WarshipTypeEnum warshipTypeEnum = CurrentWarshipTypeStorage.ReadWarshipIndex();
+                WarshipTypeEnum warshipTypeEnum = CurrentWarshipTypeStorage.ReadWarshipType();
                 lobbyUiContext.ReplaceCurrentWarshipTypeEnum(warshipTypeEnum);
                 lobbyUiContext.ReplacePointsForSmallLootbox(accountData.SmallLootboxPoints);
                 CreateWarshipComponents(accountData.Warships, lobbyUiContext);

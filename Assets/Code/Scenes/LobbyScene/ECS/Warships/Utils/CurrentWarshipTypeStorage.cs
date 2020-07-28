@@ -16,7 +16,7 @@ namespace Code.Scenes.LobbyScene.ECS.Warships.Utils
             PlayerPrefs.Save();
         }
 
-        public static WarshipTypeEnum ReadWarshipIndex()
+        public static WarshipTypeEnum ReadWarshipType()
         {
             var result = (WarshipTypeEnum) PlayerPrefs.GetInt(Key, (int) WarshipTypeEnum.Hare);
             // Log.Debug($"Чтение типа корабля  {result.ToString()}");
