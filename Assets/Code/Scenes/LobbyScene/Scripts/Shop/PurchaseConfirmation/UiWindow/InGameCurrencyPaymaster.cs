@@ -101,27 +101,24 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                         sectionTypeEnum = SectionTypeEnum.SoftCurrency;
                         return true;
                     }
-                    else
-                    {
-                        sectionTypeEnum = null;
-                        return false;
-                    }
+
+                    sectionTypeEnum = null;
+                    return false;
                 }
                 case CostTypeEnum.HardCurrency:
                 {
                     var costModel = ZeroFormatterSerializer
                         .Deserialize<InGameCurrencyCostModel>(productModel.CostModel.SerializedCostModel);
+                    log.Debug($"текущее кол-во хард валюты {lobbyEcsController.GetHardCurrency()} а нужно {costModel.Cost}");
                     if (lobbyEcsController.GetHardCurrency() < costModel.Cost)
                     {
                         log.Error("Не хватает премиум валюты");
                         sectionTypeEnum = SectionTypeEnum.HardCurrency;
                         return true;
                     }
-                    else
-                    {
-                        sectionTypeEnum = null;
-                        return false;
-                    }
+
+                    sectionTypeEnum = null;
+                    return false;
                 }
                 case CostTypeEnum.RealCurrency:
                     log.Fatal("Покупка за реальную валюту не должна тут обрабатываться");

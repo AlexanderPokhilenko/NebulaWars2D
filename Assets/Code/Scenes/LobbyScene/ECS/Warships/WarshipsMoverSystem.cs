@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
@@ -16,23 +17,23 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
         public WarshipsMoverSystem(Contexts contexts) 
             : base(contexts.lobbyUi)
         {
-            withTransformGroup = contexts.game.GetGroup(GameMatcher.Transform);
+            var test = GameMatcher.Transform;
+            withTransformGroup = contexts.lobbyUi.GetGroup();
         }
 
         protected override ICollector<LobbyUiEntity> GetTrigger(IContext<LobbyUiEntity> context)
         {
-            return context.CreateCollector(LobbyUiMatcher.CurrentWarshipIndex);
+            return context.CreateCollector(LobbyUiMatcher.CurrentWarshipTypeEnum);
         }
 
         protected override bool Filter(LobbyUiEntity entity)
         {
-            return entity.hasCurrentWarshipIndex;
+            return entity.hasCurrentWarshipTypeEnum;
         }
 
         protected override void Execute(List<LobbyUiEntity> entities)
-        {
-            int newWarshipIndex = entities.Last().currentWarshipIndex.value;
-            // log .Debug($"{nameof(newWarshipIndex)} {newWarshipIndex}");
+        {;
+            var warshipTypeEnum = entities.Last().currentWarshipTypeEnum.value;
             int currentWarshipIndex = 0;
             foreach (var entity in withTransformGroup)
             {
@@ -42,6 +43,6 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                 entity.ReplaceTransform(newPosition, oldTransform.angle);
                 currentWarshipIndex++;
             }
-        }
+        } 
     }
 }

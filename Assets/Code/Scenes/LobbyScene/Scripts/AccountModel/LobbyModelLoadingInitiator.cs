@@ -29,6 +29,11 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
         private void Start()
         {
             NetworkStatisticsStorage.Instance.PrintSavedMatches();
+            UpdateAccountModel();
+        }
+
+        public void UpdateAccountModel()
+        {
             StartCoroutine(UpdateAccountData());
         }
 

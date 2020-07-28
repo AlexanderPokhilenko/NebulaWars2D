@@ -22,7 +22,7 @@ namespace NetworkLibrary.NetworkLibrary.Http
     [ZeroFormattable]
     public class WarshipDto
     {
-        [Index(0)] public virtual int Id { get; set; }
+        [Index(0)] public virtual ushort Id { get; set; }
         [Index(1)] public virtual int Rating { get; set; }
         [Index(2)] public virtual int PowerLevel { get; set; }
         [Index(3)] public virtual int PowerPoints { get; set; }

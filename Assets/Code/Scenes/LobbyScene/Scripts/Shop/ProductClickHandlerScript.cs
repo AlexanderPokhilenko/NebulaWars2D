@@ -13,7 +13,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
     /// </summary>
     public class ProductClickHandlerScript : MonoBehaviour
     {
-        private ShopTextHint shopTextHint;
+        private TextTooltip textTooltip;
         private PurchasingService purchasingService;
         private LobbyEcsController lobbyEcsController;
         private readonly ILog log = LogManager.CreateLogger(typeof(ProductClickHandlerScript));
@@ -24,8 +24,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
                                 ?? throw new NullReferenceException(nameof(PurchasingService));
             lobbyEcsController = FindObjectOfType<LobbyEcsController>()
                                  ?? throw new NullReferenceException(nameof(lobbyEcsController));
-            shopTextHint = FindObjectOfType<ShopTextHint>()
-                           ?? throw new NullReferenceException(nameof(ShopTextHint));
+            textTooltip = FindObjectOfType<TextTooltip>()
+                           ?? throw new NullReferenceException(nameof(TextTooltip));
         }
 
         public void Product_OnClick([NotNull] PurchaseModel purchaseModel)
@@ -36,7 +36,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
 
             if (purchaseModel.productModel.IsDisabled)
             {
-                shopTextHint.Enable("This product has already been purchased.");
+                textTooltip.Show("This product has already been purchased.");
                 log.Info("Попытка купить недоступный товар.");
                 return;
             }

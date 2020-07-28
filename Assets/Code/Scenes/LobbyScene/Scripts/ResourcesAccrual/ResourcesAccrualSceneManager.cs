@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.AccountModel;
 using Code.Scenes.LobbyScene.Scripts.Listeners;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Code.Scenes.LootboxScene.Scripts;
@@ -17,11 +18,13 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
     {
         private LootboxModel lastLootboxPrizesModel;
         private LobbyEcsController lobbyEcsController;
+        private LobbyModelLoadingInitiator loadingInitiator;
         private readonly ILog log = LogManager.CreateLogger(typeof(ResourcesAccrualSceneManager));
 
         private void Awake()
         {
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
+            loadingInitiator = FindObjectOfType<LobbyModelLoadingInitiator>();
         }
 
         public void ShowLootboxScene()
@@ -33,6 +36,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             ResourcesAccrualStorage.Instance.Clear();
             StartCoroutine(SetLootboxResources());
             //todo отнять лутбокс
+            loadingInitiator.UpdateAccountModel();
         }
 
         public void ShowOneResource(PurchaseModel purchaseModel)
@@ -50,6 +54,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             lobbyEcsController.ClosePurchaseConfirmationWindow();
             lobbyEcsController.CloseShopLayer();
             //todo запустить обновление ресурсов
+            loadingInitiator.UpdateAccountModel();
         }
 
         private void OneResourceSceneClosed(Scene arg0)
@@ -62,17 +67,17 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
         {
             SceneManager.sceneUnloaded -= LootboxSceneClosed;
             EnableLobbyUi();
-            if (lastLootboxPrizesModel != null)
-            {
-                var rewardsThatHaveNotBeenShown = new RewardsThatHaveNotBeenShownFactory().Create(lastLootboxPrizesModel);
-                lobbyEcsController.CreateUnshownRewardsComponent(rewardsThatHaveNotBeenShown);
-                lastLootboxPrizesModel = null;
-            }
-            else
-            {
-                log.Error("Не удаётся показать движущиеся награды после открытия лутбокса." +
-                          " lastLootboxPrizesModel не установлена.");
-            }
+            // if (lastLootboxPrizesModel != null)
+            // {
+            //     var rewardsThatHaveNotBeenShown = new RewardsThatHaveNotBeenShownFactory().Create(lastLootboxPrizesModel);
+            //     lobbyEcsController.CreateUnshownRewardsComponent(rewardsThatHaveNotBeenShown);
+            //     lastLootboxPrizesModel = null;
+            // }
+            // else
+            // {
+            //     log.Error("Не удаётся показать движущиеся награды после открытия лутбокса." +
+            //               " lastLootboxPrizesModel не установлена.");
+            // }
         }
         
         private IEnumerator SetLootboxResources()

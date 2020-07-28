@@ -47,6 +47,7 @@ namespace Code.Scenes.LobbyScene.Scripts
     {
         private Systems systems;
         private Contexts contexts;
+        private TextTooltip textTooltip;
         private ShopUiSpawner shopUiSpawner;
         private ShopUiStorage shopUiStorage;
         private LobbyUiStorage lobbyUiStorage;
@@ -82,6 +83,8 @@ namespace Code.Scenes.LobbyScene.Scripts
                             ?? throw new NullReferenceException(nameof(lobbySceneSwitcher));
             inGameCurrencyPaymaster = FindObjectOfType<InGameCurrencyPaymaster>()
                             ?? throw new NullReferenceException(nameof(inGameCurrencyPaymaster));
+            textTooltip = FindObjectOfType<TextTooltip>()
+                          ?? throw new NullReferenceException(nameof(TextTooltip));
         }
 
         private void Start()
@@ -183,7 +186,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new WarshipListDisablingSystem(contexts.lobbyUi, lobbyLayoutSwitcher,  uiLayersStorage))
                     
                     //Обзор корабля
-                    .Add(new WarshipOverviewEnablingSystem(contexts, warshipsUiStorage, lobbyLayoutSwitcher, this))
+                    .Add(new WarshipOverviewEnablingSystem(contexts, warshipsUiStorage, lobbyLayoutSwitcher, this, textTooltip))
                     .Add(new WarshipOverviewDisablingSystem(contexts.lobbyUi, warshipsUiStorage, lobbyLayoutSwitcher))
                     
                     //Переключение скинов корабля

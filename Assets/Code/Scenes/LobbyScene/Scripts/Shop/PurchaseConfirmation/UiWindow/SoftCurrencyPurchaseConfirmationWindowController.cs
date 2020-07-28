@@ -1,7 +1,11 @@
+using System;
+using System.Globalization;
 using Code.Common.Logger;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
+using ZeroFormatter;
+using Object = UnityEngine.Object;
 
 namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 {
@@ -29,8 +33,15 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 
         private void FillData(GameObject softCurrencyContent, ProductModel productModel)
         {
+            if (productModel.IsDisabled)
+            {
+                throw new Exception("Обычную валюту нельзя выключать.");
+            }
+            
             SoftCurrencyProductModel softCurrencyProductModel = productModel;
-            string amountStr = softCurrencyProductModel.Amount.ToString();
+            var costModel = ZeroFormatterSerializer.Deserialize<InGameCurrencyCostModel>(productModel.CostModel
+                .SerializedCostModel);
+            
             //установить картинку
             Image image = softCurrencyContent.transform.Find("Image_ItemPreviewBg/Image_ItemPreview")
                 .GetComponent<Image>();
@@ -39,14 +50,14 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             //установить прибавляемое кол-во товара
             Text textLabel = softCurrencyContent.transform.Find("Image_ItemPreviewBg/Image_ItemPreview/Text_Label")
                 .GetComponent<Text>();
-            textLabel.text = amountStr;
+            textLabel.text =  softCurrencyProductModel.Amount.ToString();
             
             //установить описание
             Text description = softCurrencyContent.transform.Find("Text_Description").GetComponent<Text>();
-            description.text = $"Coins: {amountStr}. Use coins to improve warships.";
+            description.text = $"Coins: { softCurrencyProductModel.Amount}. Use coins to improve warships.";
             //установить цену
             Text cost = softCurrencyContent.transform.Find("Button_Buy/Text_Cost").GetComponent<Text>();
-            cost.text = amountStr;
+            cost.text = costModel.Cost.ToString(CultureInfo.InvariantCulture);
             //TODO сделать установку типа валюты
         }
 

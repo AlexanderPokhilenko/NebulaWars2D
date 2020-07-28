@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins;
 using Code.Scenes.LobbyScene.Scripts;
+using Code.Scenes.LobbyScene.Scripts.Shop;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -16,6 +18,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
 {
     public class WarshipOverviewEnablingSystem : ReactiveSystem<LobbyUiEntity>
     {
+        private readonly TextTooltip textTooltip;
         private readonly LobbyUiContext lobbyUiContext;
         private readonly WarshipsUiStorage warshipsUiStorage;
         private readonly LobbyEcsController lobbyEcsController;
@@ -23,12 +26,13 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipOverviewEnablingSystem));
 
         public WarshipOverviewEnablingSystem(Contexts contexts, WarshipsUiStorage warshipsUiStorage,
-           LobbyLayoutSwitcher lobbyLayoutSwitcher, LobbyEcsController lobbyEcsController) 
+           LobbyLayoutSwitcher lobbyLayoutSwitcher, LobbyEcsController lobbyEcsController, TextTooltip textTooltip) 
             : base(contexts.lobbyUi)
         {
             lobbyUiContext = contexts.lobbyUi;
             this.warshipsUiStorage = warshipsUiStorage;
             this.lobbyEcsController = lobbyEcsController;
+            this.textTooltip = textTooltip;
             this.lobbyLayoutSwitcher = lobbyLayoutSwitcher;
         }
         
@@ -91,11 +95,11 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             int improvementCost = model.SoftCurrencyCost;
             int maxPowerPoints = model.PowerPointsCost;
                 
-            bool showImproveAnimation = softCurrency >= improvementCost && warshipDto.PowerPoints >= maxPowerPoints;
+            bool showGreenScale = softCurrency >= improvementCost && warshipDto.PowerPoints >= maxPowerPoints;
 
             Text powerPointsValueText;
             //Показать нужную шкалу. (Красную или зелёную)
-            if (showImproveAnimation)
+            if (showGreenScale)
             {
                 powerPointsValueText = warshipsUiStorage.greenPowerPointsValueText;
                 warshipsUiStorage.redScale.SetActive(false);
@@ -121,27 +125,24 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             warshipsUiStorage.improveButton.onClick.RemoveAllListeners();
             warshipsUiStorage.improveButton.onClick.AddListener(() =>
             {
-                if (warshipDto.PowerPoints >= maxPowerPoints)
+                if (warshipDto.PowerPoints < maxPowerPoints)
+                {
+                    string message = "The warship doesn't have enough power points.";
+                    textTooltip.Show(message);
+                }
+                else if (softCurrency< improvementCost)
+                {
+                    string message = "There's not enough coins to improve the spaceship.";
+                    textTooltip.Show(message);
+                }
+                else
                 {
                     UiSoundsManager.Instance().PlayClick();
                     //показать окно покупки улучшения
                     lobbyEcsController.ShowWarshipImprovementModalWindow(warshipDto);
                 }
-                else
-                {
-                    UiSoundsManager.Instance().PlayError();
-                    //показать всплывающую подсказку о невозможности операции
-                    if (!warshipsUiStorage.hint.activeSelf)
-                    {
-                        warshipsUiStorage.hint.SetActive(true);
-                        Task.Run(async () =>
-                        {
-                            await Task.Delay(2000);
-                            UnityThread.Execute(() => { warshipsUiStorage.hint.SetActive(false); });
-                        });    
-                    }
-                }
             });
+            
             //Установить слушатель для кнопки выбора корабля   
             warshipsUiStorage.chooseButton.onClick.RemoveAllListeners();
             warshipsUiStorage.chooseButton.onClick.AddListener(() =>
@@ -163,7 +164,8 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                 }
                 //изменить индекс текущего корабля
                 ushort warshipIndex = lobbyEcsController.GetWarshipIndexById(warshipDto.Id);
-                lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
+                throw new NotImplementedException();
+                // lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
                 //заменть компонент корабля
                 var warshipEntity = lobbyUiContext.GetGroup(LobbyUiMatcher.Warship)
                     .AsEnumerable()

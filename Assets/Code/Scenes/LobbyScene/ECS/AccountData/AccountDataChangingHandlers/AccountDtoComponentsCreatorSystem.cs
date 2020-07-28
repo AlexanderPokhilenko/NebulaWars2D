@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
 using Code.Common.Storages;
@@ -17,11 +18,13 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
         private bool hasNewValue;
         private AccountDto accountData;
         private readonly LobbyUiContext lobbyUiContext;
+        private readonly IGroup<LobbyUiEntity> warshipGroup;
         private readonly ILog log = LogManager.CreateLogger(typeof(AccountDtoComponentsCreatorSystem));
-        
+
         public AccountDtoComponentsCreatorSystem(Contexts contexts)
         {
             lobbyUiContext = contexts.lobbyUi;
+            warshipGroup = contexts.lobbyUi.GetGroup(LobbyUiMatcher.Warship);
         }
         
         /// <summary>
@@ -38,11 +41,11 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
         
         public int GetCurrentWarshipId()
         {
-            int currentWarshipIndex = lobbyUiContext.currentWarshipIndex.value;
+            WarshipTypeEnum warshipTypeEnum = lobbyUiContext.currentWarshipTypeEnum.value;
             WarshipComponent currentWarshipComponent = lobbyUiContext
                 .GetGroup(LobbyUiMatcher.Warship)
                 .AsEnumerable()
-                .Single(entity => entity.warship.index == currentWarshipIndex).warship;
+                .Single(entity => entity.warship.warshipDto.WarshipTypeEnum == warshipTypeEnum).warship;
             int id = currentWarshipComponent.warshipDto.Id;
             return id;
         }
@@ -55,8 +58,8 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
                 lobbyUiContext.ReplaceAccountRating(accountData.AccountRating);
                 lobbyUiContext.ReplaceHardCurrency(accountData.HardCurrency);
                 lobbyUiContext.ReplaceSoftCurrency( accountData.SoftCurrency);
-                int warshipIndex = WarshipIndexStorage.ReadWarshipIndex();
-                lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
+                // WarshipTypeEnum warshipTypeEnum = CurrentWarshipTypeStorage.ReadWarshipIndex();
+                // lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
                 lobbyUiContext.ReplacePointsForSmallLootbox(accountData.SmallLootboxPoints);
                 CreateWarshipComponents(accountData.Warships, lobbyUiContext);
                 hasNewValue = false;
@@ -70,9 +73,18 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
             {
                 log.Info("Создание сущности для корабля " + i);
                 WarshipDto warshipDto = warships[i];
-                LobbyUiEntity entity = lobbyUiContextArg.CreateEntity();
-                
-                entity.AddWarship((ushort) i, warshipDto);
+                // LobbyUiEntity entity = lobbyUiContextArg.CreateEntity();
+                //todo сука блять
+
+                var warshipEntity = warshipGroup
+                    .AsEnumerable()
+                    .SingleOrDefault(entity => entity.warship.warshipDto.WarshipTypeEnum == warshipDto.WarshipTypeEnum);
+
+                if (warshipEntity == null)
+                {
+                    warshipEntity = lobbyUiContextArg.CreateEntity();
+                }
+                warshipEntity.ReplaceWarship((ushort) i, warshipDto);
                 WarshipsStorage.Instance.AddOrUpdate(warshipDto.WarshipTypeEnum, warshipDto);
             }
 

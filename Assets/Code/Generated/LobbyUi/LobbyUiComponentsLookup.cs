@@ -19,7 +19,7 @@ public static class LobbyUiComponentsLookup {
     public const int BlurValue = 8;
     public const int CancelButtonClicked = 9;
     public const int CommandToCreateAwardImages = 10;
-    public const int CurrentWarshipIndex = 11;
+    public const int CurrentWarshipTypeEnum = 11;
     public const int DisableLobbySceneUi = 12;
     public const int DisablePurchaseConfirmationWindow = 13;
     public const int DisableShopUiLayer = 14;
@@ -72,7 +72,7 @@ public static class LobbyUiComponentsLookup {
         "BlurValue",
         "CancelButtonClicked",
         "CommandToCreateAwardImages",
-        "CurrentWarshipIndex",
+        "CurrentWarshipTypeEnum",
         "DisableLobbySceneUi",
         "DisablePurchaseConfirmationWindow",
         "DisableShopUiLayer",
@@ -124,7 +124,7 @@ public static class LobbyUiComponentsLookup {
         typeof(Code.Scenes.LobbyScene.ECS.BlurValueComponent),
         typeof(Code.Scenes.LobbyScene.ECS.CancelButtonClickedComponent),
         typeof(Code.Scenes.LobbyScene.ECS.CommandToCreateAwardImagesComponent),
-        typeof(Code.Scenes.LobbyScene.ECS.CurrentWarshipIndexComponent),
+        typeof(Code.Scenes.LobbyScene.ECS.CurrentWarshipTypeEnumComponent),
         typeof(Code.Scenes.LobbyScene.ECS.DisableLobbySceneUi),
         typeof(Code.Scenes.LobbyScene.ECS.DisablePurchaseConfirmationWindow),
         typeof(Code.Scenes.LobbyScene.ECS.DisableShopUiLayerComponent),

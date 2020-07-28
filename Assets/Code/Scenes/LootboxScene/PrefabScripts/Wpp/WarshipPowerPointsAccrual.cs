@@ -110,7 +110,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
         
         private IEnumerator WarshipAnimation(string warshipPrefabNameArg, int amount)
         {
-            log.Debug($"{nameof(warshipPrefabNameArg)} {warshipPrefabNameArg}");
+            // log.Debug($"{nameof(warshipPrefabNameArg)} {warshipPrefabNameArg}");
             //создать кораблик слева за сценой
             GameObject warshipPrefab = Resources.Load<GameObject>($"Prefabs/{warshipPrefabNameArg}");
             Vector3 position = new Vector3(-4,0);

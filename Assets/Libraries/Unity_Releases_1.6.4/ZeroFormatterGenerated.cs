@@ -840,7 +840,7 @@ namespace ZeroFormatter.DynamicObjectSegments.NetworkLibrary.NetworkLibrary.Http
         CacheSegment<TTypeResolver, global::System.Collections.Generic.List<global::NetworkLibrary.NetworkLibrary.Http.SkinTypeDto>> _Skins;
 
         // 0
-        public override int Id
+        public override ushort Id
         {
             get
             {

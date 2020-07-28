@@ -59,13 +59,13 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                 GameObject warship = Object.Instantiate(prefab, gameViewsParent, false);
                 warship.transform.localScale = new Vector3(1.4f,1.4f,1.4f);
 
-                GameEntity gameEntity = gameContext.GetEntityWithId(warshipComponent.index);
+                GameEntity gameEntity = gameContext.GetEntityWithId(warshipComponent.warshipDto.Id);
                 if (gameEntity == null)
                 {
                     gameEntity = gameContext.CreateEntity();
                     warship.Link(gameEntity);
                     gameEntity.AddView(warship);
-                    gameEntity.AddId(warshipComponent.index);
+                    // gameEntity.AddId(warshipComponent.index);
                     gameEntity.AddTransform(new Vector2(horizontalPosition, 0), 0);    
                 }
                 else
@@ -74,7 +74,7 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
                     Object.Destroy(gameEntity.view.gameObject);
                     gameEntity.ReplaceView(warship);
                     warship.Link(gameEntity);
-                    WarshipIndexStorage.WriteWarshipIndex(warshipComponent.index);
+                    CurrentWarshipTypeStorage.WriteWarshipIndex(warshipComponent.warshipDto.WarshipTypeEnum);
                 }
                 
             }

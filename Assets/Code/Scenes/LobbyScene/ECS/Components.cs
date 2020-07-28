@@ -86,9 +86,9 @@ namespace Code.Scenes.LobbyScene.ECS
     }
     
     [LobbyUi] [Unique] 
-    public class CurrentWarshipIndexComponent: IComponent
+    public class CurrentWarshipTypeEnumComponent: IComponent
     {
-        public int value;
+        public WarshipTypeEnum value;
     }
     
     [LobbyUi] [Unique] 
@@ -97,6 +97,7 @@ namespace Code.Scenes.LobbyScene.ECS
     [LobbyUi] 
     public class WarshipComponent: IComponent
     {
+        //todo  убрать индекс
         public ushort index;
         public WarshipDto warshipDto;
     }
