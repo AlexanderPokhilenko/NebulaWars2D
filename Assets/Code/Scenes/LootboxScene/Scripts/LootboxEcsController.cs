@@ -4,11 +4,14 @@ using Code.Scenes.LootboxScene.ECS.Systems;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Code.Common.Experimental.SystemsOrderChecker;
 using UnityEngine;
 
 namespace Code.Scenes.LootboxScene.Scripts
 {
-    /// <summary>
+   /// <summary>
     /// Создаёт/вызывает системы.
     /// Пропускает через себя нажатия на экран.
     /// </summary>
@@ -17,10 +20,9 @@ namespace Code.Scenes.LootboxScene.Scripts
         private Systems systems;
         private Contexts contexts;
         private LootboxUiStorage lootboxUiStorage;
-        private ClickHandlerSystem clickHandlerSystem;
         private LootboxSceneSwitcher lobbyLoaderController;
-        private LootboxOpeningController lootboxOpenEffectController;
         private ParticlesColorUpdater particlesColorUpdater;
+        private CanvasClickHandlerSystem canvasClickHandlerSystem;
         private readonly ILog log = LogManager.CreateLogger(typeof(LootboxEcsController));
 
         private void Awake()
@@ -29,8 +31,6 @@ namespace Code.Scenes.LootboxScene.Scripts
                                 ?? throw new NullReferenceException(nameof(LootboxSceneSwitcher));
             lootboxUiStorage = FindObjectOfType<LootboxUiStorage>()
                                 ?? throw new NullReferenceException(nameof(LootboxUiStorage));
-            lootboxOpenEffectController = FindObjectOfType<LootboxOpeningController>()
-                                ?? throw new NullReferenceException(nameof(LootboxOpeningController));
             particlesColorUpdater = FindObjectOfType<ParticlesColorUpdater>()
                                 ?? throw new NullReferenceException(nameof(ParticlesColorUpdater));
         }
@@ -38,14 +38,21 @@ namespace Code.Scenes.LootboxScene.Scripts
         private void Start()
         {
             contexts = Contexts.sharedInstance;
-            clickHandlerSystem = new ClickHandlerSystem(contexts, lobbyLoaderController, lootboxOpenEffectController,
+            canvasClickHandlerSystem = new CanvasClickHandlerSystem(contexts, lobbyLoaderController, 
                 UiSoundsManager.Instance(), lootboxUiStorage);
-            systems = new Systems()
-                .Add(clickHandlerSystem)
-                .Add(new ShowPrizeSystem(contexts, lootboxUiStorage, particlesColorUpdater))
-                .Add(new ItemsLeftChangedSystem(contexts, lootboxUiStorage))
-                ;
             
+            SystemsContainer systemsContainer = new SystemsContainer()
+                .Add(new LootboxSpawnSystem(contexts.lootbox, lootboxUiStorage.lootboxPrefab,
+                    lootboxUiStorage.resourcesRoot.transform))
+                .Add(new LootboxOpeningSystem(contexts.lootbox, lootboxUiStorage.resourcesRoot.transform, this))
+                .Add(canvasClickHandlerSystem)
+                .Add(new ShowPrizeSystem(contexts, particlesColorUpdater, lootboxUiStorage))
+                .Add(new ItemsLeftChangedSystem(contexts, lootboxUiStorage))
+                .Add(new ItemsLeftDisablingSystem(contexts, lootboxUiStorage))
+                .Add(new ResourcesInitializeSystem(lootboxUiStorage))
+                ;
+
+            systems = systemsContainer.GetSystems();
             systems.Initialize();
         }
 
@@ -68,14 +75,33 @@ namespace Code.Scenes.LootboxScene.Scripts
 
         public void CanvasButton_OnClick()
         {
-            log.Debug("Click");
+            log.Info("Click");
             LootboxEntity entity = contexts.lootbox.CreateEntity();
             entity.isCanvasClick = true;
         }
         
-        public void SetLootboxModel(LootboxModel lootboxModel)
+        public void SetResourceModels(List<ResourceModel> resourceModels)
         {
-            clickHandlerSystem.SetLootboxModel(lootboxModel);
+            canvasClickHandlerSystem.SetResourceModels(resourceModels);
+            if (resourceModels.Count == 1)
+            {
+                contexts.lootbox.CreateEntity().isCanvasClick = true;
+            }
+        }
+
+        public void ShowLootbox()
+        {
+            contexts.lootbox.CreateEntity().isShowLootbox = true;
+        }
+
+        public bool HasTheFirstResourceAlreadyBeenShown()
+        {
+            return canvasClickHandlerSystem.HasTheFirstResourceAlreadyBeenShown();
+        }
+
+        public void DisableItemsLeftMenu()
+        {
+            contexts.lootbox.CreateEntity().isDisableItemsLeftMenu = true;
         }
     }
 }

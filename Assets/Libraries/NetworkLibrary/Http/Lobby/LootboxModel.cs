@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.Collections.Generic;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System.Collections.Generic;
 using ZeroFormatter;
 
 namespace NetworkLibrary.NetworkLibrary.Http
@@ -6,40 +6,47 @@ namespace NetworkLibrary.NetworkLibrary.Http
     [ZeroFormattable]
     public class LootboxModel
     {
-        [Index(0)] public virtual List<LootboxPrizeModel> Prizes { get; set; }
+        [Index(0)] public virtual List<ResourceModel> Prizes { get; set; }
     }
 
     [ZeroFormattable]
-    public class LootboxPrizeModel
+    public class ResourceModel
     {
-        [Index(0)] public virtual LootboxPrizeType LootboxPrizeType { get; set; }
+        [Index(0)] public virtual ResourceTypeEnum ResourceTypeEnum { get; set; }
         [Index(1)] public virtual byte[] SerializedModel { get; set; }
     }
 
     [ZeroFormattable]
-    public class LootboxSoftCurrencyModel
+    public class SoftCurrencyResourceModel
     {
         [Index(0)] public virtual int Amount { get; set; }
     }
+    
     [ZeroFormattable]
-    public class LootboxHardCurrencyModel
+    public class HardCurrencyResourceModel
     {
         [Index(0)] public virtual int Amount { get; set; }
     }
+    
     [ZeroFormattable]
-    public class LootboxWarshipPowerPointsModel
+    public class WarshipPowerPointsResourceModel
     {
+        //todo изменить модель
         [Index(0)] public virtual string WarshipSkinName { get; set; }
         [Index(1)] public virtual int StartValue { get; set; }
         [Index(2)] public virtual int FinishValue { get; set; }
         [Index(3)] public virtual int MaxValueForLevel { get; set; }
         [Index(4)] public virtual int? WarshipId { get; set; }
+        [Index(5)] public virtual WarshipTypeEnum WarshipTypeEnum { get; set; }
+
     }
 
-    public enum LootboxPrizeType
+    public enum ResourceTypeEnum
     {
         SoftCurrency,
         WarshipPowerPoints,
-        HardCurrency
+        HardCurrency,
+        LootboxPoints,
+        LootboxSet
     }
 }

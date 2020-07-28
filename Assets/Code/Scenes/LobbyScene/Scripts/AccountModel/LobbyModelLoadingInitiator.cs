@@ -1,0 +1,72 @@
+﻿using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
+using Code.Common.Logger;
+using Code.Common.NetworkStatistics;
+using Code.Common.Statistics;
+using Code.Scenes.LobbyScene.Utils;
+using NetworkLibrary.NetworkLibrary.Http;
+using UnityEngine;
+
+namespace Code.Scenes.LobbyScene.Scripts.AccountModel
+{
+    /// <summary>
+    /// Упраляет обновлением всех данных аккаунта при старте сцены.
+    /// </summary>
+    public class LobbyModelLoadingInitiator : MonoBehaviour
+    {
+        private CancellationTokenSource cts;
+        private LobbyEcsController lobbyEcsController;
+        private UpdateGameMenuSwitcher updateGameVersionMenuSwitcher;
+        private readonly ILog log = LogManager.CreateLogger(typeof(LobbyModelLoadingInitiator));
+
+        private void Awake()
+        {
+            lobbyEcsController = FindObjectOfType<LobbyEcsController>();
+            updateGameVersionMenuSwitcher = FindObjectOfType<UpdateGameMenuSwitcher>();
+        }
+
+        private void Start()
+        {
+            NetworkStatisticsStorage.Instance.PrintSavedMatches();
+            StartCoroutine(UpdateAccountData());
+        }
+
+        private IEnumerator UpdateAccountData()
+        {
+            cts = new CancellationTokenSource();
+            Task<LobbyModel> task = new LobbyModelLoader().Load(cts.Token);
+            yield return new WaitUntil(()=>task.IsCompleted);
+            if (task.IsFaulted||task.IsCanceled)
+            {
+                log.Fatal("Не удалось скачать модель аккаунта");
+                yield break;
+            }
+            
+            SetData(task.Result);
+        }
+
+        private void SetData(LobbyModel lobbyModel)
+        {
+            //Заблокировать ui, если версия игры старая
+            updateGameVersionMenuSwitcher.CheckBundleVersion(lobbyModel.BundleVersion);
+            //Отнять от данных аккаунта значения, которые будут начислены с анимацией
+            AccountDto accountDto = lobbyModel.AccountDto.Subtract(lobbyModel.RewardsThatHaveNotBeenShown);
+            foreach (WarshipDto accountDataWarship in accountDto.Warships)
+            {
+                log.Info(accountDataWarship.GetCurrentSkinName());
+            }
+            //Установить данные аккаунта
+            lobbyEcsController.SetAccountData(accountDto);
+            //Установить данные для анимации начисления наград
+            lobbyEcsController.CreateUnshownRewardsComponent(lobbyModel.RewardsThatHaveNotBeenShown);
+            //Установить данные для шкалы рейтинга кораблей
+            WarshipRatingScaleStorage.Instance.SetValue(lobbyModel.WarshipRatingScaleModel);
+        }
+
+        private void OnDestroy()
+        {
+            cts?.Cancel();
+        }
+    }
+}

@@ -25,9 +25,9 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
         [SerializeField] private GameObject wppIconPrefab;
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipPowerPointsAccrual));
 
-        public void SetData(LootboxWarshipPowerPointsModel model)
+        public void SetData(WarshipPowerPointsResourceModel resourceModel)
         {
-            StartCoroutine(Animation(model));
+            StartCoroutine(Animation(resourceModel));
         }
     
         private void Awake()
@@ -96,18 +96,21 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp
             
         }
 
-        private IEnumerator Animation(LootboxWarshipPowerPointsModel model)
+        private IEnumerator Animation(WarshipPowerPointsResourceModel resourceModel)
         {
             yield return new WaitUntil(()=>wppContext!=null);
-            int startValue = model.StartValue;
-            int maxValue = model.MaxValueForLevel;
+            int startValue = resourceModel.StartValue;
+            int maxValue = resourceModel.MaxValueForLevel;
             wppContext.ReplaceWarshipPowerPoints(startValue,maxValue);
-            int amount = model.FinishValue - model.StartValue;
-            StartCoroutine(WarshipAnimation(model.WarshipSkinName, amount));
+            int amount = resourceModel.FinishValue - resourceModel.StartValue;
+           
+            string skinName = resourceModel.WarshipTypeEnum.ToString();
+            StartCoroutine(WarshipAnimation(skinName, amount));
         }
         
         private IEnumerator WarshipAnimation(string warshipPrefabNameArg, int amount)
         {
+            log.Debug($"{nameof(warshipPrefabNameArg)} {warshipPrefabNameArg}");
             //создать кораблик слева за сценой
             GameObject warshipPrefab = Resources.Load<GameObject>($"Prefabs/{warshipPrefabNameArg}");
             Vector3 position = new Vector3(-4,0);

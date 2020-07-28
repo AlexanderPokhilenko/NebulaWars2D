@@ -14,14 +14,14 @@ public partial class LootboxEntity {
     public void AddItemsLeft(int newValue) {
         var index = LootboxComponentsLookup.ItemsLeft;
         var component = (Code.Scenes.LootboxScene.ECS.ItemsLeftComponent)CreateComponent(index, typeof(Code.Scenes.LootboxScene.ECS.ItemsLeftComponent));
-        component.Value = newValue;
+        component.value = newValue;
         AddComponent(index, component);
     }
 
     public void ReplaceItemsLeft(int newValue) {
         var index = LootboxComponentsLookup.ItemsLeft;
         var component = (Code.Scenes.LootboxScene.ECS.ItemsLeftComponent)CreateComponent(index, typeof(Code.Scenes.LootboxScene.ECS.ItemsLeftComponent));
-        component.Value = newValue;
+        component.value = newValue;
         ReplaceComponent(index, component);
     }
 

@@ -13,10 +13,12 @@ using Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText;
 using Code.Scenes.LobbyScene.ECS.Blur;
 using Code.Scenes.LobbyScene.ECS.Clear;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
+using Code.Scenes.LobbyScene.ECS.LobbySceneUi;
 using Code.Scenes.LobbyScene.ECS.MatchSearch;
 using Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton;
 using Code.Scenes.LobbyScene.ECS.MatchSearch.StartButton;
-using Code.Scenes.LobbyScene.ECS.Shop;
+using Code.Scenes.LobbyScene.ECS.Shop.Layer;
+using Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow;
 using Code.Scenes.LobbyScene.ECS.Warships;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipImprovementModalWindow;
@@ -25,7 +27,7 @@ using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverviewModalWindow;
 using Code.Scenes.LobbyScene.Scripts.Shop;
-using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
@@ -35,6 +37,7 @@ using UnityEngine;
 
 namespace Code.Scenes.LobbyScene.Scripts
 {
+    
     /// <summary>
     /// Создаёт ecs системы
     /// Вызывает системы
@@ -53,8 +56,8 @@ namespace Code.Scenes.LobbyScene.Scripts
         private LobbyLayoutSwitcher lobbyLayoutSwitcher;
         private WarshipSpawnerSystem warshipSpawnerSystem;
         private MovingAwardsMainSystem movingAwardsMainSystem;
+        private InGameCurrencyPaymaster inGameCurrencyPaymaster;
         private MovingAwardsUiElementsStorage movingAwardsUiStorage;
-        private PurchaseConfirmationWindow purchaseConfirmationWindow;
         private MatchSearchDataUpdaterSystem matchSearchDataUpdaterSystem;
         private MovingIconsDataCreationSystem movingIconsDataCreationSystem;
         private AccountDataComponentsCreatorSystem accountDataComponentsCreatorSystem;
@@ -73,12 +76,12 @@ namespace Code.Scenes.LobbyScene.Scripts
                             ?? throw new NullReferenceException(nameof(MovingAwardsUiElementsStorage));
             warshipsUiStorage = FindObjectOfType<WarshipsUiStorage>()
                             ?? throw new NullReferenceException(nameof(WarshipsUiStorage));
-            purchaseConfirmationWindow = FindObjectOfType<PurchaseConfirmationWindow>()
-                            ?? throw new NullReferenceException(nameof(PurchaseConfirmationWindow));
             shopUiSpawner = FindObjectOfType<ShopUiSpawner>()
                             ?? throw new NullReferenceException(nameof(shopUiSpawner));
             lobbySceneSwitcher = FindObjectOfType<LobbySceneSwitcher>()
                             ?? throw new NullReferenceException(nameof(lobbySceneSwitcher));
+            inGameCurrencyPaymaster = FindObjectOfType<InGameCurrencyPaymaster>()
+                            ?? throw new NullReferenceException(nameof(inGameCurrencyPaymaster));
         }
 
         private void Start()
@@ -101,7 +104,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             
             movingAwardsMainSystem = new MovingAwardsMainSystem(contexts);
 
-            lobbyLayoutSwitcher = new LobbyLayoutSwitcher(contexts.lobbyUi, purchaseConfirmationWindow);
+            lobbyLayoutSwitcher = new LobbyLayoutSwitcher(contexts.lobbyUi);
             systems = new Systems()
                     
                     //Движение наград
@@ -172,6 +175,8 @@ namespace Code.Scenes.LobbyScene.Scripts
                     //Магазин
                     .Add(new ShopUiLayerEnablingSystem(contexts.lobbyUi,uiLayersStorage, shopUiStorage, lobbyLayoutSwitcher, shopUiSpawner))
                     .Add(new ShopUiLayerDisablingSystem(contexts.lobbyUi,uiLayersStorage, lobbyLayoutSwitcher))
+                    .Add(new PurchaseConfirmationWindowEnablingSystem(contexts.lobbyUi, this, inGameCurrencyPaymaster, shopUiStorage))
+                    .Add(new PurchaseConfirmationWindowDisablingSystem(contexts.lobbyUi, shopUiStorage))
                     
                     //Список кораблей
                     .Add(new WarshipListEnablingSystem(contexts.lobbyUi, lobbyLayoutSwitcher,  uiLayersStorage))
@@ -198,6 +203,10 @@ namespace Code.Scenes.LobbyScene.Scripts
                     
                     //Слушатель кнопки покупки улучшения
                     .Add(new WarshipImproveOnClickSystem(contexts.lobbyUi))
+                    
+                    //Показ начисления наград
+                    .Add(new LobbySceneUiEnablingSystem(contexts.lobbyUi, lobbyUiStorage))
+                    .Add(new LobbySceneUiDisablingSystem(contexts.lobbyUi, lobbyUiStorage))
                     
                     //Очистка
                     .Add(new ContextsClearSystem(contexts))
@@ -291,6 +300,7 @@ namespace Code.Scenes.LobbyScene.Scripts
 
         public void BackButton_OnClick()
         {
+            UiSoundsManager.Instance().PlayClick();
             contexts.lobbyUi.CreateEntity().messageBackButtonPressed = true;
         }
         
@@ -338,12 +348,6 @@ namespace Code.Scenes.LobbyScene.Scripts
             contexts.lobbyUi.CreateEntity().AddEnableWarshipOverviewUiLayer(warshipDto);
         }
 
-        public void PurchaseConfirmationWindowWasShown()
-        {
-            //TODO это костыль
-            lobbyLayoutSwitcher.SetCurrentLayer(ShittyUiLayerState.ShopPurchaseConfirmationLayer);
-        }
-
         public void ShowWarshipImprovementModalWindow(WarshipDto warshipDto)
         {
             contexts.lobbyUi.CreateEntity().AddEnableWarshipImprovementModalWindow(warshipDto);
@@ -351,7 +355,6 @@ namespace Code.Scenes.LobbyScene.Scripts
 
         public void ShowWarshipCharacteristics(WarshipDto warshipDto)
         {
-            log.Debug(nameof(ShowWarshipCharacteristics));
             contexts.lobbyUi.CreateEntity().AddEnableWarshipOverviewModalWindow(warshipDto);
         }
 
@@ -383,6 +386,31 @@ namespace Code.Scenes.LobbyScene.Scripts
         public void ShiftSkinRight()
         {
             contexts.lobbyUi.CreateEntity().messageShiftSkinRight = true;
+        }
+
+        public void ClosePurchaseConfirmationWindow()
+        {
+            contexts.lobbyUi.CreateEntity().isDisablePurchaseConfirmationWindow = true;
+        }
+
+        public void ShowPurchaseConfirmationWindow(PurchaseModel purchaseModel)
+        {
+            contexts.lobbyUi.CreateEntity().AddEnablePurchaseConfirmationWindow(purchaseModel);
+        }
+
+        public void DisableLobbySceneUi()
+        {
+            contexts.lobbyUi.CreateEntity().isDisableLobbySceneUi = true;
+        } 
+        
+        public void EnableLobbySceneUi()
+        {
+            contexts.lobbyUi.CreateEntity().isEnableLobbySceneUi = true;
+        }
+
+        public void CloseShopLayer()
+        {
+            contexts.lobbyUi.CreateEntity().messageDisableShopUiLayer = true;
         }
     }
 }

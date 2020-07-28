@@ -9,7 +9,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
 {
     /// <summary>
     /// Создаёт внизу горизонтальную линию из кнопок-указателей.
-    /// При нажатии на кнопку отдельный скрипт сместит ScrollView магазина на нужнйы раздел.
+    /// При нажатии на кнопку отдельный скрипт сместит ScrollView магазина на нужный раздел.
     /// </summary>
     public class FooterPointerUiSpawner:MonoBehaviour
     {
@@ -17,7 +17,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
         [SerializeField] private GameObject buttonPointerPrefab;
         private ScrollViewSmoothMovementBehaviour scrollViewSmoothMovement;
         private readonly ILog log = LogManager.CreateLogger(typeof(FooterPointerUiSpawner));
-
+        
         private void Awake()
         {
             scrollViewSmoothMovement = FindObjectOfType<ScrollViewSmoothMovementBehaviour>()
@@ -32,8 +32,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
             foreach( var pair in sectionStartPosition)
             {
                 string sectionName = pair.Key;
-                float sectionXPosition = pair.Value;
-                SpawnButton(sectionName, sectionXPosition); 
+                SpawnButton(sectionName); 
             }
         }
 
@@ -42,19 +41,19 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
             buttonsParent.transform.DestroyAllChildren();
         }
         
-        private void SpawnButton(string sectionPointerName, float xPosition)
+        private void SpawnButton(string sectionName)
         {
             GameObject buttonGo = Instantiate(buttonPointerPrefab, buttonsParent.transform, false);
             
             //установить текст
             Text text = buttonGo.transform.Find("Text").GetComponent<Text>();
-            text.text = sectionPointerName;
+            text.text = sectionName;
             
             //установить слушатель
             Button button = buttonGo.transform.GetComponent<Button>();
             button.onClick.AddListener(() =>
             {
-                scrollViewSmoothMovement.StartMovement(xPosition);
+                scrollViewSmoothMovement.StartMovement(sectionName);
             });
         }
     }

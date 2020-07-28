@@ -7,6 +7,7 @@ using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
+using ZeroFormatter;
 
 namespace Code.Scenes.LobbyScene.Scripts.Shop
 {
@@ -60,15 +61,17 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
         private async Task<ShopModel> InitProductCostAsync(ShopModel shopModel)
         {
             log.Debug($"Ожидание инициализации {nameof(purchasingService)}");
-            List<ForeignServiceProduct> realCurrencyProducts = shopModel.GetRealCurrencyProducts();
+            List<RealCurrencyCostModel> realCurrencyProducts = shopModel.GetRealCurrencyProducts();
             purchasingService.StartInitialization(realCurrencyProducts);
-            await TaskExtensions.WaitUntil(purchasingService.IsStoreInitialized);
+            await MyTaskExtensions.WaitUntil(purchasingService.IsStoreInitialized);
             log.Debug($"{nameof(purchasingService)} инициализирован");
-            foreach (ProductModel item in shopModel.GetAllProducts())
+            foreach (ProductModel productModel in shopModel.GetAllProducts())
             {
-                if (item.CurrencyTypeEnum == CurrencyTypeEnum.RealCurrency)
+                if (productModel.CostModel.CostTypeEnum == CostTypeEnum.RealCurrency)
                 {
-                    string productId = item.ForeignServiceProduct.ProductGoogleId;
+                    var realCurrencyCostModel = ZeroFormatterSerializer
+                        .Deserialize<RealCurrencyCostModel>(productModel.CostModel.SerializedCostModel);
+                    string productId = realCurrencyCostModel.GoogleProductId;
                     string cost = null;
                     purchasingService.TryGetProductCostById(productId, ref cost);
                     if (cost == null)
@@ -76,7 +79,10 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
                         throw new Exception("Не удалось достать цену товара из плагина магазина");
                     }
 
-                    item.CostString = cost;
+                    
+                    realCurrencyCostModel.CostString = cost;
+                    productModel.CostModel.SerializedCostModel =
+                        ZeroFormatterSerializer.Serialize(realCurrencyCostModel);
                 }    
             }
 

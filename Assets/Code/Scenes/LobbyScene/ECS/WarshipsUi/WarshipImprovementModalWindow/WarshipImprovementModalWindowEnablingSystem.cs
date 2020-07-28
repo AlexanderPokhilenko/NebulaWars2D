@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
 using Code.Scenes.LobbyScene.Scripts;
-using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -71,14 +69,12 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipImprovementModalWindow
                 {
                     UiSoundsManager.Instance().PlayLevelUp();
                     //Показать анимацию получения нового уровня
-                    log.Debug("Успешное получение уровня");
+                    log.Info("Успешное получение уровня");
                     //Перезагрузить сцену
                     lobbySceneSwitcher.ReloadScene();
                     var newLobbyEcs = Object.FindObjectOfType<LobbyEcsController>();
-                    log.Debug("До ожидания");
                     yield return new WaitUntil(()=>newLobbyEcs.IsWarshipsCreationCompleted());
                     yield return new WaitUntil(()=>newLobbyEcs.IsSoftCurrencyReady());
-                    log.Debug("После ожидания");
                     //Показать текущее меню
                     newLobbyEcs.ShowWarshipList();
                     
@@ -88,7 +84,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipImprovementModalWindow
                 {
                     UiSoundsManager.Instance().PlayError();
                     //Показать уведомление, что ресурсов недостаточно
-                    log.Debug("Не удалось получить новый уровень");
+                    log.Error("Не удалось получить новый уровень");
                 }
             }
         }

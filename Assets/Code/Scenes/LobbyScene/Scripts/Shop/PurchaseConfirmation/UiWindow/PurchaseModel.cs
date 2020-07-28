@@ -7,13 +7,13 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
     /// </summary>
     public class PurchaseModel
     {
-        public readonly int ShopModelId;
-        public readonly ProductModel ProductModel;
+        public readonly int shopModelId;
+        public readonly ProductModel productModel;
 
         public PurchaseModel(ProductModel productModel, int shopModelId)
         {
-            ProductModel = productModel;
-            ShopModelId = shopModelId;
+            this.productModel = productModel;
+            this.shopModelId = shopModelId;
         }
     }
 }

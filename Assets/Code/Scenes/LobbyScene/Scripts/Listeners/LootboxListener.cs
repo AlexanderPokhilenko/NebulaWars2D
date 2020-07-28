@@ -1,4 +1,5 @@
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.ResourcesAccrual;
 using UnityEngine;
 
 namespace Code.Scenes.LobbyScene.Scripts.Listeners
@@ -9,13 +10,13 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
     public class LootboxListener : MonoBehaviour
     {
         private LobbyEcsController lobbyEcsController;
-        private LobbySceneSwitcher lobbySceneSwitcher;
+        private ResourcesAccrualSceneManager resourcesAccrualSceneManager;
         private readonly ILog log = LogManager.CreateLogger(typeof(LootboxListener));
 
         private void Awake()
         {
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
-            lobbySceneSwitcher = FindObjectOfType<LobbySceneSwitcher>();
+            resourcesAccrualSceneManager = FindObjectOfType<ResourcesAccrualSceneManager>();
         }
 
         public void OpenLootboxButton_OnClick()
@@ -26,8 +27,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
                 return;
             }
             
-            LootboxModelDownloader.Instance.StartDownloading();
-            lobbySceneSwitcher.LoadSceneAsync("2dLootboxScene");
+            resourcesAccrualSceneManager.ShowLootboxScene();
         }
     }
 }

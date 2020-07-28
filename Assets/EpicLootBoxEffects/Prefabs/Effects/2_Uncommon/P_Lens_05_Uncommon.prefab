@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4666773623281110}
   - component: {fileID: 198841738690706636}
   - component: {fileID: 199168717968218588}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P_LensExplode_0203_Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4765,7 +4765,7 @@ GameObject:
   - component: {fileID: 4577224917058530}
   - component: {fileID: 198100627384313680}
   - component: {fileID: 199349375449452650}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P_LensExplode_0202_Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9519,7 +9519,7 @@ GameObject:
   - component: {fileID: 4635981302107242}
   - component: {fileID: 198702247491120132}
   - component: {fileID: 199161589887539324}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P_Dot_01_Loop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14273,7 +14273,7 @@ GameObject:
   - component: {fileID: 4946401601835664}
   - component: {fileID: 198152415211057922}
   - component: {fileID: 199097426680663064}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P_Dot_01_Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19027,7 +19027,7 @@ GameObject:
   - component: {fileID: 4395353301093982}
   - component: {fileID: 198517002323656288}
   - component: {fileID: 199363130191590530}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P_Lens_05_Uncommon
   m_TagString: Effects
   m_Icon: {fileID: 0}
@@ -23784,7 +23784,7 @@ GameObject:
   - component: {fileID: 4769892385865910}
   - component: {fileID: 198350017718451486}
   - component: {fileID: 199187741645297130}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P_LensExplode_0201_Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28541,7 +28541,7 @@ GameObject:
   - component: {fileID: 4726832525308198}
   - component: {fileID: 198724148098511938}
   - component: {fileID: 199946601885020204}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: P_Dot_02_Loop
   m_TagString: Untagged
   m_Icon: {fileID: 0}

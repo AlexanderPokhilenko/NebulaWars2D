@@ -15,7 +15,7 @@ namespace Code.Scenes.LobbyScene.Scripts.MatchLoading
         private MatchLoader matchLoader;
         
         private LobbyEcsController lobbyEcsController;
-        private readonly ILog log = LogManager.CreateLogger(typeof(AccountModelLoadingInitiator));
+        private readonly ILog log = LogManager.CreateLogger(typeof(LobbyModelLoadingInitiator));
 
         [SerializeField] private Button startMatchSearchButton;
         [SerializeField] private Button cancelMatchSearchButton;

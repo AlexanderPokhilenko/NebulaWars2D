@@ -63,7 +63,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
 
                 int roundedAverageIncrement = (int) Math.Round(((decimal) command.quantity / numberOfImages),
                     MidpointRounding.AwayFromZero);
-                log.Debug($"{nameof(roundedAverageIncrement)} {roundedAverageIncrement}");
+                // log.Debug($"{nameof(roundedAverageIncrement)} {roundedAverageIncrement}");
                 
                 int index = 0;
                 while (remainder != 0)

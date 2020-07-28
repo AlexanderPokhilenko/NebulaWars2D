@@ -14,14 +14,11 @@ namespace Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher
     {
         private ShittyUiLayerState currentLayer;
         private readonly IContext<LobbyUiEntity> context;
-        private readonly PurchaseConfirmationWindow purchaseConfirmationWindow;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyLayoutSwitcher));
         
-        public LobbyLayoutSwitcher(IContext<LobbyUiEntity> context, 
-            PurchaseConfirmationWindow purchaseConfirmationWindow) : base(context)
+        public LobbyLayoutSwitcher(IContext<LobbyUiEntity> context) : base(context)
         {
             this.context = context;
-            this.purchaseConfirmationWindow = purchaseConfirmationWindow;
             currentLayer = ShittyUiLayerState.DefaultLayer;
         }
         
@@ -53,7 +50,8 @@ namespace Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher
                     break;
                 case ShittyUiLayerState.ShopPurchaseConfirmationLayer:
                     //todo это кусок говна
-                    purchaseConfirmationWindow.HideWindow();
+                    throw new NotImplementedException();
+                    // purchaseConfirmationWindow.HideWindow();
                     SetCurrentLayer(ShittyUiLayerState.ShopLayer);
                     break;
                 case ShittyUiLayerState.WarshipsList:

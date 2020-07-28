@@ -18,17 +18,14 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
     /// </summary>
     public class ShowPrizeSystem:ReactiveSystem<LootboxEntity>
     {
-        private LobbyUiContext lobbyContext;
         private readonly LootboxUiStorage uiStorage;
         private readonly ParticlesColorUpdater particlesColorUpdater;
         private readonly ILog log = LogManager.CreateLogger(typeof(ShowPrizeSystem));
 
-        public ShowPrizeSystem(Contexts contexts, LootboxUiStorage uiStorage,
-            ParticlesColorUpdater particlesColorUpdater) 
+        public ShowPrizeSystem(Contexts contexts, ParticlesColorUpdater particlesColorUpdater, LootboxUiStorage uiStorage) 
             : base(contexts.lootbox)
         {
             this.uiStorage = uiStorage;
-            lobbyContext = contexts.lobbyUi;
             this.particlesColorUpdater = particlesColorUpdater;
         }
         
@@ -53,7 +50,14 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
 
         private void ClearResources()
         {
-            uiStorage.resourcesRoot.transform.DestroyAllChildren();
+            try
+            {
+                uiStorage.resourcesRoot.transform.DestroyAllChildren();
+            }
+            catch (Exception e)
+            {
+                log.Error(e.StackTrace+" "+e.Message);
+            }
         }
 
         private void ShowPrize(LootboxEntity currentPrize)
@@ -61,47 +65,47 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
             ShowPrizeComponent prize = currentPrize.showPrize;
             Transform parent = uiStorage.resourcesRoot.transform;
             
-            switch (prize.LootboxPrizeModel.LootboxPrizeType)
+            switch (prize.resourceModel.ResourceTypeEnum)
             {
-                case LootboxPrizeType.SoftCurrency:
+                case ResourceTypeEnum.SoftCurrency:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.softCurrencyPrefab, parent);
                     var script = go.GetComponent<SoftCurrencyAccrual>();
-                    LootboxSoftCurrencyModel lootboxSoftCurrencyModel =
-                        ZeroFormatterSerializer.Deserialize<LootboxSoftCurrencyModel>(prize.LootboxPrizeModel
+                    SoftCurrencyResourceModel softCurrencyResourceModel =
+                        ZeroFormatterSerializer.Deserialize<SoftCurrencyResourceModel>(prize.resourceModel
                             .SerializedModel);
-                    script.SetData(lootboxSoftCurrencyModel.Amount);
+                    script.SetData(softCurrencyResourceModel.Amount);
                     particlesColorUpdater.SetStartColor(Color.blue);
                     break;
                 }
-                case LootboxPrizeType.HardCurrency:
+                case ResourceTypeEnum.HardCurrency:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.hardCurrencyPrefab, parent);
                     var script = go.GetComponent<HardCurrencyAccrual>();
-                    LootboxHardCurrencyModel lootboxHardCurrencyModel =
-                        ZeroFormatterSerializer.Deserialize<LootboxHardCurrencyModel>(prize.LootboxPrizeModel
+                    HardCurrencyResourceModel hardCurrencyResourceModel =
+                        ZeroFormatterSerializer.Deserialize<HardCurrencyResourceModel>(prize.resourceModel
                             .SerializedModel);
-                    script.SetData(lootboxHardCurrencyModel.Amount);
+                    script.SetData(hardCurrencyResourceModel.Amount);
 
                     Color purple = new Color(209, 0, 4);
                     particlesColorUpdater.SetStartColor(purple);
                     break;
                 }
-                case LootboxPrizeType.WarshipPowerPoints:
+                case ResourceTypeEnum.WarshipPowerPoints:
                 {
                     var go = UnityEngine.Object.Instantiate(uiStorage.warshipPowerPointsPrefab, parent);
                     var script = go.GetComponent<WarshipPowerPointsAccrual>();
-                    var lootboxWarshipPowerPointsModel =
-                        ZeroFormatterSerializer.Deserialize<LootboxWarshipPowerPointsModel>(prize.LootboxPrizeModel
+                    var wppModel =
+                        ZeroFormatterSerializer.Deserialize<WarshipPowerPointsResourceModel>(prize.resourceModel
                             .SerializedModel);
                     
-                    log.Debug(lootboxWarshipPowerPointsModel.StartValue);
-                    log.Debug(lootboxWarshipPowerPointsModel.FinishValue);
-                    log.Debug(lootboxWarshipPowerPointsModel.WarshipId);
-                    log.Debug(lootboxWarshipPowerPointsModel.WarshipSkinName);
-                    log.Debug(lootboxWarshipPowerPointsModel.MaxValueForLevel);
+                   
+                    if (wppModel.WarshipTypeEnum == 0)
+                    {
+                        throw new Exception("Не указан тип корабля");
+                    }
                     
-                    script.SetData(lootboxWarshipPowerPointsModel);
+                    script.SetData(wppModel);
                     Color red = new Color(209, 0, 0);
                     particlesColorUpdater.SetStartColor(red);
                     break;

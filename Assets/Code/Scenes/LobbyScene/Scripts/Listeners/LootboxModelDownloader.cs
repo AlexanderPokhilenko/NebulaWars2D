@@ -13,9 +13,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
     {
         private Task<LootboxModel> task;
         private readonly ILog log = LogManager.CreateLogger(typeof(LootboxModelDownloader));
-        private static readonly Lazy<LootboxModelDownloader> instance = 
-            new Lazy<LootboxModelDownloader>(() => new LootboxModelDownloader());
-        public static LootboxModelDownloader Instance => instance.Value;
+        public static LootboxModelDownloader Instance { get; } = new LootboxModelDownloader();
 
         public void StartDownloading()
         {
@@ -24,7 +22,6 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
 
         public bool IsDownloadingCompleted()
         {
-            // return true;
             if (task == null)
             {
                 log.Debug("task is null");
@@ -38,67 +35,6 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
         public LootboxModel GetLootboxModel()
         {
             return task.Result;
-            // LootboxModel lootboxModel = new LootboxModel()
-            // {
-            //     Prizes = new List<LootboxPrizeModel>()
-            //     {
-            //         // new LootboxPrizeModel()
-            //         // {
-            //         //     LootboxPrizeType = LootboxPrizeType.SoftCurrency,
-            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxSoftCurrencyModel()
-            //         //     {
-            //         //         Amount = 53
-            //         //     })
-            //         // },
-            //         // new LootboxPrizeModel()
-            //         // {
-            //         //     LootboxPrizeType = LootboxPrizeType.HardCurrency,
-            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
-            //         //     {
-            //         //         Amount = 53
-            //         //     })
-            //         // },
-            //         new LootboxPrizeModel()
-            //         {
-            //             LootboxPrizeType = LootboxPrizeType.WarshipPowerPoints,
-            //             SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxWarshipPowerPointsModel()
-            //             {
-            //                 WarshipSkinName = "hare",
-            //                 StartValue = 9,
-            //                 FinishValue = 20,
-            //                 MaxValueForLevel = 15
-            //             })
-            //         },
-            //         // new LootboxPrizeModel()
-            //         // {
-            //         //     LootboxPrizeType = LootboxPrizeType.HardCurrency,
-            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
-            //         //     {
-            //         //         Amount = 53
-            //         //     })
-            //         // },
-            //         new LootboxPrizeModel()
-            //         {
-            //             LootboxPrizeType = LootboxPrizeType.WarshipPowerPoints,
-            //             SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxWarshipPowerPointsModel()
-            //             {
-            //                 WarshipSkinName = "hare",
-            //                 StartValue = 9,
-            //                 FinishValue = 20,
-            //                 MaxValueForLevel = 15
-            //             })
-            //         },
-            //         // new LootboxPrizeModel()
-            //         // {
-            //         //     LootboxPrizeType = LootboxPrizeType.HardCurrency,
-            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new LootboxHardCurrencyModel()
-            //         //     {
-            //         //         Amount = 53
-            //         //     })
-            //         // }
-            //     }
-            // };
-            // return lootboxModel;
         }
         
         private async Task<LootboxModel> DownloadLootboxData()
@@ -128,10 +64,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
                 {
                     return ZeroFormatterSerializer.Deserialize<LootboxModel>(data);
                 }
-                else
-                {
-                    log.Error("Пустой ответ от сервера");
-                }
+
+                log.Error("Пустой ответ от сервера");
             }
             catch (Exception e)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -284,5 +285,28 @@ namespace Code.Scenes.LobbyScene.ECS
         /// Нужно для перелистывания скинов
         /// </summary>
         public WarshipDto warshipDto;
+    }
+
+    [LobbyUi]
+    public class DisablePurchaseConfirmationWindow : IComponent
+    {
+        
+    }
+    
+    [LobbyUi]
+    public class EnablePurchaseConfirmationWindow : IComponent
+    {
+        public PurchaseModel purchase;
+    }
+    
+    [LobbyUi]
+    public class EnableLobbySceneUi : IComponent
+    {
+        
+    }  
+    [LobbyUi]
+    public class DisableLobbySceneUi : IComponent
+    {
+        
     }
 }

@@ -15,6 +15,9 @@ using Object = UnityEngine.Object;
 
 namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
 {
+    /// <summary>
+    /// Пересоздаёт меню со списком коарблей при создании/удалении модели корабля
+    /// </summary>
     public class WarshipListFillerSystem:ReactiveSystem<LobbyUiEntity>
     {
         private readonly IGroup<LobbyUiEntity> warshipsGroup;
@@ -75,10 +78,14 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
                 WarshipDto warshipDto = warshipsListData[index];
                 
                 //Установить картинку
+                string skinName = warshipDto.GetCurrentSkinName();
                 Image image = item.transform.Find("Image_WarshipPreview").GetComponent<Image>();
-                image.sprite = Resources.Load<Sprite>(warshipDto.WarshipName);
-                
-                
+                image.sprite = Resources.Load<Sprite>($"SkinPreview/{skinName}");
+                if (image.sprite == null)
+                {
+                    log.Error($"Не найден скин skinName {skinName}");
+                }
+
                 //Установить название корабля
                 Text warshipNameText = item.transform.Find("Image_WarshipPreview/Text_WarshipName").GetComponent<Text>();
                 warshipNameText.text = warshipDto.WarshipName.ToUpper();

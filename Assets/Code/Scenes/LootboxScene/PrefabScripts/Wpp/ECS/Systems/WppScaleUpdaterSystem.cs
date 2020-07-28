@@ -38,9 +38,8 @@ namespace Code.Scenes.LootboxScene.PrefabScripts.Wpp.ECS.Systems
         protected override void Execute(List<WppAccrualEntity> entities)
         {
             WarshipPowerPointsComponent actual = entities.Last().warshipPowerPoints;
-            log.Debug("Обновление шкалы. Новое значение "+actual.value);
-
-            log.Debug(actual.value+" "+actual.maxValueForLevel);
+            // log.Debug("Обновление шкалы. Новое значение "+actual.value);
+            // log.Debug(actual.value+" "+actual.maxValueForLevel);
             if (actual.value < actual.maxValueForLevel)
             {
                 text.text = $"{actual.value}/{actual.maxValueForLevel}";

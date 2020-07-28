@@ -3,7 +3,7 @@ using System;
 namespace Code.Common.Logger
 {
     /// <summary>
-    /// Все методы могут вызываться из разных потоков
+    /// Все методы могут вызываться из разных потоков.
     /// </summary>
     public class Logger :ILog
     {
@@ -21,7 +21,7 @@ namespace Code.Common.Logger
             const string levelName = " "+nameof(Debug)+" ";
             string log = DateTime.Now.ToLongTimeString() + levelName + typeName + message;
             logManager.AddLog(log);
-            UnityThread.Execute(()=>UnityEngine.Debug.LogWarning(log));
+            UnityThread.Execute(()=>UnityEngine.Debug.LogError(log));
         }
 
         public void Debug(object message)

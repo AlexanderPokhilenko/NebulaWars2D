@@ -8,7 +8,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
     /// <summary>
     /// Включает текст "Осталось предметов" и обновляет его.
     /// </summary>
-    public class ItemsLeftChangedSystem:ReactiveSystem<LootboxEntity>, IInitializeSystem
+    public class ItemsLeftChangedSystem:ReactiveSystem<LootboxEntity>
     {
         private readonly LootboxUiStorage uiStorage;
         
@@ -30,18 +30,8 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
 
         protected override void Execute(List<LootboxEntity> entities)
         {
-            if (!uiStorage.itemsLeftRoot.activeSelf)
-            {
-                uiStorage.itemsLeftRoot.SetActive(true);
-            }
-
-            int value = entities.Last().itemsLeft.Value;
-            uiStorage.itemsLeftText.text = value.ToString();
-        }
-
-        public void Initialize()
-        {
-            uiStorage.itemsLeftRoot.SetActive(false);
+            int value = entities.Last().itemsLeft.value;
+            uiStorage.itemsLeftText.text = "ITEMS LEFT: "+value;
         }
     }
 }

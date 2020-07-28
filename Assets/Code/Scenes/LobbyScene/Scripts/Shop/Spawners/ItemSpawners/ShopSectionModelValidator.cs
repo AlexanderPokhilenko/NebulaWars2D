@@ -20,9 +20,9 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
                 {
                     if (sectionItemsSize == null)
                     {
-                        sectionItemsSize = itemModel.ShopItemSize;
+                        sectionItemsSize = itemModel.ProductSizeEnum;
                     }
-                    else if (itemModel.ShopItemSize!=sectionItemsSize)
+                    else if (itemModel.ProductSizeEnum!=sectionItemsSize)
                     {
                         //В одном разделе есть объекты разного размера
                         //я к такому пока не готов
@@ -33,7 +33,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
                     if (itemModel.Id == 0)
                     {
                         log.Error($"{nameof(Validate)} {nameof(itemModel.Id)} is null." +
-                                  $" {nameof(itemModel.Name)} {itemModel.Name}");
+                                  $" {nameof(itemModel.ResourceTypeEnum)} {itemModel.ResourceTypeEnum}");
                     }
                 }   
             }

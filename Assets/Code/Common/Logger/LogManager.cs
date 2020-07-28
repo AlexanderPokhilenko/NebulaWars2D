@@ -6,6 +6,12 @@ using UnityEngine;
 
 namespace Code.Common.Logger
 {
+    /// <summary>
+    /// 1) Применяет конфиг к логгеру.
+    /// 2) Создаёт логгеры для разных классов.
+    /// 3) Принимает сообщения от логгеров и хранит их.
+    /// 4) Печатает сообщения в файл.
+    /// </summary>
     public class LogManager
     {
         private static readonly Lazy<LogManager> Lazy = new Lazy<LogManager>(() => new LogManager());
@@ -26,6 +32,25 @@ namespace Code.Common.Logger
             return Lazy.Value.TrySetConfiguration(loggerConfig);
         }
 
+        private void LogFromUnity(string condition, string stacktrace, LogType type)
+        {
+            if (!logs.Contains(condition))
+            {
+                string logType;
+                if (type == LogType.Exception)
+                {
+                    logType = LogType.Error.ToString();
+                }
+                else
+                {
+                    logType = type.ToString();
+                }
+                
+                AddLog($"UNITY LOG {logType} {nameof(condition)} {condition} {nameof(stacktrace)} {stacktrace}");
+            }
+            
+        }
+
         public static ILog CreateLogger(Type type)
         {
             return new Logger(Lazy.Value, type);
@@ -43,7 +68,7 @@ namespace Code.Common.Logger
                 }
             }
         }
-
+        
         public static void Print()
         {
             Lazy.Value.PrintAll();
@@ -61,6 +86,7 @@ namespace Code.Common.Logger
                 return false;
             }
             
+            Application.logMessageReceivedThreaded += Lazy.Value.LogFromUnity;
             AddLog(loggerConfig.ToString());
             lock (LockObj)
             {
@@ -72,6 +98,10 @@ namespace Code.Common.Logger
             return true;
         }
         
+        /// <summary>
+        /// Бесконечно дописывает логи в файл.
+        /// </summary>
+        /// <param name="state"></param>
         private async void ThreadWork(object state)
         {
             try
