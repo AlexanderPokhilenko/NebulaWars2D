@@ -204,9 +204,6 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new WarshipImprovementModalWindowEnablingSystem(contexts.lobbyUi, warshipsUiStorage, lobbyLayoutSwitcher, lobbySceneSwitcher))
                     .Add(new WarshipImprovementModalWindowDisablingSystem(contexts.lobbyUi, warshipsUiStorage, lobbyLayoutSwitcher))
                     
-                    //Слушатель кнопки покупки улучшения
-                    .Add(new WarshipImproveOnClickSystem(contexts.lobbyUi))
-                    
                     //Показ начисления наград
                     .Add(new LobbySceneUiEnablingSystem(contexts, lobbyUiStorage))
                     .Add(new LobbySceneUiDisablingSystem(contexts.lobbyUi, lobbyUiStorage))

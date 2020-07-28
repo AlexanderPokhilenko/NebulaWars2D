@@ -21,6 +21,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
         private LobbyModelLoadingInitiator loadingInitiator;
         private readonly ILog log = LogManager.CreateLogger(typeof(ResourcesAccrualSceneManager));
 
+        
         private void Awake()
         {
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
@@ -36,7 +37,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             ResourcesAccrualStorage.Instance.Clear();
             StartCoroutine(SetLootboxResources());
             //todo отнять лутбокс
-            loadingInitiator.UpdateAccountModel();
+            loadingInitiator.DelayedUpdate();
         }
 
         public void ShowOneResource(PurchaseModel purchaseModel)
@@ -54,7 +55,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             lobbyEcsController.ClosePurchaseConfirmationWindow();
             lobbyEcsController.CloseShopLayer();
             //todo запустить обновление ресурсов
-            loadingInitiator.UpdateAccountModel();
+            loadingInitiator.DelayedUpdate();
         }
 
         private void OneResourceSceneClosed(Scene arg0)

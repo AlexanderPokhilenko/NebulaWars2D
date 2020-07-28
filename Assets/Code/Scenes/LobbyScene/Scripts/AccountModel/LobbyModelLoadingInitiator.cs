@@ -29,14 +29,19 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
         private void Start()
         {
             NetworkStatisticsStorage.Instance.PrintSavedMatches();
-            UpdateAccountModel();
-        }
-
-        public void UpdateAccountModel()
-        {
             StartCoroutine(UpdateAccountData());
         }
 
+        public void DelayedUpdate()
+        {
+            StartCoroutine(UpdateAccountModelWithDelay());
+        }
+        private IEnumerator UpdateAccountModelWithDelay()
+        {
+            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(UpdateAccountData());
+        }
+        
         private IEnumerator UpdateAccountData()
         {
             cts = new CancellationTokenSource();
