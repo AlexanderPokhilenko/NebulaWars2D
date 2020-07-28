@@ -39,12 +39,14 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                 //показать уведомление и переместить магазин на секцию с нужными ресурсами
                 if (insufficientResource == null)
                 {
-                    throw new Exception("Ошибка при определении недостющего ресурса");
+                    throw new Exception("Ошибка при определении недостающего ресурса");
                 }
                 
                 insufficientResourceErrorHandler.ShowError(insufficientResource.Value);
                 return;
             }
+            
+            log.Debug("ресурсов хватает ");
             
             //отправить блокирующий запрос на сервер
             if(!PlayerIdStorage.TryGetServiceId(out string playerServiceId))
@@ -90,8 +92,10 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             switch (productModel.CostModel.CostTypeEnum)
             {
                 case CostTypeEnum.SoftCurrency:
-                    int softCurrencyCost = ((SoftCurrencyProductModel) productModel).Amount;
-                    if (lobbyEcsController.GetSoftCurrency() < softCurrencyCost)
+                {
+                    var costModel = ZeroFormatterSerializer
+                        .Deserialize<InGameCurrencyCostModel>(productModel.CostModel.SerializedCostModel);
+                    if (lobbyEcsController.GetSoftCurrency() < costModel.Cost)
                     {
                         log.Error("Не хватает обычной валюты");
                         sectionTypeEnum = SectionTypeEnum.SoftCurrency;
@@ -102,9 +106,12 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                         sectionTypeEnum = null;
                         return false;
                     }
+                }
                 case CostTypeEnum.HardCurrency:
-                    int hardCurrencyCost = ((HardCurrencyProductModel) productModel).Amount;
-                    if (lobbyEcsController.GetHardCurrency() < hardCurrencyCost)
+                {
+                    var costModel = ZeroFormatterSerializer
+                        .Deserialize<InGameCurrencyCostModel>(productModel.CostModel.SerializedCostModel);
+                    if (lobbyEcsController.GetHardCurrency() < costModel.Cost)
                     {
                         log.Error("Не хватает премиум валюты");
                         sectionTypeEnum = SectionTypeEnum.HardCurrency;
@@ -115,6 +122,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                         sectionTypeEnum = null;
                         return false;
                     }
+                }
                 case CostTypeEnum.RealCurrency:
                     log.Fatal("Покупка за реальную валюту не должна тут обрабатываться");
                     sectionTypeEnum = null;

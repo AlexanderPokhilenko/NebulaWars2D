@@ -123,6 +123,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             {
                 if (warshipDto.PowerPoints >= maxPowerPoints)
                 {
+                    UiSoundsManager.Instance().PlayClick();
                     //показать окно покупки улучшения
                     lobbyEcsController.ShowWarshipImprovementModalWindow(warshipDto);
                 }
@@ -146,7 +147,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             warshipsUiStorage.chooseButton.onClick.AddListener(() =>
             {
                 // log.Debug("Слушатель работает");
-                //todo звук
+                UiSoundsManager.Instance().PlayClick();
                 //заменить скин если нужно
                 int actualSkinIndex = lobbyUiContext.warshipOverviewCurrentSkinModel.skinIndex;
                 if (actualSkinIndex != warshipDto.CurrentSkinIndex)

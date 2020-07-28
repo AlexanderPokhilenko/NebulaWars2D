@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using Code.Common.Logger;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Scenes.LobbyScene.ECS.Warships
+namespace Code.Common.Storages
 {
     public class WarshipsStorage
     {
@@ -11,18 +11,6 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipsStorage));
         private readonly ConcurrentDictionary<WarshipTypeEnum, WarshipDto> warships = 
             new ConcurrentDictionary<WarshipTypeEnum, WarshipDto>();
-        
-        public void SkinChanged(WarshipTypeEnum warshipTypeEnum, int skinIndex)
-        {
-            if (warships.TryGetValue(warshipTypeEnum, out var warshipDto))
-            {
-                warshipDto.CurrentSkinIndex = skinIndex;
-            }
-            else
-            {
-                log.Fatal("Такого корабля нет. "+warshipTypeEnum.ToString());
-            }
-        }
         
         public WarshipDto GetWarshipModel(WarshipTypeEnum warshipTypeEnum)
         {

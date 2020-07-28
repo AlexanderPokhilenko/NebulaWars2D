@@ -60,7 +60,7 @@ namespace Code.Scenes.LobbyScene.Scripts
         private MovingAwardsUiElementsStorage movingAwardsUiStorage;
         private MatchSearchDataUpdaterSystem matchSearchDataUpdaterSystem;
         private MovingIconsDataCreationSystem movingIconsDataCreationSystem;
-        private AccountDataComponentsCreatorSystem accountDataComponentsCreatorSystem;
+        private AccountDtoComponentsCreatorSystem accountDtoComponentsCreatorSystem;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyEcsController));
         private StartCancelMatchComponentsCreatorSystem startCancelMatchComponentsCreatorSystem;
 
@@ -94,7 +94,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             contexts = Contexts.sharedInstance;
             
             warshipSpawnerSystem = new WarshipSpawnerSystem(contexts, lobbyUiStorage.warshipsRoot);
-            accountDataComponentsCreatorSystem = new AccountDataComponentsCreatorSystem(contexts);
+            accountDtoComponentsCreatorSystem = new AccountDtoComponentsCreatorSystem(contexts);
 
             startCancelMatchComponentsCreatorSystem = new StartCancelMatchComponentsCreatorSystem(contexts.lobbyUi);
             matchSearchDataUpdaterSystem = new MatchSearchDataUpdaterSystem(contexts);
@@ -146,7 +146,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new StartButtonAnimationSystem(contexts.lobbyUi, lobbyUiStorage.startButtonSatellites))
 
                     //Обновление статистики в ui (валюты, рейтинг, сундуки)
-                    .Add(accountDataComponentsCreatorSystem)
+                    .Add(accountDtoComponentsCreatorSystem)
                     .Add(new HardCurrencyChangingHandler(contexts.lobbyUi, lobbyUiStorage.hardCurrencyText))
                     .Add(new SoftCurrencyChangingHandler(contexts.lobbyUi, lobbyUiStorage.softCurrencyText))
                     .Add(new UsernameChangingHandler(contexts.lobbyUi, lobbyUiStorage.usernameText))
@@ -269,13 +269,13 @@ namespace Code.Scenes.LobbyScene.Scripts
         
         public void SetAccountData(AccountDto accountData)
         {
-            accountDataComponentsCreatorSystem.SetAccountData(accountData);
+            accountDtoComponentsCreatorSystem.SetAccountDto(accountData);
             PlayerIdStorage.AccountId = accountData.AccountId;
         }
 
         public int GetCurrentWarshipId()
         {
-            return accountDataComponentsCreatorSystem.GetCurrentWarshipId();
+            return accountDtoComponentsCreatorSystem.GetCurrentWarshipId();
         }
 
         public void Button_Start_Click()

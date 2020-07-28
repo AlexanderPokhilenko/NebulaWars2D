@@ -36,11 +36,11 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
 
         protected override ICollector<LobbyUiEntity> GetTrigger(IContext<LobbyUiEntity> context)
         {
-            return context.CreateCollector(LobbyUiMatcher.Warship.AddedOrRemoved());
+            return context.CreateCollector(LobbyUiMatcher.Warship);
         }
 
         protected override bool Filter(LobbyUiEntity entity)
-        {
+        {  
             return entity.hasWarship;
         }
 
@@ -65,9 +65,9 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
             warshipsUiStorage.warshipsListBackgroundGameObject.transform.DestroyAllChildren();
         }
 
-        private void CreateItems(List<WarshipDto> warshipsListData)
+        private void CreateItems(List<WarshipDto> warshipDtos)
         {
-            for (int index = 0; index < warshipsListData.Count; index++)
+            for (int index = 0; index < warshipDtos.Count; index++)
             {
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/LobbyWarshipsList/Image_WarshipListItem")
                                     ?? throw new Exception("Не удалось найти префаб");
@@ -75,7 +75,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
                 GameObject item = Object.Instantiate(prefab, parent, false );
                 
                 //Взять элемент
-                WarshipDto warshipDto = warshipsListData[index];
+                WarshipDto warshipDto = warshipDtos[index];
                 
                 //Установить картинку
                 string skinName = warshipDto.GetCurrentSkinName();
@@ -147,6 +147,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
                 button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() =>
                 {
+                    UiSoundsManager.Instance().PlayClick();
                     lobbyEcsController.ShowWarshipOverview(warshipDto);
                 });
             }

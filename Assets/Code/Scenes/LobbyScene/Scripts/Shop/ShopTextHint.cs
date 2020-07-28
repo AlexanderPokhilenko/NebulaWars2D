@@ -8,6 +8,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
 {
     public class ShopTextHint : MonoBehaviour
     {
+        [SerializeField] private GameObject hingGo;
         private Text text;
         private RectTransform rectTransform;
         private Vector3 startPosition;
@@ -15,22 +16,22 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
         private float duration = 2f;
         private void Awake()
         {
-            text = GetComponent<Text>();
-            rectTransform = GetComponent<RectTransform>();
+            text = hingGo.GetComponent<Text>();
+            rectTransform = hingGo.GetComponent<RectTransform>();
             startPosition = rectTransform.position;
             shiftDelta = new Vector3(0,-0.5f);
         }
 
         private void Start()
         {
-            gameObject.SetActive(false);
+            hingGo.SetActive(false);
         }
 
         public void Enable(string message)
         {
             UiSoundsManager.Instance().PlayError();
             text.text = message;
-            gameObject.SetActive(true);
+            hingGo.SetActive(true);
             StopAllCoroutines();
             StartCoroutine(Disable());
             StartCoroutine(MoveUp());
@@ -43,14 +44,19 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             while (true)
             {
                 float coef = (finishTime - Time.time)/duration;
+                if (coef < 0)
+                {
+                    break;
+                }
                 rectTransform.position = startPosition + coef*shiftDelta;
                 yield return null;
             }
         }
+        
         private IEnumerator Disable()
         {
             yield return new WaitForSeconds(duration);
-            gameObject.SetActive(false);
+            hingGo.SetActive(false);
         }
     }
 }

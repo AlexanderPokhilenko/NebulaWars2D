@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation;
 using Entitas;
+using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher
 {
+    public class WarshipDtoUpdater
+    {
+        public void UpdateUi(WarshipTypeEnum warshipTypeEnum, WarshipDto warshipDto)
+        {
+            
+        }
+    }
     /// <summary>
     /// Хранит текущее состояние. Оно представлено перечислением ShittyUiLayerState.
     /// Реагирут на нажатие кнопки Back.
@@ -20,6 +28,11 @@ namespace Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher
         {
             this.context = context;
             currentLayer = ShittyUiLayerState.DefaultLayer;
+        }
+
+        public ShittyUiLayerState GetCurrentLayer()
+        {
+            return currentLayer;
         }
         
         public void SetCurrentLayer(ShittyUiLayerState shittyUiLayerState)

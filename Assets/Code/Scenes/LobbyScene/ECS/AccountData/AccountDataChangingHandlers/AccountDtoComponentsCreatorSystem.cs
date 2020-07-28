@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
+using Code.Common.Storages;
 using Code.Scenes.LobbyScene.ECS.Warships;
 using Code.Scenes.LobbyScene.ECS.Warships.Utils;
 using Entitas;
@@ -11,14 +12,14 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
     /// <summary>
     /// Отвечает за обновление всех данных аккаунта.
     /// </summary>
-    public class AccountDataComponentsCreatorSystem:IExecuteSystem
+    public class AccountDtoComponentsCreatorSystem:IExecuteSystem
     {
         private bool hasNewValue;
         private AccountDto accountData;
         private readonly LobbyUiContext lobbyUiContext;
-        private readonly ILog log = LogManager.CreateLogger(typeof(AccountDataComponentsCreatorSystem));
+        private readonly ILog log = LogManager.CreateLogger(typeof(AccountDtoComponentsCreatorSystem));
         
-        public AccountDataComponentsCreatorSystem(Contexts contexts)
+        public AccountDtoComponentsCreatorSystem(Contexts contexts)
         {
             lobbyUiContext = contexts.lobbyUi;
         }
@@ -27,7 +28,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
         /// Вызывается при получении данных от профиль-сервера.
         /// </summary>
         /// <param name="accountInfoArg"></param>
-        public void SetAccountData(AccountDto accountInfoArg)
+        public void SetAccountDto(AccountDto accountInfoArg)
         {
             log.Info("Пришли данные аккаунта");
             accountInfoArg.CheckAccountData(log);
