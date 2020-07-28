@@ -1,38 +1,10 @@
-﻿using System.Collections.Generic;
-using Entitas;
-using UnityEngine;
+﻿using Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents;
 
 namespace Code.Scenes.BattleScene.ECS.Systems
 {
-    public class DestroyTimerSubtractionSystem : IExecuteSystem
+    public class DestroyTimerSubtractionSystem : BaseTimerSubtractionSystem<DestroyTimerComponent>
     {
-        private readonly IGroup<GameEntity> withTimerGroup;
-        private readonly List<GameEntity> buffer;
-        private const int predictedCapacity = 16;
-
-        public DestroyTimerSubtractionSystem(Contexts contexts)
-        {
-            withTimerGroup = contexts.game.GetGroup(GameMatcher.DestroyTimer);
-            buffer = new List<GameEntity>(predictedCapacity);
-        }
-
-        public void Execute()
-        {
-            var deltaTime = Time.deltaTime;
-
-            foreach (var e in withTimerGroup.GetEntities(buffer))
-            {
-                var newTime = e.destroyTimer.value - deltaTime;
-
-                if (newTime > 0f)
-                {
-                    e.ReplaceDestroyTimer(newTime);
-                }
-                else
-                {
-                    e.RemoveDestroyTimer();
-                }
-            }
-        }
+        public DestroyTimerSubtractionSystem(Contexts contexts) : base(contexts)
+        { }
     }
 }

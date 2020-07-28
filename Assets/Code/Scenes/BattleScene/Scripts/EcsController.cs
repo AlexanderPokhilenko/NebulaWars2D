@@ -77,6 +77,9 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new TimeSpeedSystem(contexts, new FloatLinearInterpolator(prevFrameTime)))
 
                     .Add(new UpdateTransformSystem(contexts))
+                    .Add(new DelayedSpawnSystem(contexts))
+                    .Add(new ManyDelayedRecreationsSystem(contexts))
+                    .Add(new DelayedRecreationSystem(contexts))
                     .Add(new UpdateRadiusSystem(contexts, new FloatLinearInterpolator(prevFrameTime)))
                     .Add(new UpdateParentsSystem(contexts))
                     .Add(new DetachParentsSystem(contexts))
@@ -103,6 +106,7 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new UpdateParticlesSystem(contexts))
 
                     .Add(new UpdateDestroysSystem(contexts))
+                    .Add(new DelayedDestroySystem(contexts))
 
                     .Add(new GameObjectHidingSystem(contexts))
 

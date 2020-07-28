@@ -11,14 +11,47 @@ namespace Code.Scenes.BattleScene.ScriptableObjects
         [SerializeField]
         private AudioClip deathSound;
 
-        public virtual GameEntity CreateEntity(GameContext context)
+        public virtual void FillEntity(GameContext context, GameEntity entity)
         {
-            var entity = context.CreateEntity();
-
             if (spawnSound != null) entity.AddSpawnSound(spawnSound);
             if (loopSound != null) entity.AddLoopSound(loopSound);
             if (deathSound != null) entity.AddDeathSound(deathSound);
+        }
 
+        public bool HasSpawnSound => spawnSound != null;
+
+        public virtual bool TryGetDeathDelay(out float delay)
+        {
+            if (deathSound == null)
+            {
+                delay = 0f;
+                return false;
+            }
+            else
+            {
+                delay = deathSound.length;
+                return true;
+            }
+        }
+
+        public void RefillEntity(GameContext context, GameEntity entity, Vector3 position, float direction)
+        {
+            var id = entity.id.value;
+
+            entity.RemoveAllComponents();
+            //entity.RemoveAllOnEntityReleasedHandlers();
+
+            entity.AddId(id);
+            entity.AddPosition(position);
+            entity.AddDirection(direction);
+
+            FillEntity(context, entity);
+        }
+
+        public GameEntity CreateEntity(GameContext context)
+        {
+            var entity = context.CreateEntity();
+            FillEntity(context, entity);
             return entity;
         }
     }

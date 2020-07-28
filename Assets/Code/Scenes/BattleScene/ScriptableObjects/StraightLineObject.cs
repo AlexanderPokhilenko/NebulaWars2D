@@ -8,13 +8,11 @@ namespace Code.Scenes.BattleScene.ScriptableObjects
         [Min(0)]
         public float length = 1f;
 
-        public override GameEntity CreateEntity(GameContext context)
+        public override void FillEntity(GameContext context, GameEntity entity)
         {
-            var entity = base.CreateEntity(context);
+            base.FillEntity(context, entity);
             entity.AddStraightLine(material);
             entity.AddRectangle(length, width);
-
-            return entity;
         }
     }
 }

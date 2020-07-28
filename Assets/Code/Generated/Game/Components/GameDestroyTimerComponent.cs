@@ -8,20 +8,20 @@
 //------------------------------------------------------------------------------
 public partial class GameEntity {
 
-    public Code.Scenes.BattleScene.ECS.Components.Game.DestroyTimerComponent destroyTimer { get { return (Code.Scenes.BattleScene.ECS.Components.Game.DestroyTimerComponent)GetComponent(GameComponentsLookup.DestroyTimer); } }
+    public Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DestroyTimerComponent destroyTimer { get { return (Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DestroyTimerComponent)GetComponent(GameComponentsLookup.DestroyTimer); } }
     public bool hasDestroyTimer { get { return HasComponent(GameComponentsLookup.DestroyTimer); } }
 
-    public void AddDestroyTimer(float newValue) {
+    public void AddDestroyTimer(float newTime) {
         var index = GameComponentsLookup.DestroyTimer;
-        var component = (Code.Scenes.BattleScene.ECS.Components.Game.DestroyTimerComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.DestroyTimerComponent));
-        component.value = newValue;
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DestroyTimerComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DestroyTimerComponent));
+        component.time = newTime;
         AddComponent(index, component);
     }
 
-    public void ReplaceDestroyTimer(float newValue) {
+    public void ReplaceDestroyTimer(float newTime) {
         var index = GameComponentsLookup.DestroyTimer;
-        var component = (Code.Scenes.BattleScene.ECS.Components.Game.DestroyTimerComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.DestroyTimerComponent));
-        component.value = newValue;
+        var component = (Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DestroyTimerComponent)CreateComponent(index, typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DestroyTimerComponent));
+        component.time = newTime;
         ReplaceComponent(index, component);
     }
 

@@ -64,7 +64,7 @@ namespace Code.BattleScene.ECS.Systems
                 {
                     var entity = gameContext.GetEntityWithId(radiusPair.Key);
 
-                    if (entity != null)
+                    if (entity != null && entity.hasCircle)
                     {
                         entity.ReplaceCircle(radiusPair.Value);
                         entity.isHidden = false;

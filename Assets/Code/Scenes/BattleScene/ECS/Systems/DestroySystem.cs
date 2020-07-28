@@ -51,7 +51,29 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                 gameObject.Unlink();
                 Object.Destroy(gameObject);
 
-                e.Destroy();
+                if (e.hasDelayedSpawn)
+                {
+                    var id = e.id.value;
+                    var newestViewType = e.viewType.id;
+                    var delayedSpawn = e.delayedSpawn;
+                    var position = e.position.value;
+                    var direction = e.direction.angle;
+                    var hasDeathSound = e.hasDeathSound;
+                    var deathSound = hasDeathSound ? e.deathSound.value : null;
+
+                    e.RemoveAllComponents();
+
+                    e.AddId(id);
+                    e.AddViewType(newestViewType);
+                    e.AddDelayedSpawn(delayedSpawn.typeId, delayedSpawn.positionX, delayedSpawn.positionY, delayedSpawn.direction, delayedSpawn.time);
+                    e.AddPosition(position);
+                    e.AddDirection(direction);
+                    if(hasDeathSound) e.AddSpawnSound(deathSound);
+                }
+                else
+                {
+                    e.Destroy();
+                }
             }
         }
     }
