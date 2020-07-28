@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.Scenes.BattleScene.ECS.Components.Game
 {
-    [Game, LobbyUi]
+    [Game]
     public class TransformComponent : IComponent
     {
         public Vector2 position;

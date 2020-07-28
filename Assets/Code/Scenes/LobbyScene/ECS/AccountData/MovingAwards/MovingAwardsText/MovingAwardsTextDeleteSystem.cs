@@ -30,7 +30,6 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText
                 
                 if (awardText.awardText.fadeTime < now)
                 {
-                    //TODO посмотреть зачем нужен Link
                     Object.Destroy(awardText.view.gameObject);
                     awardText.Destroy();
                 }

@@ -58,8 +58,8 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
                 lobbyUiContext.ReplaceAccountRating(accountData.AccountRating);
                 lobbyUiContext.ReplaceHardCurrency(accountData.HardCurrency);
                 lobbyUiContext.ReplaceSoftCurrency( accountData.SoftCurrency);
-                // WarshipTypeEnum warshipTypeEnum = CurrentWarshipTypeStorage.ReadWarshipIndex();
-                // lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
+                WarshipTypeEnum warshipTypeEnum = CurrentWarshipTypeStorage.ReadWarshipIndex();
+                lobbyUiContext.ReplaceCurrentWarshipTypeEnum(warshipTypeEnum);
                 lobbyUiContext.ReplacePointsForSmallLootbox(accountData.SmallLootboxPoints);
                 CreateWarshipComponents(accountData.Warships, lobbyUiContext);
                 hasNewValue = false;
@@ -73,21 +73,19 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
             {
                 log.Info("Создание сущности для корабля " + i);
                 WarshipDto warshipDto = warships[i];
-                // LobbyUiEntity entity = lobbyUiContextArg.CreateEntity();
-                //todo сука блять
-
-                var warshipEntity = warshipGroup
-                    .AsEnumerable()
-                    .SingleOrDefault(entity => entity.warship.warshipDto.WarshipTypeEnum == warshipDto.WarshipTypeEnum);
-
-                if (warshipEntity == null)
-                {
-                    warshipEntity = lobbyUiContextArg.CreateEntity();
-                }
-                warshipEntity.ReplaceWarship((ushort) i, warshipDto);
-                WarshipsStorage.Instance.AddOrUpdate(warshipDto.WarshipTypeEnum, warshipDto);
+                
+                // var warshipEntity = warshipGroup
+                //     .AsEnumerable()
+                //     .SingleOrDefault(entity => entity.warship.warshipDto.WarshipTypeEnum == warshipDto.WarshipTypeEnum);
+                //
+                // if (warshipEntity == null)
+                // {
+                //     warshipEntity = lobbyUiContextArg.CreateEntity();
+                // }
+                lobbyUiContext.CreateEntity().AddWarship(warshipDto);
+                // WarshipsStorage.Instance.AddOrUpdate(warshipDto.WarshipTypeEnum, warshipDto);
             }
-
+            
             log.Info("Создание сущностей для кораблей окончено");
         }
     }

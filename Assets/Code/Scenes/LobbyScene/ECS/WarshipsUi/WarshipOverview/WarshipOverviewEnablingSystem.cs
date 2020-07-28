@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
+using Code.Scenes.LobbyScene.ECS.Warships.Utils;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins;
 using Code.Scenes.LobbyScene.Scripts;
 using Code.Scenes.LobbyScene.Scripts.Shop;
@@ -67,7 +67,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             UpdateData(warshipDto);
             
             //Обновить уникальный компонент для листания и переключения скинов
-            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel( warshipDto.CurrentSkinIndex, warshipDto);
+            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel( warshipDto.CurrentSkinIndex, warshipDto, false);
         }
         
         private void UpdateData(WarshipDto warshipDto)
@@ -147,6 +147,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             warshipsUiStorage.chooseButton.onClick.RemoveAllListeners();
             warshipsUiStorage.chooseButton.onClick.AddListener(() =>
             {
+                CurrentWarshipTypeStorage.WriteWarshipType(warshipDto.WarshipTypeEnum);
                 // log.Debug("Слушатель работает");
                 UiSoundsManager.Instance().PlayClick();
                 //заменить скин если нужно
@@ -162,16 +163,11 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                 {
                     log.Info("Скин не был изменён");
                 }
-                //изменить индекс текущего корабля
-                ushort warshipIndex = lobbyEcsController.GetWarshipIndexById(warshipDto.Id);
-                throw new NotImplementedException();
-                // lobbyUiContext.ReplaceCurrentWarshipIndex(warshipIndex);
+                //изменить тип текущего корабля
+                
+                lobbyUiContext.ReplaceCurrentWarshipTypeEnum(warshipDto.WarshipTypeEnum);
                 //заменть компонент корабля
-                var warshipEntity = lobbyUiContext.GetGroup(LobbyUiMatcher.Warship)
-                    .AsEnumerable()
-                    .Single(entity => entity.warship.warshipDto.Id == warshipDto.Id);
-                warshipEntity.Destroy();
-                lobbyUiContext.CreateEntity().AddWarship(warshipIndex, warshipDto);
+                lobbyUiContext.CreateEntity().AddWarship(warshipDto);
                 //выключить меню обзора корабля
                 lobbyUiContext.CreateEntity().messageDisableWarshipOverviewUiLayer = true;
                 //выключить меню со списком кораблей

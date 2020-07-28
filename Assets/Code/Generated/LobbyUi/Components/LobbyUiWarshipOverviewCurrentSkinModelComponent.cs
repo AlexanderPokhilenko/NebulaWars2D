@@ -12,22 +12,22 @@ public partial class LobbyUiContext {
     public Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinModel warshipOverviewCurrentSkinModel { get { return warshipOverviewCurrentSkinModelEntity.warshipOverviewCurrentSkinModel; } }
     public bool hasWarshipOverviewCurrentSkinModel { get { return warshipOverviewCurrentSkinModelEntity != null; } }
 
-    public LobbyUiEntity SetWarshipOverviewCurrentSkinModel(int newSkinIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
+    public LobbyUiEntity SetWarshipOverviewCurrentSkinModel(int newSkinIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto, bool newSkinChanged) {
         if (hasWarshipOverviewCurrentSkinModel) {
             throw new Entitas.EntitasException("Could not set WarshipOverviewCurrentSkinModel!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinModel!",
                 "You should check if the context already has a warshipOverviewCurrentSkinModelEntity before setting it or use context.ReplaceWarshipOverviewCurrentSkinModel().");
         }
         var entity = CreateEntity();
-        entity.AddWarshipOverviewCurrentSkinModel(newSkinIndex, newWarshipDto);
+        entity.AddWarshipOverviewCurrentSkinModel(newSkinIndex, newWarshipDto, newSkinChanged);
         return entity;
     }
 
-    public void ReplaceWarshipOverviewCurrentSkinModel(int newSkinIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
+    public void ReplaceWarshipOverviewCurrentSkinModel(int newSkinIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto, bool newSkinChanged) {
         var entity = warshipOverviewCurrentSkinModelEntity;
         if (entity == null) {
-            entity = SetWarshipOverviewCurrentSkinModel(newSkinIndex, newWarshipDto);
+            entity = SetWarshipOverviewCurrentSkinModel(newSkinIndex, newWarshipDto, newSkinChanged);
         } else {
-            entity.ReplaceWarshipOverviewCurrentSkinModel(newSkinIndex, newWarshipDto);
+            entity.ReplaceWarshipOverviewCurrentSkinModel(newSkinIndex, newWarshipDto, newSkinChanged);
         }
     }
 
@@ -49,19 +49,21 @@ public partial class LobbyUiEntity {
     public Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinModel warshipOverviewCurrentSkinModel { get { return (Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinModel)GetComponent(LobbyUiComponentsLookup.WarshipOverviewCurrentSkinModel); } }
     public bool hasWarshipOverviewCurrentSkinModel { get { return HasComponent(LobbyUiComponentsLookup.WarshipOverviewCurrentSkinModel); } }
 
-    public void AddWarshipOverviewCurrentSkinModel(int newSkinIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
+    public void AddWarshipOverviewCurrentSkinModel(int newSkinIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto, bool newSkinChanged) {
         var index = LobbyUiComponentsLookup.WarshipOverviewCurrentSkinModel;
         var component = (Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinModel)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinModel));
         component.skinIndex = newSkinIndex;
         component.warshipDto = newWarshipDto;
+        // component.skinChanged = newSkinChanged;
         AddComponent(index, component);
     }
 
-    public void ReplaceWarshipOverviewCurrentSkinModel(int newSkinIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto) {
+    public void ReplaceWarshipOverviewCurrentSkinModel(int newSkinIndex, NetworkLibrary.NetworkLibrary.Http.WarshipDto newWarshipDto, bool newSkinChanged) {
         var index = LobbyUiComponentsLookup.WarshipOverviewCurrentSkinModel;
         var component = (Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinModel)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.WarshipOverviewCurrentSkinModel));
         component.skinIndex = newSkinIndex;
         component.warshipDto = newWarshipDto;
+        // component.skinChanged = newSkinChanged;
         ReplaceComponent(index, component);
     }
 

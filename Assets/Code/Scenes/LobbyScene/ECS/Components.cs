@@ -97,8 +97,6 @@ namespace Code.Scenes.LobbyScene.ECS
     [LobbyUi] 
     public class WarshipComponent: IComponent
     {
-        //todo  убрать индекс
-        public ushort index;
         public WarshipDto warshipDto;
     }
     

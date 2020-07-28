@@ -167,7 +167,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new WarshipListFillerSystem(contexts, warshipsUiStorage, this))
                     
                     //Листание кораблей
-                    .Add(new WarshipsMoverSystem(contexts))
+                    .Add(new WarshipsEnablingSystem(contexts))
                     //Обновление рейтинга и ранга для текущего корабля
                     .Add(new WarshipDataUpdaterSystem(contexts, lobbyUiStorage.rankText,
                         lobbyUiStorage.ratingText, lobbyUiStorage.ratingSlider))
@@ -208,7 +208,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new WarshipImproveOnClickSystem(contexts.lobbyUi))
                     
                     //Показ начисления наград
-                    .Add(new LobbySceneUiEnablingSystem(contexts.lobbyUi, lobbyUiStorage))
+                    .Add(new LobbySceneUiEnablingSystem(contexts, lobbyUiStorage))
                     .Add(new LobbySceneUiDisablingSystem(contexts.lobbyUi, lobbyUiStorage))
                     
                     //Очистка
@@ -322,19 +322,20 @@ namespace Code.Scenes.LobbyScene.Scripts
             contexts.lobbyUi.CreateEntity().messageEnableWarshipListUiLayer = true;
         }
 
-        public ushort GetWarshipIndexById(int warshipId)
-        {
-            foreach (WarshipComponent warshipComponent in contexts.lobbyUi
-                .GetGroup(LobbyUiMatcher.Warship).AsEnumerable().Select((entity=>entity.warship)))
-            {
-                if (warshipComponent.warshipDto.Id == warshipId)
-                {
-                    return warshipComponent.index;
-                }
-            }
-            
-            throw new Exception("В лобби нет такого корабля");
-        }
+        // public ushort GetWarshipIndexById(int warshipId)
+        // {
+        //     foreach (WarshipComponent warshipComponent in contexts.lobbyUi
+        //         .GetGroup(LobbyUiMatcher.Warship).AsEnumerable().Select((entity=>entity.warship)))
+        //     {
+        //         if (warshipComponent.warshipDto.Id == warshipId)
+        //         {
+        //             throw new NotImplementedException();
+        //             // return warshipComponent.index;
+        //         }
+        //     }
+        //     
+        //     throw new Exception("В лобби нет такого корабля");
+        // }
         
         public void ShowWarshipOverviewById(int warshipId)
         {

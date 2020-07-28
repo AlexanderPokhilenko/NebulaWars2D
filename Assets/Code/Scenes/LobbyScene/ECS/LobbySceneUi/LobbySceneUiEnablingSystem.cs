@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Entitas;
 
@@ -7,9 +8,10 @@ namespace Code.Scenes.LobbyScene.ECS.LobbySceneUi
     public class LobbySceneUiEnablingSystem:ReactiveSystem<LobbyUiEntity>
     {
         private readonly LobbyUiStorage lobbyUiStorage;
-
-        public LobbySceneUiEnablingSystem(IContext<LobbyUiEntity> context, LobbyUiStorage lobbyUiStorage)
-            : base(context)
+        private readonly ILog log = LogManager.CreateLogger(typeof(LobbySceneUiEnablingSystem));
+        
+        public LobbySceneUiEnablingSystem(Contexts context, LobbyUiStorage lobbyUiStorage)
+            : base(context.lobbyUi)
         {
             this.lobbyUiStorage = lobbyUiStorage;
         }

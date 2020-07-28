@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
-using Code.Scenes.LobbyScene.ECS.Warships.Utils;
 using Entitas;
 using Entitas.Unity;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using Vector2 = NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages.Vector2;
 
 namespace Code.Scenes.LobbyScene.ECS.Warships
 {
@@ -17,18 +15,17 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
     public class WarshipSpawnerSystem:ReactiveSystem<LobbyUiEntity>
     {
         private bool isWarshipCreationCompleted;
-        private readonly GameContext gameContext;
         private readonly Transform gameViewsParent;
+        private readonly IGroup<LobbyUiEntity> warshipsGroup;
         private readonly ILog log = LogManager.CreateLogger(typeof(WarshipSpawnerSystem));
 
         public WarshipSpawnerSystem(Contexts contexts, Transform gameViewsParent) 
             : base(contexts.lobbyUi)
         {
-            gameContext = contexts.game;
             isWarshipCreationCompleted = false;
             this.gameViewsParent = gameViewsParent;
-            gameContext.GetGroup(GameMatcher
-                .AllOf(GameMatcher.View, GameMatcher.Id, GameMatcher.Transform ));
+            warshipsGroup = contexts.lobbyUi.GetGroup(LobbyUiMatcher
+                .AllOf(LobbyUiMatcher.Warship, LobbyUiMatcher.View));
         }
         
         public bool IsWarshipCreationCompleted()
@@ -48,36 +45,36 @@ namespace Code.Scenes.LobbyScene.ECS.Warships
 
         protected override void Execute(List<LobbyUiEntity> entities)
         {
-            foreach (WarshipComponent warshipComponent in entities.Select(entity=>entity.warship))
+            List<LobbyUiEntity> warshipsList  = warshipsGroup.GetEntities().ToList();
+            // log.Debug($"кол-во кораблей до спавна "+warshipsList.Count);
+            foreach (var warshipEntity in entities)
             {
-                log.Info("Спавн корабля с id = "+warshipComponent.index);
-                WarshipDto warshipDto = warshipComponent.warshipDto;
+                // log.Debug("Спавн корабля с id = "+warshipEntity.warship.warshipDto.WarshipTypeEnum.ToString());
+                WarshipDto warshipDto = warshipEntity.warship.warshipDto;
                 
                 string skinName = warshipDto.GetCurrentSkinName();
-                int horizontalPosition = LobbyUiGlobals.DistanceBetweenWarships * warshipComponent.index;
+                // log.Debug("Название скина перед спавном "+skinName);
                 GameObject prefab = Resources.Load<GameObject>("Prefabs/" + skinName);
-                GameObject warship = Object.Instantiate(prefab, gameViewsParent, false);
-                warship.transform.localScale = new Vector3(1.4f,1.4f,1.4f);
-
-                GameEntity gameEntity = gameContext.GetEntityWithId(warshipComponent.warshipDto.Id);
-                if (gameEntity == null)
+                GameObject warshipGo = Object.Instantiate(prefab, gameViewsParent, false);
+                warshipGo.transform.localScale = new Vector3(1.4f,1.4f,1.4f);
+                
+                LobbyUiEntity oldWarshipEntity = warshipsGroup.AsEnumerable()
+                    .SingleOrDefault(entity => entity.warship.warshipDto.WarshipTypeEnum == warshipDto.WarshipTypeEnum);
+                
+                if (oldWarshipEntity != null)
                 {
-                    gameEntity = gameContext.CreateEntity();
-                    warship.Link(gameEntity);
-                    gameEntity.AddView(warship);
-                    // gameEntity.AddId(warshipComponent.index);
-                    gameEntity.AddTransform(new Vector2(horizontalPosition, 0), 0);    
-                }
-                else
-                {
-                    gameEntity.view.gameObject.Unlink();
-                    Object.Destroy(gameEntity.view.gameObject);
-                    gameEntity.ReplaceView(warship);
-                    warship.Link(gameEntity);
-                    CurrentWarshipTypeStorage.WriteWarshipIndex(warshipComponent.warshipDto.WarshipTypeEnum);
+                    // log.Debug("Корабль этого типа существует");
+                    oldWarshipEntity.view.gameObject.Unlink();
+                    Object.Destroy(oldWarshipEntity.view.gameObject);
+                    oldWarshipEntity.Destroy();
+                    // log.Debug("Корабль этого типа уничтожен");
                 }
                 
+                // warshipGo.SetActive(false);
+                warshipEntity.AddView(warshipGo);
+                warshipGo.Link(warshipEntity);
             }
+            
             
             isWarshipCreationCompleted = true;
         }

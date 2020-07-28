@@ -20,6 +20,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
         private readonly IGroup<LobbyUiEntity> warshipsGroup;
         private readonly ILog log = LogManager.CreateLogger(typeof(SkinSwitcherSystem));
 
+        
         public SkinSwitcherSystem(Contexts contexts, WarshipsUiStorage warshipsUiStorage)
             : base(contexts.lobbyUi)
         {
@@ -45,14 +46,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
             string skinName = skinModel.warshipDto.Skins[newSkinIndex].Name;
             DestroyCurrentSkin();
             SpawnSkin(skinName);
-            
-            LobbyUiEntity warshipComponent = warshipsGroup
-                .GetEntities()
-                .Single(entity => 
-                    entity.warship.warshipDto.Id == skinModel.warshipDto.Id);
-            
-            ReloadWarshipView(warshipComponent.warship.index, skinModel.warshipDto);
-            warshipComponent.Destroy();
+            skinModel.warshipDto.CurrentSkinIndex = newSkinIndex;
         }
 
         private void DestroyCurrentSkin()
@@ -67,11 +61,6 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
             GameObject warship = Object.Instantiate(prefab, parent, false);
             warship.transform.position = new Vector3(0,0,55);
             warship.transform.localScale = new Vector3(1.4f,1.4f,1.4f);
-        }
-        
-        private void ReloadWarshipView(ushort warshipIndex, WarshipDto warshipDto)
-        {
-            lobbyUiContext.CreateEntity().AddWarship(warshipIndex, warshipDto);
         }
     }
 }

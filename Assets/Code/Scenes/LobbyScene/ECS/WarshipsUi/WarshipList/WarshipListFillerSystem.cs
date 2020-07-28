@@ -23,7 +23,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
         private readonly IGroup<LobbyUiEntity> warshipsGroup;
         private readonly WarshipsUiStorage warshipsUiStorage;
         private readonly LobbyEcsController lobbyEcsController;
-        private readonly ILog log = LogManager.CreateLogger(typeof(WarshipSpawnerSystem));
+        private readonly ILog log = LogManager.CreateLogger(typeof(WarshipListFillerSystem));
 
         public WarshipListFillerSystem(Contexts contexts, WarshipsUiStorage warshipsUiStorage, 
             LobbyEcsController lobbyEcsController) 
@@ -48,7 +48,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
         {
             log.Info("Старт заполнения списка кораблей");
             FillWarshipsList(warshipsGroup.AsEnumerable()
-                .OrderBy(entity=>entity.warship.index)
+                .OrderBy(entity=>entity.warship.warshipDto.WarshipTypeEnum)
                 .Select(entity=>entity.warship.warshipDto)
                 .ToList());
             log.Info("Заполнение списка кораблей закончено");

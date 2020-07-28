@@ -56,6 +56,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
+                    
                     Object.Destroy(movingAward.view.gameObject);
                     movingAward.Destroy();
                 }

@@ -21,7 +21,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts
 
             if (effectPrefab == null)
             {
-                throw new NotImplementedException(nameof(effectPrefab));
+                throw new NullReferenceException(nameof(effectPrefab));
             }
         }
 

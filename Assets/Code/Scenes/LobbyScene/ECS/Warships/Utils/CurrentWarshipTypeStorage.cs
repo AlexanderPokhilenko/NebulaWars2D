@@ -9,17 +9,17 @@ namespace Code.Scenes.LobbyScene.ECS.Warships.Utils
         private const string Key = "warshipIndex";
         private static readonly ILog Log = LogManager.CreateLogger(typeof(CurrentWarshipTypeStorage));
         
-        public static void WriteWarshipIndex(WarshipTypeEnum warshipTypeEnum)
+        public static void WriteWarshipType(WarshipTypeEnum warshipTypeEnum)
         {
-            Log.Error($"Установка типа корабля {warshipTypeEnum.ToString()}");
+            // Log.Debug($"Установка типа корабля {warshipTypeEnum.ToString()}");
             PlayerPrefs.SetInt(Key, (int) warshipTypeEnum);
             PlayerPrefs.Save();
         }
 
         public static WarshipTypeEnum ReadWarshipIndex()
         {
-            var result = (WarshipTypeEnum) PlayerPrefs.GetInt(Key, 0);
-            Log.Error($"Чтение типа корабля  {result.ToString()}");
+            var result = (WarshipTypeEnum) PlayerPrefs.GetInt(Key, (int) WarshipTypeEnum.Hare);
+            // Log.Debug($"Чтение типа корабля  {result.ToString()}");
             return result ;
         }
     }

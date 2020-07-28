@@ -1,3 +1,4 @@
+using System;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.ECS.Extensions;
 using Entitas;
@@ -32,7 +33,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
                 Color tmpColor = entity.image.image.color;
                 tmpColor.a = entity.alpha.alpha;
                 entity.image.image.color = tmpColor;
-
+                
                 if (entity.movingIcon.IsRaiseUpNeeded())
                 {
                     entity.view.gameObject.transform.SetParent(upperObject, false);

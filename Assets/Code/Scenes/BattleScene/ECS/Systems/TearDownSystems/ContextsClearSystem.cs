@@ -17,8 +17,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.TearDownSystems
         
         public void TearDown()
         {
-            contexts.input.DestroyAllEntities();
-            var entities = contexts.game.GetEntities();
+            var entities = contexts.lobbyUi.GetEntities();
             foreach (var entity in entities)
             {
                 if (entity.hasView)
@@ -32,8 +31,6 @@ namespace Code.Scenes.BattleScene.ECS.Systems.TearDownSystems
                 }
                 entity.Destroy();
             }
-
-            ParentsNetworkSynchronizer.Instance.Clear();
         }
     }
 }
