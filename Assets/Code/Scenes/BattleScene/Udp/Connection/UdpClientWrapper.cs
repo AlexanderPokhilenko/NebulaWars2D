@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using Code.Common;
 using Code.Common.Logger;
 using UnityEngine;
 
@@ -26,12 +24,8 @@ namespace Code.Scenes.BattleScene.Udp.Connection
         public void StartReceiveThread()
         {
             cancellationTokenSource = new CancellationTokenSource();
-            ThreadPool.QueueUserWorkItem(ThreadWork);
-        }
-        
-        private async void ThreadWork(object state)
-        {
-            await Listen();
+            Task listenTask = new Task(async () => await Listen(), TaskCreationOptions.LongRunning);
+            listenTask.Start();
         }
 
         private async Task Listen()
@@ -49,7 +43,7 @@ namespace Code.Scenes.BattleScene.Udp.Connection
                     // 10004 thrown when socket is closed
                     if (e.ErrorCode != 10004)
                     {
-                        Debug.Log("Socket exception while receiving data from udp client: " + e.Message);
+                        log.Error("Socket exception while receiving data from udp client: " + e.Message);
                     }
                 }
                 catch (Exception e)

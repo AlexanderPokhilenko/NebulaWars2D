@@ -38,7 +38,9 @@ namespace Code.Scenes.BattleScene.Scripts
                 Client =
                 {
                     Blocking = false,
-                    ReceiveTimeout = 1000
+                    ReceiveTimeout = 500,
+                    DontFragment = true,
+                    SendTimeout = 50
                 }
             };
             
