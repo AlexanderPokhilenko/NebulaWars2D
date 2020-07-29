@@ -74,7 +74,7 @@ namespace Code.Scenes.LootboxScene.ECS.Systems
                     SoftCurrencyResourceModel softCurrencyResourceModel =
                         ZeroFormatterSerializer.Deserialize<SoftCurrencyResourceModel>(prize.resourceModel
                             .SerializedModel);
-                    script.SetData(softCurrencyResourceModel.Amount);
+                    script.StartAnimation(softCurrencyResourceModel.Amount);
                     particlesColorUpdater.SetStartColor(Color.blue);
                     break;
                 }

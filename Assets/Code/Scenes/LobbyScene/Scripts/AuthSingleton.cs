@@ -1,13 +1,12 @@
-﻿using System;
+﻿#define FORCE_AUTH
+
+
+using System;
 using Code.Common;
 using Code.Common.Logger;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine;
-#if UNITY_ANDROID
-
-#endif
-
 namespace Code.Scenes.LobbyScene.Scripts
 {
    /// <summary>
@@ -32,7 +31,7 @@ namespace Code.Scenes.LobbyScene.Scripts
       private void Start()
       {
 #if UNITY_ANDROID
-            if (!PlayGamesPlatform.Instance.IsAuthenticated())
+         if (!PlayGamesPlatform.Instance.IsAuthenticated())
          {
             log.Info("Игрок ещё не зашёл в аккаунт");
             StartAuth();
@@ -79,62 +78,64 @@ namespace Code.Scenes.LobbyScene.Scripts
          else
          {
             log.Warn("Auth failed");
-         }
-
-#if UNITY_EDITOR
+#if (UNITY_EDITOR || FORCE_AUTH)
             AuthIfDeveloper();
 #endif
-        }
+         }
 
-#if UNITY_EDITOR
-       private void AuthIfDeveloper()
-       {
-           log.Warn("Принудительное выставление флага успеха авторизации");
-           const string prefabsPlayerIdKey = "playerId";
-           const string prefabsUsernameKey = "username";
 
-           //Прочитать из жесткого диска
-           string playerServiceId = PlayerPrefs.GetString(prefabsPlayerIdKey);
-           string username = PlayerPrefs.GetString(prefabsUsernameKey);
+      }
 
-           //На жестком диске уже был сохранён serviceId?
-           if (string.IsNullOrEmpty(playerServiceId) || playerServiceId.Length < 10)
-           {
-               //Создать новый serviceId
-               playerServiceId = "devAccount" + new System.Random().Next(1, ushort.MaxValue);
-               //Сохранить на жесткий диск
-               PlayerPrefs.SetString(prefabsPlayerIdKey, playerServiceId);
-               //Проверить, что сохранилось нормально
-               if (PlayerPrefs.GetString(prefabsPlayerIdKey) != playerServiceId)
-               {
-                   throw new Exception("Failed to save user id.");
-               }
-           }
+#if (UNITY_EDITOR || FORCE_AUTH)
+      private void AuthIfDeveloper()
+      {
+         log.Warn("Принудительное выставление флага успеха авторизации");
+         const string prefabsPlayerIdKey = "playerId";
+         const string prefabsUsernameKey = "username";
 
-           if (string.IsNullOrEmpty(username))
-           {
-               //Создать новый serviceId
-               username = "username" + new System.Random().Next(1, ushort.MaxValue);
-               //Сохранить на жесткий диск
-               PlayerPrefs.SetString(prefabsUsernameKey, username);
-               //Проверить, что сохранилось нормально
-               if (PlayerPrefs.GetString(prefabsUsernameKey) != username)
-               {
-                   throw new Exception("Failed to save username.");
-               }
-           }
+         //Прочитать из жесткого диска
+         string playerServiceId = PlayerPrefs.GetString(prefabsPlayerIdKey);
+         string username = PlayerPrefs.GetString(prefabsUsernameKey);
 
-           //Присвоить serviceId
-           lock (lockObj)
-           {
-               PlayerIdStorage.SetServiceId(playerServiceId);
-               PlayerIdStorage.SetUsername(username);
-               isAuthorizationCompleted = true;
-           }
-       }
+         //На жестком диске уже был сохранён serviceId?
+         if (string.IsNullOrEmpty(playerServiceId) || playerServiceId.Length < 10)
+         {
+            //Создать новый serviceId
+            // playerServiceId = "devAccount" + new System.Random().Next(1, ushort.MaxValue);
+            playerServiceId = "username";
+            //Сохранить на жесткий диск
+            PlayerPrefs.SetString(prefabsPlayerIdKey, playerServiceId);
+            //Проверить, что сохранилось нормально
+            if (PlayerPrefs.GetString(prefabsPlayerIdKey) != playerServiceId)
+            {
+               throw new Exception("Failed to save user id.");
+            }
+         }
+
+         if (string.IsNullOrEmpty(username))
+         {
+            //Создать новый serviceId
+            username = "username" + new System.Random().Next(1, ushort.MaxValue);
+            //Сохранить на жесткий диск
+            PlayerPrefs.SetString(prefabsUsernameKey, username);
+            //Проверить, что сохранилось нормально
+            if (PlayerPrefs.GetString(prefabsUsernameKey) != username)
+            {
+               throw new Exception("Failed to save username.");
+            }
+         }
+
+         //Присвоить serviceId
+         lock (lockObj)
+         {
+            PlayerIdStorage.SetServiceId(playerServiceId);
+            PlayerIdStorage.SetUsername(username);
+            isAuthorizationCompleted = true;
+         }
+      }
 #endif
 
-        private void PrintPlayerData()
+      private void PrintPlayerData()
       {
          log.Info(nameof(PrintPlayerData));
          log.Info($"{nameof(Social.localUser.authenticated)} {Social.localUser.authenticated}");
