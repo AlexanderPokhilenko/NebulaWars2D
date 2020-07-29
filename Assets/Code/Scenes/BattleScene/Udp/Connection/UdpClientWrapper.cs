@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -11,11 +12,10 @@ namespace Code.Scenes.BattleScene.Udp.Connection
 {
    public abstract class UdpClientWrapper:IDisposable
     {
-        private readonly ILog log = LogManager.CreateLogger(typeof(UdpClientWrapper));
-        
         private readonly UdpClient udpClient;
         private readonly IPEndPoint serverEndpoint;
         private CancellationTokenSource cancellationTokenSource;
+        private readonly ILog log = LogManager.CreateLogger(typeof(UdpClientWrapper));
 
         protected UdpClientWrapper(UdpClient udpClient, IPEndPoint serverEndpoint)
         {
@@ -26,13 +26,14 @@ namespace Code.Scenes.BattleScene.Udp.Connection
         public void StartReceiveThread()
         {
             cancellationTokenSource = new CancellationTokenSource();
-            var receiveThread = new Thread(async () => await Listen())
-            {
-                IsBackground = true
-            };
-            receiveThread.Start();
+            ThreadPool.QueueUserWorkItem(ThreadWork);
         }
         
+        private async void ThreadWork(object state)
+        {
+            await Listen();
+        }
+
         private async Task Listen()
         {
             while (!cancellationTokenSource.IsCancellationRequested)
