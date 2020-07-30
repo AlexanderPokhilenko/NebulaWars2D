@@ -1,6 +1,4 @@
-﻿
-using System.Net;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 
 namespace Code.Scenes.BattleScene.Udp.Connection
 {
@@ -8,8 +6,8 @@ namespace Code.Scenes.BattleScene.Udp.Connection
     {
         private readonly UdpMediator udpMediator;
 
-        public BattleUdpClientWrapper(UdpMediator udpMediator, UdpClient udpClient, IPEndPoint serverEndpoint)
-            :base(udpClient, serverEndpoint)
+        public BattleUdpClientWrapper(UdpMediator udpMediator, UdpClient udpClient)
+            :base(udpClient)
         {
             this.udpMediator = udpMediator;
         }

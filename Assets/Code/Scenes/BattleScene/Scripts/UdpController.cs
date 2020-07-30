@@ -1,12 +1,10 @@
-﻿using System.Net;
-using System.Net.Sockets;
-using Code.Common;
-using Code.Common.Logger;
+﻿using Code.Common.Logger;
 using Code.Scenes.BattleScene.Experimental;
 using Code.Scenes.BattleScene.Udp;
 using Code.Scenes.BattleScene.Udp.Connection;
 using Code.Scenes.BattleScene.Udp.Experimental;
-using NetworkLibrary.NetworkLibrary.Http;
+using System.Net;
+using System.Net.Sockets;
 using UnityEngine;
 
 namespace Code.Scenes.BattleScene.Scripts
@@ -43,8 +41,8 @@ namespace Code.Scenes.BattleScene.Scripts
                     SendTimeout = 50
                 }
             };
-            
-            udpClientWrapper = new BattleUdpClientWrapper(udpMediator, udpClient, serverIpEndPoint);
+            udpClient.Connect(serverIpEndPoint);
+            udpClientWrapper = new BattleUdpClientWrapper(udpMediator, udpClient);
             udpSendUtils = new UdpSendUtils(matchId, udpClientWrapper);
             udpMediator.Initialize(udpSendUtils, matchId);
             udpClientWrapper.StartReceiveThread();   
