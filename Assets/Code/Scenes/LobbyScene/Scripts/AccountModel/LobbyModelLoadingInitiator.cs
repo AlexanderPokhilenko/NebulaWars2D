@@ -60,16 +60,10 @@ namespace Code.Scenes.LobbyScene.Scripts.AccountModel
         {
             //Заблокировать ui, если версия игры старая
             updateGameVersionMenuSwitcher.CheckBundleVersion(lobbyModel.BundleVersion);
+            
             //Отнять от данных аккаунта значения, которые будут начислены с анимацией
-            AccountDto accountDto = lobbyModel.AccountDto.Subtract(lobbyModel.RewardsThatHaveNotBeenShown);
-            foreach (WarshipDto accountDataWarship in accountDto.Warships)
-            {
-                log.Info(accountDataWarship.GetCurrentSkinName());
-            }
-            //Установить данные аккаунта
-            lobbyEcsController.SetAccountData(accountDto);
-            //Установить данные для анимации начисления наград
-            lobbyEcsController.CreateUnshownRewardsComponent(lobbyModel.RewardsThatHaveNotBeenShown);
+            lobbyEcsController.SetLobbyModel(lobbyModel);
+            
             //Установить данные для шкалы рейтинга кораблей
             WarshipRatingScaleStorage.Instance.SetValue(lobbyModel.WarshipRatingScaleModel);
         }

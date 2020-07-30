@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
-using Code.Common.Storages;
-using Code.Scenes.LobbyScene.ECS.Warships;
 using Code.Scenes.LobbyScene.ECS.Warships.Utils;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -18,13 +15,11 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
         private bool hasNewValue;
         private AccountDto accountData;
         private readonly LobbyUiContext lobbyUiContext;
-        private readonly IGroup<LobbyUiEntity> warshipGroup;
         private readonly ILog log = LogManager.CreateLogger(typeof(AccountDtoComponentsCreatorSystem));
 
         public AccountDtoComponentsCreatorSystem(Contexts contexts)
         {
             lobbyUiContext = contexts.lobbyUi;
-            warshipGroup = contexts.lobbyUi.GetGroup(LobbyUiMatcher.Warship);
         }
         
         /// <summary>
@@ -73,17 +68,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
             {
                 log.Info("Создание сущности для корабля " + i);
                 WarshipDto warshipDto = warships[i];
-                
-                // var warshipEntity = warshipGroup
-                //     .AsEnumerable()
-                //     .SingleOrDefault(entity => entity.warship.warshipDto.WarshipTypeEnum == warshipDto.WarshipTypeEnum);
-                //
-                // if (warshipEntity == null)
-                // {
-                //     warshipEntity = lobbyUiContextArg.CreateEntity();
-                // }
                 lobbyUiContext.CreateEntity().AddWarship(warshipDto);
-                // WarshipsStorage.Instance.AddOrUpdate(warshipDto.WarshipTypeEnum, warshipDto);
             }
             
             log.Info("Создание сущностей для кораблей окончено");

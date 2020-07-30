@@ -31,6 +31,7 @@ using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
+using Code.Scenes.LobbyScene.Utils;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
@@ -261,18 +262,23 @@ namespace Code.Scenes.LobbyScene.Scripts
         {
             return warshipSpawnerSystem != null && warshipSpawnerSystem.IsWarshipCreationCompleted();
         }
-        
-        public void CreateUnshownRewardsComponent(RewardsThatHaveNotBeenShown rewardsThatHaveNotBeenShown)
-        {
-            movingAwardsMainSystem.CreateAwards(rewardsThatHaveNotBeenShown);
-        }
-        
-        public void SetAccountData(AccountDto accountData)
-        {
-            accountDtoComponentsCreatorSystem.SetAccountDto(accountData);
-            PlayerIdStorage.AccountId = accountData.AccountId;
-        }
 
+        public void SetLobbyModel(LobbyModel lobbyModel)
+        {
+            AccountDto accountDto = lobbyModel.AccountDto.Subtract(lobbyModel.RewardsThatHaveNotBeenShown);
+            foreach (WarshipDto accountDataWarship in accountDto.Warships)
+            {
+                log.Info(accountDataWarship.GetCurrentSkinName());
+            }
+            
+            //Установить данные для анимации начисления наград
+            movingAwardsMainSystem.CreateAwards(lobbyModel.RewardsThatHaveNotBeenShown);
+            
+            //Установить данные аккаунта
+            accountDtoComponentsCreatorSystem.SetAccountDto(accountDto);
+            PlayerIdStorage.AccountId = accountDto.AccountId;
+        }
+      
         public int GetCurrentWarshipId()
         {
             return accountDtoComponentsCreatorSystem.GetCurrentWarshipId();
