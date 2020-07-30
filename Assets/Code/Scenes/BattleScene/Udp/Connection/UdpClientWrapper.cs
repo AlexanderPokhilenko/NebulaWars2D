@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,14 +12,12 @@ namespace Code.Scenes.BattleScene.Udp.Connection
    public abstract class UdpClientWrapper:IDisposable
     {
         private readonly UdpClient udpClient;
-        private readonly IPEndPoint serverEndpoint;
         private CancellationTokenSource cancellationTokenSource;
         private readonly ILog log = LogManager.CreateLogger(typeof(UdpClientWrapper));
 
-        protected UdpClientWrapper(UdpClient udpClient, IPEndPoint serverEndpoint)
+        protected UdpClientWrapper(UdpClient udpClient)
         {
             this.udpClient = udpClient;
-            this.serverEndpoint = serverEndpoint;
         }
         
         public void StartReceiveThread()
@@ -49,19 +46,19 @@ namespace Code.Scenes.BattleScene.Udp.Connection
                     // 10004 thrown when socket is closed
                     if (e.ErrorCode != 10004)
                     {
-                        Debug.Log("Socket exception while receiving data from udp client: " + e.Message);
+                        log.Error("Socket exception while receiving data from udp client: " + e.Message);
                     }
                 }
                 catch (Exception e)
                 {
-                    log.Warn("Error receiving data from udp client: " + e.Message);
+                    log.Error("Error receiving data from udp client: " + e.Message);
                 }
             }
         }
 
         public void Send(byte[] data)
         {
-            udpClient.Send(data, data.Length, serverEndpoint);
+            udpClient.SendAsync(data, data.Length);
         }
         
         public void Stop()
