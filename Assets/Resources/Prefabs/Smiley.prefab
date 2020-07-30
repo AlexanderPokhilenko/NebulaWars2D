@@ -324,6 +324,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right_Flame
       objectReference: {fileID: 0}
+    - target: {fileID: 3671666720157280038, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3671666720157280039, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -463,6 +468,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Left_Flame
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671666720157280038, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3671666720157280039, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
         type: 3}

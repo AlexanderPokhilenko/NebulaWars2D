@@ -7,7 +7,7 @@ using ZeroFormatter;
 namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
 {
     /// <summary>
-    /// todo это полнейший пиздец
+    /// По модели продукта создаёт модель для показа ресурсов с красивой анимацией.
     /// </summary>
     public class ResourceModelMapper
     {

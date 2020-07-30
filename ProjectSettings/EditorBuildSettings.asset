@@ -5,9 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/SortMe/SdkDebugScene.unity
-    guid: a096aec3658ca0e478796e0aff54a9b4
   - enabled: 1
     path: Assets/Scenes/LobbyScene.unity
     guid: 1899b83e9568ec748bf264f4a3ebf778
@@ -17,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleScene.unity
     guid: 21b1b4922675a5140a5b9365bc63f927
+  - enabled: 1
+    path: Assets/Scenes/Test.unity
+    guid: 689e3872e6c3c034299558c4067d2e4d
   m_configObjects: {}

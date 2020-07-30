@@ -40,7 +40,7 @@ namespace Code.Scenes.BattleScene.Scripts
         {
             UdpSendUtils udpSendUtils = udpControllerSingleton.GetUdpSendUtils();
             systems = CreateSystems(udpSendUtils);
-            Contexts.sharedInstance.game.SetZoneInfo(Vector2.zero, 10f);
+            Contexts.sharedInstance.game.ReplaceZoneInfo(Vector2.zero, 10f);
             systems.ActivateReactiveSystems();
             systems.Initialize();
         }

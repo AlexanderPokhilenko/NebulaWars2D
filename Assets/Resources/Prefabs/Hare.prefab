@@ -278,6 +278,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flame_5
       objectReference: {fileID: 0}
+    - target: {fileID: 3671666720157280038, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3671666720157280039, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -367,6 +372,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flame_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671666720157280038, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3671666720157280039, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
         type: 3}
@@ -458,6 +468,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flame_6
       objectReference: {fileID: 0}
+    - target: {fileID: 3671666720157280038, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3671666720157280039, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -547,6 +562,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flame_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671666720157280038, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3671666720157280039, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
         type: 3}
@@ -638,6 +658,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flame_1
       objectReference: {fileID: 0}
+    - target: {fileID: 3671666720157280038, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3671666720157280039, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -727,6 +752,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Flame_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3671666720157280038, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3671666720157280039, guid: 5f768c0a2c6de9e4ba4c3778fc7bbfac,
         type: 3}
