@@ -114,8 +114,6 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
             Assert.IsNotNull(smallLootboxText);
             Assert.IsNotNull(trophy);
             Assert.IsNotNull(regularCurrency);
-            Assert.IsNotNull(buttonScrollRight);
-            Assert.IsNotNull(buttonScrollLeft);
             Assert.IsNotNull(rankText);
             Assert.IsNotNull(ratingText);
             Assert.IsNotNull(ratingSlider);
