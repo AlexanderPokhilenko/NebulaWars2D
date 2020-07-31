@@ -76,51 +76,33 @@ namespace Code.Scenes.LobbyScene.Scripts
          }
          else
          {
-            log.Warn("Auth failed");
+            log.Error("Auth failed");
 #if (UNITY_EDITOR || FORCE_AUTH)
             AuthIfDeveloper();
 #endif
          }
-
-
       }
 
 #if (UNITY_EDITOR || FORCE_AUTH)
       private void AuthIfDeveloper()
       {
          log.Warn("Принудительное выставление флага успеха авторизации");
-         const string prefabsPlayerIdKey = "playerId";
-         const string prefabsUsernameKey = "username";
+         const string playerServiceIdKey = "playerId";
+         const string usernameKey = "username";
 
          //Прочитать из жесткого диска
-         string playerServiceId = PlayerPrefs.GetString(prefabsPlayerIdKey);
-         string username = PlayerPrefs.GetString(prefabsUsernameKey);
-
-         //На жестком диске уже был сохранён serviceId?
-         if (string.IsNullOrEmpty(playerServiceId) || playerServiceId.Length < 10)
+         string playerServiceId = PlayerPrefs.GetString(playerServiceIdKey);
+         string username = PlayerPrefs.GetString(usernameKey);
+         
+         if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(playerServiceId))
          {
             //Создать новый serviceId
-            playerServiceId = "username";
-            //Сохранить на жесткий диск
-            PlayerPrefs.SetString(prefabsPlayerIdKey, playerServiceId);
-            //Проверить, что сохранилось нормально
-            if (PlayerPrefs.GetString(prefabsPlayerIdKey) != playerServiceId)
-            {
-               throw new Exception("Failed to save user id.");
-            }
-         }
-
-         if (string.IsNullOrEmpty(username))
-         {
-            //Создать новый serviceId
-            username = "username" + new System.Random().Next(1, ushort.MaxValue);
-            //Сохранить на жесткий диск
-            PlayerPrefs.SetString(prefabsUsernameKey, username);
-            //Проверить, что сохранилось нормально
-            if (PlayerPrefs.GetString(prefabsUsernameKey) != username)
-            {
-               throw new Exception("Failed to save username.");
-            }
+            playerServiceId = $"playerServiceId_{new System.Random().Next(1, int.MaxValue)}";
+            username = $"username {new System.Random().Next(1, ushort.MaxValue)}";
+            //Сохранить на  диск
+            PlayerPrefs.SetString(playerServiceIdKey, playerServiceId);
+            PlayerPrefs.SetString(usernameKey, username);
+            
          }
 
          //Присвоить serviceId
