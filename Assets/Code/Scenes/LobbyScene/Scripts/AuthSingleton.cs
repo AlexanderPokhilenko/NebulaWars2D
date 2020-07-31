@@ -1,6 +1,5 @@
 ﻿#define FORCE_AUTH
 
-
 using System;
 using Code.Common;
 using Code.Common.Logger;
@@ -101,7 +100,6 @@ namespace Code.Scenes.LobbyScene.Scripts
          if (string.IsNullOrEmpty(playerServiceId) || playerServiceId.Length < 10)
          {
             //Создать новый serviceId
-            // playerServiceId = "devAccount" + new System.Random().Next(1, ushort.MaxValue);
             playerServiceId = "username";
             //Сохранить на жесткий диск
             PlayerPrefs.SetString(prefabsPlayerIdKey, playerServiceId);

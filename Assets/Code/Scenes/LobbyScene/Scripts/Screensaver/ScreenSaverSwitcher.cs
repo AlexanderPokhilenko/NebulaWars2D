@@ -9,11 +9,14 @@ namespace Code.Scenes.LobbyScene.Scripts.Screensaver
     /// </summary>
     public class ScreenSaverSwitcher : MonoBehaviour
     {
-        [SerializeField] private GameObject screenSaverImage;
-
         private AuthSingleton authSingleton;
         private LobbyEcsController lobbyEcsController;
+        [SerializeField] private GameObject screenSaverImage;
         private readonly ILog log = LogManager.CreateLogger(typeof(ScreenSaverSwitcher));
+        
+        private float _nextLogTime;
+        private bool _isAuthCompleted;
+        private bool _isWarshipsCompleted;
         
         private void Awake()
         {
@@ -47,10 +50,29 @@ namespace Code.Scenes.LobbyScene.Scripts.Screensaver
             bool isUnityEditor = IsUnityEditor();
             bool initializationCompleted = isAuthorizationCompleted && warshipsCreationCompleted;
             bool result = initializationCompleted || isUnityEditor;
+
+            float currentTime = Time.time;
+            if (_nextLogTime < currentTime)
+            {
+                log.Info($"time {nameof(isAuthorizationCompleted)} {isAuthorizationCompleted}" +
+                         $" {nameof(warshipsCreationCompleted)} {warshipsCreationCompleted}");
+                _nextLogTime += currentTime+1;
+            }
+
+            if (_isAuthCompleted != isAuthorizationCompleted)
+            {
+                log.Info($"_isAuthCompleted changed {nameof(isAuthorizationCompleted)} {isAuthorizationCompleted}" +
+                         $" {nameof(warshipsCreationCompleted)} {warshipsCreationCompleted}");
+                _isAuthCompleted = isAuthorizationCompleted;
+            }
             
+            if (_isWarshipsCompleted != warshipsCreationCompleted)
+            {
+                log.Info($"_isWarshipsCompleted changed {nameof(isAuthorizationCompleted)} {isAuthorizationCompleted}" +
+                         $" {nameof(warshipsCreationCompleted)} {warshipsCreationCompleted}");
+                _isWarshipsCompleted = warshipsCreationCompleted;
+            }
             
-            log.Info($"{nameof(isAuthorizationCompleted)} {isAuthorizationCompleted}" +
-                      $" {nameof(warshipsCreationCompleted)} {warshipsCreationCompleted}");
             return result;
         }
 
