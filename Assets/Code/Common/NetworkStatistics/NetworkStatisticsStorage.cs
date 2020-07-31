@@ -9,12 +9,11 @@ namespace Code.Common.NetworkStatistics
     /// </summary>
     public class NetworkStatisticsStorage
     {
-        private static readonly Lazy<NetworkStatisticsStorage> Lazy = new Lazy<NetworkStatisticsStorage> (() => new NetworkStatisticsStorage()); 
-        public static NetworkStatisticsStorage Instance => Lazy.Value;
-
-        private readonly List<MatchNetworkStatistics> matches=new List<MatchNetworkStatistics>();
-
         private MatchNetworkStatistics lastMatch;
+        public static NetworkStatisticsStorage Instance => Lazy.Value;
+        private readonly List<MatchNetworkStatistics> matches=new List<MatchNetworkStatistics>();
+        private static readonly Lazy<NetworkStatisticsStorage> Lazy = 
+            new Lazy<NetworkStatisticsStorage> (() => new NetworkStatisticsStorage()); 
 
         public void StartRecordingNewMatch(string matchId, string matchInfo)
         {
@@ -22,16 +21,20 @@ namespace Code.Common.NetworkStatistics
             matches.Add(lastMatch);
         }
 
-        public void RegisterMessage(int messageLength, MessageType messageType)
+        // public void RegisterMessage(int messageLength, MessageType messageType)
+        // {
+        //     if (lastMatch == null)
+        //     {
+        //         throw new Exception($"Перед добавлением сообщения нужно вызвать {nameof(StartRecordingNewMatch)}");
+        //     }
+        //
+        //     lastMatch.RegisterMessage(messageLength, messageType);
+        // }
+
+        public int GetLastFramerate()
         {
-            if (lastMatch == null)
-            {
-                throw new Exception($"Перед добавлением сообщения нужно вызвать {nameof(StartRecordingNewMatch)}");
-            }
-
-            lastMatch.RegisterMessage(messageLength, messageType);
+            return lastMatch.GetLastFramerate();
         }
-
         public void RegisterDatagram(int datagramLength)
         {
             if (lastMatch == null)
@@ -44,7 +47,7 @@ namespace Code.Common.NetworkStatistics
 
         public void PrintSavedMatches()
         {
-            foreach (var match in matches)
+            foreach (MatchNetworkStatistics match in matches)
             {
                 match.Print();
             }

@@ -33,7 +33,7 @@ namespace Code.Scenes.BattleScene.Udp
             foreach (byte[] data in messagesContainer.Messages)
             {
                 MessageWrapper message = ZeroFormatterSerializer.Deserialize<MessageWrapper>(data);
-                NetworkStatisticsStorage.Instance.RegisterMessage(data.Length, message.MessageType);
+                // NetworkStatisticsStorage.Instance.RegisterMessage(data.Length, message.MessageType);
                 messageProcessor.Handle(message);
             }
         }

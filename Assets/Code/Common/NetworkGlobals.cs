@@ -9,7 +9,6 @@ namespace Code.Common
     /// </summary>
     public static class NetworkGlobals
     {
-        
 #if  LocalTesting
         public const string GameServerIp = "127.0.0.1";
         private const string GameMatcherUrl = "http://127.0.0.1:53846";

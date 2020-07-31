@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using Code.Common;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +11,7 @@ public class FrameRateCounter : Singleton<FrameRateCounter>
     protected override bool DontDestroy { get; } = true;
     private int prevSec;
     private int fps;
+    
     protected override void Awake()
     {
         base.Awake();
