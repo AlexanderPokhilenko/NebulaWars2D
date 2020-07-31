@@ -9,6 +9,8 @@ namespace Code.Scenes.LobbyScene.Scripts.WarshipsUi
     /// </summary>
     public class WarshipsUiStorage : MonoBehaviour
     {
+        public RectTransform warshipListContent;
+        
         [Header("Корневые элементы для списка кораблей")]
         public GameObject warshipListRootGameObject;
         public GameObject warshipsListBackgroundGameObject;

@@ -35,10 +35,7 @@ namespace Code.Scenes.BattleScene.Scripts
             {
                 Client =
                 {
-                    Blocking = false,
-                    ReceiveTimeout = 500,
-                    DontFragment = true,
-                    SendTimeout = 50
+                    Blocking = false
                 }
             };
             udpClient.Connect(serverIpEndPoint);

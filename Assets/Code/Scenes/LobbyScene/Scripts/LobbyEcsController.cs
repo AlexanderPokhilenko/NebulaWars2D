@@ -183,7 +183,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new PurchaseConfirmationWindowDisablingSystem(contexts.lobbyUi, shopUiStorage))
                     
                     //Список кораблей
-                    .Add(new WarshipListEnablingSystem(contexts.lobbyUi, lobbyLayoutSwitcher,  uiLayersStorage))
+                    .Add(new WarshipListEnablingSystem(contexts.lobbyUi, lobbyLayoutSwitcher,  uiLayersStorage, warshipsUiStorage))
                     .Add(new WarshipListDisablingSystem(contexts.lobbyUi, lobbyLayoutSwitcher,  uiLayersStorage))
                     
                     //Обзор корабля

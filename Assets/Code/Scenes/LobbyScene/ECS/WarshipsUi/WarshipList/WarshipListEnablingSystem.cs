@@ -1,8 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
+using Code.Common;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
 using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using Code.Scenes.LobbyScene.Scripts.WarshipsUi;
 using Entitas;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
@@ -17,11 +20,12 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
         private readonly LobbyLayoutSwitcher lobbyLayoutSwitcher;
 
         public WarshipListEnablingSystem(IContext<LobbyUiEntity> context, LobbyLayoutSwitcher lobbyLayoutSwitcher,
-             UiLayersStorage uiLayersStorage) 
+             UiLayersStorage uiLayersStorage, WarshipsUiStorage warshipsUiStorage) 
             : base(context)
         {
             this.lobbyLayoutSwitcher = lobbyLayoutSwitcher;
             this.uiLayersStorage = uiLayersStorage;
+            this.warshipsUiStorage = warshipsUiStorage;
         }
 
         protected override ICollector<LobbyUiEntity> GetTrigger(IContext<LobbyUiEntity> context)
@@ -38,6 +42,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
         {
             EnableWarshipsLayer();
             lobbyLayoutSwitcher.SetCurrentLayer(ShittyUiLayerState.WarshipsList);
+            UnityThread.ExecuteCoroutine(SetWarshipsListContentHeight());
         }
         
         private void EnableWarshipsLayer()
@@ -53,6 +58,18 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipList
             uiLayersStorage.shopLayerRootGameObject.SetActive(false);
             
             uiLayersStorage.warshipsUiLayerRootGameObject.SetActive(true);
+        }
+        
+        /// <summary>
+        /// Задержка нужна для того, чтобы grid layout group успел выровнять содержимое
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator SetWarshipsListContentHeight()
+        {
+            yield return null;
+            RectTransform gridGroupRect = warshipsUiStorage.warshipsListBackgroundGameObject.GetComponent<RectTransform>();
+            warshipsUiStorage.warshipListContent
+                .SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, gridGroupRect.rect.height);
         }
     }
 }
