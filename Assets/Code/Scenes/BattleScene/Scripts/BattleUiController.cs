@@ -50,7 +50,7 @@ namespace Code.Scenes.BattleScene.Scripts
         private void Awake()
         {
             // lobbyLoaderController = GetComponent<LobbyLoaderController>();
-            zoneGroup.SetActive(true);
+            // zoneGroup.SetActive(true);
             overlayCanvas.SetActive(true);
             gameViews.SetActive(true);
             //TODO: вызывать в зависимости от настроек графики

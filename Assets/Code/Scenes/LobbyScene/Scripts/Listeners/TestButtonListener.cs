@@ -1,3 +1,5 @@
+using System;
+using Code.Scenes.LobbyScene.Scripts.DebugMenu;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,9 +7,16 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
 {
     public class TestButtonListener : MonoBehaviour
     {
-        public void Test()
+        private DebugMenuUiStorage uiStorage;
+
+        private void Awake()
         {
-            SceneManager.LoadScene("Test");
+            uiStorage = FindObjectOfType<DebugMenuUiStorage>();
+        }
+
+        public void EnableDebugMenu()
+        {
+            uiStorage.debugMenuRoot.SetActive(true);
         }
     }
 }

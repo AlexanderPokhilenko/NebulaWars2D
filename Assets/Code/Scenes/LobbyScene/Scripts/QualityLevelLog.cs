@@ -10,9 +10,7 @@ namespace Code.Scenes.LobbyScene.Scripts
       
         private void Awake()
         {
-            int lowLevelIndex = QualitySettings.names.ToList().IndexOf("Low");
-            QualitySettings.SetQualityLevel(lowLevelIndex, true);
-            
+         
             
             int qualityLevelIndex = QualitySettings.GetQualityLevel();
             string qualityLevelName = QualitySettings.names[qualityLevelIndex];
