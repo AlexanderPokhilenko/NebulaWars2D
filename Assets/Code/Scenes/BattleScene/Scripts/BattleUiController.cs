@@ -17,6 +17,7 @@ namespace Code.Scenes.BattleScene.Scripts
     {
         private readonly ILog log = LogManager.CreateLogger(typeof(BattleUiController));
         #region Объекты для систем
+#pragma warning disable 649 // присваивается через Unity Editor
         [SerializeField] private GameObject zoneGroup;
         [SerializeField] private GameObject overlayCanvas;
         [SerializeField] private GameObject gameViews;
@@ -25,6 +26,7 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private Camera mainCamera;
         [SerializeField] private GameObject zone;
         [SerializeField] private MovingBackgroundInfo[] backgrounds;
+        [SerializeField] private Image singleBackground;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Text healthText;
         [SerializeField] private Slider shieldSlider;
@@ -40,16 +42,31 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private VolumeProfile vignetteVolumeProfile;
         [SerializeField] private GameObject menuImage;
         [SerializeField] private Material nicknameFontMaterial;
+#pragma warning restore 649
         #endregion
 
         // private LobbyLoaderController lobbyLoaderController;
-   
+
         private void Awake()
         {
             // lobbyLoaderController = GetComponent<LobbyLoaderController>();
             zoneGroup.SetActive(true);
             overlayCanvas.SetActive(true);
             gameViews.SetActive(true);
+            //TODO: вызывать в зависимости от настроек графики
+            /*if()*/UseSingleBackground();
+        }
+
+        private void UseSingleBackground()
+        {
+            singleBackground.gameObject.SetActive(true);
+
+            foreach (var (img, _) in backgrounds)
+            {
+                img.gameObject.SetActive(false);
+            }
+
+            backgrounds = new[] {new MovingBackgroundInfo {coefficient = 0.25f, image = singleBackground} };
         }
 
         public void DisableZoneAndOverlayCanvas()
