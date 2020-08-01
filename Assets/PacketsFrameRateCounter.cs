@@ -15,6 +15,7 @@ public class PacketsFrameRateCounter : MonoBehaviour
     
     private void Update()
     {
-        text.text = NetworkStatisticsStorage.Instance.GetLastFramerate().ToString();
+        int value = NetworkStatisticsStorage.Instance.GetLastFramerate();
+        text.text = $"{value} pps";
     }
 }

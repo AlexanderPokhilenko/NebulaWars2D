@@ -7268,12 +7268,14 @@ namespace ZeroFormatter.DynamicObjectSegments.Libraries.NetworkLibrary.Udp.Commo
         where TTypeResolver : ITypeResolver, new()
     {
         readonly Formatter<TTypeResolver, uint> formatter0;
+        readonly Formatter<TTypeResolver, ushort> formatter1;
         
         public override bool NoUseDirtyTracker
         {
             get
             {
                 return formatter0.NoUseDirtyTracker
+                    && formatter1.NoUseDirtyTracker
                 ;
             }
         }
@@ -7281,19 +7283,21 @@ namespace ZeroFormatter.DynamicObjectSegments.Libraries.NetworkLibrary.Udp.Commo
         public DeliveryConfirmationMessageFormatter()
         {
             formatter0 = Formatter<TTypeResolver, uint>.Default;
+            formatter1 = Formatter<TTypeResolver, ushort>.Default;
             
         }
 
         public override int? GetLength()
         {
-            return 4;
+            return 6;
         }
 
         public override int Serialize(ref byte[] bytes, int offset, global::Libraries.NetworkLibrary.Udp.Common.DeliveryConfirmationMessage value)
         {
-            BinaryUtil.EnsureCapacity(ref bytes, offset, 4);
+            BinaryUtil.EnsureCapacity(ref bytes, offset, 6);
             var startOffset = offset;
             offset += formatter0.Serialize(ref bytes, offset, value.MessageNumberThatConfirms);
+            offset += formatter1.Serialize(ref bytes, offset, value.PlayerId);
             return offset - startOffset;
         }
 
@@ -7304,8 +7308,11 @@ namespace ZeroFormatter.DynamicObjectSegments.Libraries.NetworkLibrary.Udp.Commo
             var item0 = formatter0.Deserialize(ref bytes, offset, tracker, out size);
             offset += size;
             byteSize += size;
+            var item1 = formatter1.Deserialize(ref bytes, offset, tracker, out size);
+            offset += size;
+            byteSize += size;
             
-            return new global::Libraries.NetworkLibrary.Udp.Common.DeliveryConfirmationMessage(item0);
+            return new global::Libraries.NetworkLibrary.Udp.Common.DeliveryConfirmationMessage(item0, item1);
         }
     }
 

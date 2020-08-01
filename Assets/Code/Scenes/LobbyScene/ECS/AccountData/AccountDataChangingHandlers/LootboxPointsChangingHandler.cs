@@ -47,12 +47,19 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
             if (value < 100)
             {
                 lootboxText.text = value+"/100";
-                pinGameObject.SetActive(false);
+                if (pinGameObject.activeSelf)
+                {
+                    pinGameObject.SetActive(false);
+                }
             }
             else
             {
                 lootboxText.text = value%100+"/100";
-                pinGameObject.SetActive(true);
+                if (!pinGameObject.activeSelf)
+                {
+                    pinGameObject.SetActive(true);
+                }
+                
                 pinText.text = "" + value / 100;
             }
         }

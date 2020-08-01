@@ -46,12 +46,14 @@ namespace Code.Scenes.BattleScene.Udp.Experimental
         
         public void SendDeliveryConfirmationMessage(uint messageNumberThatConfirms)
         {
-            var message = new DeliveryConfirmationMessage
+            ushort myId = PlayerIdStorage.TmpPlayerMatchId;
+            DeliveryConfirmationMessage message = new DeliveryConfirmationMessage
             {
-                MessageNumberThatConfirms = messageNumberThatConfirms
+                MessageNumberThatConfirms = messageNumberThatConfirms,
+                PlayerId = myId
             };
-            byte[] data = MessageFactory.GetSerializedMessage(MessageFactory.GetMessage(message, false, 
-                out uint messageId));
+            MessageWrapper messageWrapper = MessageFactory.GetMessage(message, false, out uint messageId);
+            byte[] data = MessageFactory.GetSerializedMessage(messageWrapper);
             udpClientWrapper.Send(data);
         }
 
