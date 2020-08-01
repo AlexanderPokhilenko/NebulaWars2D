@@ -30,6 +30,7 @@ namespace Code.Scenes.BattleScene.Experimental
 
         public void SetCooldowns(float[] cooldowns)
         {
+            if(infos == null) return;
             for (int i = 0; i < cooldowns.Length && i < infos.Length; i++)
             {
                 infos[i].SetCooldown(cooldowns[i]);

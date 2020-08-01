@@ -6,7 +6,7 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
-    public class UpdatePlayersSystem : IExecuteSystem
+    public class UpdatePlayersSystem : IExecuteSystem, ITearDownSystem
     {
         private static readonly object LockObj = new object();
         private static Dictionary<int, ushort> entityIds; // accountId -> entityId
@@ -28,6 +28,11 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
                 entityIds = newPlayers;
                 WasProcessed = false;
             }
+        }
+
+        public void TearDown()
+        {
+            entityIds?.Clear();
         }
 
         public void Execute()

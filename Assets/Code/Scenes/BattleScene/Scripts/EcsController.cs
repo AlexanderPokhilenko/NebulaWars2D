@@ -24,7 +24,8 @@ namespace Code.Scenes.BattleScene.Scripts
     {
         private readonly ILog log = LogManager.CreateLogger(typeof(EcsController));
         
-        private Systems systems;
+        private Systems currentSystems;
+        private Systems battleSystems;
         private bool abilityButtonIsPressed;
         private UdpController udpControllerSingleton;
         private BattleUiController battleUiController;
@@ -39,10 +40,10 @@ namespace Code.Scenes.BattleScene.Scripts
         private void Start()
         {
             UdpSendUtils udpSendUtils = udpControllerSingleton.GetUdpSendUtils();
-            systems = CreateSystems(udpSendUtils);
+            currentSystems = CreateSystems(udpSendUtils);
             Contexts.sharedInstance.game.ReplaceZoneInfo(Vector2.zero, 10f);
-            systems.ActivateReactiveSystems();
-            systems.Initialize();
+            currentSystems.ActivateReactiveSystems();
+            currentSystems.Initialize();
         }
         
         private void Update()
@@ -53,15 +54,14 @@ namespace Code.Scenes.BattleScene.Scripts
             contexts.input.isTryingToUseAbility |= Input.GetKey(KeyCode.Space);
 #endif
 
-            systems.Execute();
-            systems.Cleanup();
+            currentSystems.Execute();
+            currentSystems.Cleanup();
         }
 
         private void OnDestroy()
         {
-            systems.DeactivateReactiveSystems();
-            systems.TearDown();
-            systems.ClearReactiveSystems();
+            StopSystems(currentSystems);
+            StopSystems(battleSystems);
         }
 
         private Contexts contexts;
@@ -73,7 +73,7 @@ namespace Code.Scenes.BattleScene.Scripts
             udpControllerSingleton.GetUdpSendUtils();
             
             contexts = Contexts.sharedInstance;
-            systems = new Systems()
+            currentSystems = new Systems()
                     .Add(new TimeSpeedSystem(contexts, new FloatLinearInterpolator(prevFrameTime)))
 
                     .Add(new UpdateTransformSystem(contexts))
@@ -136,7 +136,8 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new AbilityUpdaterSystem(battleUiController.GetAbilityCooldownInfo(), new FloatLinearInterpolator(prevFrameTime)))
                     .Add(new ContextsClearSystem(contexts))
                 ;
-            return systems;
+            battleSystems = currentSystems;
+            return currentSystems;
         }
 
         public void AbilityButton_OnPointerDown()
@@ -156,16 +157,16 @@ namespace Code.Scenes.BattleScene.Scripts
         {
             lock(lockObj)
             {
-                StopBattleSystems();
-                ResetSystems();   
+                StopSystems(battleSystems);
+                ResetSystems();
             }
         }
         
-        private void StopBattleSystems()
+        private static void StopSystems(Systems stoppingSystems)
         {
-            systems.DeactivateReactiveSystems();
-            systems.TearDown();
-            systems.ClearReactiveSystems();
+            stoppingSystems.DeactivateReactiveSystems();
+            stoppingSystems.TearDown();
+            stoppingSystems.ClearReactiveSystems();
         }
 
         /// <summary>
@@ -173,7 +174,7 @@ namespace Code.Scenes.BattleScene.Scripts
         /// </summary>
         private void ResetSystems()
         {
-            systems = new Systems()
+            currentSystems = new Systems()
                 .Add(new AddViewSystem(contexts, battleUiController.GetGameViews()))
                 .Add(new RenderSpriteSystem(contexts))
                 .Add(new RenderCircleSystem(contexts))
