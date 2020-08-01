@@ -478,6 +478,7 @@ MonoBehaviour:
     coefficient: 0.75
   - image: {fileID: 41922934}
     coefficient: 1
+  singleBackground: {fileID: 1393228761}
   healthSlider: {fileID: 1196897013}
   healthText: {fileID: 1974690216}
   shieldSlider: {fileID: 1619348446}
