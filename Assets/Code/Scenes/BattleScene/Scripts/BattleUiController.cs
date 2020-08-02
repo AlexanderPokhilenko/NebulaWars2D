@@ -1,8 +1,7 @@
 ﻿using Code.Common.Logger;
 using Code.Scenes.BattleScene.Experimental;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 //TODO большое говно
@@ -27,6 +26,7 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private GameObject zone;
         [SerializeField] private MovingBackgroundInfo[] backgrounds;
         [SerializeField] private Image singleBackground;
+        [SerializeField] private MovingMaterialInfo[] materials;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Text healthText;
         [SerializeField] private Slider shieldSlider;
@@ -39,7 +39,7 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private CannonCooldownsController cannonCooldownsController;
         [SerializeField] private CooldownInfo abilityCooldownInfo;
         [SerializeField] private Image loadingImage;
-        [SerializeField] private VolumeProfile vignetteVolumeProfile;
+        [SerializeField] private PostProcessVolume postProcessVolume;
         [SerializeField] private GameObject menuImage;
         [SerializeField] private Material nicknameFontMaterial;
 #pragma warning restore 649
@@ -85,6 +85,7 @@ namespace Code.Scenes.BattleScene.Scripts
         public GameObject GetGameViews() => gameViews;
         public Camera GetMainCamera() => mainCamera;
         public MovingBackgroundInfo[] GetBackgrounds() => backgrounds;
+        public MovingMaterialInfo[] GetMaterials() => materials;
         public GameObject GetZone() => zone;
         public Joystick GetMovementJoystick() => movementJoystick;
         public Joystick GetAttackJoystick() => attackJoystick;
@@ -100,7 +101,7 @@ namespace Code.Scenes.BattleScene.Scripts
         public CannonCooldownsController GetCannonCooldownsController() => cannonCooldownsController;
         public CooldownInfo GetAbilityCooldownInfo() => abilityCooldownInfo;
         public Image GetLoadingImage() => loadingImage;
-        public Vignette GetVignette() => vignetteVolumeProfile.TryGet(out Vignette vignette) ? vignette : null;
+        public Vignette GetVignette() => postProcessVolume.profile.GetSetting<Vignette>();
         public Material GetNicknameFontMaterial() => nicknameFontMaterial;
     }
 }
