@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Common.Statistics;
+using Code.Common.Storages;
 using Code.Scenes.BattleScene.Experimental;
 using Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers;
-using Entitas.VisualDebugging.Unity;
 using Libraries.NetworkLibrary.Experimental;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
 
-//TODO это кусок говна
 namespace Code.Scenes.BattleScene.Scripts
 {
     /// <summary>
@@ -48,13 +47,12 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private GameObject moneyIconGo;
         
         [SerializeField] private GameObject exitButton;
-        
-        private readonly ILog log = LogManager.CreateLogger(typeof(MatchRewardUiController));
-        
-        private LobbyLoaderController lobbyLoaderController;
-        private BattleUiController battleUiController;
-        private EcsController ecsController;
+
         private bool isAnimationStarted;
+        private MatchEcsController matchEcsController;
+        private BattleUiController battleUiController;
+        private LobbyLoaderController lobbyLoaderController;
+        private readonly ILog log = LogManager.CreateLogger(typeof(MatchRewardUiController));
         
         private void Start()
         {
@@ -62,7 +60,7 @@ namespace Code.Scenes.BattleScene.Scripts
             canvasCameraSpace.SetActive(false);
             battleUiController = GetComponent<BattleUiController>();
             lobbyLoaderController = GetComponent<LobbyLoaderController>();
-            ecsController = GetComponent<EcsController>();
+            matchEcsController = GetComponent<MatchEcsController>();
         }
 
         public void ShowPlayerAchievements()
@@ -73,10 +71,7 @@ namespace Code.Scenes.BattleScene.Scripts
             }
 
             isAnimationStarted = true;
-            //todo зачем это делать?
-            //Оставить только минимум систем
-            // ecsController.EnablePassiveMode();
-            // ecsController.DeleteAllGameEntities();
+            matchEcsController.StopBattleSystems();
             
             StartCoroutine(ShowPlayerAchievementsCoroutine());
         }
@@ -89,7 +84,7 @@ namespace Code.Scenes.BattleScene.Scripts
         private IEnumerator ShowPlayerAchievementsCoroutine()
         {
             //Достать данные из глобальных классов
-            var matchModel = MyMatchDataStorage.Instance.GetMatchModel();
+            BattleRoyaleClientMatchModel matchModel = MyMatchDataStorage.Instance.GetMatchModel();
             int matchId = matchModel.MatchId;
             if (PlayerIdStorage.TryGetServiceId(out string playerServiceId))
             {

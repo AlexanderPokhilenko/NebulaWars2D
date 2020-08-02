@@ -37,7 +37,7 @@ namespace Code.Scenes.BattleScene.Udp.Connection
             {
                 try
                 {
-                    var result = await udpClient.ReceiveAsync();
+                    UdpReceiveResult result = await udpClient.ReceiveAsync();
                     byte[] receiveBytes = result.Buffer;
                     HandleBytes(receiveBytes);
                 }
@@ -48,6 +48,10 @@ namespace Code.Scenes.BattleScene.Udp.Connection
                     {
                         log.Error("Socket exception while receiving data from udp client: " + e.Message);
                     }
+                }
+                catch (ObjectDisposedException e)
+                {
+                    log.Warn("UdpClient was disposed. All ok.");
                 }
                 catch (Exception e)
                 {

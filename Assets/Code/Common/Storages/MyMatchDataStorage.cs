@@ -1,7 +1,7 @@
 ﻿using System;
 using NetworkLibrary.NetworkLibrary.Http;
 
-namespace Code.Scenes.BattleScene.Experimental
+namespace Code.Common.Storages
 {
     public class MyMatchDataStorage
     {

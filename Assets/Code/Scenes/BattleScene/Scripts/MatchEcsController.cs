@@ -1,6 +1,7 @@
 ﻿using Code.BattleScene.ECS.Systems;
 using Code.Common;
 using Code.Common.Logger;
+using Code.Common.Storages;
 using Code.Scenes.BattleScene.ECS.Systems;
 using Code.Scenes.BattleScene.ECS.Systems.AudioSystems;
 using Code.Scenes.BattleScene.ECS.Systems.NetworkSenderSystems;
@@ -20,7 +21,7 @@ namespace Code.Scenes.BattleScene.Scripts
     /// Отвечает за управление ecs системами.
     /// </summary>
     [RequireComponent(typeof(BattleUiController))]
-    public class EcsController:MonoBehaviour
+    public class MatchEcsController:MonoBehaviour
     {
         private Systems battleSystems;
         private Systems currentSystems;
@@ -28,7 +29,7 @@ namespace Code.Scenes.BattleScene.Scripts
         private UdpController udpControllerSingleton;
         private BattleUiController battleUiController;
         private readonly object lockObj = new object();
-        private readonly ILog log = LogManager.CreateLogger(typeof(EcsController));
+        private readonly ILog log = LogManager.CreateLogger(typeof(MatchEcsController));
         
         private void Awake()
         {
@@ -148,18 +149,7 @@ namespace Code.Scenes.BattleScene.Scripts
         {
             abilityButtonIsPressed = false;
         }
-
-        // /// <summary>
-        // /// Это говно нужно для спавна кораблика в окне показа наград после боя.
-        // /// </summary>
-        // public void EnablePassiveMode()
-        // {
-        //     lock(lockObj)
-        //     {
-        //         StopSystems(battleSystems);
-        //     }
-        // }
-        //
+        
         private static void StopSystems(Systems stoppingSystems)
         {
             stoppingSystems.DeactivateReactiveSystems();
@@ -167,26 +157,14 @@ namespace Code.Scenes.BattleScene.Scripts
             stoppingSystems.ClearReactiveSystems();
         }
 
-     
-        
-        // public void DeleteAllGameEntities()
-        // {
-        //     var allGameEntities = contexts.game.GetEntities();
-        //     foreach (var entity in allGameEntities)
-        //     {
-        //         log.Debug("Удаление сущности ");
-        //         if (entity.hasView)
-        //         {
-        //             var go = entity.view.gameObject;
-        //             if (go != null)
-        //             {
-        //                 go.Unlink();
-        //                 Destroy(go);   
-        //             }
-        //         }
-        //         entity.Destroy();
-        //     }
-        //     // contexts.game.SetZoneInfo(new Vector2(int.MaxValue, int.MaxValue), 0);
-        // }
+        /// <summary>
+        /// Нужно для того, чтобы камера не перемещалась к последней позиции корабля а замерла на 0 0.
+        /// </summary>
+        public void StopBattleSystems()
+        {
+            log.Debug("Вызов остановки систем.");
+            // StopSystems(battleSystems);
+            Destroy(this);
+        }
     }
 }
