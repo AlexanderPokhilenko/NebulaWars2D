@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using Code.Common.Logger;
-using Code.Scenes.BattleScene.Scripts;
-using Entitas;
+﻿using Code.Common.Logger;
 using UnityEngine;
 using UnityEngine.UI;
 

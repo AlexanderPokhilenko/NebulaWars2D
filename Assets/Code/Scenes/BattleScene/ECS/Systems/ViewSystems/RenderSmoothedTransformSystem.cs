@@ -2,8 +2,6 @@
 using Code.Common.Logger;
 using Code.Scenes.BattleScene.Experimental;
 using Entitas;
-using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
