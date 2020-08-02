@@ -1,33 +1,38 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Code.Common.Logger;
 using UnityEngine;
 
 namespace Code.Scenes.BattleScene.ScriptableObjects
 {
-    public abstract class ScriptableSingleton<T> : ScriptableObject where T : ScriptableSingleton<T>
+    public abstract class ScriptableSingleton<T> : ScriptableObject 
+        where T : ScriptableSingleton<T>
     {
         protected static T _instance;
+        private static ILog log = LogManager.CreateLogger(typeof(ScriptableSingleton<T>));
+        
         public static T Instance
         {
             get
             {
                 if (_instance == null)
                 {
-                    var type = typeof(T);
-                    var instances = Resources.LoadAll<T>(string.Empty);
+                    Type type = typeof(T);
+                    T[] instances = Resources.LoadAll<T>(string.Empty);
                     if (instances.Length > 1)
                     {
-                       //DebugLogErrorFormat("[ScriptableSingleton] Multiple instances of {0} found!", type.ToString());
+                        log.Error($"[ScriptableSingleton] Multiple instances of {type.Name} found!");
                     }
                     else
                     {
                         _instance = instances.FirstOrDefault();
                         if (_instance == null)
                         {
-                           //DebugLogErrorFormat("[ScriptableSingleton] No instance of {0} found!", type.ToString());
+                            log.Error($"[ScriptableSingleton] No instance of {type.Name} found!");
                         }
                         else
                         {
-                           //DebugLogFormat("[ScriptableSingleton] An instance of {0} was found!", type.ToString());
+                            log.Error($"[ScriptableSingleton] An instance of {type.Name} was found!");
                         }
                     }
                 }

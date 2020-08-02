@@ -22,14 +22,13 @@ namespace Code.Scenes.BattleScene.Scripts
     [RequireComponent(typeof(BattleUiController))]
     public class EcsController:MonoBehaviour
     {
-        private readonly ILog log = LogManager.CreateLogger(typeof(EcsController));
-        
         private Systems battleSystems;
         private Systems currentSystems;
         private bool abilityButtonIsPressed;
         private UdpController udpControllerSingleton;
         private BattleUiController battleUiController;
         private readonly object lockObj = new object();
+        private readonly ILog log = LogManager.CreateLogger(typeof(EcsController));
         
         private void Awake()
         {
@@ -158,7 +157,6 @@ namespace Code.Scenes.BattleScene.Scripts
             lock(lockObj)
             {
                 StopSystems(battleSystems);
-                ResetSystems();
             }
         }
         
@@ -169,21 +167,7 @@ namespace Code.Scenes.BattleScene.Scripts
             stoppingSystems.ClearReactiveSystems();
         }
 
-        /// <summary>
-        /// Это говно нужно для спавна кораблика в окне показа наград после боя.
-        /// </summary>
-        private void ResetSystems()
-        {
-            currentSystems = new Systems()
-                .Add(new AddViewSystem(contexts, battleUiController.GetGameViews()))
-                .Add(new RenderSpriteSystem(contexts))
-                .Add(new RenderCircleSystem(contexts))
-                .Add(new RenderLineSystem(contexts))
-                .Add(new SetAnimatorSystem(contexts))
-                .Add(new UpdateParticlesSystem(contexts))
-                .Add(new RenderTransformSystem(contexts))
-                .Add(new ContextsClearSystem(contexts));
-        }
+     
         
         public void DeleteAllGameEntities()
         {

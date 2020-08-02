@@ -7,7 +7,7 @@ namespace Code.Scenes.BattleScene.Experimental
 {
     public static class PreviewsManager
     {
-        private static readonly ILog log = LogManager.CreateLogger(typeof(PreviewsManager));
+        private static readonly ILog Log = LogManager.CreateLogger(typeof(PreviewsManager));
         private static readonly Dictionary<ViewKey, Sprite> Sprites = new Dictionary<ViewKey, Sprite>();
 
         public static Sprite GetSprite(ViewTypeId typeId, int width = 48, int height = 48)

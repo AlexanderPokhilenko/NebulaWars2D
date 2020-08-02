@@ -81,8 +81,8 @@ namespace Code.Scenes.LobbyScene.Scripts.MatchLoading
             NetworkStatisticsStorage.Instance.StartRecordingNewMatch(gameRoomData.MatchId.ToString(), gameRoomData.PlayerTemporaryId.ToString());
 
             gameRoomData.GameServerIp = NetworkGlobals.GameServerIp;
-            Debug.LogWarning(nameof(gameRoomData.GameServerIp)+" "+gameRoomData.GameServerIp);
-            Debug.LogWarning(nameof(gameRoomData.GameServerPort)+" "+gameRoomData.GameServerPort);
+            log.Info(nameof(gameRoomData.GameServerIp)+" "+gameRoomData.GameServerIp);
+            log.Info(nameof(gameRoomData.GameServerPort)+" "+gameRoomData.GameServerPort);
             SetMatchData(gameRoomData);
             
             lobbySceneSwitcher.LoadSceneAsync("BattleScene");

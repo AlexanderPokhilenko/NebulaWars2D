@@ -1,20 +1,23 @@
-﻿using Code.Scenes.BattleScene.Experimental;
+﻿using System;
+using Code.Common.Logger;
+using Code.Scenes.BattleScene.Experimental;
 using Entitas;
 using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
 {
     public class RenderSmoothedTransformSystem : IExecuteSystem
     {
-        private const float ServerFps = ServerTimeConstants.MaxFps;
-        private const float DelayFramesCount = ClientTimeManager.DelayFramesCount;
-        private const float SmoothTime = DelayFramesCount / ServerFps;
         private readonly IGroup<GameEntity> positionedGroup;
+        private const float SmoothTime = ClientTimeManager.TimeDelay;
+        private readonly ILog log = LogManager.CreateLogger(typeof(RenderSmoothedTransformSystem));
 
         public RenderSmoothedTransformSystem(Contexts contexts)
         {
-            var matcher = GameMatcher.AllOf(GameMatcher.Position, GameMatcher.Direction, GameMatcher.View, GameMatcher.Speed);
+            var matcher = GameMatcher
+                .AllOf(GameMatcher.Position, GameMatcher.Direction, GameMatcher.View, GameMatcher.Speed);
             positionedGroup = contexts.game.GetGroup(matcher);
         }
 
@@ -25,14 +28,18 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
                 foreach (var gameEntity in positionedGroup)
                 {
                     var transform = gameEntity.view.gameObject.transform;
-                    transform.localPosition = (Vector3)Vector2.SmoothDamp(transform.localPosition, gameEntity.position.value, ref gameEntity.speed.linear, SmoothTime) - Vector3.forward * (0.00001f * gameEntity.id.value);
-                    var newAngle = Mathf.SmoothDampAngle(transform.localRotation.eulerAngles.z, gameEntity.direction.angle, ref gameEntity.speed.angular, SmoothTime);
+                    transform.localPosition =
+                        (Vector3) Vector2.SmoothDamp(transform.localPosition, gameEntity.position.value,
+                            ref gameEntity.speed.linear, SmoothTime) -
+                        Vector3.forward * (0.00001f * gameEntity.id.value);
+                    var newAngle = Mathf.SmoothDampAngle(transform.localRotation.eulerAngles.z,
+                        gameEntity.direction.angle, ref gameEntity.speed.angular, SmoothTime);
                     transform.localRotation = Quaternion.Euler(0f, 0f, newAngle);
                 }
             }
-            catch
+            catch (Exception e)
             {
-                // ignored
+                log.Error(e.Message+" "+e.StackTrace);
             }
         }
     }

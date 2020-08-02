@@ -1,4 +1,5 @@
-﻿using Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents;
+﻿using Code.Common.Logger;
+using Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents;
 using Code.Scenes.BattleScene.ScriptableObjects;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace Code.Scenes.BattleScene.ECS.Systems
     {
         private readonly GameContext gameContext;
         protected override int PredictedCapacity { get; } = 64;
+        private readonly ILog log = LogManager.CreateLogger(typeof(DelayedSpawnSystem));
+        
 
         public DelayedSpawnSystem(Contexts contexts) : base(contexts)
         {
@@ -18,7 +21,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         {
             if (entity.hasView)
             {
-                Debug.LogWarning($"Сущность с id {entity.id.value} имела view, пересоздание отложено на один кадр.");
+                log.Warn($"Сущность с id {entity.id.value} имела view, пересоздание отложено на один кадр.");
                 return;
             }
             var spawn = entity.delayedSpawn;
