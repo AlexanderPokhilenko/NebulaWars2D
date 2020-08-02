@@ -14,7 +14,7 @@ namespace Code.Scenes.BattleScene.Scripts
 
         public void LoadLobbyScene()
         {
-            Destroy(FindObjectOfType<EcsController>());
+            Destroy(FindObjectOfType<MatchEcsController>());
             SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
         }
     }

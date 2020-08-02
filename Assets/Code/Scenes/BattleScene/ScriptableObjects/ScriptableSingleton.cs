@@ -8,14 +8,14 @@ namespace Code.Scenes.BattleScene.ScriptableObjects
     public abstract class ScriptableSingleton<T> : ScriptableObject 
         where T : ScriptableSingleton<T>
     {
-        protected static T _instance;
+        protected static T instance;
         private static ILog log = LogManager.CreateLogger(typeof(ScriptableSingleton<T>));
         
         public static T Instance
         {
             get
             {
-                if (_instance == null)
+                if (instance == null)
                 {
                     Type type = typeof(T);
                     T[] instances = Resources.LoadAll<T>(string.Empty);
@@ -25,19 +25,15 @@ namespace Code.Scenes.BattleScene.ScriptableObjects
                     }
                     else
                     {
-                        _instance = instances.FirstOrDefault();
-                        if (_instance == null)
+                        instance = instances.FirstOrDefault();
+                        if (instance == null)
                         {
-                            log.Error($"[ScriptableSingleton] No instance of {type.Name} found!");
-                        }
-                        else
-                        {
-                            log.Error($"[ScriptableSingleton] An instance of {type.Name} was found!");
+                            throw new Exception($"Не удалось найти {type.Name}.");
                         }
                     }
                 }
 
-                return _instance;
+                return instance;
             }
         }
     }

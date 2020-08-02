@@ -18,10 +18,8 @@ namespace Code.Scenes.BattleScene.Scripts
             {
                 return result;
             }
-            else
-            {
-                return matchRewardTypeEnum.ToString();
-            }
+
+            return matchRewardTypeEnum.ToString();
         }
     }
 }

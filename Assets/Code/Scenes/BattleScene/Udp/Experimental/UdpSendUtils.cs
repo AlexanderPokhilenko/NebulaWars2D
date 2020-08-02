@@ -26,7 +26,7 @@ namespace Code.Scenes.BattleScene.Udp.Experimental
 
         public void SendInputMessage(float movementX, float movementY, float attackAngle,bool useAbility)
         {
-            var myId = PlayerIdStorage.TmpPlayerMatchId;
+            ushort myId = PlayerIdStorage.TmpPlayerMatchId;
             
             // Debug.LogWarning($"{nameof(myId)} {myId}");
             var message = new PlayerInputMessage(myId, matchId, movementX, movementY, 
