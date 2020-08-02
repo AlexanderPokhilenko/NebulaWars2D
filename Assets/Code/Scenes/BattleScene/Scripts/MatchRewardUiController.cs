@@ -71,14 +71,12 @@ namespace Code.Scenes.BattleScene.Scripts
             {
                 return;
             }
-            else
-            {
-                isAnimationStarted = true;
-            }
+
+            isAnimationStarted = true;
             //todo зачем это делать?
             //Оставить только минимум систем
-            ecsController.EnablePassiveMode();
-            ecsController.DeleteAllGameEntities();
+            // ecsController.EnablePassiveMode();
+            // ecsController.DeleteAllGameEntities();
             
             StartCoroutine(ShowPlayerAchievementsCoroutine());
         }

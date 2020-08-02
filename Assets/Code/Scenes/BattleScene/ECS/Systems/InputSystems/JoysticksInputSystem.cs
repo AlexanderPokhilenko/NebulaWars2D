@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Common.Logger;
 using Entitas;
 using UnityEngine;
 
@@ -7,10 +8,11 @@ namespace Code.BattleScene.ECS.Systems
 {
     public class JoysticksInputSystem : IExecuteSystem, ICleanupSystem
     {
-        private readonly InputContext inputContext;
-        private readonly Joystick movementJoystick;
         private readonly Joystick attackJoystick;
-
+        private readonly Joystick movementJoystick;
+        private readonly InputContext inputContext;
+        private readonly ILog log = LogManager.CreateLogger(typeof(JoysticksInputSystem));
+        
         public JoysticksInputSystem(Contexts contexts, Joystick forMovement, Joystick forAttack)
         {
             inputContext = contexts.input;
@@ -20,6 +22,18 @@ namespace Code.BattleScene.ECS.Systems
 
         public void Execute()
         {
+            if (inputContext.hasMovement)
+            {
+                log.Error("hasMovement");
+                return;
+            }
+
+            if (inputContext.hasAttack)
+            {
+                log.Error("hasAttack");
+                return;
+            }
+
             inputContext.SetMovement(movementJoystick.Horizontal, movementJoystick.Vertical);
 #if UNITY_EDITOR_WIN
             var inputVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));

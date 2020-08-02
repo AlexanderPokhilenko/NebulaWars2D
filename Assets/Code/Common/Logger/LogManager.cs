@@ -45,8 +45,10 @@ namespace Code.Common.Logger
                 {
                     logType = type.ToString();
                 }
+
+                string time = DateTime.Now.ToLongTimeString();
                 
-                AddLog($"UNITY LOG {logType} {nameof(condition)} {condition} {nameof(stacktrace)} {stacktrace}");
+                AddLog($"{time} UNITY LOG {logType} {nameof(condition)} {condition} {nameof(stacktrace)} {stacktrace}");
             }
             
         }

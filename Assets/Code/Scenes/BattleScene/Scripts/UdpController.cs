@@ -56,7 +56,8 @@ namespace Code.Scenes.BattleScene.Scripts
         /// </summary>
         private void OnDestroy()
         {
-            ;
+            udpClientWrapper?.Stop();
+            udpClientWrapper?.Dispose();
         }
     }
 }

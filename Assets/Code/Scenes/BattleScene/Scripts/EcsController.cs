@@ -24,8 +24,8 @@ namespace Code.Scenes.BattleScene.Scripts
     {
         private readonly ILog log = LogManager.CreateLogger(typeof(EcsController));
         
-        private Systems currentSystems;
         private Systems battleSystems;
+        private Systems currentSystems;
         private bool abilityButtonIsPressed;
         private UdpController udpControllerSingleton;
         private BattleUiController battleUiController;
@@ -190,7 +190,7 @@ namespace Code.Scenes.BattleScene.Scripts
             var allGameEntities = contexts.game.GetEntities();
             foreach (var entity in allGameEntities)
             {
-                Debug.Log("Удаление сущности ");
+                log.Debug("Удаление сущности ");
                 if (entity.hasView)
                 {
                     var go = entity.view.gameObject;

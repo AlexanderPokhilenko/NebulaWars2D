@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Code.Common.Logger;
 using Code.Scenes.BattleScene.Experimental;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
+using UnityEngine;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
@@ -13,7 +15,8 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
         private static bool WasProcessed = true;
         private readonly GameContext gameContext;
         private readonly Dictionary<int, BattleRoyalePlayerModel> _playerInfos;
-
+        private readonly ILog log = LogManager.CreateLogger(typeof(UpdatePlayersSystem));
+        
         public UpdatePlayersSystem(Contexts contexts)
         {
             gameContext = contexts.game;
@@ -49,6 +52,11 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
                     if (entity != null)
                     {
                         var accountId = pair.Key;
+                        if (entity.hasPlayer)
+                        {
+                            log.Error("hasPlayer "+entity.id.value);
+                            entity.RemovePlayer();
+                        }
                         entity.AddPlayer(accountId, _playerInfos[accountId].Nickname);
                         entityIds.Remove(accountId);
                     }

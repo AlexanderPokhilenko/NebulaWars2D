@@ -13,9 +13,17 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                log.Debug("Нажата клавиша Escape");
+                lobbyEcsController.BackButton_OnClick();
+            }
+        }
+
         public void ButtonBack_OnClick()
         {
-            // log.Debug("Нажатие на Back");
             lobbyEcsController.BackButton_OnClick();
         }
     }
