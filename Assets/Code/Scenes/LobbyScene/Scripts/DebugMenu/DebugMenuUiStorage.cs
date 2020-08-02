@@ -7,5 +7,6 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
     {
         public GameObject debugMenuRoot;
         public Dropdown dropdown;
+        public Slider slider;
     }
 }
