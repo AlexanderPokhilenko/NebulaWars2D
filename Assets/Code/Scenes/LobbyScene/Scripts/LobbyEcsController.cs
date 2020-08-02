@@ -210,7 +210,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     .Add(new LobbySceneUiDisablingSystem(contexts.lobbyUi, lobbyUiStorage))
                     
                     //Очистка
-                    .Add(new ContextsClearSystem(contexts))
+                    // .Add(new ContextsClearSystem(contexts))
                     .Add(new ClearLobbyUiSystem(contexts.lobbyUi))
                 ;
             

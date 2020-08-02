@@ -1,4 +1,6 @@
 ﻿using Entitas;
+using Entitas.Unity;
+using UnityEngine;
 
 namespace Code.Scenes.LobbyScene.ECS.Clear
 {
@@ -13,7 +15,22 @@ namespace Code.Scenes.LobbyScene.ECS.Clear
         
         public void TearDown()
         {
-            lobbyUiContext.DestroyAllEntities();
+            // lobbyUiContext.DestroyAllEntities();
+            
+            LobbyUiEntity[] entities = lobbyUiContext.GetEntities();
+            foreach (LobbyUiEntity entity in entities)
+            {
+                if (entity.hasView)
+                {
+                    var gameObject = entity.view.gameObject;
+                    if (gameObject != null)
+                    {
+                        gameObject.Unlink();
+                        Object.Destroy(gameObject);   
+                    }
+                }
+                entity.Destroy();
+            }
         }
     }
 }

@@ -134,7 +134,7 @@ namespace Code.Scenes.BattleScene.Scripts
                      .Add(new KillsIndicatorSystem(battleUiController.GetKillMessage(), battleUiController.GetKillIndicator(), battleUiController.GetKillsText(), battleUiController.GetAliveText(), aliveCount))
                     .Add(new CooldownsUpdaterSystem(battleUiController.GetCannonCooldownsController(), new FloatLinearInterpolator(prevFrameTime)))
                     .Add(new AbilityUpdaterSystem(battleUiController.GetAbilityCooldownInfo(), new FloatLinearInterpolator(prevFrameTime)))
-                    .Add(new ContextsClearSystem(contexts))
+                    .Add(new GameContextClearSystem(contexts))
                 ;
             battleSystems = currentSystems;
             return currentSystems;
@@ -150,17 +150,17 @@ namespace Code.Scenes.BattleScene.Scripts
             abilityButtonIsPressed = false;
         }
 
-        /// <summary>
-        /// Это говно нужно для спавна кораблика в окне показа наград после боя.
-        /// </summary>
-        public void EnablePassiveMode()
-        {
-            lock(lockObj)
-            {
-                StopSystems(battleSystems);
-            }
-        }
-        
+        // /// <summary>
+        // /// Это говно нужно для спавна кораблика в окне показа наград после боя.
+        // /// </summary>
+        // public void EnablePassiveMode()
+        // {
+        //     lock(lockObj)
+        //     {
+        //         StopSystems(battleSystems);
+        //     }
+        // }
+        //
         private static void StopSystems(Systems stoppingSystems)
         {
             stoppingSystems.DeactivateReactiveSystems();
@@ -170,24 +170,24 @@ namespace Code.Scenes.BattleScene.Scripts
 
      
         
-        public void DeleteAllGameEntities()
-        {
-            var allGameEntities = contexts.game.GetEntities();
-            foreach (var entity in allGameEntities)
-            {
-                log.Debug("Удаление сущности ");
-                if (entity.hasView)
-                {
-                    var go = entity.view.gameObject;
-                    if (go != null)
-                    {
-                        go.Unlink();
-                        Destroy(go);   
-                    }
-                }
-                entity.Destroy();
-            }
-            // contexts.game.SetZoneInfo(new Vector2(int.MaxValue, int.MaxValue), 0);
-        }
+        // public void DeleteAllGameEntities()
+        // {
+        //     var allGameEntities = contexts.game.GetEntities();
+        //     foreach (var entity in allGameEntities)
+        //     {
+        //         log.Debug("Удаление сущности ");
+        //         if (entity.hasView)
+        //         {
+        //             var go = entity.view.gameObject;
+        //             if (go != null)
+        //             {
+        //                 go.Unlink();
+        //                 Destroy(go);   
+        //             }
+        //         }
+        //         entity.Destroy();
+        //     }
+        //     // contexts.game.SetZoneInfo(new Vector2(int.MaxValue, int.MaxValue), 0);
+        // }
     }
 }
