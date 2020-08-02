@@ -1,11 +1,12 @@
-﻿using Code.Common.Logger;
-using Code.Scenes.BattleScene.Experimental.Approximation;
+﻿using Code.Scenes.BattleScene.Experimental.Approximation;
 using Entitas;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Code.Common;
+using Code.Common.Logger;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 namespace Code.Scenes.BattleScene.ECS.Systems
@@ -55,7 +56,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
             _healthSlider.transform.localPosition += deltaPosition;
             _healthSlider.transform.localScale = bigScale;
             vignette.intensity.value = 0f;
-            vignette.active = true;
+            vignette.enabled.value = true;
 
             approximator.Set(new Dictionary<ushort, float>(2) { { 0, 0f }, { 1, 0f } }, Time.time - Time.deltaTime);
             approximator.Set(new Dictionary<ushort, float>(2) { { 0, 0f }, { 1, 0f } }, Time.time);
@@ -165,7 +166,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         public void TearDown()
         {
             vignette.intensity.value = 0f;
-            vignette.active = false;
+            vignette.enabled.value = false;
             approximator.Clear();
         }
     }
