@@ -2,27 +2,28 @@
 using Code.Scenes.BattleScene.Udp.MessageProcessing.Synchronizers;
 using Entitas;
 using Entitas.Unity;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.TearDownSystems
 {
-    public class ContextsClearSystem : ITearDownSystem
+    public class GameContextClearSystem : ITearDownSystem
     {
         private readonly Contexts contexts;
 
-        public ContextsClearSystem(Contexts contexts)
+        public GameContextClearSystem(Contexts contexts)
         {
             this.contexts = contexts;
         }
         
         public void TearDown()
         {
-            var entities = contexts.lobbyUi.GetEntities();
-            foreach (var entity in entities)
+            GameEntity[] entities = contexts.game.GetEntities();
+            foreach (GameEntity entity in entities)
             {
                 if (entity.hasView)
                 {
-                    var gameObject = entity.view.gameObject;
+                    GameObject gameObject = entity.view.gameObject;
                     if (gameObject != null)
                     {
                         gameObject.Unlink();
