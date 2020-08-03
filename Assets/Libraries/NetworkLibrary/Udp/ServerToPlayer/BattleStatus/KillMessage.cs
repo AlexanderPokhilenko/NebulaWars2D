@@ -1,4 +1,4 @@
-﻿﻿﻿using System.Collections.Generic;
+﻿﻿﻿﻿using System.Collections.Generic;
   using NetworkLibrary.NetworkLibrary.Udp;
 using ZeroFormatter;
 
@@ -25,7 +25,7 @@ namespace Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus
             return MessageType.Kill;
         }
     }
-
+    
     [ZeroFormattable]
     public struct PlayerInfoMessage : ITypedMessage
     {

@@ -1,4 +1,5 @@
 using Code.Common;
+using Code.Common.Storages;
 using Code.Scenes.BattleScene.Scripts;
 using Code.Scenes.BattleScene.Udp.Connection;
 using Libraries.NetworkLibrary.Udp.Common;
@@ -26,7 +27,7 @@ namespace Code.Scenes.BattleScene.Udp.Experimental
 
         public void SendInputMessage(float movementX, float movementY, float attackAngle,bool useAbility)
         {
-            ushort myId = PlayerIdStorage.TmpPlayerMatchId;
+            ushort myId = PlayerIdStorage.TmpPlayerIdForMatch;
             
             // Debug.LogWarning($"{nameof(myId)} {myId}");
             var message = new PlayerInputMessage(myId, matchId, movementX, movementY, 
@@ -37,7 +38,7 @@ namespace Code.Scenes.BattleScene.Udp.Experimental
         
         public void SendPingMessage()
         {
-            var myId = PlayerIdStorage.TmpPlayerMatchId;
+            var myId = PlayerIdStorage.TmpPlayerIdForMatch;
             var message = new PlayerPingMessage(myId, matchId);
             byte[] data = MessageFactory.GetSerializedMessage(MessageFactory.GetMessage(message,false, 
                 out uint messageId));
@@ -46,11 +47,13 @@ namespace Code.Scenes.BattleScene.Udp.Experimental
         
         public void SendDeliveryConfirmationMessage(uint messageNumberThatConfirms)
         {
-            ushort myId = PlayerIdStorage.TmpPlayerMatchId;
+            ushort myId = PlayerIdStorage.TmpPlayerIdForMatch;
+            int matchId = PlayerIdStorage.MatchId;
             DeliveryConfirmationMessage message = new DeliveryConfirmationMessage
             {
                 MessageNumberThatConfirms = messageNumberThatConfirms,
-                PlayerId = myId
+                PlayerId = myId,
+                MatchId = matchId
             };
             MessageWrapper messageWrapper = MessageFactory.GetMessage(message, false, out uint messageId);
             byte[] data = MessageFactory.GetSerializedMessage(messageWrapper);
@@ -83,7 +86,7 @@ namespace Code.Scenes.BattleScene.Udp.Experimental
         
         public void SendExitNotification()
         {
-            var myId = PlayerIdStorage.TmpPlayerMatchId;
+            var myId = PlayerIdStorage.TmpPlayerIdForMatch;
             BattleExitMessage exitMessage = new BattleExitMessage(matchId, myId);
             MessageWrapper message = MessageFactory.GetMessage(exitMessage, false, out uint messageId);
             byte[] data = MessageFactory.GetSerializedMessage(message);

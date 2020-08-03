@@ -1,14 +1,14 @@
 ﻿using Code.Common.Logger;
 
-namespace Code.Common
+namespace Code.Common.Storages
 {
     /// <summary>
     /// Отвечает за извлечение/генерацию serviceId в целях отладки. 
     /// </summary>
     public static class PlayerIdStorage
     {
-        //TODO Сокрытие пошло по жопе
-        public static ushort TmpPlayerMatchId { get; private set; }
+        public static ushort TmpPlayerIdForMatch { get; private set; }
+        public static int MatchId { get; private set; }
         public static ushort PlayerEntityId { get; set; }
         public static int AccountId { get; set; }
         
@@ -45,7 +45,12 @@ namespace Code.Common
         /// <param name="temporaryId">Временный id игрока на один бой</param>
         public static void SetTmpPlayerId(ushort temporaryId)
         {
-            TmpPlayerMatchId = temporaryId;
+            TmpPlayerIdForMatch = temporaryId;
+        }
+
+        public static void SetMatchId(int matchId)
+        {
+            MatchId = matchId;
         }
 
         public static void SetUsername(string usernameArg)

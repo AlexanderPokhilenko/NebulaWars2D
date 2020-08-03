@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
+using Code.Common.Storages;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;
 

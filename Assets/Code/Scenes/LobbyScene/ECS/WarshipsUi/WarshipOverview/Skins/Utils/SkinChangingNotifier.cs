@@ -2,6 +2,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
+using Code.Common.Storages;
 
 namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins.Utils
 {

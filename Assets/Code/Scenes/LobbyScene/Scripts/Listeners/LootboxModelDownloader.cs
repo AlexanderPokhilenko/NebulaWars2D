@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
+using Code.Common.Storages;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;
 using ZeroFormatter;

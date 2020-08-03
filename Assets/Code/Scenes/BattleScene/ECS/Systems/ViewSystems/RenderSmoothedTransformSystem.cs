@@ -23,7 +23,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
         {
             try
             {
-                foreach (var gameEntity in positionedGroup)
+                foreach (GameEntity gameEntity in positionedGroup)
                 {
                     var transform = gameEntity.view.gameObject.transform;
                     transform.localPosition =
