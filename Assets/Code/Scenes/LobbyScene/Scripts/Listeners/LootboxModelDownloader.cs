@@ -34,6 +34,52 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
         [CanBeNull]
         public LootboxModel GetLootboxModel()
         {
+            // return new LootboxModel()
+            // {
+            //     Prizes = new List<ResourceModel>()
+            //     {
+            //         new ResourceModel()
+            //         {
+            //             ResourceTypeEnum = ResourceTypeEnum.HardCurrency,
+            //             SerializedModel = ZeroFormatterSerializer.Serialize(new SoftCurrencyResourceModel
+            //             {
+            //                 Amount = 15
+            //             })
+            //         },
+            //         // new ResourceModel()
+            //         // {
+            //         //     ResourceTypeEnum = ResourceTypeEnum.SoftCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new SoftCurrencyResourceModel
+            //         //     {
+            //         //         Amount = 15
+            //         //     })
+            //         // },
+            //         // new ResourceModel()
+            //         // {
+            //         //     ResourceTypeEnum = ResourceTypeEnum.SoftCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new SoftCurrencyResourceModel
+            //         //     {
+            //         //         Amount = 15
+            //         //     })
+            //         // },
+            //         // new ResourceModel()
+            //         // {
+            //         //     ResourceTypeEnum = ResourceTypeEnum.SoftCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new SoftCurrencyResourceModel
+            //         //     {
+            //         //         Amount = 15
+            //         //     })
+            //         // },
+            //         // new ResourceModel()
+            //         // {
+            //         //     ResourceTypeEnum = ResourceTypeEnum.SoftCurrency,
+            //         //     SerializedModel = ZeroFormatterSerializer.Serialize(new SoftCurrencyResourceModel
+            //         //     {
+            //         //         Amount = 15
+            //         //     })
+            //         // },
+            //     }
+            // };
             return task.Result;
         }
         

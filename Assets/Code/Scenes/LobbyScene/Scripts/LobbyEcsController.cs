@@ -64,7 +64,7 @@ namespace Code.Scenes.LobbyScene.Scripts
         private MovingIconsDataCreationSystem movingIconsDataCreationSystem;
         private AccountDtoComponentsCreatorSystem accountDtoComponentsCreatorSystem;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyEcsController));
-        private StartCancelMatchComponentsCreatorSystem startCancelMatchComponentsCreatorSystem;
+        // private StartCancelMatchComponentsCreatorSystem startCancelMatchComponentsCreatorSystem;
 
         private void Awake()
         {
@@ -100,7 +100,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             warshipSpawnerSystem = new WarshipSpawnerSystem(contexts, lobbyUiStorage.warshipsRoot);
             accountDtoComponentsCreatorSystem = new AccountDtoComponentsCreatorSystem(contexts);
 
-            startCancelMatchComponentsCreatorSystem = new StartCancelMatchComponentsCreatorSystem(contexts.lobbyUi);
+            // startCancelMatchComponentsCreatorSystem = new StartCancelMatchComponentsCreatorSystem(contexts.lobbyUi);
             matchSearchDataUpdaterSystem = new MatchSearchDataUpdaterSystem(contexts);
             
             movingIconsDataCreationSystem = new MovingIconsDataCreationSystem(contexts,
@@ -135,16 +135,8 @@ namespace Code.Scenes.LobbyScene.Scripts
                         lobbyUiStorage.numberOfPlayersInQueueText, lobbyUiStorage.numberOfPlayersInBattlesText))
                     
                     //Обработка start/stop
-                    .Add(startCancelMatchComponentsCreatorSystem)
-                    .Add(new StartButtonHandler(contexts.lobbyUi, lobbyUiStorage.battleLoadingMenu, lobbyUiStorage.lobbySoundsManager))
-                    .Add(new CancelButtonHandler(contexts.lobbyUi, lobbyUiStorage.battleLoadingMenu, lobbyUiStorage.lobbySoundsManager))
-                    
-                    //Установка размытия при поике матча
-                    .Add(new BlurInitializeSystem(contexts.lobbyUi))
-                    .Add(new BlurImageStateUpdaterSystem(contexts.lobbyUi))
-                    .Add(new BlurValueUpdatingSystem(contexts.lobbyUi, lobbyUiStorage.blurMaterial, lobbyUiStorage.uiBlurDefaultMaterial, !lobbyUiStorage.blurIsActive))
-                    .Add(new BlurImageDisableHandler(contexts.lobbyUi, lobbyUiStorage.blurImage.gameObject))
-                    .Add(new BlurImageEnableHandler(contexts.lobbyUi, lobbyUiStorage.blurImage.gameObject))
+                    .Add(new StartButtonHandler(contexts.lobbyUi, lobbyUiStorage, lobbyUiStorage.lobbySoundsManager))
+                    .Add(new CancelButtonHandler(contexts.lobbyUi, lobbyUiStorage, lobbyUiStorage.lobbySoundsManager))
                     
                     //Анимация кнопки START
                     .Add(new StartButtonAnimationSystem(contexts.lobbyUi, lobbyUiStorage.startButtonSatellites))
@@ -283,17 +275,7 @@ namespace Code.Scenes.LobbyScene.Scripts
         {
             return accountDtoComponentsCreatorSystem.GetCurrentWarshipId();
         }
-
-        public void Button_Start_Click()
-        {
-            startCancelMatchComponentsCreatorSystem.Button_Start_Click();
-        }
-
-        public void Button_Cancel_Click()
-        {
-            startCancelMatchComponentsCreatorSystem.Button_Cancel_Click();
-        }
-
+        
         public void SetNewMatchSearchData(int responseNumberOfPlayersInQueue, int responseNumberOfPlayersInBattles)
         {
             matchSearchDataUpdaterSystem.SetNewData(responseNumberOfPlayersInQueue, responseNumberOfPlayersInBattles);
@@ -418,6 +400,16 @@ namespace Code.Scenes.LobbyScene.Scripts
         public void CloseShopLayer()
         {
             contexts.lobbyUi.CreateEntity().messageDisableShopUiLayer = true;
+        }
+
+        public void Button_Start_Click()
+        {
+            contexts.lobbyUi.ReplaceStartButtonClicked(DateTime.UtcNow);
+        }
+
+        public void Button_Cancel_Click()
+        {
+            contexts.lobbyUi.CreateEntity().isCancelButtonClicked = true;
         }
     }
 }

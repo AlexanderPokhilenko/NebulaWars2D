@@ -14,8 +14,8 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images.Experimenta
     {
         private static readonly TimeSpan DelayBeforeTheStartOfMovement = TimeSpan.FromMilliseconds(15);
 
-        public List<ControlPoint> Create(int index, DateTime startSpawnTime, Vector3 spawnPosition, Vector3 finalPointPosition,
-            Random random, float screenHeight)
+        public List<ControlPoint> Create(int index, DateTime startSpawnTime, Vector3 spawnPosition, 
+            Vector3 finalPointPosition, Random random, float screenHeight)
         {
             //[0, 1]
             double randomDouble1 = random.NextDouble();

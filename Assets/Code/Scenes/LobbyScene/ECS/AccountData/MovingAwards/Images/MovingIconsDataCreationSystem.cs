@@ -74,9 +74,11 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
                     Vector3 spawnPoint = MovingAwardsUiElementsStorage.Instance().GetStartPoint(awardTypeEnum);
                     Vector3 finishPoint = MovingAwardsUiElementsStorage.Instance().GetFinishPoint(awardTypeEnum);
                     
-                    var controlPoints =  awardTrajectoryFactory
+                    // log.Debug($"finish position {finishPoint.x} {finishPoint.y}");
+                    List<ControlPoint> controlPoints =  awardTrajectoryFactory
                         .Create(index, spawnStartTime, spawnPoint, finishPoint, random, screenHeight);
 
+                    // log.Debug("last control point position "+controlPoints.Last().position.x+" "+controlPoints.Last().position.y);
                     int increment;
                     if (roundedAverageIncrement < remainder)
                     {

@@ -10,11 +10,9 @@ namespace Code.Scenes.LobbyScene.Scripts
       
         private void Awake()
         {
-         
-            
             int qualityLevelIndex = QualitySettings.GetQualityLevel();
             string qualityLevelName = QualitySettings.names[qualityLevelIndex];
-            log.Debug($"qualityLevelName {qualityLevelName} qualityLevelIndex {qualityLevelIndex}");
+            log.Info($"qualityLevelName {qualityLevelName} qualityLevelIndex {qualityLevelIndex}");
         }
     }
 }

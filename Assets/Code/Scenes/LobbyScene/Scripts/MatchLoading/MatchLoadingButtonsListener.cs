@@ -10,15 +10,13 @@ namespace Code.Scenes.LobbyScene.Scripts.MatchLoading
     /// <summary>
     /// Отвечает за обработку нажатий кнопок START и CANCEL
     /// </summary>
-    public class MatchLoadingButtonsHandlerBehaviour : MonoBehaviour
+    public class MatchLoadingButtonsListener : MonoBehaviour
     {
         private MatchLoader matchLoader;
-        
         private LobbyEcsController lobbyEcsController;
-        private readonly ILog log = LogManager.CreateLogger(typeof(LobbyModelLoadingInitiator));
-
         [SerializeField] private Button startMatchSearchButton;
         [SerializeField] private Button cancelMatchSearchButton;
+        private readonly ILog log = LogManager.CreateLogger(typeof(LobbyModelLoadingInitiator));
         
         private void Awake()
         {

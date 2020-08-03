@@ -15,14 +15,12 @@ namespace Code.Scenes.LobbyScene.ECS.Clear
         
         public void TearDown()
         {
-            // lobbyUiContext.DestroyAllEntities();
-            
             LobbyUiEntity[] entities = lobbyUiContext.GetEntities();
             foreach (LobbyUiEntity entity in entities)
             {
                 if (entity.hasView)
                 {
-                    var gameObject = entity.view.gameObject;
+                    GameObject gameObject = entity.view.gameObject;
                     if (gameObject != null)
                     {
                         gameObject.Unlink();

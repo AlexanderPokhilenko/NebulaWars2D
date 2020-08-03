@@ -1,6 +1,5 @@
 ﻿using Code.Common;
 using Code.Common.Logger;
-using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -17,7 +16,7 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
         
         [Header("Загрузка боя")]
         [Tooltip("Описание")]
-        public Image blurImage;
+        // public Image blurImage;
         public GameObject battleLoadingMenu;
         public Text waitTimeText;
         public Text numberOfPlayersInQueueText;
@@ -40,9 +39,6 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
         public RectTransform trophy;
         public RectTransform regularCurrency;
         
-        [Header("Кнопки смены кораблей")]
-        public GameObject buttonScrollRight;
-        public GameObject buttonScrollLeft;
 
         [Header("Шкала опыта над текущим кораблём")]
         public Text rankText;
@@ -56,10 +52,13 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
         [Header("Родитель для корабликов")]
         public Transform warshipsRoot;
 
+        [Header("Канвас с меню поиска матча")] 
+        public GameObject matchSearchCanvas;
+
         [HideInInspector] public UiSoundsManager lobbySoundsManager;
-        [HideInInspector] public Material blurMaterial;
-        [HideInInspector] public Material uiBlurDefaultMaterial;
-        [HideInInspector] public bool blurIsActive = true;
+        // [HideInInspector] public Material blurMaterial;
+        // [HideInInspector] public Material uiBlurDefaultMaterial;
+        // [HideInInspector] public bool blurIsActive = true;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyUiStorage));
 
         private void Awake()
@@ -71,36 +70,36 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
                 button.onClick.AddListener(lobbySoundsManager.PlayClick);
             }
 
-            try
-            {
-                blurMaterial = blurImage.material;
-            }
-            catch (Exception e)
-            {
-                log.Fatal("Start method throw an exception " + e.Message);
-                blurIsActive = false;
-            }
+            // try
+            // {
+            //     blurMaterial = blurImage.material;
+            // }
+            // catch (Exception e)
+            // {
+            //     log.Fatal("Start method throw an exception " + e.Message);
+            //     blurIsActive = false;
+            // }
 
-            var qualityLevel = QualitySettings.GetQualityLevel();
-            if(qualityLevel < 2) blurIsActive = false;
-
-            if (!blurIsActive)
-            {
-                uiBlurDefaultMaterial = new Material(Shader.Find("UI/Default"));
-                blurImage.material = uiBlurDefaultMaterial;
-            }
+            // var qualityLevel = QualitySettings.GetQualityLevel();
+            // if(qualityLevel < 2) blurIsActive = false;
+            //
+            // if (!blurIsActive)
+            // {
+            //     uiBlurDefaultMaterial = new Material(Shader.Find("UI/Default"));
+            //     blurImage.material = uiBlurDefaultMaterial;
+            // }
         }
 
-        private void OnDestroy()
-        {
-            if(uiBlurDefaultMaterial) DestroyImmediate(uiBlurDefaultMaterial);
-        }
+        // private void OnDestroy()
+        // {
+        //     if(uiBlurDefaultMaterial) DestroyImmediate(uiBlurDefaultMaterial);
+        // }
 
         public void Check()
         {
             Assert.IsNotNull(gameViewsRoot);
             Assert.IsNotNull(overlayCanvas);
-            Assert.IsNotNull(blurImage);
+            // Assert.IsNotNull(blurImage);
             Assert.IsNotNull(battleLoadingMenu);
             Assert.IsNotNull(waitTimeText);
             Assert.IsNotNull(numberOfPlayersInQueueText);

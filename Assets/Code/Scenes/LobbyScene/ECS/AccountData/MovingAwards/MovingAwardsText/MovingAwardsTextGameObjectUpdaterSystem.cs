@@ -25,12 +25,19 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.MovingAwardsText
             var awardTextEntities = awardsTextGroup.GetEntities();
             for (int i = 0; i < awardTextEntities.Length; i++)
             {
-                var awardText = awardTextEntities[i];
-                awardText.view.gameObject.transform.position = awardText.position.value;
-                var currentColor = awardText.text.Text.color;
-                
-                var newAlpha = awardText.alpha.alpha;
-                awardText.text.Text.color = new Color(currentColor.r, currentColor.g, currentColor.b, newAlpha);
+                try
+                {
+                    LobbyUiEntity awardText = awardTextEntities[i];
+                    awardText.view.gameObject.transform.position = awardText.position.value;
+                    Color currentColor = awardText.text.Text.color;
+
+                    float newAlpha = awardText.alpha.alpha;
+                    awardText.text.Text.color = new Color(currentColor.r, currentColor.g, currentColor.b, newAlpha);
+                }
+                catch (Exception e)
+                {
+                    log.Error(e.Message+" "+e.StackTrace);
+                }
             }
         }
     }

@@ -12,7 +12,6 @@ namespace Code.Scenes.LobbyScene.ECS.MatchSearch
     public class MatchSearchMenuUpdaterSystem:ReactiveSystem<LobbyUiEntity>
     {
         private readonly LobbyUiContext lobbyUiContext;
-        
         private readonly Text numberOfPlayersInQueueGameObject;
         private readonly Text numberOfPlayersInBattlesGameObject;
 
@@ -47,16 +46,14 @@ namespace Code.Scenes.LobbyScene.ECS.MatchSearch
 
         protected override void Execute(List<LobbyUiEntity> entities)
         {
-            var matchSearchDataForMenuComponent = entities.Last().matchSearchDataForMenu;
-            if (lobbyUiContext.isBlurImageEnabled)
+            MatchSearchDataForMenuComponent matchSearchDataForMenuComponent = entities.Last().matchSearchDataForMenu;
+            
+            if (lobbyUiContext.hasStartButtonClicked)
             {
-                if (lobbyUiContext.hasStartButtonPressTime)
-                {
-                    numberOfPlayersInQueueGameObject.text = "Number of players in the queue: " +
-                                                            matchSearchDataForMenuComponent.NumberOfPlayersInQueue;
-                    numberOfPlayersInBattlesGameObject.text = "Number of players in the match: " + 
-                                                              matchSearchDataForMenuComponent.numberOfPlayersInMatch;
-                }
+                numberOfPlayersInQueueGameObject.text = "Players in queue: " +
+                                                        matchSearchDataForMenuComponent.NumberOfPlayersInQueue;
+                numberOfPlayersInBattlesGameObject.text = "Players in match: " + 
+                                                          matchSearchDataForMenuComponent.numberOfPlayersInMatch;
             }
         }
     }

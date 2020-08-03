@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Common.Logger;
 using Code.Scenes.BattleScene.Experimental;
 using Entitas;
 using UnityEngine;
@@ -7,10 +8,11 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
     public class UpdateDestroysSystem : IExecuteSystem
     {
-        private static readonly object LockObj = new object();
         private static HashSet<ushort> destroys;
-        private const float TimeDelay = ClientTimeManager.TimeDelay;
         private readonly IGroup<GameEntity> positionedGroup;
+        private static readonly object LockObj = new object();
+        private const float TimeDelay = ClientTimeManager.TimeDelay;
+        private readonly ILog log = LogManager.CreateLogger(typeof(UpdateDestroysSystem));
 
         public UpdateDestroysSystem(Contexts contexts)
         {
@@ -38,7 +40,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
                     {
                         if (entity.hasDelayedDestroy)
                         {
-                            Debug.LogError($"Сообщение об удалении объекта с id {id} пришло несколько раз.");
+                            log.Error($"Сообщение об удалении объекта с id {id} пришло несколько раз.");
                         }
                         else
                         {

@@ -20,7 +20,7 @@ namespace Code.Scenes.LootboxScene.PrefabScripts
             {
                 child.gameObject.SetActive(true);
             }
-            var amountText = amountGo.GetComponent<Text>();
+            Text amountText = amountGo.GetComponent<Text>();
             amountText.text = $"x{amount}";
         }
     

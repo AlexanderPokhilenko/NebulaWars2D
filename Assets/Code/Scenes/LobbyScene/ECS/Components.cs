@@ -13,9 +13,10 @@ namespace Code.Scenes.LobbyScene.ECS
     [Unique]
     public class StartButtonClickedComponent : IComponent
     {
+        public DateTime value;
     }
     
-    [LobbyUi] [Unique]
+    [LobbyUi]
     public class CancelButtonClickedComponent: IComponent{}
     
     [LobbyUi] [Unique]
@@ -31,11 +32,6 @@ namespace Code.Scenes.LobbyScene.ECS
     [LobbyUi]
     public class MatchLoadingTableEnabledComponent: IComponent{}
 
-    [LobbyUi] [Unique]
-    public class StartButtonPressTimeComponent: IComponent
-    {
-        public DateTime value;
-    }
     
     [LobbyUi] [Unique]
     public class WarningEnabledComponent: IComponent

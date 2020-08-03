@@ -9,19 +9,30 @@
 public partial class LobbyUiContext {
 
     public LobbyUiEntity startButtonClickedEntity { get { return GetGroup(LobbyUiMatcher.StartButtonClicked).GetSingleEntity(); } }
+    public Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent startButtonClicked { get { return startButtonClickedEntity.startButtonClicked; } }
+    public bool hasStartButtonClicked { get { return startButtonClickedEntity != null; } }
 
-    public bool isStartButtonClicked {
-        get { return startButtonClickedEntity != null; }
-        set {
-            var entity = startButtonClickedEntity;
-            if (value != (entity != null)) {
-                if (value) {
-                    CreateEntity().isStartButtonClicked = true;
-                } else {
-                    entity.Destroy();
-                }
-            }
+    public LobbyUiEntity SetStartButtonClicked(System.DateTime newValue) {
+        if (hasStartButtonClicked) {
+            throw new Entitas.EntitasException("Could not set StartButtonClicked!\n" + this + " already has an entity with Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent!",
+                "You should check if the context already has a startButtonClickedEntity before setting it or use context.ReplaceStartButtonClicked().");
         }
+        var entity = CreateEntity();
+        entity.AddStartButtonClicked(newValue);
+        return entity;
+    }
+
+    public void ReplaceStartButtonClicked(System.DateTime newValue) {
+        var entity = startButtonClickedEntity;
+        if (entity == null) {
+            entity = SetStartButtonClicked(newValue);
+        } else {
+            entity.ReplaceStartButtonClicked(newValue);
+        }
+    }
+
+    public void RemoveStartButtonClicked() {
+        startButtonClickedEntity.Destroy();
     }
 }
 
@@ -35,25 +46,25 @@ public partial class LobbyUiContext {
 //------------------------------------------------------------------------------
 public partial class LobbyUiEntity {
 
-    static readonly Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent startButtonClickedComponent = new Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent();
+    public Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent startButtonClicked { get { return (Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent)GetComponent(LobbyUiComponentsLookup.StartButtonClicked); } }
+    public bool hasStartButtonClicked { get { return HasComponent(LobbyUiComponentsLookup.StartButtonClicked); } }
 
-    public bool isStartButtonClicked {
-        get { return HasComponent(LobbyUiComponentsLookup.StartButtonClicked); }
-        set {
-            if (value != isStartButtonClicked) {
-                var index = LobbyUiComponentsLookup.StartButtonClicked;
-                if (value) {
-                    var componentPool = GetComponentPool(index);
-                    var component = componentPool.Count > 0
-                            ? componentPool.Pop()
-                            : startButtonClickedComponent;
+    public void AddStartButtonClicked(System.DateTime newValue) {
+        var index = LobbyUiComponentsLookup.StartButtonClicked;
+        var component = (Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent));
+        component.value = newValue;
+        AddComponent(index, component);
+    }
 
-                    AddComponent(index, component);
-                } else {
-                    RemoveComponent(index);
-                }
-            }
-        }
+    public void ReplaceStartButtonClicked(System.DateTime newValue) {
+        var index = LobbyUiComponentsLookup.StartButtonClicked;
+        var component = (Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent)CreateComponent(index, typeof(Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent));
+        component.value = newValue;
+        ReplaceComponent(index, component);
+    }
+
+    public void RemoveStartButtonClicked() {
+        RemoveComponent(LobbyUiComponentsLookup.StartButtonClicked);
     }
 }
 

@@ -50,15 +50,14 @@ public static class LobbyUiComponentsLookup {
     public const int ShiftWarshipsRightCommand = 39;
     public const int SoftCurrency = 40;
     public const int StartButtonClicked = 41;
-    public const int StartButtonPressTime = 42;
-    public const int Text = 43;
-    public const int Username = 44;
-    public const int View = 45;
-    public const int WarningEnabled = 46;
-    public const int Warship = 47;
-    public const int WarshipOverviewCurrentSkinModel = 48;
+    public const int Text = 42;
+    public const int Username = 43;
+    public const int View = 44;
+    public const int WarningEnabled = 45;
+    public const int Warship = 46;
+    public const int WarshipOverviewCurrentSkinModel = 47;
 
-    public const int TotalComponents = 49;
+    public const int TotalComponents = 48;
 
     public static readonly string[] componentNames = {
         "AccountRating",
@@ -103,7 +102,6 @@ public static class LobbyUiComponentsLookup {
         "ShiftWarshipsRightCommand",
         "SoftCurrency",
         "StartButtonClicked",
-        "StartButtonPressTime",
         "Text",
         "Username",
         "View",
@@ -155,7 +153,6 @@ public static class LobbyUiComponentsLookup {
         typeof(Code.Scenes.LobbyScene.ECS.ShiftWarshipsRightCommand),
         typeof(Code.Scenes.LobbyScene.ECS.SoftCurrencyComponent),
         typeof(Code.Scenes.LobbyScene.ECS.StartButtonClickedComponent),
-        typeof(Code.Scenes.LobbyScene.ECS.StartButtonPressTimeComponent),
         typeof(Code.Scenes.LobbyScene.ECS.TextComponent),
         typeof(Code.Scenes.LobbyScene.ECS.UsernameComponent),
         typeof(Code.Scenes.LobbyScene.ECS.ViewComponent),

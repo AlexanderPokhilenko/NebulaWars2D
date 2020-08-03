@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
@@ -6,7 +5,6 @@ using Code.Common.Logger;
 using Code.Common.Statistics;
 using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
 using Code.Scenes.LobbyScene.ECS.Warships.Utils;
-using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins;
 using Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins.Utils;
 using Code.Scenes.LobbyScene.Scripts;
 using Code.Scenes.LobbyScene.Scripts.Shop;
@@ -68,7 +66,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             UpdateData(warshipDto);
             
             //Обновить уникальный компонент для листания и переключения скинов
-            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel( warshipDto.CurrentSkinIndex, warshipDto, false);
+            lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel( warshipDto.CurrentSkinIndex, warshipDto);
         }
         
         private void UpdateData(WarshipDto warshipDto)

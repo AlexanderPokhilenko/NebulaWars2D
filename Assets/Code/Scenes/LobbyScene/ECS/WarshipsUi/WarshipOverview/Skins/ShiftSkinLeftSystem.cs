@@ -42,7 +42,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins
             }
             else
             {
-                lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel(++model.skinIndex, model.warshipDto, true);
+                lobbyUiContext.ReplaceWarshipOverviewCurrentSkinModel(++model.skinIndex, model.warshipDto);
                 lobbySoundsManager.PlayWarshipChangingLeft();
             }
         }

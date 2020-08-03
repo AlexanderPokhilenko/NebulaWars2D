@@ -26,7 +26,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.MovingAwards.Images
             DateTime now = DateTime.Now;
             foreach (LobbyUiEntity award in movingAwardsGroup)
             {
-                var movingAward = award.movingIcon;
+                MovingIconComponent movingAward = award.movingIcon;
                 DateTime currentTargetArrivalTime = movingAward.GetCurrentTargetArrivalTime();
 
                 //Если уже нужно переходить на новый отрезок пути 

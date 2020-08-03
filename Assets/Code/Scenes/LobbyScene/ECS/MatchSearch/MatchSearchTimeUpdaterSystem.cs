@@ -9,9 +9,9 @@ namespace Code.Scenes.LobbyScene.ECS.MatchSearch
     /// </summary>
     public class MatchSearchTimeUpdaterSystem : IExecuteSystem
     {
-        private readonly LobbyUiContext lobbyUiContext;
-        private readonly Text waitTimeGameObject;
         private int lastWaitTime;
+        private readonly Text waitTimeGameObject;
+        private readonly LobbyUiContext lobbyUiContext;
         
         public MatchSearchTimeUpdaterSystem(LobbyUiContext lobbyUiContext, Text waitTimeGameObject)
         {
@@ -25,18 +25,13 @@ namespace Code.Scenes.LobbyScene.ECS.MatchSearch
 
         public void Execute()
         {
-            if (lobbyUiContext.isBlurImageEnabled)
+            if (lobbyUiContext.hasStartButtonClicked)
             {
-                if (lobbyUiContext.hasStartButtonPressTime)
+                int waitingTime = (int) (DateTime.UtcNow - lobbyUiContext.startButtonClicked.value).TotalSeconds;
+                if (waitingTime != lastWaitTime)
                 {
-                    int waitingTime =
-                        (int) (DateTime.Now - lobbyUiContext.startButtonPressTime.value).TotalSeconds;
-
-                    if (waitingTime != lastWaitTime)
-                    {
-                        waitTimeGameObject.text = $"Waiting time for the match: {waitingTime} sec";
-                        lastWaitTime = waitingTime;
-                    }
+                    waitTimeGameObject.text = $"Elapsed time: {waitingTime} sec";
+                    lastWaitTime = waitingTime;
                 }
             }
         }

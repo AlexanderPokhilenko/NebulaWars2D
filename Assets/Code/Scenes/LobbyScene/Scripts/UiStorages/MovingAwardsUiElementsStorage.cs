@@ -32,10 +32,19 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
         [SerializeField] private RectTransform smallLootboxStartPoint;
         [SerializeField] private RectTransform smallLootboxFinishPoint;
 
+        private Vector3 softCurrencyFinishPosition;
+        private Vector3 hardCurrencyFinishPosition;
+        
         private static MovingAwardsUiElementsStorage instance;
         private void Awake()
         {
             instance = this;
+        }
+
+        private void Start()
+        {
+            softCurrencyFinishPosition = softCurrencyFinishPoint.position;
+            hardCurrencyFinishPosition = hardCurrencyFinishPoint.position;
         }
 
         public static MovingAwardsUiElementsStorage Instance()
@@ -65,11 +74,11 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
             switch (awardTypeEnum)
             {
                 case AwardTypeEnum.SoftCurrency:
-                    return softCurrencyFinishPoint.position;
+                    return softCurrencyFinishPosition;
                 case AwardTypeEnum.AccountRating:
                     return trophyFinishPoint.position;
                 case AwardTypeEnum.HardCurrency:
-                    return hardCurrencyFinishPoint.position;
+                    return hardCurrencyFinishPosition;
                 case AwardTypeEnum.LootboxPoints:
                     return smallLootboxFinishPoint.position;
                 default:

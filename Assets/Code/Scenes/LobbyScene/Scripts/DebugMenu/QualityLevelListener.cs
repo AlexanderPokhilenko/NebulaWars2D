@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Code.Common.Logger;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,13 +23,13 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
             uiStorage.dropdown.onValueChanged.AddListener(SetQualityLevel);
 
             uiStorage.dropdown.value = QualitySettings.GetQualityLevel();
-            log.Debug("текущее значение "+QualitySettings.names[QualitySettings.GetQualityLevel()]);
+            log.Info("текущее значение "+QualitySettings.names[QualitySettings.GetQualityLevel()]);
         }
 
         private void SetQualityLevel(int levelIndex)
         {
             string levelName = QualitySettings.names[levelIndex];
-            log.Debug("новый уровень "+levelName);
+            log.Info("новый уровень "+levelName);
             QualitySettings.SetQualityLevel(levelIndex, true);
         }
 

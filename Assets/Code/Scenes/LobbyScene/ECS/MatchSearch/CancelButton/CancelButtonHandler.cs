@@ -2,6 +2,7 @@
 using Entitas;
 using System;
 using System.Collections.Generic;
+using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using UnityEngine;
 
 namespace Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton
@@ -9,17 +10,31 @@ namespace Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton
     public class CancelButtonHandler:ReactiveSystem<LobbyUiEntity>
     {
         readonly LobbyUiContext lobbyUiContext;
+        private readonly GameObject gameViewsRoot;
+        private readonly GameObject overlayCanvas;
         private readonly GameObject battleLoadingMenu;
+        private readonly GameObject matchSearchCanvas;
         private readonly UiSoundsManager lobbySoundsManager;
 
-        public CancelButtonHandler(LobbyUiContext context, GameObject battleLoadingMenu, UiSoundsManager lobbySoundsManager) : base(context)
+        public CancelButtonHandler(LobbyUiContext context, LobbyUiStorage lobbyUiStorage,
+            UiSoundsManager lobbySoundsManager)
+            : base(context)
         {
             lobbyUiContext = context;
+           
+            battleLoadingMenu = lobbyUiStorage.battleLoadingMenu;
+            matchSearchCanvas = lobbyUiStorage.matchSearchCanvas;
+            overlayCanvas = lobbyUiStorage.overlayCanvas;
+            gameViewsRoot = lobbyUiStorage.gameViewsRoot;
+            
             if (battleLoadingMenu == null)
             {
                 throw new Exception($"{nameof(battleLoadingMenu)} was null");
             }
-            this.battleLoadingMenu = battleLoadingMenu;
+            if (matchSearchCanvas == null)
+            {
+                throw new Exception($"{nameof(matchSearchCanvas)} was null");
+            }
             this.lobbySoundsManager = lobbySoundsManager;
         }
 
@@ -35,16 +50,16 @@ namespace Code.Scenes.LobbyScene.ECS.MatchSearch.CancelButton
 
         protected override void Execute(List<LobbyUiEntity> entities)
         {
-            if (lobbyUiContext.isStartButtonClicked)
+            if (lobbyUiContext.hasStartButtonClicked)
             {
-                lobbyUiContext.startButtonClickedEntity.Destroy();
+                lobbyUiContext.RemoveStartButtonClicked();
             }
-
-            if (lobbyUiContext.hasStartButtonPressTime)
-            {
-                lobbyUiContext.RemoveStartButtonPressTime();
-            }
+            
             battleLoadingMenu.SetActive(false);
+            matchSearchCanvas.SetActive(false);
+            overlayCanvas.SetActive(true);
+            gameViewsRoot.SetActive(true);
+            
             
             if (lobbyUiContext.hasMatchSearchDataForMenu)
             {
