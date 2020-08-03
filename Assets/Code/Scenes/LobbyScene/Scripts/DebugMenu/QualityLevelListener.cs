@@ -43,8 +43,10 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
 
             qualityDropdown.onValueChanged.AddListener(SetQualityLevel);
 
-            qualityDropdown.value = QualitySettings.GetQualityLevel();
-            log.Debug("текущее значение "+QualitySettings.names[QualitySettings.GetQualityLevel()]);
+            var qualityLevel = QualitySettings.GetQualityLevel();
+
+            qualityDropdown.value = qualityLevel;
+            log.Debug("текущее значение "+QualitySettings.names[qualityLevel]);
 
             if (!loaded)
             {
@@ -54,7 +56,8 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
                 var height = maxResolution.height;
                 maxDivider = GCD(width, height);
 
-                ResolutionMultiplier = PlayerPrefs.GetInt(nameof(ResolutionMultiplier), maxDivider);
+                ResolutionMultiplier = PlayerPrefs.GetInt(nameof(ResolutionMultiplier),
+                    maxDivider * (qualityLevel + 1) / QualitySettings.names.Length);
                 SetResolution(ResolutionMultiplier, false);
             }
 
