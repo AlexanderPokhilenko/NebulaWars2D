@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Code.Common.Logger;
+using Code.Scenes.BattleScene.Scripts.Debug;
 using NetworkLibrary.NetworkLibrary.Udp;
 using UnityEngine;
 
@@ -17,9 +19,12 @@ namespace Code.Common.NetworkStatistics
     /// </summary>
     public class MatchNetworkStatistics
     {
+        private readonly List<int> datagramIds = new List<int>(30*40);
         private readonly string matchId;
         private readonly string matchInfo;
         private readonly object lockObj = new object();
+        private readonly ILog log = LogManager.CreateLogger(typeof(MatchNetworkStatistics));
+        
         private List<PacketsPerSecondModel> packetsCount = new List<PacketsPerSecondModel>(){new PacketsPerSecondModel()
         {
             pps = 0,
@@ -31,9 +36,9 @@ namespace Code.Common.NetworkStatistics
         /// <summary>
         /// Длина сообщения, количество дейтаграм такой длины
         /// </summary>
-        // private readonly Dictionary<int,int> datagramLengthAndCount = new Dictionary<int, int>();
-        // private readonly List<MessageRecord> allMessages = new List<MessageRecord>(1000);
-        // private readonly Dictionary<MessageType, long> messageTypeTotalSize = new Dictionary<MessageType, long>();
+        private readonly List<MessageRecord> allMessages = new List<MessageRecord>(1000);
+        private readonly Dictionary<int,int> datagramLengthAndCount = new Dictionary<int, int>();
+        private readonly Dictionary<MessageType, long> messageTypeTotalSize = new Dictionary<MessageType, long>();
         
         public MatchNetworkStatistics(string matchId, string matchInfo)
         {
@@ -41,23 +46,23 @@ namespace Code.Common.NetworkStatistics
             this.matchInfo = matchInfo;
         }
         
-        // public void RegisterMessage(int messageLength, MessageType messageType)
-        // {
-        //     if (messageTypeTotalSize.TryGetValue(messageType, out var value))
-        //     {
-        //         messageTypeTotalSize[messageType] = value + messageLength;
-        //     }
-        //     else
-        //     {
-        //         messageTypeTotalSize.Add(messageType, messageLength);
-        //     }
-        //     
-        //     allMessages.Add(new MessageRecord
-        //     {
-        //         Length = messageLength,
-        //         MessageType = messageType
-        //     });
-        // }
+        public void RegisterMessage(int messageLength, MessageType messageType)
+        {
+            if (messageTypeTotalSize.TryGetValue(messageType, out var value))
+            {
+                messageTypeTotalSize[messageType] = value + messageLength;
+            }
+            else
+            {
+                messageTypeTotalSize.Add(messageType, messageLength);
+            }
+            
+            allMessages.Add(new MessageRecord
+            {
+                Length = messageLength,
+                MessageType = messageType
+            });
+        }
 
         public int GetLastFramerate()
         {
@@ -72,9 +77,8 @@ namespace Code.Common.NetworkStatistics
             
             return 0;
         }
-        public void RegisterDatagram(int datagramLength)
+        public void RegisterDatagram(int datagramLength, int datagramId)
         {
-            
             lock (lockObj)
             {
                 int lastValue = packetsCount[packetsCount.Count-1].pps;
@@ -91,14 +95,27 @@ namespace Code.Common.NetworkStatistics
                     prevSec = sec;
                 }    
             }
-            // if (datagramLengthAndCount.TryGetValue(datagramLength, out var value))
-            // {
-            //     datagramLengthAndCount[datagramLength] = value + 1;
-            // }
-            // else
-            // {
-            //     datagramLengthAndCount.Add(datagramLength, 1);
-            // }
+            
+            if (datagramIds.Count > 1)
+            {
+                int lastId = datagramIds.Last();
+                if (lastId + 1 != datagramId)
+                {
+                    DatagramsOrderLog.DatagramsError();
+                    log.Debug($"Непоследовательный порядок сообщений {lastId} {datagramId}");
+                }
+            }
+            
+            datagramIds.Add(datagramId);
+            
+            if (datagramLengthAndCount.TryGetValue(datagramLength, out var value))
+            {
+                datagramLengthAndCount[datagramLength] = value + 1;
+            }
+            else
+            {
+                datagramLengthAndCount.Add(datagramLength, 1);
+            }
         }
 
         /// <summary>
@@ -122,7 +139,7 @@ namespace Code.Common.NetworkStatistics
                     sw.WriteLine();
                     sw.WriteLine();
 
-                    foreach (var dich in packetsCount)
+                    foreach (PacketsPerSecondModel dich in packetsCount)
                     {
                         sw.WriteLine($"{dich.dateTime.ToLongTimeString()} {dich.pps}");
                     }
@@ -130,36 +147,47 @@ namespace Code.Common.NetworkStatistics
                     sw.WriteLine();
                     sw.WriteLine();
                     
+                    sw.WriteLine();
+                    sw.WriteLine();
+
+                    foreach (int datagramId in datagramIds)
+                    {
+                        sw.WriteLine(datagramId);
+                    }
+                    
+                    sw.WriteLine();
+                    sw.WriteLine();
                     
                     
-                    // sw.WriteLine($"Общий размер в байтах = {datagramLengthAndCount.Sum(pair => pair.Key*pair.Value)}");
+                    
+                    sw.WriteLine($"Общий размер в байтах = {datagramLengthAndCount.Sum(pair => pair.Key*pair.Value)}");
                     sw.WriteLine();
                     sw.WriteLine();
                     sw.WriteLine("Статистика по типам сообщений (тип и размер всех сообщений типа в байтах)");
-                    // foreach (KeyValuePair<MessageType, long> pair in messageTypeTotalSize)
-                    // {
-                    //     sw.WriteLine($"{pair.Key.ToString()} \t\t\t {pair.Value}");
-                    // }
-                    //
-                    // List<int> sortedKeys = datagramLengthAndCount.Keys.ToList();
-                    // sortedKeys.Sort();
-                    // sw.WriteLine("Статистика по размеру дейтаграм с округлением (размер дейтаграм и их количество) сортировка по размеру");
-                    // for (int maxLength = 100; maxLength < 2000; maxLength+=100)
-                    // {
-                    //     int count = sortedKeys.Where(key => maxLength - 100< key&& key <= maxLength)
-                    //         .Select(key=>datagramLengthAndCount[key])
-                    //         .Sum(value=>value);
-                    //     sw.WriteLine($"{maxLength-100}-{maxLength} {count}");
-                    // }
-                    //
-                    // sw.WriteLine("Все сообщения");
-                    // lock (lockObj)
-                    // {
-                    //     foreach (string record in allMessages.Select(item=>item.ToString()))
-                    //     {
-                    //         sw.WriteLine(record);
-                    //     }    
-                    // }
+                    foreach (KeyValuePair<MessageType, long> pair in messageTypeTotalSize)
+                    {
+                        sw.WriteLine($"{pair.Key.ToString()} \t\t\t {pair.Value}");
+                    }
+                    
+                    List<int> sortedKeys = datagramLengthAndCount.Keys.ToList();
+                    sortedKeys.Sort();
+                    sw.WriteLine("Статистика по размеру дейтаграм с округлением (размер дейтаграм и их количество) сортировка по размеру");
+                    for (int maxLength = 100; maxLength < 2000; maxLength+=100)
+                    {
+                        int count = sortedKeys.Where(key => maxLength - 100< key&& key <= maxLength)
+                            .Select(key=>datagramLengthAndCount[key])
+                            .Sum(value=>value);
+                        sw.WriteLine($"{maxLength-100}-{maxLength} {count}");
+                    }
+                    
+                    sw.WriteLine("Все сообщения");
+                    lock (lockObj)
+                    {
+                        foreach (string record in allMessages.Select(item=>item.ToString()))
+                        {
+                            sw.WriteLine(record);
+                        }    
+                    }
                 }
             }
         }

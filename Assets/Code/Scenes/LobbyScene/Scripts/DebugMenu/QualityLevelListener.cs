@@ -46,7 +46,7 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
             var qualityLevel = QualitySettings.GetQualityLevel();
 
             qualityDropdown.value = qualityLevel;
-            log.Debug("текущее значение "+QualitySettings.names[qualityLevel]);
+            log.Info("текущее значение "+QualitySettings.names[qualityLevel]);
 
             if (!loaded)
             {
@@ -54,7 +54,7 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
                 maxResolution = Screen.currentResolution;
                 var width = maxResolution.width;
                 var height = maxResolution.height;
-                maxDivider = GCD(width, height);
+                maxDivider = Gcd(width, height);
 
                 ResolutionMultiplier = PlayerPrefs.GetInt(nameof(ResolutionMultiplier),
                     maxDivider * (qualityLevel + 1) / QualitySettings.names.Length);
@@ -134,7 +134,7 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
         private void SetQualityLevel(int levelIndex)
         {
             string levelName = QualitySettings.names[levelIndex];
-            log.Debug("новый уровень "+levelName);
+            log.Info("новый уровень "+levelName);
             QualitySettings.SetQualityLevel(levelIndex, true);
         }
 
@@ -144,7 +144,7 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
         /// <param name="a">Первое число.</param>
         /// <param name="b">Второе число.</param>
         /// <returns>НОД двух чисел.</returns>
-        private static int GCD(int a, int b)
+        private static int Gcd(int a, int b)
         {
             while (a != 0 && b != 0)
             {

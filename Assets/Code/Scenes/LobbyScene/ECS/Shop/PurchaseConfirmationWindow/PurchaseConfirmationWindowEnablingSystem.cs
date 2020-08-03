@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher;
 using Code.Scenes.LobbyScene.Scripts;
 using Code.Scenes.LobbyScene.Scripts.Shop;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
@@ -19,6 +20,8 @@ namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
     public class PurchaseConfirmationWindowEnablingSystem:ReactiveSystem<LobbyUiEntity>
     {
         private readonly ShopUiStorage shopUiStorage;
+        private readonly LobbyLayoutSwitcher lobbyLayoutSwitcher;
+
         private readonly LobbyEcsController lobbyEcsController;
         // private readonly SkinPurchaseConfirmationWindowController skinPurchaseConfirmationWindowController;
         private readonly ILog log = LogManager.CreateLogger(typeof(PurchaseConfirmationWindowEnablingSystem));
@@ -29,11 +32,13 @@ namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
 
         public PurchaseConfirmationWindowEnablingSystem(IContext<LobbyUiEntity> context,
             LobbyEcsController lobbyEcsController, InGameCurrencyPaymaster inGameCurrencyPaymaster,
-            ShopUiStorage shopUiStorage) 
+            ShopUiStorage shopUiStorage, LobbyLayoutSwitcher lobbyLayoutSwitcher) 
+        
             : base(context)
         {
             this.lobbyEcsController = lobbyEcsController;
             this.shopUiStorage = shopUiStorage;
+            this.lobbyLayoutSwitcher = lobbyLayoutSwitcher;
             softCurrencyPurchaseConfirmationWindowController = new SoftCurrencyPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
             // skinPurchaseConfirmationWindowController = new SkinPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
             // lootboxPurchaseConfirmationWindowController = new LootboxPurchaseConfirmationWindowController(inGameCurrencyPaymaster);
@@ -71,6 +76,7 @@ namespace Code.Scenes.LobbyScene.ECS.Shop.PurchaseConfirmationWindow
             closeButton.onClick.RemoveAllListeners();
             closeButton.onClick.AddListener(CreateHideWindowMessage);
             Spawn1(purchaseModel);
+            lobbyLayoutSwitcher.SetCurrentLayer(ShittyUiLayerState.ShopPurchaseConfirmationLayer);
         }
 
         private void CreateHideWindowMessage()

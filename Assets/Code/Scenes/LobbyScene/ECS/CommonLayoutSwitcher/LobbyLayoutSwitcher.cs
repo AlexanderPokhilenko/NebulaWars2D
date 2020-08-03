@@ -7,13 +7,6 @@ using NetworkLibrary.NetworkLibrary.Http;
 
 namespace Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher
 {
-    public class WarshipDtoUpdater
-    {
-        public void UpdateUi(WarshipTypeEnum warshipTypeEnum, WarshipDto warshipDto)
-        {
-            
-        }
-    }
     /// <summary>
     /// Хранит текущее состояние. Оно представлено перечислением ShittyUiLayerState.
     /// Реагирут на нажатие кнопки Back.
@@ -24,7 +17,8 @@ namespace Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher
         private readonly IContext<LobbyUiEntity> context;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyLayoutSwitcher));
         
-        public LobbyLayoutSwitcher(IContext<LobbyUiEntity> context) : base(context)
+        public LobbyLayoutSwitcher(IContext<LobbyUiEntity> context)
+            : base(context)
         {
             this.context = context;
             currentLayer = ShittyUiLayerState.DefaultLayer;
@@ -62,9 +56,7 @@ namespace Code.Scenes.LobbyScene.ECS.CommonLayoutSwitcher
                     context.CreateEntity().messageDisableShopUiLayer = true;
                     break;
                 case ShittyUiLayerState.ShopPurchaseConfirmationLayer:
-                    //todo это кусок говна
-                    throw new NotImplementedException();
-                    // purchaseConfirmationWindow.HideWindow();
+                    context.CreateEntity().isDisablePurchaseConfirmationWindow = true;
                     SetCurrentLayer(ShittyUiLayerState.ShopLayer);
                     break;
                 case ShittyUiLayerState.WarshipsList:

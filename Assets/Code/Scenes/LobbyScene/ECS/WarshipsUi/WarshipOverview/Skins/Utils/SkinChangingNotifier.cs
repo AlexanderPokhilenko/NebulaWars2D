@@ -11,8 +11,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview.Skins.Utils
         private readonly ILog log = LogManager.CreateLogger(typeof(SkinChangingNotifier));
         public async Task ChangeSkinOnServerAsync(int warshipId, string skinName)
         {
-            log.Debug($"Отправка собщения о смене скина {nameof(warshipId)} {warshipId} " +
-                     $"{nameof(skinName)} {skinName}");
+            log.Info($"Отправка собщения о смене скина {nameof(warshipId)} {warshipId} {nameof(skinName)} {skinName}");
             HttpClient httpClient = new HttpClient();
             if(!PlayerIdStorage.TryGetServiceId(out string playerServiceId))
             {

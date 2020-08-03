@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Code.Common.Logger;
+using Code.Scenes.BattleScene.Scripts.Debug;
 using NetworkLibrary.NetworkLibrary.Udp;
 
 namespace Code.Common.NetworkStatistics
@@ -10,10 +13,10 @@ namespace Code.Common.NetworkStatistics
     public class NetworkStatisticsStorage
     {
         private MatchNetworkStatistics lastMatch;
+        private readonly ILog log = LogManager.CreateLogger(typeof(NetworkStatisticsStorage));
         public static NetworkStatisticsStorage Instance => Lazy.Value;
-        private readonly List<MatchNetworkStatistics> matches=new List<MatchNetworkStatistics>();
-        private static readonly Lazy<NetworkStatisticsStorage> Lazy = 
-            new Lazy<NetworkStatisticsStorage> (() => new NetworkStatisticsStorage()); 
+        private readonly List<MatchNetworkStatistics> matches = new List<MatchNetworkStatistics>();
+        private static readonly Lazy<NetworkStatisticsStorage> Lazy = new Lazy<NetworkStatisticsStorage> (() => new NetworkStatisticsStorage()); 
 
         public void StartRecordingNewMatch(string matchId, string matchInfo)
         {
@@ -21,28 +24,29 @@ namespace Code.Common.NetworkStatistics
             matches.Add(lastMatch);
         }
 
-        // public void RegisterMessage(int messageLength, MessageType messageType)
-        // {
-        //     if (lastMatch == null)
-        //     {
-        //         throw new Exception($"Перед добавлением сообщения нужно вызвать {nameof(StartRecordingNewMatch)}");
-        //     }
-        //
-        //     lastMatch.RegisterMessage(messageLength, messageType);
-        // }
+        public void RegisterMessage(int messageLength, MessageType messageType)
+        {
+            if (lastMatch == null)
+            {
+                throw new Exception($"Перед добавлением сообщения нужно вызвать {nameof(StartRecordingNewMatch)}");
+            }
+        
+            lastMatch.RegisterMessage(messageLength, messageType);
+        }
 
         public int GetLastFramerate()
         {
             return lastMatch.GetLastFramerate();
         }
-        public void RegisterDatagram(int datagramLength)
+        
+        public void RegisterDatagram(int datagramLength, int datagramId)
         {
             if (lastMatch == null)
             {
                 throw new Exception($"Перед добавлением сообщения нужно вызвать {nameof(StartRecordingNewMatch)}");
             }
 
-            lastMatch.RegisterDatagram(datagramLength);
+            lastMatch.RegisterDatagram(datagramLength, datagramId);
         }
 
         public void PrintSavedMatches()

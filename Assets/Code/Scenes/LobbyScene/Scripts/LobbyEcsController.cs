@@ -172,7 +172,7 @@ namespace Code.Scenes.LobbyScene.Scripts
                     //Магазин
                     .Add(new ShopUiLayerEnablingSystem(contexts.lobbyUi,uiLayersStorage, shopUiStorage, lobbyLayoutSwitcher, shopUiSpawner))
                     .Add(new ShopUiLayerDisablingSystem(contexts.lobbyUi,uiLayersStorage, lobbyLayoutSwitcher))
-                    .Add(new PurchaseConfirmationWindowEnablingSystem(contexts.lobbyUi, this, inGameCurrencyPaymaster, shopUiStorage))
+                    .Add(new PurchaseConfirmationWindowEnablingSystem(contexts.lobbyUi, this, inGameCurrencyPaymaster, shopUiStorage, lobbyLayoutSwitcher))
                     .Add(new PurchaseConfirmationWindowDisablingSystem(contexts.lobbyUi, shopUiStorage))
                     
                     //Список кораблей
