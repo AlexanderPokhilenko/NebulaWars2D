@@ -15,6 +15,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSenderSystems
         {
             this.udpSendUtils = udpSendUtils;
         }
+        
         public void Execute()
         {
             ICollection<byte[]> messages = RudpStorage.Instance.GetReliableMessages();

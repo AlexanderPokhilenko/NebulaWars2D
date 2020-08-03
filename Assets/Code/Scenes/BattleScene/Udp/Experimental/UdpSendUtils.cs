@@ -57,18 +57,18 @@ namespace Code.Scenes.BattleScene.Udp.Experimental
             udpClientWrapper.Send(data);
         }
 
-        public void SendRudpMessage()
-        {
-            var myId = PlayerIdStorage.TmpPlayerMatchId;
-            var message = new PlayerPingMessage(myId, matchId);
-            var mess = MessageFactory.GetMessage(message, false, out uint messageId);
-            mess.NeedResponse = true;
-            
-            RudpStorage.Instance.AddMessage(mess);
-            
-            byte[] data = MessageFactory.GetSerializedMessage(mess);
-            udpClientWrapper.Send(data);
-        }
+        // public void SendRudpMessage()
+        // {
+        //     var myId = PlayerIdStorage.TmpPlayerMatchId;
+        //     var message = new PlayerPingMessage(myId, matchId);
+        //     var mess = MessageFactory.GetMessage(message, false, out uint messageId);
+        //     mess.NeedResponse = true;
+        //     
+        //     RudpStorage.Instance.AddMessage(mess);
+        //     
+        //     byte[] data = MessageFactory.GetSerializedMessage(mess);
+        //     udpClientWrapper.Send(data);
+        // }
 
         public void SendMessage(MessageWrapper message)
         {
