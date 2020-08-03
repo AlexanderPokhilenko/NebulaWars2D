@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Code.Common.Logger;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,37 +8,71 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
 {
     public class QualityLevelListener : MonoBehaviour
     {
-        private int MaxDivider;
-        private int ResolutionMultiplier;
+        private static bool loaded = false;
+        private static Resolution maxResolution;
+        private static int maxDivider;
+        private static int ResolutionMultiplier;
+        private int newMultiplier;
+        private const string ButtonText = "Apply resolution";
+        private const int DelayBeforeCancel = 10;
         private readonly ILog log = LogManager.CreateLogger(typeof(QualityLevelListener));
+        private Dropdown qualityDropdown;
+        private Slider resolutionSlider;
+        private Dropdown resolutionDropdown;
+        private Button resolutionApplyButton;
+        private Text resolutionApplyText;
+        private IEnumerator currentCoroutine;
 
         private void Awake()
         {
             var uiStorage = FindObjectOfType<DebugMenuUiStorage>();
-            List<Dropdown.OptionData> options = new List<Dropdown.OptionData>();
+            qualityDropdown = uiStorage.qualityDropdown;
+            resolutionSlider = uiStorage.resolutionSlider;
+            resolutionDropdown = uiStorage.resolutionDropdown;
+            resolutionApplyButton = uiStorage.resolutionApplyButton;
+            resolutionApplyText = resolutionApplyButton.GetComponentInChildren<Text>();
+            resolutionApplyButton.interactable = false;
+
+            List<Dropdown.OptionData> qualityOptions = new List<Dropdown.OptionData>();
             foreach (var qualityLevelName in QualitySettings.names)
             {
-                options.Add(new Dropdown.OptionData(qualityLevelName));
+                qualityOptions.Add(new Dropdown.OptionData(qualityLevelName));
             }
 
-            uiStorage.dropdown.options = options;
+            qualityDropdown.options = qualityOptions;
 
-            uiStorage.dropdown.onValueChanged.AddListener(SetQualityLevel);
+            qualityDropdown.onValueChanged.AddListener(SetQualityLevel);
 
-            uiStorage.dropdown.value = QualitySettings.GetQualityLevel();
+            qualityDropdown.value = QualitySettings.GetQualityLevel();
             log.Debug("текущее значение "+QualitySettings.names[QualitySettings.GetQualityLevel()]);
 
-            var resolution = Screen.currentResolution;
-            var width = resolution.width;
-            var height = resolution.height;
-            MaxDivider = GCD(width, height);
+            if (!loaded)
+            {
+                loaded = true;
+                maxResolution = Screen.currentResolution;
+                var width = maxResolution.width;
+                var height = maxResolution.height;
+                maxDivider = GCD(width, height);
 
-            ResolutionMultiplier = PlayerPrefs.GetInt(nameof(ResolutionMultiplier), MaxDivider);
-            log.Debug(ResolutionMultiplier);
+                ResolutionMultiplier = PlayerPrefs.GetInt(nameof(ResolutionMultiplier), maxDivider);
+                SetResolution(ResolutionMultiplier, false);
+            }
 
-            var slider = uiStorage.slider;
-            slider.maxValue = MaxDivider;
-            slider.value = ResolutionMultiplier;
+            resolutionSlider.maxValue = maxDivider;
+            resolutionSlider.SetValueWithoutNotify(ResolutionMultiplier);
+
+            var atomicWidth = maxResolution.width / maxDivider;
+            var atomicHeight = maxResolution.height / maxDivider;
+            List<Dropdown.OptionData> resolutionOptions = new List<Dropdown.OptionData>(maxDivider);
+            for (var i = maxDivider; i > 0; i--)
+            {
+                var width = atomicWidth * i;
+                var height = atomicHeight * i;
+                resolutionOptions.Add(new Dropdown.OptionData($"{width}x{height}"));
+            }
+
+            resolutionDropdown.options = resolutionOptions;
+            resolutionDropdown.SetValueWithoutNotify(maxDivider - ResolutionMultiplier);
         }
 
         private void OnDestroy()
@@ -49,18 +82,50 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
             PlayerPrefs.Save();
         }
 
-        private void SetResolution(int value)
+        private void SetResolution(int value, bool startCoroutine = true)
         {
-            ResolutionMultiplier = value;
-            var resolution = Screen.currentResolution;
-            var width = resolution.width;
-            var height = resolution.height;
-            Screen.SetResolution(width * ResolutionMultiplier / MaxDivider, height * ResolutionMultiplier / MaxDivider, true);
+            if(currentCoroutine != null) StopCoroutine(currentCoroutine);
+            newMultiplier = value;
+            var width = maxResolution.width;
+            var height = maxResolution.height;
+            Screen.SetResolution(width * newMultiplier / maxDivider, height * newMultiplier / maxDivider, true);
+
+            resolutionSlider.SetValueWithoutNotify(newMultiplier);
+            resolutionDropdown.SetValueWithoutNotify(maxDivider - newMultiplier);
+
+            if (!startCoroutine) return;
+            currentCoroutine = WaitForApply();
+            StartCoroutine(currentCoroutine);
+            resolutionApplyButton.interactable = true;
+        }
+
+        private IEnumerator WaitForApply()
+        {
+            for (var i = DelayBeforeCancel; i > 0; i--)
+            {
+                resolutionApplyText.text = $"{ButtonText} ({i})";
+                yield return new WaitForSeconds(1f);
+            }
+            SetResolution(ResolutionMultiplier, false);
+            ApplyResolution();
         }
 
         public void OnResolutionChanged(float value)
         {
             SetResolution((int)value);
+        }
+
+        public void OnResolutionIndexChanged(int value)
+        {
+            SetResolution(maxDivider - value);
+        }
+
+        public void ApplyResolution()
+        {
+            StopCoroutine(currentCoroutine);
+            ResolutionMultiplier = newMultiplier;
+            resolutionApplyText.text = ButtonText;
+            resolutionApplyButton.interactable = false;
         }
 
         private void SetQualityLevel(int levelIndex)
@@ -69,6 +134,7 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
             log.Debug("новый уровень "+levelName);
             QualitySettings.SetQualityLevel(levelIndex, true);
         }
+
         /// <summary>
         /// Наибольший общий делитель двух чисел.
         /// </summary>

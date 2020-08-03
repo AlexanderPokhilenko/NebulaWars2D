@@ -20,8 +20,7 @@ namespace Code.Scenes.BattleScene.Scripts
     [RequireComponent(typeof(BattleUiController))]
     public class MatchEcsController:MonoBehaviour
     {
-        private Systems battleSystems;
-        private Systems currentSystems;
+        private Systems systems;
         private bool abilityButtonIsPressed;
         private UdpController udpControllerSingleton;
         private BattleUiController battleUiController;
@@ -37,10 +36,10 @@ namespace Code.Scenes.BattleScene.Scripts
         private void Start()
         {
             UdpSendUtils udpSendUtils = udpControllerSingleton.GetUdpSendUtils();
-            currentSystems = CreateSystems(udpSendUtils);
+            systems = CreateSystems(udpSendUtils);
             Contexts.sharedInstance.game.ReplaceZoneInfo(Vector2.zero, 10f);
-            currentSystems.ActivateReactiveSystems();
-            currentSystems.Initialize();
+            systems.ActivateReactiveSystems();
+            systems.Initialize();
         }
         
         private void Update()
@@ -51,14 +50,8 @@ namespace Code.Scenes.BattleScene.Scripts
             contexts.input.isTryingToUseAbility |= Input.GetKey(KeyCode.Space);
 #endif
 
-            currentSystems.Execute();
-            currentSystems.Cleanup();
-        }
-
-        private void OnDestroy()
-        {
-            StopSystems(currentSystems);
-            StopSystems(battleSystems);
+            systems.Execute();
+            systems.Cleanup();
         }
 
         private Contexts contexts;
@@ -70,7 +63,7 @@ namespace Code.Scenes.BattleScene.Scripts
             udpControllerSingleton.GetUdpSendUtils();
             
             contexts = Contexts.sharedInstance;
-            currentSystems = new Systems()
+            systems = new Systems()
                     .Add(new TimeSpeedSystem(contexts, new FloatLinearInterpolator(prevFrameTime)))
 
                     .Add(new UpdateTransformSystem(contexts))
@@ -134,8 +127,7 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new AbilityUpdaterSystem(battleUiController.GetAbilityCooldownInfo(), new FloatLinearInterpolator(prevFrameTime)))
                     .Add(new GameContextClearSystem(contexts))
                 ;
-            battleSystems = currentSystems;
-            return currentSystems;
+            return systems;
         }
 
         public void AbilityButton_OnPointerDown()
@@ -148,11 +140,16 @@ namespace Code.Scenes.BattleScene.Scripts
             abilityButtonIsPressed = false;
         }
         
-        private static void StopSystems(Systems stoppingSystems)
+        private void StopSystems()
         {
-            stoppingSystems.DeactivateReactiveSystems();
-            stoppingSystems.TearDown();
-            stoppingSystems.ClearReactiveSystems();
+            systems.DeactivateReactiveSystems();
+            systems.TearDown();
+            systems.ClearReactiveSystems();
+        }
+
+        private void OnDestroy()
+        {
+            StopSystems();
         }
 
         /// <summary>
