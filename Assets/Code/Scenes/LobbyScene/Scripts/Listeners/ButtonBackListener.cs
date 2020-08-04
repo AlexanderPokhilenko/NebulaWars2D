@@ -17,7 +17,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                log.Debug("Нажата клавиша Escape");
+                log.Info("Нажата клавиша Escape");
                 lobbyEcsController.BackButton_OnClick();
             }
         }

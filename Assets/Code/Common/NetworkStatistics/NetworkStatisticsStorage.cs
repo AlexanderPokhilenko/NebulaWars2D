@@ -18,9 +18,9 @@ namespace Code.Common.NetworkStatistics
         private readonly List<MatchNetworkStatistics> matches = new List<MatchNetworkStatistics>();
         private static readonly Lazy<NetworkStatisticsStorage> Lazy = new Lazy<NetworkStatisticsStorage> (() => new NetworkStatisticsStorage()); 
 
-        public void StartRecordingNewMatch(string matchId, string matchInfo)
+        public void StartRecordingNewMatch(int matchId, ushort playerTmpId)
         {
-            lastMatch = new MatchNetworkStatistics(matchId, matchInfo);
+            lastMatch = new MatchNetworkStatistics(matchId, playerTmpId);
             matches.Add(lastMatch);
         }
 

@@ -79,7 +79,7 @@ namespace Code.Scenes.LobbyScene.Scripts.MatchLoading
             log.Info("Матч найден");
             
             //Начать писать статистику боя
-            NetworkStatisticsStorage.Instance.StartRecordingNewMatch(gameRoomData.MatchId.ToString(), gameRoomData.PlayerTemporaryId.ToString());
+            NetworkStatisticsStorage.Instance.StartRecordingNewMatch(gameRoomData.MatchId, gameRoomData.PlayerTemporaryId);
 
             gameRoomData.GameServerIp = NetworkGlobals.GameServerIp;
             log.Info(nameof(gameRoomData.GameServerIp)+" "+gameRoomData.GameServerIp);

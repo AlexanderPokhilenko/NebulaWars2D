@@ -19,7 +19,7 @@ namespace Code.Common
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                log.Debug("Нажата клавиша Escape");
+                log.Info("Нажата клавиша Escape");
                 menu.SwitchMenu();
             }
         }

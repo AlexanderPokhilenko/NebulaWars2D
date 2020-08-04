@@ -20,8 +20,8 @@ namespace Code.Common.NetworkStatistics
     public class MatchNetworkStatistics
     {
         private readonly List<int> datagramIds = new List<int>(30*40);
-        private readonly string matchId;
-        private readonly string matchInfo;
+        private readonly int matchId;
+        private readonly ushort playerTmpId;
         private readonly object lockObj = new object();
         private readonly ILog log = LogManager.CreateLogger(typeof(MatchNetworkStatistics));
         
@@ -40,10 +40,10 @@ namespace Code.Common.NetworkStatistics
         private readonly Dictionary<int,int> datagramLengthAndCount = new Dictionary<int, int>();
         private readonly Dictionary<MessageType, long> messageTypeTotalSize = new Dictionary<MessageType, long>();
         
-        public MatchNetworkStatistics(string matchId, string matchInfo)
+        public MatchNetworkStatistics(int matchId, ushort playerTmpId)
         {
             this.matchId = matchId;
-            this.matchInfo = matchInfo;
+            this.playerTmpId = playerTmpId;
         }
         
         public void RegisterMessage(int messageLength, MessageType messageType)
@@ -134,11 +134,12 @@ namespace Code.Common.NetworkStatistics
                 using (StreamWriter sw = new StreamWriter(path))
                 {
                     sw.WriteLine($"{nameof(matchId)} {matchId}");
-                    sw.WriteLine($"{matchInfo}");
+                    sw.WriteLine($"{nameof(playerTmpId)} {playerTmpId}");
                     
                     sw.WriteLine();
                     sw.WriteLine();
 
+                    sw.WriteLine("Количество дейтаграмм в секунду.");
                     foreach (PacketsPerSecondModel dich in packetsCount)
                     {
                         sw.WriteLine($"{dich.dateTime.ToLongTimeString()} {dich.pps}");
@@ -148,11 +149,17 @@ namespace Code.Common.NetworkStatistics
                     sw.WriteLine();
                     
                     sw.WriteLine();
-                    sw.WriteLine();
+                    sw.WriteLine("Номера дейтаграмм c нарушением порядка");
 
+                    int tmpDatagramId = 0;
                     foreach (int datagramId in datagramIds)
                     {
-                        sw.WriteLine(datagramId);
+                        if (tmpDatagramId + 1 != datagramId)
+                        {
+                            sw.WriteLine(datagramId+" <- нарушение порядка");
+                        }
+
+                        tmpDatagramId = datagramId;
                     }
                     
                     sw.WriteLine();
@@ -160,7 +167,7 @@ namespace Code.Common.NetworkStatistics
                     
                     
                     
-                    sw.WriteLine($"Общий размер в байтах = {datagramLengthAndCount.Sum(pair => pair.Key*pair.Value)}");
+                    sw.WriteLine($"Общий размер переданных сообщений в байтах= {datagramLengthAndCount.Sum(pair => pair.Key*pair.Value)}");
                     sw.WriteLine();
                     sw.WriteLine();
                     sw.WriteLine("Статистика по типам сообщений (тип и размер всех сообщений типа в байтах)");
@@ -180,6 +187,9 @@ namespace Code.Common.NetworkStatistics
                         sw.WriteLine($"{maxLength-100}-{maxLength} {count}");
                     }
                     
+                    sw.WriteLine();
+                    sw.WriteLine();
+                    sw.WriteLine();
                     sw.WriteLine("Все сообщения");
                     lock (lockObj)
                     {
