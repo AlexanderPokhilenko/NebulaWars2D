@@ -188,7 +188,17 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             warshipsUiStorage.warshipCharacteristicsButton.onClick.RemoveAllListeners();
             warshipsUiStorage.warshipCharacteristicsButton.onClick.AddListener(()=>
             {
-                lobbyEcsController.ShowWarshipCharacteristics(warshipDto);
+                if (warshipDto.PowerPoints < maxPowerPoints||softCurrency< improvementCost)
+                {
+                    UiSoundsManager.Instance().PlayClick();
+                    lobbyEcsController.ShowWarshipCharacteristics(warshipDto);
+                }
+                else
+                {
+                    UiSoundsManager.Instance().PlayClick();
+                    //показать окно покупки улучшения
+                    lobbyEcsController.ShowWarshipImprovementModalWindow(warshipDto);
+                }
             });
         }
     }

@@ -2,6 +2,7 @@
 #if !UNITY_EDITOR
 #undef LocalTesting
 #endif
+
 namespace Code.Common
 {
     /// <summary>

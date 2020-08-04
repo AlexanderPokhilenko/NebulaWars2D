@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Code.Common;
 using Code.Common.Logger;
 using Code.Common.NetworkStatistics;
 using Code.Scenes.BattleScene.Udp.Experimental;
@@ -17,8 +14,14 @@ namespace Code.Scenes.BattleScene.Udp
     public class UdpMediator
     {
         private MessageProcessor messageProcessor;
+        private readonly EventProbability packetLossEvent;
         private readonly ILog log = LogManager.CreateLogger(typeof(UdpMediator));
 
+        public UdpMediator()
+        {
+            packetLossEvent = new EventProbability(15);
+        }
+        
         public void Initialize(UdpSendUtils udpSendUtils, int matchId)
         {
             if (messageProcessor != null)
@@ -30,6 +33,14 @@ namespace Code.Scenes.BattleScene.Udp
 
         public void HandleBytes(byte[] datagram)
         {
+            //Для отладки на компьютере специально пропуская пакеты
+#if UNITY_EDITOR
+            if (packetLossEvent.IsEventHappened())
+            {
+                return;
+            }
+#endif
+            
             MessagesPack messagesContainer = ZeroFormatterSerializer.Deserialize<MessagesPack>(datagram);
             NetworkStatisticsStorage.Instance.RegisterDatagram(datagram.Length, messagesContainer.Id);
             foreach (byte[] data in messagesContainer.Messages)

@@ -12,8 +12,8 @@ namespace Code.Common.NetworkStatistics
     public class NetworkStatisticsStorage
     {
         private MatchNetworkStatistics lastMatch;
-        private readonly ILog log = LogManager.CreateLogger(typeof(NetworkStatisticsStorage));
         public static NetworkStatisticsStorage Instance => Lazy.Value;
+        private readonly ILog log = LogManager.CreateLogger(typeof(NetworkStatisticsStorage));
         private readonly List<MatchNetworkStatistics> matches = new List<MatchNetworkStatistics>();
         private static readonly Lazy<NetworkStatisticsStorage> Lazy = new Lazy<NetworkStatisticsStorage> (() => new NetworkStatisticsStorage()); 
 
