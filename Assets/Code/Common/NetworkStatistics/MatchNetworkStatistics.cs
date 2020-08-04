@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Code.Common.Logger;
-using Code.Scenes.BattleScene.Scripts.Debug;
+using Code.Scenes.BattleScene.Scripts;
 using NetworkLibrary.NetworkLibrary.Udp;
 using UnityEngine;
 

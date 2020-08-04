@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Common.Logger;
-using Code.Scenes.BattleScene.Scripts.Debug;
 using NetworkLibrary.NetworkLibrary.Udp;
 
 namespace Code.Common.NetworkStatistics

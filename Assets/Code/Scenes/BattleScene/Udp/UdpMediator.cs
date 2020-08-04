@@ -4,7 +4,6 @@ using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Common.NetworkStatistics;
-using Code.Scenes.BattleScene.Scripts.Debug;
 using Code.Scenes.BattleScene.Udp.Experimental;
 using Code.Scenes.BattleScene.Udp.MessageProcessing;
 using NetworkLibrary.NetworkLibrary.Udp;
