@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Code.Scenes.BattleScene.Udp.Experimental;
+﻿using Code.Scenes.BattleScene.Udp.Experimental;
 using Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers;
 using NetworkLibrary.NetworkLibrary.Udp;
-using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing
 {
@@ -13,46 +13,32 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
     public class MessageProcessor
     {
         private readonly HashSet<uint> receivedMessagesRUDP;
-        private readonly PlayerInfoMessageHandler playerInfoMessageHandler;
-        private readonly PositionsMessageHandler positionsMessageHandler;
-        private readonly RadiusesMessageHandler radiusesMessageHandler;
-        private readonly ParentsMessageHandler parentsMessageHandler;
-        private readonly DetachesMessageHandler detachesMessageHandler;
-        private readonly DestroysMessageHandler destroysMessageHandler;
-        private readonly HidesMessageHandler hidesMessageHandler;
         private readonly RudpConfirmationSender rudpConfirmationSender;
-        private readonly HealthPointsHandler hpHandler;
-        private readonly MaxHealthPointsHandler maxHpHandler;
-        private readonly ShieldPointsHandler shieldHandler;
-        private readonly MaxShieldPointsHandler maxShieldHandler;
-        private readonly RudpConfirmationReceiver rudpConfirmationReceiver;
-        private readonly KillsHandler killsHandler;
-        private readonly ShowPlayerAchievementsHandler playerAchievementsHandler;
-        private readonly CooldownsInfosHandler cooldownInfoHandler;
-        private readonly CooldownsHandler cooldownHandler;
-        private readonly FrameRateHandler frameRateHandler;
+        private readonly IMessageHandler[] handlers;
 
         public MessageProcessor(UdpSendUtils udpSendUtils, int matchId)
         {
             receivedMessagesRUDP = new HashSet<uint>();
-            playerInfoMessageHandler = new PlayerInfoMessageHandler();
-            positionsMessageHandler = new PositionsMessageHandler();
-            radiusesMessageHandler = new RadiusesMessageHandler();
-            parentsMessageHandler = new ParentsMessageHandler();
-            detachesMessageHandler = new DetachesMessageHandler();
-            destroysMessageHandler = new DestroysMessageHandler();
-            hidesMessageHandler = new HidesMessageHandler();
             rudpConfirmationSender = new RudpConfirmationSender(udpSendUtils);
-            hpHandler = new HealthPointsHandler();
-            rudpConfirmationReceiver = new RudpConfirmationReceiver();
-            maxHpHandler = new MaxHealthPointsHandler();
-            shieldHandler = new ShieldPointsHandler();
-            maxShieldHandler = new MaxShieldPointsHandler();
-            killsHandler = new KillsHandler();
-            playerAchievementsHandler = new ShowPlayerAchievementsHandler(matchId);
-            cooldownInfoHandler = new CooldownsInfosHandler();
-            cooldownHandler = new CooldownsHandler();
-            frameRateHandler = new FrameRateHandler();
+            var lastEnum = Enum.GetValues(typeof(MessageType)).Cast<MessageType>().Max();
+            handlers = new IMessageHandler[(int)lastEnum + 1];
+            handlers[(int)MessageType.PlayerInfo] = new PlayerInfoMessageHandler();
+            handlers[(int)MessageType.Positions] = new PositionsMessageHandler();
+            handlers[(int)MessageType.Radiuses] = new RadiusesMessageHandler();
+            handlers[(int)MessageType.Parents] = new ParentsMessageHandler();
+            handlers[(int)MessageType.Detaches] = new DetachesMessageHandler();
+            handlers[(int)MessageType.Destroys] = new DestroysMessageHandler();
+            handlers[(int)MessageType.Hides] = new HidesMessageHandler();
+            handlers[(int)MessageType.HealthPoints] = new HealthPointsHandler();
+            handlers[(int)MessageType.DeliveryConfirmation] = new RudpConfirmationReceiver();
+            handlers[(int)MessageType.MaxHealthPoints] = new MaxHealthPointsHandler();
+            handlers[(int)MessageType.ShieldPoints] = new ShieldPointsHandler();
+            handlers[(int)MessageType.MaxShieldPoints] = new MaxShieldPointsHandler();
+            handlers[(int)MessageType.Kill] = new KillsHandler();
+            handlers[(int)MessageType.ShowPlayerAchievements] = new ShowPlayerAchievementsHandler(matchId);
+            handlers[(int)MessageType.CooldownsInfos] = new CooldownsInfosHandler();
+            handlers[(int)MessageType.Cooldowns] = new CooldownsHandler();
+            handlers[(int)MessageType.FrameRate] = new FrameRateHandler();
         }
         
         public void Handle(MessageWrapper messageWrapper)
@@ -64,68 +50,7 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
                 if (!receivedMessagesRUDP.Add(messageWrapper.MessageId)) return;
             }
             
-            switch (messageWrapper.MessageType)
-            {
-                case MessageType.Positions:
-                    positionsMessageHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.DeliveryConfirmation:
-                    rudpConfirmationReceiver.Handle(messageWrapper);
-                    break;
-                case MessageType.HealthPoints:
-                    hpHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.MaxHealthPoints:
-                    maxHpHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.Kill:
-                    killsHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.PlayerTracking:
-                    //TODO добавить
-                    break;
-                case MessageType.PointTracking:
-                    //TODO добавить
-                    break;
-                case MessageType.ShowPlayerAchievements:
-                    playerAchievementsHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.ShieldPoints:
-                    shieldHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.MaxShieldPoints:
-                    maxShieldHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.CooldownsInfos:
-                    cooldownInfoHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.Cooldowns:
-                    cooldownHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.PlayerInfo:
-                    playerInfoMessageHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.Radiuses:
-                    radiusesMessageHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.Parents:
-                    parentsMessageHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.Detaches:
-                    detachesMessageHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.Destroys:
-                    destroysMessageHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.Hides:
-                    hidesMessageHandler.Handle(messageWrapper);
-                    break;
-                case MessageType.FrameRate:
-                    frameRateHandler.Handle(messageWrapper);
-                    break;
-                default: 
-                    throw new Exception($"Пришло сообщение с неожиданным типом = {messageWrapper.MessageType}");
-            }
+            handlers[(int)messageWrapper.MessageType].Handle(messageWrapper);
         }
     }
 }

@@ -1,20 +1,15 @@
-﻿using Code.BattleScene.ECS.Systems;
-using Code.Common;
-using Code.Common.Storages;
+﻿using Code.Common.Storages;
 using Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems;
 using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
-using NetworkLibrary.NetworkLibrary.Udp;
-using ZeroFormatter;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 {
-    public class PlayerInfoMessageHandler : IMessageHandler
+    public class PlayerInfoMessageHandler : MessageHandler<PlayerInfoMessage>
     {
-        public void Handle(MessageWrapper messageWrapper)
+        protected override void Handle(in PlayerInfoMessage message, uint messageId, bool needResponse)
         {
-            var mes = ZeroFormatterSerializer.Deserialize<PlayerInfoMessage>(messageWrapper.SerializedMessage);
-            PlayerIdStorage.PlayerEntityId = mes.EntityIds[PlayerIdStorage.AccountId];
-            UpdatePlayersSystem.SetNewPlayers(mes.EntityIds);
+            PlayerIdStorage.PlayerEntityId = message.EntityIds[PlayerIdStorage.AccountId];
+            UpdatePlayersSystem.SetNewPlayers(message.EntityIds);
         }
     }
 }
