@@ -28,9 +28,9 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
                         {
                             WarshipId = wppModel.WarshipId,
                             WarshipSkinName = null,
-                            StartValue = wppModel.StartValue,
-                            FinishValue = wppModel.FinishValue,
-                            MaxValueForLevel = wppModel.MaxValueForLevel,
+                            StartValue = wppModel.SupportClientModel.StartValue,
+                            FinishValue = wppModel.SupportClientModel.StartValue+wppModel.Increment,
+                            MaxValueForLevel = wppModel.SupportClientModel.MaxValueForLevel,
                             WarshipTypeEnum = wppModel.WarshipTypeEnum
                         }); 
                     break;

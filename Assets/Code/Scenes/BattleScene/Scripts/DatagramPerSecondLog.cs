@@ -15,8 +15,8 @@ namespace Code.Scenes.BattleScene.Scripts
     
         private void Update()
         {
-            int value = NetworkStatisticsStorage.Instance.GetLastFramerate();
-            text.text = $"{value} pps";
+            // int value = NetworkStatisticsStorage.Instance.GetLastFramerate();
+            // text.text = $"{value} pps";
         }
     }
 }

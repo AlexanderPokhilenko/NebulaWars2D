@@ -65,7 +65,6 @@ namespace Code.Scenes.LobbyScene.Scripts
         private MovingIconsDataCreationSystem movingIconsDataCreationSystem;
         private AccountDtoComponentsCreatorSystem accountDtoComponentsCreatorSystem;
         private readonly ILog log = LogManager.CreateLogger(typeof(LobbyEcsController));
-        // private StartCancelMatchComponentsCreatorSystem startCancelMatchComponentsCreatorSystem;
 
         private void Awake()
         {
@@ -86,7 +85,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             inGameCurrencyPaymaster = FindObjectOfType<InGameCurrencyPaymaster>()
                             ?? throw new NullReferenceException(nameof(inGameCurrencyPaymaster));
             textTooltip = FindObjectOfType<TextTooltip>()
-                          ?? throw new NullReferenceException(nameof(TextTooltip));
+                            ?? throw new NullReferenceException(nameof(TextTooltip));
         }
 
         private void Start()
@@ -253,9 +252,14 @@ namespace Code.Scenes.LobbyScene.Scripts
         
         public bool IsWarshipsCreationCompleted()
         {
-            return warshipSpawnerSystem != null && warshipSpawnerSystem.IsWarshipCreationCompleted();
+             int spawnedWarshipsCount = contexts.lobbyUi
+                 .GetGroup(LobbyUiMatcher.AllOf(LobbyUiMatcher.Warship, LobbyUiMatcher.View))
+                 .count;
+             
+             return spawnedWarshipsCount==warshipsCount;
         }
 
+        private int warshipsCount=int.MaxValue;
         public void SetLobbyModel(LobbyModel lobbyModel)
         {
             AccountDto accountDto = lobbyModel.AccountDto.Subtract(lobbyModel.RewardsThatHaveNotBeenShown);
@@ -270,6 +274,8 @@ namespace Code.Scenes.LobbyScene.Scripts
             //Установить данные аккаунта
             accountDtoComponentsCreatorSystem.SetAccountDto(accountDto);
             PlayerIdStorage.AccountId = accountDto.AccountId;
+
+            warshipsCount = lobbyModel.AccountDto.Warships.Count;
         }
       
         public int GetCurrentWarshipId()
@@ -307,21 +313,6 @@ namespace Code.Scenes.LobbyScene.Scripts
         {
             contexts.lobbyUi.CreateEntity().messageEnableWarshipListUiLayer = true;
         }
-
-        // public ushort GetWarshipIndexById(int warshipId)
-        // {
-        //     foreach (WarshipComponent warshipComponent in contexts.lobbyUi
-        //         .GetGroup(LobbyUiMatcher.Warship).AsEnumerable().Select((entity=>entity.warship)))
-        //     {
-        //         if (warshipComponent.warshipDto.Id == warshipId)
-        //         {
-        //             throw new NotImplementedException();
-        //             // return warshipComponent.index;
-        //         }
-        //     }
-        //     
-        //     throw new Exception("В лобби нет такого корабля");
-        // }
         
         public void ShowWarshipOverviewById(int warshipId)
         {
@@ -411,6 +402,45 @@ namespace Code.Scenes.LobbyScene.Scripts
         public void Button_Cancel_Click()
         {
             contexts.lobbyUi.CreateEntity().isCancelButtonClicked = true;
+        }
+
+        public int GetWarshipPowerPoints(WarshipTypeEnum modelWarshipTypeEnum)
+        {
+            WarshipDto warshipDto = contexts.lobbyUi
+                .GetGroup(LobbyUiMatcher.Warship)
+                .AsEnumerable()
+                .Select(entity => entity.warship.warshipDto)
+                .Single(item => item.WarshipTypeEnum==modelWarshipTypeEnum);
+            return warshipDto.PowerPoints;
+        }
+
+        public string GetSkinName(WarshipTypeEnum modelWarshipTypeEnum)
+        {
+            WarshipDto warshipDto = contexts.lobbyUi
+                .GetGroup(LobbyUiMatcher.Warship)
+                .AsEnumerable()
+                .Select(entity => entity.warship.warshipDto)
+                .Single(item => item.WarshipTypeEnum==modelWarshipTypeEnum);
+            return warshipDto.GetCurrentSkinName();
+        }
+
+        public int GetWarshipPowerLevel(WarshipTypeEnum modelWarshipTypeEnum)
+        {
+            WarshipDto warshipDto =
+                contexts.lobbyUi
+                    .GetGroup(LobbyUiMatcher.Warship)
+                    .AsEnumerable()
+                .Select(entity => entity.warship.warshipDto)
+                .Single(item => item.WarshipTypeEnum==modelWarshipTypeEnum);
+            return warshipDto.PowerLevel;
+        }
+
+        public int GetCountOfSpawnedWarships()
+        {
+            int spawnedWarshipsCount = contexts.lobbyUi
+                .GetGroup(LobbyUiMatcher.AllOf(LobbyUiMatcher.Warship, LobbyUiMatcher.View))
+                .count;
+            return spawnedWarshipsCount;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.AccountModel;
 using Code.Scenes.LobbyScene.Scripts.Listeners;
+using Code.Scenes.LobbyScene.Scripts.Shop;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using Code.Scenes.LootboxScene.Scripts;
 using NetworkLibrary.NetworkLibrary.Http;
@@ -21,16 +22,17 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
         private CancellationTokenSource cts;
         private LobbyEcsController lobbyEcsController;
         private Task<LobbyModel> lobbyModelDownloadingTask;
+        private ShopModelLoadingInitiator shopModelLoadingInitiator;
         private readonly ILog log = LogManager.CreateLogger(typeof(ResourcesAccrualSceneManager));
 
         private void Awake()
         {
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
+            shopModelLoadingInitiator = FindObjectOfType<ShopModelLoadingInitiator>();
         }
 
         public void ShowLootboxScene()
         {
-            
             LootboxModelDownloader.Instance.StartDownloading();
             DisableLobbyUi();
             SceneManager.LoadScene("2dLootboxScene", LoadSceneMode.Additive);
@@ -49,7 +51,6 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
        
         public void ShowOneResource(PurchaseModel purchaseModel)
         {
-                
             DisableLobbyUi();
             SceneManager.LoadScene("2dLootboxScene", LoadSceneMode.Additive);
             SceneManager.sceneUnloaded += OneResourceSceneClosed;
@@ -72,6 +73,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             SceneManager.sceneUnloaded -= OneResourceSceneClosed;
             EnableLobbyUi();
             TryUpdateAccountModel();
+            shopModelLoadingInitiator.StartShopLoading();
         }
         
         private void LootboxSceneClosed(Scene arg0)
@@ -79,6 +81,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             SceneManager.sceneUnloaded -= LootboxSceneClosed;
             EnableLobbyUi();
             TryUpdateAccountModel();
+            shopModelLoadingInitiator.StartShopLoading();
         }
 
         private void TryUpdateAccountModel()
@@ -90,7 +93,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
                     LobbyModel lobbyModel = lobbyModelDownloadingTask.Result;
                     if (lobbyModel != null)
                     {
-                        log.Debug("Установка новой модели аккаунта");
+                        log.Info("Установка новой модели аккаунта");
                         lobbyEcsController.SetLobbyModel(lobbyModel);
                     }
                     else
@@ -105,7 +108,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             }
             else
             {
-                log.Debug("Новая модель аккаунта не успела скачаться.");
+                log.Info("Новая модель аккаунта не успела скачаться.");
                 lobbyModelDownloadingTask.ContinueWith(task =>
                 {
                     if (task.Status == TaskStatus.RanToCompletion)
@@ -117,12 +120,12 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
                         }
                         else
                         {
-                            log.Debug("сука3");
+                            log.Error("Пришла пустая модель лобби.");
                         }
                     }
                     else
                     {
-                        log.Debug("сука1");
+                        log.Error("Не удалось скачать модель лобби.");
                     }
                 });
             }

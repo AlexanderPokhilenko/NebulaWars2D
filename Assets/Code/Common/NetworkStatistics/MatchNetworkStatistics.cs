@@ -9,23 +9,24 @@ using UnityEngine;
 
 namespace Code.Common.NetworkStatistics
 {
-    public class PacketsPerSecondModel
+    public class DatagramPerSecondModel
     {
         public DateTime dateTime;
         public int pps;
+        public int totalLength;
     }
     /// <summary>
     /// Хранит информацию о статистике сети в бою.
     /// </summary>
     public class MatchNetworkStatistics
     {
-        private readonly List<int> datagramIds = new List<int>(30*40);
         private readonly int matchId;
         private readonly ushort playerTmpId;
         private readonly object lockObj = new object();
+        private readonly List<int> datagramIds = new List<int>(30*40);
         private readonly ILog log = LogManager.CreateLogger(typeof(MatchNetworkStatistics));
         
-        private List<PacketsPerSecondModel> packetsCount = new List<PacketsPerSecondModel>(){new PacketsPerSecondModel()
+        private List<DatagramPerSecondModel> packetsCount = new List<DatagramPerSecondModel>(){new DatagramPerSecondModel()
         {
             pps = 0,
             dateTime = DateTime.UtcNow
@@ -83,14 +84,16 @@ namespace Code.Common.NetworkStatistics
             {
                 int lastValue = packetsCount[packetsCount.Count-1].pps;
                 packetsCount[packetsCount.Count-1].pps = lastValue + 1;
+                packetsCount[packetsCount.Count - 1].totalLength += datagramLength;
             
                 int sec = DateTime.UtcNow.Second;
                 if (sec != prevSec)
                 {
-                    packetsCount.Add(new PacketsPerSecondModel()
+                    packetsCount.Add(new DatagramPerSecondModel()
                     {
                         dateTime = DateTime.UtcNow,
-                        pps = 0
+                        pps = 0,
+                        totalLength = 0
                     });
                     prevSec = sec;
                 }    
@@ -102,7 +105,11 @@ namespace Code.Common.NetworkStatistics
                 if (lastId + 1 != datagramId)
                 {
                     DatagramsOrderLog.DatagramsError();
-                    log.Debug($"Непоследовательный порядок сообщений {lastId} {datagramId}");
+                }
+
+                if (datagramId < lastId)
+                {
+                    log.Debug($"Сообщения пришли в неправильном поядке {nameof(lastId)} {lastId} {nameof(datagramId)} {datagramId}");
                 }
             }
             
@@ -126,12 +133,9 @@ namespace Code.Common.NetworkStatistics
             lock (lockObj)
             {
                 string dateTime = DateTime.Now.ToLongTimeString().Replace(':', '_');
-                string path = $"networkStatistics_{matchId}_{dateTime}.txt";
-                
-#if UNITY_ANDROID
-                path = Application.persistentDataPath +"/"+ path;
-#endif
-                using (StreamWriter sw = new StreamWriter(path))
+                string fileName = $"networkStatistics_{matchId}_{dateTime}.txt";
+                fileName = Application.persistentDataPath +"/"+ fileName;
+                using (StreamWriter sw = new StreamWriter(fileName))
                 {
                     sw.WriteLine($"{nameof(matchId)} {matchId}");
                     sw.WriteLine($"{nameof(playerTmpId)} {playerTmpId}");
@@ -139,10 +143,11 @@ namespace Code.Common.NetworkStatistics
                     sw.WriteLine();
                     sw.WriteLine();
 
-                    sw.WriteLine("Количество дейтаграмм в секунду.");
-                    foreach (PacketsPerSecondModel dich in packetsCount)
+                    sw.WriteLine("Дейтаграммы:");
+                    sw.WriteLine("Время || кол-во датаграмм || длина в байтах");
+                    foreach (DatagramPerSecondModel model in packetsCount)
                     {
-                        sw.WriteLine($"{dich.dateTime.ToLongTimeString()} {dich.pps}");
+                        sw.WriteLine($"{model.dateTime.ToLongTimeString()}\t\t {model.pps}\t\t {model.totalLength}");
                     }
                     
                     sw.WriteLine();
@@ -161,6 +166,24 @@ namespace Code.Common.NetworkStatistics
 
                         tmpDatagramId = datagramId;
                     }
+
+                    int maxDatagramId = datagramIds.Max();
+                    HashSet<int> allNumbers = new HashSet<int>();
+                    for (int i = 0; i <= maxDatagramId; i++)
+                    {
+                        allNumbers.Add(i);
+                    }
+
+                    foreach (var datagramId in datagramIds)
+                    {
+                        allNumbers.Remove(datagramId);
+                    }
+
+                    int datagramsLossCount = allNumbers.Count;
+                    float datagramLossPercentage = 1f*datagramsLossCount / maxDatagramId;
+                    sw.WriteLine($"datagramsLossCount {datagramsLossCount}");
+                    sw.WriteLine($"maxDatagramId {maxDatagramId}");
+                    sw.WriteLine($"datagram loss {datagramLossPercentage}%");
                     
                     sw.WriteLine();
                     sw.WriteLine();
