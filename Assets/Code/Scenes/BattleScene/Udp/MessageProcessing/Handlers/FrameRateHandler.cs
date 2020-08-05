@@ -1,17 +1,13 @@
 ﻿using Code.BattleScene.ECS.Systems;
 using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
-using NetworkLibrary.NetworkLibrary.Udp;
-using ZeroFormatter;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 {
-    public class FrameRateHandler : IMessageHandler
+    public class FrameRateHandler : MessageHandler<FrameRateMessage>
     {
-        public void Handle(MessageWrapper message)
+        protected override void Handle(in FrameRateMessage message, uint messageId, bool needResponse)
         {
-            var msg = ZeroFormatterSerializer.Deserialize<FrameRateMessage>(message.SerializedMessage);
-
-            TimeSpeedSystem.SetFrameRate(message.MessageId, msg.DeltaTime);
+            TimeSpeedSystem.SetFrameRate(messageId, message.DeltaTime);
         }
     }
 }

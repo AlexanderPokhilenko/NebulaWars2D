@@ -1,16 +1,13 @@
 ﻿using Code.BattleScene.ECS.Systems;
-using NetworkLibrary.NetworkLibrary.Udp;
 using NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages;
-using ZeroFormatter;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 {
-    public class RadiusesMessageHandler : IMessageHandler
+    public class RadiusesMessageHandler : MessageHandler<RadiusesMessage>
     {
-        public void Handle(MessageWrapper messageWrapper)
+        protected override void Handle(in RadiusesMessage message, uint messageId, bool needResponse)
         {
-            var mes = ZeroFormatterSerializer.Deserialize<RadiusesMessage>(messageWrapper.SerializedMessage);
-            UpdateRadiusSystem.SetNewRadiuses(mes.FloatRadiusInfo);
+            UpdateRadiusSystem.SetNewRadiuses(message.FloatRadiusInfo);
         }
     }
 }

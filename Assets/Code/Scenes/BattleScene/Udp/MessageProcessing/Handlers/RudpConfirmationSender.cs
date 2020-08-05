@@ -3,7 +3,7 @@ using NetworkLibrary.NetworkLibrary.Udp;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 {
-    public class RudpConfirmationSender:IMessageHandler
+    public class RudpConfirmationSender
     {
         private readonly UdpSendUtils udpSendUtils;
 

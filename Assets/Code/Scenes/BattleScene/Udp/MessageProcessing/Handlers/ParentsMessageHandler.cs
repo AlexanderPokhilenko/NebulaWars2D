@@ -1,17 +1,15 @@
 ﻿using Code.Scenes.BattleScene.Udp.MessageProcessing.Synchronizers;
-using NetworkLibrary.NetworkLibrary.Udp;
 using NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages;
-using ZeroFormatter;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 {
-    public class ParentsMessageHandler : IMessageHandler
+    public class ParentsMessageHandler : MessageHandler<ParentsMessage>
     {
         private readonly ParentsNetworkSynchronizer _synchronizer = ParentsNetworkSynchronizer.Instance;
-        public void Handle(MessageWrapper messageWrapper)
+
+        protected override void Handle(in ParentsMessage message, uint messageId, bool needResponse)
         {
-            var mes = ZeroFormatterSerializer.Deserialize<ParentsMessage>(messageWrapper.SerializedMessage);
-            _synchronizer.HandleDictionary(messageWrapper.MessageId, mes.ParentInfo);
+            _synchronizer.HandleDictionary(messageId, message.ParentInfo);
         }
     }
 }

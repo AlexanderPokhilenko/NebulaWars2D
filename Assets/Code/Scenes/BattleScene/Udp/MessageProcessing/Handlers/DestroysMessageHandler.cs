@@ -1,22 +1,18 @@
-﻿using Code.BattleScene.ECS.Systems;
-using Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems;
+﻿using Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems;
 using Code.Scenes.BattleScene.Udp.MessageProcessing.Synchronizers;
-using NetworkLibrary.NetworkLibrary.Udp;
 using NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages;
-using ZeroFormatter;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 {
-    public class DestroysMessageHandler : IMessageHandler
+    public class DestroysMessageHandler : MessageHandler<DestroysMessage>
     {
         private readonly ParentsNetworkSynchronizer _parentsSynchronizer = ParentsNetworkSynchronizer.Instance;
 
-        public void Handle(MessageWrapper messageWrapper)
+        protected override void Handle(in DestroysMessage message, uint messageId, bool needResponse)
         {
-            var mes = ZeroFormatterSerializer.Deserialize<DestroysMessage>(messageWrapper.SerializedMessage);
-            UpdateDestroysSystem.SetNewDestroys(mes.DestroyedIds);
+            UpdateDestroysSystem.SetNewDestroys(message.DestroyedIds);
 
-            _parentsSynchronizer.Remove(mes.DestroyedIds);
+            _parentsSynchronizer.Remove(message.DestroyedIds);
         }
     }
 }

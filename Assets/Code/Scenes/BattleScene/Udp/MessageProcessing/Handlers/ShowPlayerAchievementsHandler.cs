@@ -2,12 +2,10 @@
 using Code.Common.Logger;
 using Code.Scenes.BattleScene.Scripts;
 using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
-using NetworkLibrary.NetworkLibrary.Udp;
-using ZeroFormatter;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 {
-    public class ShowPlayerAchievementsHandler : IMessageHandler
+    public class ShowPlayerAchievementsHandler : MessageHandler<ShowPlayerAchievementsMessage>
     {
         private readonly int matchId;
         private readonly ILog log = LogManager.CreateLogger(typeof(ShowPlayerAchievementsHandler));
@@ -16,16 +14,13 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
         {
             this.matchId = matchId;
         }
-        
-        public void Handle(MessageWrapper messageWrapper)
-        {
-            ShowPlayerAchievementsMessage showPlayerAchievementsMessage =
-                ZeroFormatterSerializer.Deserialize<ShowPlayerAchievementsMessage>(messageWrapper.SerializedMessage);
 
+        protected override void Handle(in ShowPlayerAchievementsMessage message, uint messageId, bool needResponse)
+        {
             log.Warn("Показать результаты боя игрока" +
-                     $" {nameof(showPlayerAchievementsMessage.MatchId)} {showPlayerAchievementsMessage.MatchId}");
-            
-            if (matchId == showPlayerAchievementsMessage.MatchId)
+                     $" {nameof(message.MatchId)} {message.MatchId}");
+
+            if (matchId == message.MatchId)
             {
                 UnityThread.Execute(() => MatchRewardUiController.Instance().ShowPlayerAchievements());
             }

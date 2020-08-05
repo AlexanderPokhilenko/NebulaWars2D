@@ -1,18 +1,14 @@
 ﻿using Code.Scenes.BattleScene.ECS.Systems;
 using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
-using NetworkLibrary.NetworkLibrary.Udp;
-using ZeroFormatter;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 {
-    public class CooldownsHandler : IMessageHandler
+    public class CooldownsHandler : MessageHandler<CooldownsMessage>
     {
-        public void Handle(MessageWrapper message)
+        protected override void Handle(in CooldownsMessage message, uint messageId, bool needResponse)
         {
-            var msg = ZeroFormatterSerializer.Deserialize<CooldownsMessage>(message.SerializedMessage);
-
-            CooldownsUpdaterSystem.SetCooldowns(msg.WeaponsCooldowns);
-            AbilityUpdaterSystem.SetCurrentCooldown(msg.AbilityCooldown);
+            CooldownsUpdaterSystem.SetCooldowns(message.WeaponsCooldowns);
+            AbilityUpdaterSystem.SetCurrentCooldown(message.AbilityCooldown);
         }
     }
 }

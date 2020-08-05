@@ -1,18 +1,13 @@
 ﻿using Code.Scenes.BattleScene.ECS.Systems;
 using Libraries.NetworkLibrary.Udp.ServerToPlayer;
-using NetworkLibrary.NetworkLibrary.Udp;
-using ZeroFormatter;
 
 namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 {
-    public class ShieldPointsHandler : IMessageHandler
+    public class ShieldPointsHandler : MessageHandler<ShieldPointsMessage>
     {
-        public void Handle(MessageWrapper message)
+        protected override void Handle(in ShieldPointsMessage message, uint messageId, bool needResponse)
         {
-            ShieldPointsMessage shieldMessage =
-                ZeroFormatterSerializer.Deserialize<ShieldPointsMessage>(message.SerializedMessage);
-
-            HealthAndShieldPointsUpdaterSystem.SetShieldPoints(shieldMessage.Value);
+            HealthAndShieldPointsUpdaterSystem.SetShieldPoints(message.Value);
         }
     }
 }
