@@ -9,6 +9,7 @@ using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using ZeroFormatter;
+using Logger = Code.Common.Logger.Logger;
 
 namespace Code.Scenes.LobbyScene.Scripts.Shop
 {
@@ -36,7 +37,12 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
         
         private void Start()
         {
-            StartCoroutine(LoadShop());
+            StartShopLoading();
+        }
+
+        public void StartShopLoading()
+        {
+            StartCoroutine(LoadShop());   
         }
 
         private IEnumerator LoadShop()
@@ -57,12 +63,12 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
             yield return new WaitUntil(()=>wppInitTask.IsCompleted);
             if (wppInitTask.IsCanceled || wppInitTask.IsFaulted)
             {
-                log.Error($"Не удалось получить данные для продуктов с очками силы . " +
-                          $"{nameof(wppInitTask.IsCanceled)} {wppInitTask.IsCanceled}" +
+                log.Error($"Не удалось получить данные для продуктов с очками силы. " +
+                          $"{nameof(wppInitTask.IsCanceled)} {wppInitTask.IsCanceled} " +
                           $"{nameof(wppInitTask.IsFaulted)} {wppInitTask.IsFaulted}");
                 yield break;
             }
-
+            
             shopModel = wppInitTask.Result;
 #if !UNITY_EDITOR && UNITY_ANDROID
             Task<ShopModel> initProductCostTask = InitProductCostAsync(shopModel);
@@ -74,35 +80,54 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop
 
         private async Task<ShopModel> InitWppModel(ShopModel shopModel)
         {
+            // log.Debug("Ожидание спавна кораблей");
             await MyTaskExtensions.WaitUntil(lobbyEcsController.IsWarshipsCreationCompleted);
+            // log.Debug(lobbyEcsController.GetCountOfSpawnedWarships());
+            // log.Debug("Ожидание спавна закончено");
             var products = shopModel.UiSections.Select(section => section.UiItems)
                 .SelectMany(item => item)
                 .SelectMany(item=>item)
+                .ToList()
                 ;
-
+        
+            // log.Debug("Кол-во продуктов "+products.Count());
             foreach (ProductModel productModel in products)
             {
                 if (productModel.ResourceTypeEnum == ResourceTypeEnum.WarshipPowerPoints)
                 {
-                    var model = ZeroFormatterSerializer
-                        .Deserialize<WarshipPowerPointsProductModel>(productModel.SerializedModel);
-                    
-                    int powerLevel = lobbyEcsController.GetWarshipPowerLevel(model.WarshipTypeEnum);
-                    var powerModel = WarshipPowerScale.GetModel(powerLevel);
-
-                    var supportModel = new WppSupportClientModel()
+                    // log.Debug("Упаковка вспомогательной информации для продукта с id "+productModel.Id);
+                    try
                     {
-                        StartValue = lobbyEcsController.GetWarshipPowerPoints(model.WarshipTypeEnum),
-                        WarshipSkinName = lobbyEcsController.GetSkinName(model.WarshipTypeEnum),
-                        MaxValueForLevel = powerModel.PowerPointsCost
-                    };
-
-                    model.SupportClientModel = supportModel;
-
-                    productModel.SerializedModel = ZeroFormatterSerializer.Serialize(model);
+                        WarshipPowerPointsProductModel model = ZeroFormatterSerializer
+                            .Deserialize<WarshipPowerPointsProductModel>(productModel.SerializedModel);
+                        
+                        // log.Debug($"{nameof(model.Increment)} {model.Increment}" +
+                        //           $"{nameof(model.WarshipId)} {model.WarshipId}"+ 
+                        //           $"{nameof(model.SupportClientModel)} {model.SupportClientModel}"+ 
+                        //           $"{nameof(model.WarshipTypeEnum)} {model.WarshipTypeEnum}"+ 
+                        //           "");
+                        int powerLevel = lobbyEcsController.GetWarshipPowerLevel(model.WarshipTypeEnum);
+                        var powerModel = WarshipPowerScale.GetModel(powerLevel);
+        
+                        var supportModel = new WppSupportClientModel()
+                        {
+                            StartValue = lobbyEcsController.GetWarshipPowerPoints(model.WarshipTypeEnum),
+                            WarshipSkinName = lobbyEcsController.GetSkinName(model.WarshipTypeEnum),
+                            MaxValueForLevel = powerModel.PowerPointsCost
+                        };
+        
+                        model.SupportClientModel = supportModel;
+        
+                        productModel.SerializedModel = ZeroFormatterSerializer.Serialize(model);
+                    }
+                    catch (Exception e)
+                    {
+                        log.Error(e.Message+ " "+e.StackTrace);
+                        return null;
+                    }
                 }
             }
-
+        
             return shopModel;
         }
         

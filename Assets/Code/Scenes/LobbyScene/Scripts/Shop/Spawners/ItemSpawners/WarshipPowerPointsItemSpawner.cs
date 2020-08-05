@@ -75,6 +75,11 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
             boughtText.SetActive(purchaseModel.productModel.IsDisabled);
             var costText = wppGo.transform.Find("Image_Cost/Text_Amount").gameObject;
             costText.SetActive(!purchaseModel.productModel.IsDisabled);
+
+            if (dictionary.ContainsKey(purchaseModel.productModel.Id))
+            {
+                dictionary.Remove(purchaseModel.productModel.Id);
+            }
             dictionary.Add(purchaseModel.productModel.Id, new StubWppUi()
             {
                 boughtText = boughtText,
