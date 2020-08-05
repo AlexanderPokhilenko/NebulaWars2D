@@ -2887,8 +2887,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 179.1, y: 50}
-  m_Spacing: {x: 10, y: 10}
+  m_CellSize: {x: 182, y: 50}
+  m_Spacing: {x: 10, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 2
 --- !u!1 &181590265
@@ -15962,7 +15962,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 192.9, y: 66.38}
+  m_CellSize: {x: 185, y: 55}
   m_Spacing: {x: 10, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -17466,8 +17466,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 179.1, y: 50}
-  m_Spacing: {x: 10, y: 10}
+  m_CellSize: {x: 182, y: 50}
+  m_Spacing: {x: 10, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 2
 --- !u!1 &1535455777
@@ -19226,7 +19226,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 85ec4146ca062014f8ed1c6552e8536a, type: 3}
     m_FontSize: 48
     m_FontStyle: 0
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 2
     m_MaxSize: 60
     m_Alignment: 3
