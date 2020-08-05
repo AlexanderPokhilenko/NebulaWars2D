@@ -36,7 +36,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
             ProductClickHandlerScript productClickHandlerScript)
         {
             WarshipPowerPointsProductModel model = purchaseModel.productModel;
-            int increment = model.FinishValue - model.StartValue;
+            int increment = model.Increment;
             InGameCurrencyCostModel costModel =
                 ZeroFormatterSerializer.Deserialize<InGameCurrencyCostModel>(purchaseModel.productModel.CostModel
                     .SerializedCostModel);
@@ -54,11 +54,11 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.Spawners.ItemSpawners
 
             //Заполнить текущий показатель силы
             Text currentPowerValue = wppGo.transform.Find("Empty_PowerValueRoot/Text").GetComponent<Text>();
-            currentPowerValue.text = $"{model.StartValue}/{model.MaxValueForLevel}";
+            currentPowerValue.text = $"{model.SupportClientModel.StartValue}/{model.SupportClientModel.MaxValueForLevel}";
 
             //Установить значение слайдера
             Slider slider = wppGo.transform.Find("Empty_PowerValueRoot/Slider").GetComponent<Slider>();
-            slider.value = 1f * model.StartValue / model.MaxValueForLevel;
+            slider.value = 1f * model.SupportClientModel.StartValue / model.SupportClientModel.MaxValueForLevel;
 
             //Заполнить прибавку к очкам силы
             Text incrementText = wppGo.transform.Find("Text").GetComponent<Text>();

@@ -35,7 +35,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
         private void FillData(GameObject powerPointsContent, ProductModel productModel)
         {
             WarshipPowerPointsProductModel model = productModel;
-            int increment = model.FinishValue - model.StartValue;
+            int increment = model.Increment;
             var costModel = ZeroFormatterSerializer.Deserialize<InGameCurrencyCostModel>(productModel.CostModel
                     .SerializedCostModel);
             //установить картинку корабля
@@ -45,13 +45,13 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
             //установить текущее кол-во очков силы корабля
             Text text = powerPointsContent.transform.Find("Image_WarshipPowerPointsItem/Empty_PowerValueRoot/Text")
                 .GetComponent<Text>();
-            string text1 = $"{model.StartValue}/{model.MaxValueForLevel}";
+            string text1 = $"{model.SupportClientModel.StartValue}/{model.SupportClientModel.MaxValueForLevel}";
             // log.Debug("текущее кол-во очков силы корабля "+text1);
             text.text = text1;
             //установить значение слайдера
             Slider slider = powerPointsContent.transform
                 .Find("Image_WarshipPowerPointsItem/Empty_PowerValueRoot/Slider").GetComponent<Slider>();
-            slider.value = 1f * model.StartValue/ model.MaxValueForLevel;
+            slider.value = 1f * model.SupportClientModel.StartValue/ model.SupportClientModel.MaxValueForLevel;
             // log.Debug($"slider.value = {slider.value}");
             //установить прибавляемое кол-во очков силы
             Text wppIncrementText = powerPointsContent.transform

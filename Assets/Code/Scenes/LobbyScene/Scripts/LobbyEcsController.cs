@@ -412,5 +412,35 @@ namespace Code.Scenes.LobbyScene.Scripts
         {
             contexts.lobbyUi.CreateEntity().isCancelButtonClicked = true;
         }
+
+        public int GetWarshipPowerPoints(WarshipTypeEnum modelWarshipTypeEnum)
+        {
+            WarshipDto warshipDto = contexts.lobbyUi
+                .GetGroup(LobbyUiMatcher.Warship)
+                .AsEnumerable()
+                .Select(entity => entity.warship.warshipDto)
+                .Single(item => item.WarshipTypeEnum==modelWarshipTypeEnum);
+            return warshipDto.PowerPoints;
+        }
+
+        public string GetSkinName(WarshipTypeEnum modelWarshipTypeEnum)
+        {
+            WarshipDto warshipDto = contexts.lobbyUi
+                .GetGroup(LobbyUiMatcher.Warship)
+                .AsEnumerable()
+                .Select(entity => entity.warship.warshipDto)
+                .Single(item => item.WarshipTypeEnum==modelWarshipTypeEnum);
+            return warshipDto.GetCurrentSkinName();
+        }
+
+        public int GetWarshipPowerLevel(WarshipTypeEnum modelWarshipTypeEnum)
+        {
+            WarshipDto warshipDto = contexts.lobbyUi
+                .GetGroup(LobbyUiMatcher.Warship)
+                .AsEnumerable()
+                .Select(entity => entity.warship.warshipDto)
+                .Single(item => item.WarshipTypeEnum==modelWarshipTypeEnum);
+            return warshipDto.PowerLevel;
+        }
     }
 }

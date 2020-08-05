@@ -42,11 +42,11 @@ namespace Code.Scenes.BattleScene.Udp
 #endif
             
             MessagesPack messagesContainer = ZeroFormatterSerializer.Deserialize<MessagesPack>(datagram);
-            NetworkStatisticsStorage.Instance.RegisterDatagram(datagram.Length, messagesContainer.Id);
+            // NetworkStatisticsStorage.Instance.RegisterDatagram(datagram.Length, messagesContainer.Id);
             foreach (byte[] data in messagesContainer.Messages)
             {
                 MessageWrapper message = ZeroFormatterSerializer.Deserialize<MessageWrapper>(data);
-                NetworkStatisticsStorage.Instance.RegisterMessage(data.Length, message.MessageType);
+                // NetworkStatisticsStorage.Instance.RegisterMessage(data.Length, message.MessageType);
                 messageProcessor.Handle(message);
             }
         }
