@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Code.Common;
 using Code.Common.Logger;
@@ -87,6 +88,18 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             //Установить уровень силы
             warshipsUiStorage.warshipPowerLevel.text = "POWER " + warshipDto.PowerLevel;
             //TODO Установить характеристики корабля (атаку, защиту, скорость или что там)
+
+            // log.Debug($"attack name "+warshipDto.WarshipCharacteristics.AttackName);
+            // log.Debug($"ultimate name "+warshipDto.WarshipCharacteristics.UltimateName);
+            
+            var healthParameter = warshipDto.WarshipCharacteristics.DefenceParameters
+                .SingleOrDefault(p => p.Name == "Health");
+            warshipsUiStorage.healthText.text = healthParameter!=null?healthParameter.BaseValue.ToString(CultureInfo.InvariantCulture):"undefined";
+            var movementSpeed = warshipDto.WarshipCharacteristics.DefenceParameters
+                .SingleOrDefault(p => p.Name == "Movement speed");
+            warshipsUiStorage.velocityText.text = movementSpeed!=null?movementSpeed.BaseValue.ToString(CultureInfo.InvariantCulture):"undefined";
+            warshipsUiStorage.attackNameText.text = warshipDto.WarshipCharacteristics.AttackName;
+            warshipsUiStorage.ultimateNameText.text = warshipDto.WarshipCharacteristics.UltimateName;
             
             //Проверить на кол-во ресурсов для перехода на новый уровень
             int softCurrency = lobbyEcsController.GetSoftCurrency();
@@ -161,7 +174,7 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
                 }
                 else
                 {
-                    log.Debug("Скин не был изменён");
+                    log.Info("Скин не был изменён");
                 }
                 //изменить тип текущего корабля
                 

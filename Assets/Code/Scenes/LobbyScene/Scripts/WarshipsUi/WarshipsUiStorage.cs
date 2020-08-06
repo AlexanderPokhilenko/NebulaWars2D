@@ -55,8 +55,13 @@ namespace Code.Scenes.LobbyScene.Scripts.WarshipsUi
         [Header("Подсказа о недостаче баллов прокачки корабля")]
         public GameObject hint;
 
-        [Header("Окно с зарактеристиками корабля")]
+        [Header("Окно с характеристиками корабля")]
         public Button warshipCharacteristicsButton;
+
+        public Text attackNameText;
+        public Text healthText;
+        public Text velocityText;
+        public Text ultimateNameText;
 
         [Header("Модальное окно с характеристиками корабля")]
         public Text modalWindowHeaderText;

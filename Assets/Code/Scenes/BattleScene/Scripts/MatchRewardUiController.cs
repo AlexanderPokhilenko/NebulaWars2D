@@ -96,15 +96,36 @@ namespace Code.Scenes.BattleScene.Scripts
                 Task<MatchResultDto> task = ExperimentalDich.GetMatchReward(matchId, playerServiceId);
                 yield return new WaitUntil(()=>task.IsCompleted);
                 MatchResultDto matchResultDto = task.Result;
-                PlayerAchievementsUtils.LogPlayerAchievements(matchResultDto);
             
+                
                 //Если не загрузилось, перейти в лобби
-                if (matchResultDto == null)
+                if (matchResultDto == null||task.IsFaulted||task.IsCanceled)
                 {
+                    if (matchResultDto == null)
+                    {
+                        log.Error($"matchResultDto is null");
+                    }
+                    else
+                    {
+                        PlayerAchievementsUtils.LogPlayerAchievements(matchResultDto);
+                    }
+
+                    if (task.IsFaulted)
+                    {
+                        log.Error($"task.IsFaulted");
+                    }
+                    
+                    if (task.IsCanceled)
+                    {
+                        log.Error($"task.IsCanceled");
+                    }
+                    
                     log.Error("Не удалось загрузить результат боя игрока.");
                     lobbyLoaderController.LoadLobbyScene();
                 }
 
+                PlayerAchievementsUtils.LogPlayerAchievements(matchResultDto);
+                
                 //Показать анимацию
                 ShowPlayerAchievements(matchResultDto);
             }

@@ -34,19 +34,19 @@ namespace Code.Scenes.BattleScene.Udp
         public void HandleBytes(byte[] datagram)
         {
             //Для отладки на компьютере специально пропуская пакеты
-#if UNITY_EDITOR
-            if (packetLossEvent.IsEventHappened())
-            {
-                return;
-            }
-#endif
+// #if UNITY_EDITOR
+//             if (packetLossEvent.IsEventHappened())
+//             {
+//                 return;
+//             }
+// #endif
             
             MessagesPack messagesContainer = ZeroFormatterSerializer.Deserialize<MessagesPack>(datagram);
-            // NetworkStatisticsStorage.Instance.RegisterDatagram(datagram.Length, messagesContainer.Id);
+            NetworkStatisticsStorage.Instance.RegisterDatagram(datagram.Length, messagesContainer.Id);
             foreach (byte[] data in messagesContainer.Messages)
             {
                 MessageWrapper message = ZeroFormatterSerializer.Deserialize<MessageWrapper>(data);
-                // NetworkStatisticsStorage.Instance.RegisterMessage(data.Length, message.MessageType);
+                NetworkStatisticsStorage.Instance.RegisterMessage(data.Length, message.MessageType);
                 messageProcessor.Handle(message);
             }
         }

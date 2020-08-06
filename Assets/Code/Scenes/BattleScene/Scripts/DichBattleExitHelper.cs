@@ -22,10 +22,7 @@ namespace Code.Scenes.BattleScene.Scripts
             }
             catch (Exception e)
             {
-                UnityThread.Execute(() =>
-                {
-                    log.Error($"Брошено исключение в методе {nameof(StubNotifyGameServerAsync)}. {e.Message}");
-                });
+                log.Error($"Брошено исключение в методе {nameof(StubNotifyGameServerAsync)}. {e.Message}");
             }
         }
     }

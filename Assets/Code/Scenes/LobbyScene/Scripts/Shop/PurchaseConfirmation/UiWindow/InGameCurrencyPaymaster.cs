@@ -33,7 +33,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
 
         public void StartBuying(PurchaseModel purchaseModel)
         {
-            log.Debug("начало покупки");
+            log.Info("начало покупки");
             //если не хватает ресурсов 
             if (InsufficientResources(purchaseModel.productModel, out var insufficientResource))
             {
@@ -47,7 +47,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                 return;
             }
             
-            log.Debug("ресурсов хватает ");
+            log.Info("ресурсов хватает ");
             
             //отправить блокирующий запрос на сервер
             if(!PlayerIdStorage.TryGetServiceId(out string playerServiceId))
@@ -82,8 +82,8 @@ namespace Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow
                 return;
             }
             
-            log.Debug("Операция покупки прошла успешно");
-            //todo показать анимацию начисления приза
+            log.Info("Операция покупки прошла успешно");
+            //todo показать аниме
             resourcesAccrualSceneManager.ShowOneResource(purchaseModel);
             sectionSpawner.DisableProduct(purchaseModel.productModel.Id);
         }

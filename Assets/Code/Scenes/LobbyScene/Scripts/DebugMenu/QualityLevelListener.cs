@@ -57,7 +57,9 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
                 maxDivider = Gcd(width, height);
 
                 ResolutionMultiplier = PlayerPrefs.GetInt(nameof(ResolutionMultiplier),
-                    maxDivider * (qualityLevel + 1) / QualitySettings.names.Length);
+                    maxDivider
+                    // * (qualityLevel + 1) / QualitySettings.names.Length
+                    );
                 SetResolution(ResolutionMultiplier, false);
             }
 
@@ -80,7 +82,6 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
 
         private void OnDestroy()
         {
-            log.Debug(nameof(OnDestroy));
             PlayerPrefs.SetInt(nameof(ResolutionMultiplier), ResolutionMultiplier);
             PlayerPrefs.Save();
         }
