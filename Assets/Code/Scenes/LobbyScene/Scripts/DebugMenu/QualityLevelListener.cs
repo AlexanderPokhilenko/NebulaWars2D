@@ -55,6 +55,8 @@ namespace Code.Scenes.LobbyScene.Scripts.DebugMenu
                 var width = maxResolution.width;
                 var height = maxResolution.height;
                 maxDivider = Gcd(width, height);
+                // Нестандартный размер экрана / экран "обрезан":
+                if (maxDivider == 1) maxDivider = QualitySettings.names.Length * 20;
 
                 ResolutionMultiplier = PlayerPrefs.GetInt(nameof(ResolutionMultiplier),
                     maxDivider
