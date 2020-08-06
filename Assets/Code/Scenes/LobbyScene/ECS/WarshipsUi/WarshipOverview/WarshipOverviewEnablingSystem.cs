@@ -94,10 +94,10 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             
             var healthParameter = warshipDto.WarshipCharacteristics.DefenceParameters
                 .SingleOrDefault(p => p.Name == "Health");
-            warshipsUiStorage.healthText.text = healthParameter!=null?healthParameter.BaseValue.ToString(CultureInfo.InvariantCulture):"undefined";
+            warshipsUiStorage.healthText.text = healthParameter!=null?healthParameter.GetCurrentValue(warshipDto.PowerLevel).ToString("0.###") :"undefined";
             var movementSpeed = warshipDto.WarshipCharacteristics.DefenceParameters
                 .SingleOrDefault(p => p.Name == "Movement speed");
-            warshipsUiStorage.velocityText.text = movementSpeed!=null?movementSpeed.BaseValue.ToString(CultureInfo.InvariantCulture):"undefined";
+            warshipsUiStorage.velocityText.text = movementSpeed!=null?movementSpeed.GetCurrentValue(warshipDto.PowerLevel).ToString("0.###") :"undefined";
             warshipsUiStorage.attackNameText.text = warshipDto.WarshipCharacteristics.AttackName;
             warshipsUiStorage.ultimateNameText.text = warshipDto.WarshipCharacteristics.UltimateName;
             
@@ -139,11 +139,13 @@ namespace Code.Scenes.LobbyScene.ECS.WarshipsUi.WarshipOverview
             {
                 if (warshipDto.PowerPoints < maxPowerPoints)
                 {
+                    UiSoundsManager.Instance().PlayError();
                     string message = "The warship doesn't have enough power points.";
                     textTooltip.Show(message);
                 }
                 else if (softCurrency< improvementCost)
                 {
+                    UiSoundsManager.Instance().PlayError();
                     string message = "There's not enough coins to improve the spaceship.";
                     textTooltip.Show(message);
                 }
