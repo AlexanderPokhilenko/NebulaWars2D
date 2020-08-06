@@ -16,8 +16,8 @@ namespace Code.Scenes.BattleScene.ScriptableObjects
             clonedObject.name = "Game ViewComponent";
             entity.AddView(clonedObject);
             clonedObject.Link(entity);
-            RuntimeAnimatorController controller = clonedObject.GetComponent<RuntimeAnimatorController>();
-            if (controller != null) entity.AddAnimatorController(controller);
+            var animator = clonedObject.GetComponent<Animator>();
+            if (animator != null && animator.runtimeAnimatorController != null) entity.AddAnimatorController(animator.runtimeAnimatorController);
             if (maxSpeed > 0f) entity.AddMaxSpeed(maxSpeed);
         }
     }
