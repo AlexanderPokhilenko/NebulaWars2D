@@ -46,7 +46,6 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
                         {
                             entity.AddDelayedDestroy(TimeDelay);
                         }
-                        if (entity.hasSpeed) entity.ReplaceSpeed(Vector2.zero, 0f);
                         destroys.Remove(id);
                     }
                 }
