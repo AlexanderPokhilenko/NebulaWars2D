@@ -90,19 +90,13 @@ namespace NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages
     }
 
     [ZeroFormattable]
-    public class PositionsMessage : ITypedMessage
+    public struct PositionsMessage : ITypedMessage
     {
-        [Index(0)] public virtual Dictionary<ushort, ViewTransform> EntitiesInfo { get; set; }
-        //TODO: перенести в UDP с подтверждением
-        [Index(1)] public virtual ushort PlayerEntityId { get; set; }
-        [Index(2)] public virtual Dictionary<ushort, ushort> RadiusInfo { get; set; }
+        [Index(0)] public Dictionary<ushort, ViewTransform> entitiesInfo;
 
-        [IgnoreFormat]
-        public virtual Dictionary<ushort, float> FloatRadiusInfo =>
-            RadiusInfo.ToDictionary(pair => pair.Key, pair => Mathf.HalfToFloat(pair.Value));
-        
-        public PositionsMessage()
+        public PositionsMessage(Dictionary<ushort, ViewTransform> entitiesInfo)
         {
+            this.entitiesInfo = entitiesInfo;
         }
 
         public MessageType GetMessageType() => MessageType.Positions;

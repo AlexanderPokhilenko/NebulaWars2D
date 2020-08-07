@@ -7,7 +7,7 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
     {
         protected override void Handle(in PositionsMessage message, uint messageId, bool needResponse)
         {
-            UpdateTransformSystem.SetNewTransforms(messageId, message.EntitiesInfo);
+            UpdateTransformSystem.SetNewTransforms(messageId, message.entitiesInfo);
         }
     }
 }
