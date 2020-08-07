@@ -5,16 +5,16 @@ namespace Code.Scenes.BattleScene.Scripts
 {
     public static class RewardNameTranslator
     {
-        private static readonly Dictionary<MatchRewardTypeEnum, string> dictionary =
+        private static readonly Dictionary<MatchRewardTypeEnum, string> Dictionary =
             new Dictionary<MatchRewardTypeEnum, string>
             {
-                {MatchRewardTypeEnum.RankingReward, "RANKING REWARD"},
-                {MatchRewardTypeEnum.DoubleLootboxPoints, "DOUBLE TOKENS"},
+                {MatchRewardTypeEnum.RankingReward, "Ranking reward"},
+                {MatchRewardTypeEnum.DoubleLootboxPoints, "Double tokens"},
             };
         
         public static string Translate(MatchRewardTypeEnum matchRewardTypeEnum)
         {
-            if (dictionary.TryGetValue(matchRewardTypeEnum, out string result))
+            if (Dictionary.TryGetValue(matchRewardTypeEnum, out string result))
             {
                 return result;
             }

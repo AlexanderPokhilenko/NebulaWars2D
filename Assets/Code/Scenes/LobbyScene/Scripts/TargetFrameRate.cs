@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Code.Scenes.LobbyScene.Scripts
@@ -8,7 +7,7 @@ namespace Code.Scenes.LobbyScene.Scripts
         private void Awake()
         {
 #if UNITY_EDITOR
-            Application.targetFrameRate = 60;
+            Application.targetFrameRate = 30;
 #endif
         }
     }

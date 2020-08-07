@@ -17,8 +17,7 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
 
         protected override void Handle(in ShowPlayerAchievementsMessage message, uint messageId, bool needResponse)
         {
-            log.Warn("Показать результаты боя игрока" +
-                     $" {nameof(message.MatchId)} {message.MatchId}");
+            log.Info($"Показать результаты боя игрока {nameof(message.MatchId)} {message.MatchId}");
 
             if (matchId == message.MatchId)
             {

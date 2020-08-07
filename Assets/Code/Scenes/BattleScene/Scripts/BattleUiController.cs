@@ -53,7 +53,10 @@ namespace Code.Scenes.BattleScene.Scripts
             // zoneGroup.SetActive(true);
             overlayCanvas.SetActive(true);
             gameViews.SetActive(true);
-            if (QualitySettings.GetQualityLevel() < 2) UseSingleBackground();
+            if (QualitySettings.GetQualityLevel() < 2)
+            {
+                UseSingleBackground();
+            }
         }
 
         private void UseSingleBackground()

@@ -29,6 +29,7 @@ namespace Code.Scenes.BattleScene.Scripts
         
         [SerializeField] private GameObject leftMenu;
         [SerializeField] private Text battleRatingDelta;
+        [SerializeField] private Image warshipImage;
         [SerializeField] private Text spaceshipNameText;
         
         [SerializeField] private GameObject rightMenu;
@@ -137,12 +138,12 @@ namespace Code.Scenes.BattleScene.Scripts
 
         private void ShowPlayerAchievements(MatchResultDto matchResultDto)
         {
-            log.Debug(nameof(ShowPlayerAchievements) + " start");
+            log.Info(nameof(ShowPlayerAchievements) + " start");
             mainCamera.transform.position = Vector3.zero;
             battleUiController.DisableZoneAndOverlayCanvas();
             canvasCameraSpace.SetActive(true);
             ShowAchievementsWithAnimationAsync(matchResultDto).ConfigureAwait(true);
-            log.Debug(nameof(ShowPlayerAchievements) + " end");
+            log.Info(nameof(ShowPlayerAchievements) + " end");
         }
 
         private async Task ShowAchievementsWithAnimationAsync(MatchResultDto matchResultDto)
@@ -177,13 +178,7 @@ namespace Code.Scenes.BattleScene.Scripts
 
         private void ShowSpaceshipPrefab(string spaceshipPrefabName)
         {
-            GameObject go = Resources.Load("Prefabs/"+spaceshipPrefabName) as GameObject;
-            if (go == null)
-            {
-                throw new Exception("Spaceship prefab not found");
-            }
-            GameObject instantiate = Instantiate(go, new Vector3(-6f, 0.5f, 10), Quaternion.identity);
-            instantiate.transform.localScale = new Vector3(1.3f,1.3f,1.3f);
+            warshipImage.sprite = Resources.Load<Sprite>($"SkinPreview/{spaceshipPrefabName}");
         }
 
         private void SetSpaceshipName(string spaceshipName)

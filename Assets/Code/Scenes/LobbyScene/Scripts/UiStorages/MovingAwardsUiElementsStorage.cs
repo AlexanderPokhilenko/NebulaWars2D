@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Code.Scenes.LobbyScene.ECS;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -41,8 +42,9 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
             instance = this;
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return null;
             softCurrencyFinishPosition = softCurrencyFinishPoint.position;
             hardCurrencyFinishPosition = hardCurrencyFinishPoint.position;
         }

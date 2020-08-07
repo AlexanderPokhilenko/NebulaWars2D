@@ -12,20 +12,20 @@ namespace Code.Scenes.BattleScene.Experimental
         {
             if (matchResultDto == null)
             {
-                log.Debug($"{nameof(matchResultDto)} is null");
+                log.Info($"{nameof(matchResultDto)} is null");
                 return;
             }
-            log.Debug($"{nameof(matchResultDto.SkinName)} {matchResultDto.SkinName}");
-            log.Debug($"{nameof(matchResultDto.MatchRatingDelta)} {matchResultDto.MatchRatingDelta}");
-            log.Debug($"{nameof(matchResultDto.CurrentWarshipRating)} {matchResultDto.CurrentWarshipRating}");
+            log.Info($"{nameof(matchResultDto.SkinName)} {matchResultDto.SkinName}");
+            log.Info($"{nameof(matchResultDto.MatchRatingDelta)} {matchResultDto.MatchRatingDelta}");
+            log.Info($"{nameof(matchResultDto.CurrentWarshipRating)} {matchResultDto.CurrentWarshipRating}");
             if (matchResultDto.LootboxPoints.Count == 0)
             {
-                log.Debug("Список наград пуст");
+                log.Info("Список наград пуст");
             }
             
             foreach (var pair  in matchResultDto.LootboxPoints)
             {
-                log.Debug($"{pair.Key} {pair.Value}");
+                log.Info($"{pair.Key} {pair.Value}");
             }
         }
     }

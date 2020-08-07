@@ -7,7 +7,7 @@ namespace Code.Scenes.BattleScene.Scripts
     {
         public Material shaderedMaterial;
 
-        void OnRenderImage(RenderTexture sourceTexture, RenderTexture destTexture)
+        private void OnRenderImage(RenderTexture sourceTexture, RenderTexture destTexture)
         {
             Graphics.Blit(sourceTexture, destTexture, shaderedMaterial);
         }

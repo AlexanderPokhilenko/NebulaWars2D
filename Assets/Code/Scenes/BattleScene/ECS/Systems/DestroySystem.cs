@@ -28,6 +28,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                     var childLink = childTransform.gameObject.GetEntityLink();
                     if (childLink != null && childLink.entity is GameEntity childEntity)
                     {
+                        childEntity.RemoveParent();
                         childTransform.SetParent(gameObject.transform.parent, true);
                         if (childEntity.hasPosition)
                         {
@@ -50,6 +51,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                 }
                 gameObject.Unlink();
                 Object.Destroy(gameObject);
+                e.RemoveView();
 
                 if (e.hasDelayedSpawn)
                 {

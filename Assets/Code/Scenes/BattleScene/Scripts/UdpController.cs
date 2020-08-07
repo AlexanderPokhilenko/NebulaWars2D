@@ -6,6 +6,7 @@ using Code.Scenes.BattleScene.Udp.Experimental;
 using System.Net;
 using System.Net.Sockets;
 using Code.Common.Storages;
+using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 
 namespace Code.Scenes.BattleScene.Scripts
@@ -24,7 +25,7 @@ namespace Code.Scenes.BattleScene.Scripts
             //Если в прошлом бою уже был создан UdpClient
             udpClientWrapper?.Stop();
             
-            var matchData = MyMatchDataStorage.Instance.GetMatchModel();
+            BattleRoyaleClientMatchModel matchData = MyMatchDataStorage.Instance.GetMatchModel();
             int matchId = matchData.MatchId;
             int gameServerPort = matchData.GameServerPort;
             string gameServerIp = matchData.GameServerIp;
