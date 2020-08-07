@@ -4,7 +4,7 @@ using Entitas;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
-    public class UpdateParentsSystem : IExecuteSystem
+    public class UpdateParentsSystem : IExecuteSystem, ITearDownSystem
     {
         private static readonly object LockObj = new object();
         private static Dictionary<ushort, ushort> parents;
@@ -22,6 +22,11 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
             {
                 parents = newParents;
             }
+        }
+
+        public void TearDown()
+        {
+            _synchronizer.Clear();
         }
 
         public void Execute()
