@@ -37,7 +37,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             DisableLobbyUi();
             SceneManager.LoadScene("2dLootboxScene", LoadSceneMode.Additive);
             
-            
+            cts?.Cancel();
             cts = new CancellationTokenSource();
             lobbyModelDownloadingTask = new LobbyModelLoader().Load(cts.Token);
 
@@ -64,6 +64,7 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
             lobbyEcsController.ClosePurchaseConfirmationWindow();
             lobbyEcsController.CloseShopLayer();
             
+            cts?.Cancel();
             cts = new CancellationTokenSource();
             lobbyModelDownloadingTask = new LobbyModelLoader().Load(cts.Token);
         }
@@ -88,7 +89,11 @@ namespace Code.Scenes.LobbyScene.Scripts.ResourcesAccrual
         {
             if (lobbyModelDownloadingTask.IsCompleted)
             {
-                if (!lobbyModelDownloadingTask.IsCanceled && !lobbyModelDownloadingTask.IsFaulted)
+                if (lobbyModelDownloadingTask.IsCanceled)
+                {
+                    return;
+                }
+                if (!lobbyModelDownloadingTask.IsFaulted)
                 {
                     LobbyModel lobbyModel = lobbyModelDownloadingTask.Result;
                     if (lobbyModel != null)

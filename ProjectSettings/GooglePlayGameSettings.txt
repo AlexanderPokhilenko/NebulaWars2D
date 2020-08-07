@@ -5,5 +5,5 @@ and.BundleId=com.tikaytech.nebulaWars
 proj.classDir=Assets
 proj.ConstantsClassName=GPGSIds
 and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--+app_id+--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e122370851075%3c%2fstring%3e%0d%0a++%3c%21--+package_name+--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.tikaytech.nebulaWars%3c%2fstring%3e%0d%0a++%3c%21--+achievement+Entry+--%3e%0d%0a++%3cstring+name%3d%22achievement_entry%22+translatable%3d%22false%22%3eCgkIg4L87scDEAIQAQ%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d%0a
-and.ClientId=122370851075-8uf8dcl1fdcj2jjq8agbhfndtsf5li22.apps.googleusercontent.com
+and.ClientId=122370851075-rg92hufaufc77qvo52m6hsqil9e7vhbm.apps.googleusercontent.com
 android.SetupDone=true
