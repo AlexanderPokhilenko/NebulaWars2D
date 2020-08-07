@@ -1,3 +1,6 @@
+#define ENABLE_NETWORK_LOGS
+#undef ENABLE_NETWORK_LOGS
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +29,7 @@ namespace Code.Common.NetworkStatistics
         private readonly List<int> datagramIds = new List<int>(30*40);
         private readonly ILog log = LogManager.CreateLogger(typeof(MatchNetworkStatistics));
         
-        private List<DatagramPerSecondModel> packetsCount = new List<DatagramPerSecondModel>(){new DatagramPerSecondModel()
+        private readonly List<DatagramPerSecondModel> packetsCount = new List<DatagramPerSecondModel>(){new DatagramPerSecondModel()
         {
             pps = 0,
             dateTime = DateTime.UtcNow
@@ -49,6 +52,7 @@ namespace Code.Common.NetworkStatistics
         
         public void RegisterMessage(int messageLength, MessageType messageType)
         {
+#if ENABLE_NETWORK_LOGS
             if (messageTypeTotalSize.TryGetValue(messageType, out var value))
             {
                 messageTypeTotalSize[messageType] = value + messageLength;
@@ -63,6 +67,7 @@ namespace Code.Common.NetworkStatistics
                 Length = messageLength,
                 MessageType = messageType
             });
+#endif
         }
 
         public int GetLastFramerate()
@@ -80,6 +85,7 @@ namespace Code.Common.NetworkStatistics
         }
         public void RegisterDatagram(int datagramLength, int datagramId)
         {
+#if ENABLE_NETWORK_LOGS
             lock (lockObj)
             {
                 int lastValue = packetsCount[packetsCount.Count-1].pps;
@@ -123,6 +129,8 @@ namespace Code.Common.NetworkStatistics
             {
                 datagramLengthAndCount.Add(datagramLength, 1);
             }
+            
+#endif
         }
 
         /// <summary>
@@ -130,6 +138,7 @@ namespace Code.Common.NetworkStatistics
         /// </summary>
         public void Print()
         {
+#if ENABLE_NETWORK_LOGS
             lock (lockObj)
             {
                 string dateTime = DateTime.Now.ToLongTimeString().Replace(':', '_');
@@ -223,6 +232,7 @@ namespace Code.Common.NetworkStatistics
                     }
                 }
             }
+#endif
         }
     }
 }

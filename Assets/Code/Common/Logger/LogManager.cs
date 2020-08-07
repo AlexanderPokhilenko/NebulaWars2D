@@ -1,8 +1,12 @@
+#define ENABLE_LOGS
+#undef ENABLE_LOGS
+
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+
 
 namespace Code.Common.Logger
 {
@@ -34,6 +38,7 @@ namespace Code.Common.Logger
 
         private void LogFromUnity(string condition, string stacktrace, LogType type)
         {
+#if ENABLE_LOGS
             if (!logs.Contains(condition))
             {
                 string logType;
@@ -50,7 +55,7 @@ namespace Code.Common.Logger
                 
                 AddLog($"{time} UNITY LOG {logType} {nameof(condition)} {condition} {nameof(stacktrace)} {stacktrace}");
             }
-            
+#endif
         }
 
         public static ILog CreateLogger(Type type)
@@ -60,6 +65,7 @@ namespace Code.Common.Logger
 
         public void AddLog(string message)
         {
+#if ENABLE_LOGS
             lock (LockObj)
             {
                 logs.Add(message);
@@ -69,6 +75,7 @@ namespace Code.Common.Logger
                     logs.Clear();
                 }
             }
+#endif
         }
         
         public static void Print()
@@ -78,7 +85,9 @@ namespace Code.Common.Logger
 
         private void PrintAll()
         {
+#if ENABLE_LOGS
             Print(logs);
+#endif
         }
         
         private bool TrySetConfiguration(LoggerConfig loggerConfig)
@@ -136,6 +145,7 @@ namespace Code.Common.Logger
         
         private void Print(List<string> messages)
         {
+#if ENABLE_LOGS
             lock (LockObj)
             {
                 if (messages.Count == 0)
@@ -144,16 +154,19 @@ namespace Code.Common.Logger
                 }
                 logPrinter.Print(messages);
             }
+#endif
         }
         
         private void Print(string[] messages)
         {
+#if ENABLE_LOGS
             if (messages.Length == 0)
             {
                 return;
             }
             
             logPrinter.Print(messages);
+#endif 
         }
     }
 }

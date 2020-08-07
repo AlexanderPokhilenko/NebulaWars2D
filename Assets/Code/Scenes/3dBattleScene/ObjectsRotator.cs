@@ -8,7 +8,7 @@ namespace Code.Scenes._3dBattleScene
     public class ObjectsRotator : MonoBehaviour
     {
         [SerializeField] private List<Transform> items;
-        List<int> speed = new List<int>(){45,10,21,15,80,68,95};
+        readonly List<int> speed = new List<int>(){45,10,21,15,80,68,95};
         private float xDelta=10;
         private float index;
         private void Update()

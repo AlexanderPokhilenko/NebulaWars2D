@@ -1,3 +1,4 @@
+using System;
 using Code.Common.Logger;
 using Code.Scenes.LobbyScene.Scripts.ResourcesAccrual;
 using UnityEngine;
@@ -10,9 +11,10 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
     public class LootboxListener : MonoBehaviour
     {
         private LobbyEcsController lobbyEcsController;
+        private DateTime nextClickTime = DateTime.UtcNow;
         private ResourcesAccrualSceneManager resourcesAccrualSceneManager;
         private readonly ILog log = LogManager.CreateLogger(typeof(LootboxListener));
-
+        
         private void Awake()
         {
             lobbyEcsController = FindObjectOfType<LobbyEcsController>();
@@ -21,6 +23,12 @@ namespace Code.Scenes.LobbyScene.Scripts.Listeners
 
         public void OpenLootboxButton_OnClick()
         {
+            if (nextClickTime > DateTime.UtcNow)
+            {
+                return;
+            }
+
+            nextClickTime = DateTime.UtcNow + TimeSpan.FromMilliseconds(500);
             if (!lobbyEcsController.LootboxCanBeOpened())
             {
                 log.Info("Недостаточно баллов для открытия лутбокса");
