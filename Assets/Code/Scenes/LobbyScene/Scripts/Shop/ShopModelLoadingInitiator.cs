@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.Purchasing;
 using Code.Scenes.LobbyScene.Scripts.Shop.Spawners;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;

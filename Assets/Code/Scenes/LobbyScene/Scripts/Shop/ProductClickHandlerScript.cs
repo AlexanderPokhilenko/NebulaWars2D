@@ -1,6 +1,7 @@
 using System;
 using Code.Common;
 using Code.Common.Logger;
+using Code.Scenes.LobbyScene.Scripts.Purchasing;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
 using JetBrains.Annotations;
 using NetworkLibrary.NetworkLibrary.Http;

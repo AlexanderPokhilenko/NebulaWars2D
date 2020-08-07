@@ -4,7 +4,6 @@ using Code.Common;
 using Code.Common.Logger;
 using Code.Common.Storages;
 using Code.Scenes.LobbyScene.Scripts.Shop.PurchaseConfirmation.UiWindow;
-using Code.Scenes.LobbyScene.Scripts.UiStorages;
 using NetworkLibrary.Http.Utils;
 using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
@@ -14,7 +13,7 @@ using UnityEngine.Purchasing.Security;
 using ZeroFormatter;
 using IGooglePlayStoreExtensions = Google.Play.Billing.IGooglePlayStoreExtensions;
 
-namespace Code.Scenes.LobbyScene.Scripts
+namespace Code.Scenes.LobbyScene.Scripts.Purchasing
 {
     /// <summary>
     /// Отвечает за взаимодействие с платёжной системой

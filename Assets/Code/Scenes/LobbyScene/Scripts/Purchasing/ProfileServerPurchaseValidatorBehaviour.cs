@@ -2,6 +2,7 @@
 using Code.Common.Logger;
 using System.Collections;
 using System.Threading.Tasks;
+using Code.Scenes.LobbyScene.Scripts.Purchasing;
 using UnityEngine;
 
 namespace Code.Scenes.LobbyScene.Scripts
