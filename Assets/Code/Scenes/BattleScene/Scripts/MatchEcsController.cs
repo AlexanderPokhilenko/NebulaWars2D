@@ -21,10 +21,11 @@ namespace Code.Scenes.BattleScene.Scripts
     public class MatchEcsController:MonoBehaviour
     {
         private Systems systems;
+        private Contexts contexts;
         private bool abilityButtonIsPressed;
         private UdpController udpControllerSingleton;
         private BattleUiController battleUiController;
-        private readonly object lockObj = new object();
+        // private readonly object lockObj = new object();
         private readonly ILog log = LogManager.CreateLogger(typeof(MatchEcsController));
         
         private void Awake()
@@ -54,13 +55,13 @@ namespace Code.Scenes.BattleScene.Scripts
             systems.Cleanup();
         }
 
-        private Contexts contexts;
+        
         private Systems CreateSystems(UdpSendUtils udpSendUtils)
         {
-            var prevFrameTime = Time.time - Time.deltaTime;
+            float prevFrameTime = Time.time - Time.deltaTime;
             int aliveCount = MyMatchDataStorage.Instance.GetMatchModel().PlayerModels.Length;
 
-            udpControllerSingleton.GetUdpSendUtils();
+            // udpControllerSingleton.GetUdpSendUtils();
             
             contexts = Contexts.sharedInstance;
             systems = new Systems()
@@ -157,7 +158,7 @@ namespace Code.Scenes.BattleScene.Scripts
         /// </summary>
         public void StopBattleSystems()
         {
-            log.Debug("Вызов остановки систем.");
+            log.Info("Вызов остановки систем.");
             // StopSystems(battleSystems);
             Destroy(this);
         }

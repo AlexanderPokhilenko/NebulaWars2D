@@ -19,7 +19,7 @@ namespace Code.Scenes.BattleScene.Udp
 
         public UdpMediator()
         {
-            packetLossEvent = new EventProbability(15);
+            packetLossEvent = new EventProbability(30);
         }
         
         public void Initialize(UdpSendUtils udpSendUtils, int matchId)
@@ -34,12 +34,12 @@ namespace Code.Scenes.BattleScene.Udp
         public void HandleBytes(byte[] datagram)
         {
             //Для отладки на компьютере специально пропуская пакеты
-// #if UNITY_EDITOR
-//             if (packetLossEvent.IsEventHappened())
-//             {
-//                 return;
-//             }
-// #endif
+#if UNITY_EDITOR
+            if (packetLossEvent.IsEventHappened())
+            {
+                return;
+            }
+#endif
             
             MessagesPack messagesContainer = ZeroFormatterSerializer.Deserialize<MessagesPack>(datagram);
             NetworkStatisticsStorage.Instance.RegisterDatagram(datagram.Length, messagesContainer.Id);

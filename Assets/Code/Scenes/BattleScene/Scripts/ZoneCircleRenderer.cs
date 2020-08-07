@@ -34,9 +34,12 @@ namespace Code.Scenes.BattleScene.Scripts
         }
 
 #if UNITY_EDITOR
-        void OnValidate()
+        private void OnValidate()
         {
-            if(lineDrawer == null) lineDrawer = GetComponent<LineRenderer>();
+            if (lineDrawer == null)
+            {
+                lineDrawer = GetComponent<LineRenderer>();
+            }
             RedrawCircle();
         }
 #endif

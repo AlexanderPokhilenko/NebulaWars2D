@@ -9,18 +9,18 @@ namespace Code.Scenes.BattleScene.Scripts
     [RequireComponent(typeof(BattleUiController))]
     public class BattleMenuUiController : MonoBehaviour
     {
-        private BattleUiController battleUiController;
-        private LobbyLoaderController lobbyLoaderController;
+        private UdpSendUtils udpSendUtils;
         private UiSoundsManager uiSoundsManager;
         private JoysticksManager joysticksManager;
-        private UdpSendUtils udpSendUtils;
+        // private BattleUiController battleUiController;
+        private LobbyLoaderController lobbyLoaderController;
         [SerializeField] private VariableJoystick movementJoystick;
         [SerializeField] private VariableJoystick attackJoystick;
 
         private void Awake()
         {
             lobbyLoaderController = GetComponent<LobbyLoaderController>();
-            battleUiController = GetComponent<BattleUiController>();
+            // battleUiController = GetComponent<BattleUiController>();
 
             uiSoundsManager = UiSoundsManager.Instance();
             joysticksManager = JoysticksManager.Instance();
@@ -29,7 +29,6 @@ namespace Code.Scenes.BattleScene.Scripts
         private void Start()
         {
             udpSendUtils = GetComponent<UdpController>().GetUdpSendUtils();
-
             StartCoroutine(LateStart());
         }
 

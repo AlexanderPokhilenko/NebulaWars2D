@@ -12,13 +12,13 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
     /// </summary>
     public class MessageProcessor
     {
-        private readonly HashSet<uint> receivedMessagesRUDP;
-        private readonly RudpConfirmationSender rudpConfirmationSender;
         private readonly IMessageHandler[] handlers;
+        private readonly HashSet<uint> receivedMessagesRudp;
+        private readonly RudpConfirmationSender rudpConfirmationSender;
 
         public MessageProcessor(UdpSendUtils udpSendUtils, int matchId)
         {
-            receivedMessagesRUDP = new HashSet<uint>();
+            receivedMessagesRudp = new HashSet<uint>();
             rudpConfirmationSender = new RudpConfirmationSender(udpSendUtils);
             var lastEnum = Enum.GetValues(typeof(MessageType)).Cast<MessageType>().Max();
             handlers = new IMessageHandler[(int)lastEnum + 1];
@@ -47,7 +47,7 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
             {
                 rudpConfirmationSender.Handle(messageWrapper);
                 //Если мы уже обработали это сообщение, то мы его пропускаем.
-                if (!receivedMessagesRUDP.Add(messageWrapper.MessageId)) return;
+                if (!receivedMessagesRudp.Add(messageWrapper.MessageId)) return;
             }
             
             handlers[(int)messageWrapper.MessageType].Handle(messageWrapper);

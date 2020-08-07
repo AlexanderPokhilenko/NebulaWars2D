@@ -70,30 +70,8 @@ namespace Code.Scenes.LobbyScene.Scripts.UiStorages
                 button.onClick.AddListener(lobbySoundsManager.PlayClick);
             }
 
-            // try
-            // {
-            //     blurMaterial = blurImage.material;
-            // }
-            // catch (Exception e)
-            // {
-            //     log.Fatal("Start method throw an exception " + e.Message);
-            //     blurIsActive = false;
-            // }
-
-            // var qualityLevel = QualitySettings.GetQualityLevel();
-            // if(qualityLevel < 2) blurIsActive = false;
-            //
-            // if (!blurIsActive)
-            // {
-            //     uiBlurDefaultMaterial = new Material(Shader.Find("UI/Default"));
-            //     blurImage.material = uiBlurDefaultMaterial;
-            // }
         }
 
-        // private void OnDestroy()
-        // {
-        //     if(uiBlurDefaultMaterial) DestroyImmediate(uiBlurDefaultMaterial);
-        // }
 
         public void Check()
         {

@@ -109,7 +109,7 @@ namespace Code.Common.NetworkStatistics
 
                 if (datagramId < lastId)
                 {
-                    log.Debug($"Сообщения пришли в неправильном поядке {nameof(lastId)} {lastId} {nameof(datagramId)} {datagramId}");
+                    log.Info($"Сообщения пришли в неправильном поядке {nameof(lastId)} {lastId} {nameof(datagramId)} {datagramId}");
                 }
             }
             

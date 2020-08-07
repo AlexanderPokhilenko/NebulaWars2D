@@ -15,7 +15,6 @@ namespace Code.Scenes.BattleScene.Scripts
             {
                 haveError = true;
             }
-            
         }
 
         private void Awake()
