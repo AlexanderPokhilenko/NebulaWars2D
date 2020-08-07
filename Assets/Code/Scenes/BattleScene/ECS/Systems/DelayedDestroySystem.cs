@@ -14,6 +14,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         protected override void OnTimeExpired(GameEntity entity)
         {
             base.OnTimeExpired(entity);
+            if (entity.hasSpeed) entity.ReplaceSpeed(Vector2.zero, 0f);
             entity.isDestroyed = true;
         }
     }
