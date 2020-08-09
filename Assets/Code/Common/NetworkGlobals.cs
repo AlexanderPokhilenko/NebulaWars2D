@@ -1,4 +1,4 @@
-﻿// #define LocalTesting
+﻿#define LocalTesting
 #if !UNITY_EDITOR
 #undef LocalTesting
 #endif
@@ -24,6 +24,7 @@ namespace Code.Common
         public static readonly string ExitFromBattleUrl =  $"{GameMatcherUrl}/Player/ExitFromBattle";
         
         public static readonly string InitializeLobbyUrl =  $"{GameMatcherUrl}/LobbyModel/Create";
+        public static readonly string ChangeUsernameUrl =  $"{GameMatcherUrl}/LobbyModel/SetUsername";
         public static readonly string ChangeSkinUrl =  $"{GameMatcherUrl}/Skin/Change";
         public static readonly string TestUrl =  $"{GameMatcherUrl}/Init/Resource";
         

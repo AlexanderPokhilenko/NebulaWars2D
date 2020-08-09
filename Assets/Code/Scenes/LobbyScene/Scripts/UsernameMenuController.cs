@@ -1,5 +1,11 @@
-﻿using Code.Common;
+﻿using System;
+using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
+using Code.Common;
+using Code.Common.Logger;
 using Code.Common.Storages;
+using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,12 +13,13 @@ namespace Code.Scenes.LobbyScene.Scripts
 {
     public class UsernameMenuController : MonoBehaviour
     {
+        private AuthSingleton authSingleton;
+        [SerializeField] private Text errorText;
         [SerializeField] private GameObject menuRoot;
         [SerializeField] private GameObject errorRoot;
         [SerializeField] private InputField usernameInput;
-        [SerializeField] private Text errorText;
-        private AuthSingleton authSingleton;
-
+        private readonly ILog log = LogManager.CreateLogger(typeof(UsernameMenuController));
+        
         private void Start()
         {
             authSingleton = AuthSingleton.Instance();
@@ -27,16 +34,58 @@ namespace Code.Scenes.LobbyScene.Scripts
 
         public void ConfirmChanges()
         {
-            if (authSingleton.TrySetUsername(usernameInput.text, out var errorMessage))
+            StartCoroutine(Test());
+            
+        }
+
+        private IEnumerator Test()
+        {
+            log.Info($"Вызов смены ника. Новый:{usernameInput.text}");
+            CancellationTokenSource ctx = new CancellationTokenSource();
+            var task = authSingleton.TrySetUsernameAsync(usernameInput.text, ctx.Token);
+            yield return new WaitUntil(()=>task.IsCompleted);
+            if (task.Status != TaskStatus.RanToCompletion)
             {
-                menuRoot.SetActive(false);
+                log.Error("Не удалось обновить ник. "+task.Status);
+                ShowError("Unexpected error.");
             }
             else
             {
-                errorText.text = "<color='red'>" + errorMessage + "</color>\n<i>Click to return.</i>";
-                errorRoot.SetActive(true);
-                UiSoundsManager.Instance().PlayError();
+                switch (task.Result)
+                {
+                    case UsernameValidationResultEnum.Ok:
+                        log.Info($"Ник успешно обновлён. Новый:{usernameInput.text}");
+                        menuRoot.SetActive(false);
+                        break;
+                    case UsernameValidationResultEnum.TooLong:
+                        ShowError("The username is too long.");
+                        break;
+                    case UsernameValidationResultEnum.TooShort:
+                        ShowError("The username is too short.");
+                        break;
+                    case UsernameValidationResultEnum.InvalidCharacter:
+                        ShowError("Invalid character.");
+                        break;
+                    case UsernameValidationResultEnum.ContainsSpace:
+                        ShowError("Spaces are not allowed.");
+                        break;
+                    case UsernameValidationResultEnum.DoesNotBeginWithALetter:
+                        ShowError("Username must start with a letter");
+                        break;
+                    case UsernameValidationResultEnum.OtherError:
+                        ShowError("Unexpected error.");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
+        }
+
+        private void ShowError(string errorMessage)
+        {
+            errorText.text = $"<color='red'>{errorMessage}</color>\n<i>Click to return.</i>";
+            errorRoot.SetActive(true);
+            UiSoundsManager.Instance().PlayError();
         }
     }
 }

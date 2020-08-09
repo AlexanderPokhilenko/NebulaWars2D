@@ -1,24 +1,27 @@
 ﻿#define FORCE_AUTH
 
-using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
 using Code.Common.Storages;
+using Code.Scenes.LobbyScene.Scripts.Shop;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using NetworkLibrary.NetworkLibrary.Http;
 using UnityEngine;
 namespace Code.Scenes.LobbyScene.Scripts
 {
-    /// <summary>
+   /// <summary>
    /// Отвечает за авторизацию. Остаётся на сцене всегда.
    /// </summary>
    public class AuthSingleton : Singleton<AuthSingleton>
    {
-      protected override bool DontDestroy { get; } = true;
       private bool isAuthorizationCompleted;
+      private const string UsernameKey = "username";
       private readonly object lockObj = new object();
+      protected override bool DontDestroy { get; } = true;
       private readonly ILog log = LogManager.CreateLogger(typeof(AuthSingleton));
-      private const string usernameKey = "username";
 
       private void Start()
       {
@@ -84,7 +87,7 @@ namespace Code.Scenes.LobbyScene.Scripts
 
          //Прочитать из жесткого диска
          string playerServiceId = PlayerPrefs.GetString(playerServiceIdKey);
-         string username = PlayerPrefs.GetString(usernameKey);
+         string username = PlayerPrefs.GetString(UsernameKey);
          
          if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(playerServiceId))
          {
@@ -93,7 +96,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             username = $"username {new System.Random().Next(1, ushort.MaxValue)}";
             //Сохранить на  диск
             PlayerPrefs.SetString(playerServiceIdKey, playerServiceId);
-            PlayerPrefs.SetString(usernameKey, username);
+            PlayerPrefs.SetString(UsernameKey, username);
             
          }
 
@@ -107,26 +110,25 @@ namespace Code.Scenes.LobbyScene.Scripts
       }
 #endif
 
-       public bool TrySetUsername(string newUsername, out string errorMessage)
-       {
-           var result = true;
-           //TODO: отправка Username для записи в БД, проверять на корректность
-           if (result)
-           {
-               PlayerPrefs.SetString(usernameKey, newUsername);
+      public async Task<UsernameValidationResultEnum> TrySetUsernameAsync(string newUsername, CancellationToken token)
+      {
+         UsernameChangingService service = new UsernameChangingService();
+         var result = await service.ChangesUsernameAsync(newUsername, token);
+         if (result == UsernameValidationResultEnum.Ok)
+         {
+            UnityThread.Execute(() =>
+            {
+               PlayerPrefs.SetString(UsernameKey, newUsername);
                PlayerIdStorage.SetUsername(newUsername);
-               Contexts.sharedInstance.lobbyUi.ReplaceUsername(newUsername); //TODO: Убрать отсюда
-               errorMessage = "";
-           }
-           else
-           {
-               errorMessage = "Unexpected error."; //TODO: Получать сообщение об ошибке от сервера
-           }
+               var lobbyEcsController = FindObjectOfType<LobbyEcsController>();
+               lobbyEcsController.ReplaceUsername(newUsername);
+            });
+         }
 
-           return result;
-       }
+         return result;
+      }
 
-        private void PrintPlayerData()
+      private void PrintPlayerData()
       {
          log.Info(nameof(PrintPlayerData));
          log.Info($"{nameof(Social.localUser.authenticated)} {Social.localUser.authenticated}");

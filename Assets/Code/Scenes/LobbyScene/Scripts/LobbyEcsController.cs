@@ -442,5 +442,10 @@ namespace Code.Scenes.LobbyScene.Scripts
                 .count;
             return spawnedWarshipsCount;
         }
+
+        public void ReplaceUsername(string newUsername)
+        {
+            contexts.lobbyUi.ReplaceUsername(newUsername);
+        }
     }
 }

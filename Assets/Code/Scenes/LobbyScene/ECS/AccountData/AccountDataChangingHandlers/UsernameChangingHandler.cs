@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Code.Common.Logger;
 using Entitas;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
     public class UsernameChangingHandler:ReactiveSystem<LobbyUiEntity>
     {
         private readonly Text usernameText;
+        private readonly ILog log = LogManager.CreateLogger(typeof(UsernameChangingHandler));
         
         public UsernameChangingHandler(IContext<LobbyUiEntity> context, Text usernameText) 
             : base(context)
@@ -35,7 +37,7 @@ namespace Code.Scenes.LobbyScene.ECS.AccountData.AccountDataChangingHandlers
     
         protected override void Execute(List<LobbyUiEntity> entities)
         {
-            var entity = entities.Single();
+            var entity = entities.Last();
             usernameText.text = entity.username.username;
         }
     }

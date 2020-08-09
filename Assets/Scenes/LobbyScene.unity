@@ -13784,10 +13784,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24e344c016a24f418fd0af3497bc764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorText: {fileID: 1250734051}
   menuRoot: {fileID: 1273419263}
   errorRoot: {fileID: 1293334741}
   usernameInput: {fileID: 438040066}
-  errorText: {fileID: 1250734051}
 --- !u!4 &1086382375
 Transform:
   m_ObjectHideFlags: 0
