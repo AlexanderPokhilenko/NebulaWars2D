@@ -9,24 +9,16 @@ using GooglePlayGames.BasicApi;
 using UnityEngine;
 namespace Code.Scenes.LobbyScene.Scripts
 {
-   /// <summary>
+    /// <summary>
    /// Отвечает за авторизацию. Остаётся на сцене всегда.
    /// </summary>
-   public class AuthSingleton : MonoBehaviour
+   public class AuthSingleton : Singleton<AuthSingleton>
    {
-      private static bool isInstantiated;
+      protected override bool DontDestroy { get; } = true;
       private bool isAuthorizationCompleted;
       private readonly object lockObj = new object();
       private readonly ILog log = LogManager.CreateLogger(typeof(AuthSingleton));
-      
-      private void Awake()
-      {
-         if (!isInstantiated)
-         {
-            DontDestroyOnLoad(gameObject);
-            isInstantiated = true;
-         }
-      }
+      private const string usernameKey = "username";
 
       private void Start()
       {
@@ -89,7 +81,6 @@ namespace Code.Scenes.LobbyScene.Scripts
       {
          log.Warn("Принудительное выставление флага успеха авторизации");
          const string playerServiceIdKey = "playerId";
-         const string usernameKey = "username";
 
          //Прочитать из жесткого диска
          string playerServiceId = PlayerPrefs.GetString(playerServiceIdKey);
@@ -116,7 +107,26 @@ namespace Code.Scenes.LobbyScene.Scripts
       }
 #endif
 
-      private void PrintPlayerData()
+       public bool TrySetUsername(string newUsername, out string errorMessage)
+       {
+           var result = true;
+           //TODO: отправка Username для записи в БД, проверять на корректность
+           if (result)
+           {
+               PlayerPrefs.SetString(usernameKey, newUsername);
+               PlayerIdStorage.SetUsername(newUsername);
+               Contexts.sharedInstance.lobbyUi.ReplaceUsername(newUsername); //TODO: Убрать отсюда
+               errorMessage = "";
+           }
+           else
+           {
+               errorMessage = "Unexpected error."; //TODO: Получать сообщение об ошибке от сервера
+           }
+
+           return result;
+       }
+
+        private void PrintPlayerData()
       {
          log.Info(nameof(PrintPlayerData));
          log.Info($"{nameof(Social.localUser.authenticated)} {Social.localUser.authenticated}");
