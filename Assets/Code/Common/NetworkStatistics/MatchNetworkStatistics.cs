@@ -1,5 +1,5 @@
 #define ENABLE_NETWORK_LOGS
-#undef ENABLE_NETWORK_LOGS
+// #undef ENABLE_NETWORK_LOGS
 
 using System;
 using System.Collections.Generic;

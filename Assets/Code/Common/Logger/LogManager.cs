@@ -1,5 +1,5 @@
 #define ENABLE_LOGS
-#undef ENABLE_LOGS
+// #undef ENABLE_LOGS
 
 using System;
 using System.Collections.Generic;

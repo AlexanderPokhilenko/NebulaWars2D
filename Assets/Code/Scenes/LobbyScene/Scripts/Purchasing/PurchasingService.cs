@@ -129,7 +129,7 @@ namespace Code.Scenes.LobbyScene.Scripts.Purchasing
             CrossPlatformValidator validator = new CrossPlatformValidator(GooglePlayTangle.Data(),
                 AppleTangle.Data(), Application.identifier);
 
-            // purchaseEventArgs.purchasedProduct.LogProduct(log);
+            purchaseEventArgs.purchasedProduct.LogProduct(log);
 
             try
             {
@@ -175,16 +175,16 @@ namespace Code.Scenes.LobbyScene.Scripts.Purchasing
             log.Debug($"{nameof(OnPurchaseFailed)} "+p+" "+i.definition.id);
         }
 
-        // public void ConfirmAll()
-        // {
-        //     log.Debug(nameof(ConfirmAll));
-        //     var products = storeController.products.all;
-        //     foreach (var product in products)
-        //     {
-        //         storeController.ConfirmPendingPurchase(product);
-        //         log.Debug("success confirm "+product.definition.id);
-        //     }
-        // }
+        public void ConfirmAll()
+        {
+            log.Debug(nameof(ConfirmAll));
+            var products = storeController.products.all;
+            foreach (var product in products)
+            {
+                storeController.ConfirmPendingPurchase(product);
+                log.Debug("success confirm "+product.definition.id);
+            }
+        }
         
         public bool TryConfirmPendingPurchase(string sku)
         {

@@ -1,6 +1,5 @@
 using System;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using Code.Common;
 using Code.Common.Logger;
@@ -14,7 +13,7 @@ namespace Code.Scenes.LobbyScene.Scripts
     {
         private readonly ILog log = LogManager.CreateLogger(typeof(UsernameChangingService));
         
-        public async Task<UsernameValidationResultEnum> ChangesUsernameAsync(string username, CancellationToken token)
+        public async Task<UsernameValidationResultEnum> ChangesUsernameAsync(string username)
         {
             if (!PlayerIdStorage.TryGetServiceId(out string playerServiceId))
             {
@@ -28,7 +27,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 formData.Add(new StringContent(playerServiceId), nameof(playerServiceId));
                 formData.Add(new StringContent(username), nameof(username));
-                response = await httpClient.PostAsync(NetworkGlobals.ChangeUsernameUrl, formData, token);
+                response = await httpClient.PostAsync(NetworkGlobals.ChangeUsernameUrl, formData);
             }
 
 
@@ -42,7 +41,7 @@ namespace Code.Scenes.LobbyScene.Scripts
             {
                 string base64String = await response.Content.ReadAsStringAsync();
                 byte[] data = Convert.FromBase64String(base64String);
-                result = ZeroFormatterSerializer.Deserialize<UsernameValidationResultEnum>(data);
+                result = ZeroFormatterSerializer.Deserialize<UsernameValidationResult>(data).UsernameValidationResultEnum;
             }
             catch (Exception e)
             {

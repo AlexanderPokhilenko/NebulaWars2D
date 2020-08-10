@@ -41,8 +41,7 @@ namespace Code.Scenes.LobbyScene.Scripts
         private IEnumerator Test()
         {
             log.Info($"Вызов смены ника. Новый:{usernameInput.text}");
-            CancellationTokenSource ctx = new CancellationTokenSource();
-            var task = authSingleton.TrySetUsernameAsync(usernameInput.text, ctx.Token);
+            var task = authSingleton.TrySetUsernameAsync(usernameInput.text);
             yield return new WaitUntil(()=>task.IsCompleted);
             if (task.Status != TaskStatus.RanToCompletion)
             {

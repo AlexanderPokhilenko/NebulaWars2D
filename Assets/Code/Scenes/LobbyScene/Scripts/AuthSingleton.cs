@@ -110,14 +110,17 @@ namespace Code.Scenes.LobbyScene.Scripts
       }
 #endif
 
-      public async Task<UsernameValidationResultEnum> TrySetUsernameAsync(string newUsername, CancellationToken token)
+      public async Task<UsernameValidationResultEnum> TrySetUsernameAsync(string newUsername)
       {
+         log.Debug(Thread.CurrentThread.Name);
          UsernameChangingService service = new UsernameChangingService();
-         var result = await service.ChangesUsernameAsync(newUsername, token);
+         var result = await service.ChangesUsernameAsync(newUsername);
+         log.Debug(Thread.CurrentThread.Name);
          if (result == UsernameValidationResultEnum.Ok)
          {
             UnityThread.Execute(() =>
             {
+               log.Debug(Thread.CurrentThread.Name);
                PlayerPrefs.SetString(UsernameKey, newUsername);
                PlayerIdStorage.SetUsername(newUsername);
                var lobbyEcsController = FindObjectOfType<LobbyEcsController>();
