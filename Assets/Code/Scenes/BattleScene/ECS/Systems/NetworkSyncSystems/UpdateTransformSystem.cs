@@ -1,12 +1,10 @@
-﻿using Code.Scenes.BattleScene.ScriptableObjects;
-using Code.Scenes.BattleScene.Udp.MessageProcessing.Synchronizers;
+﻿using Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents;
+using Code.Scenes.BattleScene.Experimental;
+using Code.Scenes.BattleScene.ScriptableObjects;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Udp.ServerToPlayer.PositionMessages;
 using System.Collections.Generic;
 using System.Linq;
-using Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents;
-using Code.Scenes.BattleScene.Experimental;
-using Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus;
 using UnityEngine;
 
 // ReSharper disable once CheckNamespace

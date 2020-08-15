@@ -20,8 +20,10 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
         {
             receivedMessagesRudp = new HashSet<uint>();
             rudpConfirmationSender = new RudpConfirmationSender(udpSendUtils);
+
             var lastEnum = Enum.GetValues(typeof(MessageType)).Cast<MessageType>().Max();
             handlers = new IMessageHandler[(int)lastEnum + 1];
+
             handlers[(int)MessageType.PlayerInfo] = new PlayerInfoMessageHandler();
             handlers[(int)MessageType.Positions] = new PositionsMessageHandler();
             handlers[(int)MessageType.Radiuses] = new RadiusesMessageHandler();
@@ -39,6 +41,7 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
             handlers[(int)MessageType.CooldownsInfos] = new CooldownsInfosHandler();
             handlers[(int)MessageType.Cooldowns] = new CooldownsHandler();
             handlers[(int)MessageType.FrameRate] = new FrameRateHandler();
+            handlers[(int)MessageType.Teams] = new TeamsHandler();
         }
         
         public void Handle(MessageWrapper messageWrapper)

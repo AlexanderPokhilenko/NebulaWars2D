@@ -1,4 +1,4 @@
-﻿﻿﻿﻿using System.Collections.Generic;
+﻿﻿﻿﻿﻿using System.Collections.Generic;
   using NetworkLibrary.NetworkLibrary.Udp;
 using ZeroFormatter;
 
@@ -39,6 +39,22 @@ namespace Libraries.NetworkLibrary.Udp.ServerToPlayer.BattleStatus
         public MessageType GetMessageType()
         {
             return MessageType.PlayerInfo;
+        }
+    }
+
+    [ZeroFormattable]
+    public struct TeamsMessage : ITypedMessage
+    {
+        [Index(0)] public readonly Dictionary<ushort, byte> Teams;
+
+        public TeamsMessage(Dictionary<ushort, byte> teams)
+        {
+            Teams = teams;
+        }
+
+        public MessageType GetMessageType()
+        {
+            return MessageType.Teams;
         }
     }
 }
