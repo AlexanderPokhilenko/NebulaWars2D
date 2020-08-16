@@ -7,9 +7,11 @@ using Code.Scenes.BattleScene.ECS.Systems.NetworkSenderSystems;
 using Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems;
 using Code.Scenes.BattleScene.ECS.Systems.TearDownSystems;
 using Code.Scenes.BattleScene.ECS.Systems.ViewSystems;
+using Code.Scenes.BattleScene.Experimental;
 using Code.Scenes.BattleScene.Experimental.Approximation;
 using Code.Scenes.BattleScene.Udp.Experimental;
 using Entitas;
+using System.Collections;
 using UnityEngine;
 
 namespace Code.Scenes.BattleScene.Scripts
@@ -41,6 +43,17 @@ namespace Code.Scenes.BattleScene.Scripts
             Contexts.sharedInstance.game.ReplaceZoneInfo(Vector2.zero, 10f);
             systems.ActivateReactiveSystems();
             systems.Initialize();
+            //Костыль на временное отключение
+            enabled = false;
+            StartCoroutine(DelayedStart(2.5f));
+        }
+
+        private IEnumerator DelayedStart(float realSeconds)
+        {
+            yield return new WaitForSecondsRealtime(realSeconds);
+            enabled = true;
+            yield return new WaitForSecondsRealtime(ClientTimeManager.TimeDelay);
+            PlayerInfosGridController.Instance().gameObject.SetActive(false); // Уже можно не показывать игроков
         }
         
         private void Update()

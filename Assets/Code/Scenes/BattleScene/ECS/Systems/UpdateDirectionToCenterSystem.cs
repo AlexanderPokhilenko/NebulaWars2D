@@ -23,7 +23,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         public void Execute()
         {
             var playerEntity = gameContext.GetEntityWithId(PlayerIdStorage.PlayerEntityId);
-            if (playerEntity != null && gameContext.hasZoneInfo)
+            if (playerEntity != null && gameContext.hasZoneInfo && playerEntity.hasTransform)
             {
                 var direction = gameContext.zoneInfo.position - playerEntity.transform.position;
                 var sqrDist = direction.sqrMagnitude;
