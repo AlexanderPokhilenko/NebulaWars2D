@@ -40,7 +40,7 @@ namespace Code.Scenes.BattleScene.Scripts
         {
             UdpSendUtils udpSendUtils = udpControllerSingleton.GetUdpSendUtils();
             systems = CreateSystems(udpSendUtils);
-            Contexts.sharedInstance.game.ReplaceZoneInfo(Vector2.zero, 10f);
+            Contexts.sharedInstance.game.ReplaceZoneInfo(Vector2.zero, 100f);
             systems.ActivateReactiveSystems();
             systems.Initialize();
             //Костыль на временное отключение
