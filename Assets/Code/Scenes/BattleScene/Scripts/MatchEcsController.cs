@@ -138,7 +138,7 @@ namespace Code.Scenes.BattleScene.Scripts
                         battleUiController.GetHealthText(), battleUiController.GetShieldSlider(),
                         battleUiController.GetShieldText(), new FloatLinearInterpolator(prevFrameTime),
                                 battleUiController.GetVignette()))
-                     .Add(new KillsIndicatorSystem(battleUiController.GetKillMessage(), battleUiController.GetKillIndicator(), battleUiController.GetKillsText(), battleUiController.GetAliveText(), aliveCount))
+                     .Add(new KillsIndicatorSystem(battleUiController.GetKillMessage(), battleUiController.GetKillIndicator(), battleUiController.GetKillsText(), battleUiController.GetAliveText(), aliveCount, battleUiController.GetMenuGridControllers()))
                     .Add(new CooldownsUpdaterSystem(battleUiController.GetCannonCooldownsController(), new FloatLinearInterpolator(prevFrameTime)))
                     .Add(new AbilityUpdaterSystem(battleUiController.GetAbilityCooldownInfo(), new FloatLinearInterpolator(prevFrameTime)))
                     .Add(new GameContextClearSystem(contexts))

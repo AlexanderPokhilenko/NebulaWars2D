@@ -22,6 +22,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         private static readonly ConcurrentBag<KillMessage> Messages = new ConcurrentBag<KillMessage>();
         private static readonly Color endColor = Color.red;
         private readonly ILog log = LogManager.CreateLogger(typeof(KillsIndicatorSystem));
+        private readonly PlayersMenuGridController[] playersMenuGridControllers;
         private readonly KillInfoObject messagePrototype;
         private readonly Transform messagesContainer;
         private readonly Text kills;
@@ -48,7 +49,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         private const float deltaFontScaling = maxFontScaling - minFontScaling;
         private const float changingStep = 1f / changingTime;
 
-        public KillsIndicatorSystem(KillInfoObject killMessage, Transform container, Text killsText, Text aliveText, int aliveCount)
+        public KillsIndicatorSystem(KillInfoObject killMessage, Transform container, Text killsText, Text aliveText, int aliveCount, PlayersMenuGridController[] menuGridControllers)
         {
             if (killMessage == null)
                 throw new Exception($"{nameof(KillsIndicatorSystem)} {nameof(killMessage)} was null");
@@ -58,7 +59,10 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                 throw new Exception($"{nameof(KillsIndicatorSystem)} {nameof(killsText)} was null");
             if (aliveText == null)
                 throw new Exception($"{nameof(KillsIndicatorSystem)} {nameof(aliveText)} was null");
+            if (menuGridControllers == null)
+                throw new Exception($"{nameof(KillsIndicatorSystem)} {nameof(menuGridControllers)} was null");
 
+            playersMenuGridControllers = menuGridControllers;
             messagePrototype = killMessage;
             messagesContainer = container;
             kills = killsText;
@@ -120,6 +124,8 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                 while (Messages.TryTake(out var message))
                 {
                     var newMessage = UnityEngine.Object.Instantiate(messagePrototype, messagesContainer);
+
+                    foreach (var gridController in playersMenuGridControllers) gridController.CheckKill(message.VictimId);
 
                     var killerName = GetName(message.KillerId) ?? GetName(message.KillerType);
                     var victimName = GetName(message.VictimId) ?? GetName(message.VictimType);

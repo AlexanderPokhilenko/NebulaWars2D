@@ -42,6 +42,7 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private PostProcessVolume postProcessVolume;
         [SerializeField] private GameObject menuImage;
         [SerializeField] private Material nicknameFontMaterial;
+        [SerializeField] private PlayersMenuGridController[] menuGridControllers;
 #pragma warning restore 649
         #endregion
 
@@ -105,5 +106,6 @@ namespace Code.Scenes.BattleScene.Scripts
         public Image GetLoadingImage() => loadingImage;
         public Vignette GetVignette() => postProcessVolume.profile.GetSetting<Vignette>();
         public Material GetNicknameFontMaterial() => nicknameFontMaterial;
+        public PlayersMenuGridController[] GetMenuGridControllers() => menuGridControllers;
     }
 }
