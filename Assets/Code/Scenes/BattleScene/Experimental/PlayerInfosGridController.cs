@@ -14,10 +14,13 @@ namespace Code.Scenes.BattleScene.Experimental
         {
             var matchModel = MyMatchDataStorage.Instance.GetMatchModel();
             var models = matchModel.PlayerModels;
-            foreach (var model in models)
+            var colors = TeamsColorManager.Instance().GetColors(models.Length + 1);
+            for (var i = 0; i < models.Length; i++)
             {
+                var model = models[i];
                 var info = Instantiate(prototype, transform);
                 info.SetInfo(model);
+                info.SetColor(colors[i + 1]);
             }
         }
     }

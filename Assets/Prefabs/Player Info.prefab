@@ -403,8 +403,8 @@ MonoBehaviour:
   nicknameText: {fileID: 7547221853222327356}
   powerLevelText: {fileID: 4135329368008522754}
   warshipNameText: {fileID: 5287278754720815524}
-  humanObject: {fileID: 6807003182566373174}
-  botObject: {fileID: 8562665512032140702}
+  humanObject: {fileID: 1696204368996994218}
+  botObject: {fileID: 608060560648919723}
 --- !u!1 &5170467233440950734
 GameObject:
   m_ObjectHideFlags: 0

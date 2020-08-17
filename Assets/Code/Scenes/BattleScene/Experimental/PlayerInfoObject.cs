@@ -10,8 +10,8 @@ namespace Code.Scenes.BattleScene.Experimental
         [SerializeField] private Text nicknameText;
         [SerializeField] private Text powerLevelText;
         [SerializeField] private Text warshipNameText;
-        [SerializeField] private GameObject humanObject;
-        [SerializeField] private GameObject botObject;
+        [SerializeField] private Image humanObject;
+        [SerializeField] private Image botObject;
 
         public void SetInfo(BattleRoyalePlayerModel model)
         {
@@ -21,14 +21,20 @@ namespace Code.Scenes.BattleScene.Experimental
             warshipNameText.text = model.WarshipName;
             if (model.IsBot())
             {
-                humanObject.SetActive(false);
-                botObject.SetActive(true);
+                humanObject.gameObject.SetActive(false);
+                botObject.gameObject.SetActive(true);
             }
             else
             {
-                humanObject.SetActive(true);
-                botObject.SetActive(false);
+                humanObject.gameObject.SetActive(true);
+                botObject.gameObject.SetActive(false);
             }
+        }
+
+        public void SetColor(Color color)
+        {
+            humanObject.color = color;
+            botObject.color = color;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Scenes.BattleScene.Experimental;
 using Entitas;
 using Entitas.Unity;
 using TMPro;
@@ -6,13 +7,13 @@ using UnityEngine;
 
 namespace Code.BattleScene.ECS.Systems
 {
-    public class UpdateTeamsSystem : IExecuteSystem, ITearDownSystem
+    public class UpdateTeamsSystem : IExecuteSystem
     {
         private static readonly object LockObj = new object();
         private static Dictionary<ushort, byte> _teams = new Dictionary<ushort, byte>();
         private static uint _lastMessageId;
         private static bool WasProcessed = true;
-        private readonly Material[] materials;
+        private readonly List<Material> materials;
         private readonly GameContext gameContext;
 
         public UpdateTeamsSystem(Contexts contexts, int totalTeamsCount)
@@ -22,14 +23,7 @@ namespace Code.BattleScene.ECS.Systems
             WasProcessed = true;
             _teams.Clear();
 
-            materials = new Material[totalTeamsCount];
-            var outlineShader = Shader.Find("Sprites/Outline");
-            for (var i = 0; i < totalTeamsCount; i++)
-            {
-                materials[i] = new Material(outlineShader);
-                materials[i].SetColor("_SolidOutline", Color.HSVToRGB((float)i / totalTeamsCount, 1f, 1f));
-                materials[i].SetFloat("_Thickness", 1f);
-            }
+            materials = TeamsColorManager.Instance().GetOutlineMaterials(totalTeamsCount);
         }
 
         public static void SetNewTeams(uint messageId, Dictionary<ushort, byte> values)
@@ -62,14 +56,6 @@ namespace Code.BattleScene.ECS.Systems
                         _teams = values;
                     }
                 }
-            }
-        }
-
-        public void TearDown()
-        {
-            foreach (var material in materials)
-            {
-                Object.DestroyImmediate(material);
             }
         }
 
