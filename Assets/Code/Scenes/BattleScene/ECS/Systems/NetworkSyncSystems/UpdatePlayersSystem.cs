@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Code.Common.Logger;
+﻿using Code.Common.Logger;
 using Code.Common.Storages;
-using Code.Scenes.BattleScene.Experimental;
 using Entitas;
 using NetworkLibrary.NetworkLibrary.Http;
-using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {
@@ -59,6 +57,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
                             entity.RemovePlayer();
                         }
                         entity.AddPlayer(accountId, _playerInfos[accountId].Nickname);
+                        if (accountId == PlayerIdStorage.AccountId) entity.isCurrentPlayer = true;
                         entityIds.Remove(accountId);
                     }
                 }

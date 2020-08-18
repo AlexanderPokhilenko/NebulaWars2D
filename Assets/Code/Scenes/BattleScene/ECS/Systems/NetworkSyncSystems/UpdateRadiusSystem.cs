@@ -1,7 +1,6 @@
-﻿using Entitas;
+﻿using Code.Scenes.BattleScene.Experimental.Approximation;
+using Entitas;
 using System.Collections.Generic;
-using System.Linq;
-using Code.Scenes.BattleScene.Experimental.Approximation;
 using UnityEngine;
 
 //TODO тут вообще нужен lock?

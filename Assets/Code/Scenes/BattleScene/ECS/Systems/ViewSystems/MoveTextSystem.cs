@@ -1,8 +1,6 @@
-﻿using System;
-using Code.Common;
-using Code.Common.Logger;
-using Code.Common.Storages;
+﻿using Code.Common.Logger;
 using Entitas;
+using System;
 using UnityEngine;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
@@ -26,7 +24,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
         {
             try
             {
-                var playerEntity = gameContext.GetEntityWithId(PlayerIdStorage.PlayerEntityId);
+                var playerEntity = gameContext.currentPlayerEntity;
                 if(playerEntity == null || !playerEntity.hasView) return;
                 var playerPosition = playerEntity.view.gameObject.transform.position;
 

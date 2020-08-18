@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using Code.Common;
-using Code.Common.Storages;
-using Code.Scenes.BattleScene.Experimental;
+﻿using Code.Common;
 using Entitas;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.AudioSystems
@@ -29,7 +27,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.AudioSystems
 
         protected override void Execute(List<GameEntity> entities)
         {
-            var playerEntity = gameContext.GetEntityWithId(PlayerIdStorage.PlayerEntityId);
+            var playerEntity = gameContext.currentPlayerEntity;
             if (playerEntity == null) return;
 
             foreach (var e in entities)

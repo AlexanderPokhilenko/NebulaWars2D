@@ -1,6 +1,4 @@
-﻿using Code.Common;
-using Code.Common.Storages;
-using Entitas;
+﻿using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +20,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
 
         public void Execute()
         {
-            var playerEntity = gameContext.GetEntityWithId(PlayerIdStorage.PlayerEntityId);
+            var playerEntity = gameContext.currentPlayerEntity;
             if (playerEntity != null && gameContext.hasZoneInfo && playerEntity.hasTransform)
             {
                 var direction = gameContext.zoneInfo.position - playerEntity.transform.position;

@@ -1,5 +1,4 @@
-﻿using Code.Common.Storages;
-using Code.Scenes.BattleScene.Experimental;
+﻿using Code.Scenes.BattleScene.Experimental;
 using Entitas;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,7 +30,7 @@ namespace Code.BattleScene.ECS.Systems
 
         public void Execute()
         {
-            var playerEntity = gameContext.GetEntityWithId(PlayerIdStorage.PlayerEntityId);
+            var playerEntity = gameContext.currentPlayerEntity;
             if (playerEntity != null && playerEntity.hasTransform)
             {
                 var position = playerEntity.transform.position;

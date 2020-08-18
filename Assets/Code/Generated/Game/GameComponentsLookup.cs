@@ -11,39 +11,41 @@ public static class GameComponentsLookup {
     public const int DeathSound = 0;
     public const int LoopSound = 1;
     public const int SpawnSound = 2;
-    public const int Destroyed = 3;
-    public const int Direction = 4;
-    public const int Hidden = 5;
-    public const int MaxSpeed = 6;
-    public const int NicknameDistance = 7;
-    public const int Parent = 8;
-    public const int Player = 9;
-    public const int Speed = 10;
-    public const int DelayedDestroy = 11;
-    public const int DelayedRecreation = 12;
-    public const int DelayedSpawn = 13;
-    public const int DestroyTimer = 14;
-    public const int ManyDelayedRecreations = 15;
-    public const int Transform = 16;
-    public const int AnimatorController = 17;
-    public const int Circle = 18;
-    public const int CircleLine = 19;
-    public const int Rectangle = 20;
-    public const int Sprite = 21;
-    public const int StraightLine = 22;
-    public const int TextMeshPro = 23;
-    public const int View = 24;
-    public const int ViewType = 25;
-    public const int ZoneInfo = 26;
-    public const int Id = 27;
-    public const int Position = 28;
+    public const int CurrentPlayer = 3;
+    public const int Destroyed = 4;
+    public const int Direction = 5;
+    public const int Hidden = 6;
+    public const int MaxSpeed = 7;
+    public const int NicknameDistance = 8;
+    public const int Parent = 9;
+    public const int Player = 10;
+    public const int Speed = 11;
+    public const int DelayedDestroy = 12;
+    public const int DelayedRecreation = 13;
+    public const int DelayedSpawn = 14;
+    public const int DestroyTimer = 15;
+    public const int ManyDelayedRecreations = 16;
+    public const int Transform = 17;
+    public const int AnimatorController = 18;
+    public const int Circle = 19;
+    public const int CircleLine = 20;
+    public const int Rectangle = 21;
+    public const int Sprite = 22;
+    public const int StraightLine = 23;
+    public const int TextMeshPro = 24;
+    public const int View = 25;
+    public const int ViewType = 26;
+    public const int ZoneInfo = 27;
+    public const int Id = 28;
+    public const int Position = 29;
 
-    public const int TotalComponents = 29;
+    public const int TotalComponents = 30;
 
     public static readonly string[] componentNames = {
         "DeathSound",
         "LoopSound",
         "SpawnSound",
+        "CurrentPlayer",
         "Destroyed",
         "Direction",
         "Hidden",
@@ -76,6 +78,7 @@ public static class GameComponentsLookup {
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.DeathSoundComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.LoopSoundComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.CurrentPlayerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.DestroyedComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.HiddenComponent),
