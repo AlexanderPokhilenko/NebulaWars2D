@@ -14,9 +14,10 @@ namespace Code.Scenes.BattleScene.Experimental
         private Dictionary<int, PlayerInfoObject> teamsToInfos;
         private int startIndex;
         private int endIndex;
+        private int capacity;
         private int totalCount;
 
-        private void Start()
+        public void Fill()
         {
             var matchModel = MyMatchDataStorage.Instance.GetMatchModel();
             var models = matchModel.PlayerModels;
@@ -32,15 +33,9 @@ namespace Code.Scenes.BattleScene.Experimental
                 endIndex = totalCount;
             }
 
-            var capacity = endIndex - startIndex;
+            capacity = endIndex - startIndex;
             accountIdsToInfos = new Dictionary<int, PlayerInfoObject>(capacity);
             teamsToInfos = new Dictionary<int, PlayerInfoObject>(capacity);
-
-            var grid = GetComponent<GridLayoutGroup>();
-            var totalHeight = GetComponent<RectTransform>().rect.height;
-            var cellHeight = grid.cellSize.y;
-            var spacesPlace = totalHeight - cellHeight * capacity;
-            grid.spacing = new Vector2(grid.spacing.x, spacesPlace / (capacity - 1));
 
             for (var i = startIndex; i < endIndex; i++)
             {
@@ -50,6 +45,15 @@ namespace Code.Scenes.BattleScene.Experimental
                 accountIdsToInfos.Add(model.AccountId, info);
                 teamsToInfos.Add(i + 1, info);
             }
+        }
+
+        private void Awake()
+        {
+            var grid = GetComponent<GridLayoutGroup>();
+            var totalHeight = GetComponent<RectTransform>().rect.height;
+            var cellHeight = grid.cellSize.y;
+            var spacesPlace = totalHeight - cellHeight * capacity;
+            grid.spacing = new Vector2(grid.spacing.x, spacesPlace / (capacity - 1));
 
             UpdateColors();
         }

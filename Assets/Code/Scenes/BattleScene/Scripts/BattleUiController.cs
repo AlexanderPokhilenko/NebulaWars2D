@@ -58,6 +58,8 @@ namespace Code.Scenes.BattleScene.Scripts
             {
                 UseSingleBackground();
             }
+
+            foreach (var playersGridController in menuGridControllers) playersGridController.Fill();
         }
 
         private void UseSingleBackground()
