@@ -107,7 +107,8 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new RotateTextSystem(contexts))
                     .Add(new MoveTextSystem(contexts))
 
-                    .Add(new UpdateTeamsSystem(contexts, aliveCount + 1))
+                    .Add(new UpdateTeamsSystem(contexts))
+                    .Add(new UpdateOutlineMaterialsSystem(contexts, aliveCount + 1))
 
                     .Add(new UpdateParticlesSystem(contexts))
 

@@ -1,9 +1,5 @@
 ﻿using System.Collections.Generic;
-using Code.Scenes.BattleScene.Experimental;
 using Entitas;
-using Entitas.Unity;
-using TMPro;
-using UnityEngine;
 
 namespace Code.BattleScene.ECS.Systems
 {
@@ -13,17 +9,14 @@ namespace Code.BattleScene.ECS.Systems
         private static Dictionary<ushort, byte> _teams = new Dictionary<ushort, byte>();
         private static uint _lastMessageId;
         private static bool WasProcessed = true;
-        private readonly List<Material> materials;
         private readonly GameContext gameContext;
 
-        public UpdateTeamsSystem(Contexts contexts, int totalTeamsCount)
+        public UpdateTeamsSystem(Contexts contexts)
         {
             gameContext = contexts.game;
             _lastMessageId = 0;
             WasProcessed = true;
             _teams.Clear();
-
-            materials = TeamsColorManager.Instance().GetOutlineMaterials(totalTeamsCount);
         }
 
         public static void SetNewTeams(uint messageId, Dictionary<ushort, byte> values)
@@ -69,27 +62,10 @@ namespace Code.BattleScene.ECS.Systems
                 foreach (var pair in teams)
                 {
                     var id = pair.Key;
-                    var entity = gameContext.GetEntityWithId(id);
+                    var entity = gameContext.GetEntityWithId(pair.Key);
                     if (entity != null && entity.hasView && !entity.hasDelayedRecreation && !entity.hasDelayedSpawn)
                     {
-                        var teamMaterial = materials[pair.Value];
-                        var transform = entity.view.gameObject.transform;
-                        var renderer = transform.GetComponent<Renderer>();
-                        if(renderer != null) renderer.material = teamMaterial;
-
-                        foreach (Transform childTrans in transform)
-                        {
-                            if (childTrans.gameObject.GetEntityLink() != null) continue;
-                            var textMeshPro = childTrans.GetComponent<TextMeshPro>();
-                            if (textMeshPro != null) continue;
-                            var particleSystem = childTrans.GetComponent<ParticleSystem>();
-                            if (particleSystem != null) continue;
-                            var lineRenderer = childTrans.GetComponent<LineRenderer>();
-                            if (lineRenderer != null) continue;
-
-                            renderer = childTrans.GetComponent<Renderer>();
-                            if(renderer != null) renderer.material = teamMaterial;
-                        }
+                        entity.ReplaceTeam(pair.Value);
 
                         _teams.Remove(id);
                     }

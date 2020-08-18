@@ -20,26 +20,27 @@ public static class GameComponentsLookup {
     public const int Parent = 9;
     public const int Player = 10;
     public const int Speed = 11;
-    public const int DelayedDestroy = 12;
-    public const int DelayedRecreation = 13;
-    public const int DelayedSpawn = 14;
-    public const int DestroyTimer = 15;
-    public const int ManyDelayedRecreations = 16;
-    public const int Transform = 17;
-    public const int AnimatorController = 18;
-    public const int Circle = 19;
-    public const int CircleLine = 20;
-    public const int Rectangle = 21;
-    public const int Sprite = 22;
-    public const int StraightLine = 23;
-    public const int TextMeshPro = 24;
-    public const int View = 25;
-    public const int ViewType = 26;
-    public const int ZoneInfo = 27;
-    public const int Id = 28;
-    public const int Position = 29;
+    public const int Team = 12;
+    public const int DelayedDestroy = 13;
+    public const int DelayedRecreation = 14;
+    public const int DelayedSpawn = 15;
+    public const int DestroyTimer = 16;
+    public const int ManyDelayedRecreations = 17;
+    public const int Transform = 18;
+    public const int AnimatorController = 19;
+    public const int Circle = 20;
+    public const int CircleLine = 21;
+    public const int Rectangle = 22;
+    public const int Sprite = 23;
+    public const int StraightLine = 24;
+    public const int TextMeshPro = 25;
+    public const int View = 26;
+    public const int ViewType = 27;
+    public const int ZoneInfo = 28;
+    public const int Id = 29;
+    public const int Position = 30;
 
-    public const int TotalComponents = 30;
+    public const int TotalComponents = 31;
 
     public static readonly string[] componentNames = {
         "DeathSound",
@@ -54,6 +55,7 @@ public static class GameComponentsLookup {
         "Parent",
         "Player",
         "Speed",
+        "Team",
         "DelayedDestroy",
         "DelayedRecreation",
         "DelayedSpawn",
@@ -87,6 +89,7 @@ public static class GameComponentsLookup {
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.PlayerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.TeamComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DelayedDestroyComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DelayedRecreationComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DelayedSpawnComponent),
