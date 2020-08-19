@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneGroup: {fileID: 1035101362}
-  overlayCanvas: {fileID: 215050340}
+  overlayCanvas: {fileID: 215050343}
   gameViews: {fileID: 448544847}
   movementJoystick: {fileID: 3881087803315563476}
   attackJoystick: {fileID: 3881087802529021919}
@@ -502,12 +502,12 @@ MonoBehaviour:
   abilityCooldownInfo: {fileID: 1773180291}
   loadingImage: {fileID: 2047363371}
   postProcessVolume: {fileID: 1125886349}
-  menuImage: {fileID: 0}
   nicknameFontMaterial: {fileID: 2100000, guid: b06684df050be2349baf0621737ccf55,
     type: 2}
   menuGridControllers:
   - {fileID: 1507871316}
   - {fileID: 1177227046}
+  arrowSprite: {fileID: 21300000, guid: d3edfc091e0965e4fb64b5dc9740ff56, type: 3}
 --- !u!114 &51509159
 MonoBehaviour:
   m_ObjectHideFlags: 0

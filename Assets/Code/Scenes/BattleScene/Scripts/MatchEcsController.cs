@@ -109,6 +109,7 @@ namespace Code.Scenes.BattleScene.Scripts
 
                     .Add(new UpdateTeamsSystem(contexts))
                     .Add(new UpdateOutlineMaterialsSystem(contexts, aliveCount + 1))
+                    .Add(new UpdateDirectionsToPlayersSystem(contexts, battleUiController.GetMainCamera(), battleUiController.GetOverlayCanvas(), battleUiController.GetArrowSprite(), aliveCount))
 
                     .Add(new UpdateParticlesSystem(contexts))
 

@@ -18,7 +18,7 @@ namespace Code.Scenes.BattleScene.Scripts
         #region Объекты для систем
 #pragma warning disable 649 // присваивается через Unity Editor
         [SerializeField] private GameObject zoneGroup;
-        [SerializeField] private GameObject overlayCanvas;
+        [SerializeField] private Canvas overlayCanvas;
         [SerializeField] private GameObject gameViews;
         [SerializeField] private Joystick movementJoystick;
         [SerializeField] private Joystick attackJoystick;
@@ -40,9 +40,9 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private CooldownInfo abilityCooldownInfo;
         [SerializeField] private Image loadingImage;
         [SerializeField] private PostProcessVolume postProcessVolume;
-        [SerializeField] private GameObject menuImage;
         [SerializeField] private Material nicknameFontMaterial;
         [SerializeField] private PlayersMenuGridController[] menuGridControllers;
+        [SerializeField] private Sprite arrowSprite;
 #pragma warning restore 649
         #endregion
 
@@ -52,7 +52,7 @@ namespace Code.Scenes.BattleScene.Scripts
         {
             // lobbyLoaderController = GetComponent<LobbyLoaderController>();
             // zoneGroup.SetActive(true);
-            overlayCanvas.SetActive(true);
+            overlayCanvas.gameObject.SetActive(true);
             gameViews.SetActive(true);
             if (QualitySettings.GetQualityLevel() < 2)
             {
@@ -78,7 +78,7 @@ namespace Code.Scenes.BattleScene.Scripts
         {
             log.Info("DisableZoneAndOverlayCanvas start");
             zoneGroup.SetActive(false);
-            overlayCanvas.SetActive(false);
+            overlayCanvas.gameObject.SetActive(false);
             log.Info("DisableZoneAndOverlayCanvas end");
         }
 
@@ -92,6 +92,7 @@ namespace Code.Scenes.BattleScene.Scripts
         public MovingBackgroundInfo[] GetBackgrounds() => backgrounds;
         public MovingMaterialInfo[] GetMaterials() => materials;
         public GameObject GetZone() => zone;
+        public Canvas GetOverlayCanvas() => overlayCanvas;
         public Joystick GetMovementJoystick() => movementJoystick;
         public Joystick GetAttackJoystick() => attackJoystick;
         public Slider GetHealthSlider() => healthSlider;
@@ -109,5 +110,6 @@ namespace Code.Scenes.BattleScene.Scripts
         public Vignette GetVignette() => postProcessVolume.profile.GetSetting<Vignette>();
         public Material GetNicknameFontMaterial() => nicknameFontMaterial;
         public PlayersMenuGridController[] GetMenuGridControllers() => menuGridControllers;
+        public Sprite GetArrowSprite() => arrowSprite;
     }
 }
