@@ -508,6 +508,8 @@ MonoBehaviour:
   - {fileID: 1507871316}
   - {fileID: 1177227046}
   arrowSprite: {fileID: 21300000, guid: 683b0273e2583724c9432752a7d4f62f, type: 3}
+  enemyHealthBar: {fileID: 1429503054112555694, guid: 271c38eff7743e24d9bc1ac257ad8261,
+    type: 3}
 --- !u!114 &51509159
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,6 +43,7 @@ namespace Code.Scenes.BattleScene.Scripts
         [SerializeField] private Material nicknameFontMaterial;
         [SerializeField] private PlayersMenuGridController[] menuGridControllers;
         [SerializeField] private Sprite arrowSprite;
+        [SerializeField] private HealthInfoObject enemyHealthBar;
 #pragma warning restore 649
         #endregion
 
@@ -111,5 +112,6 @@ namespace Code.Scenes.BattleScene.Scripts
         public Material GetNicknameFontMaterial() => nicknameFontMaterial;
         public PlayersMenuGridController[] GetMenuGridControllers() => menuGridControllers;
         public Sprite GetArrowSprite() => arrowSprite;
+        public HealthInfoObject GetEnemyHealthBar() => enemyHealthBar;
     }
 }
