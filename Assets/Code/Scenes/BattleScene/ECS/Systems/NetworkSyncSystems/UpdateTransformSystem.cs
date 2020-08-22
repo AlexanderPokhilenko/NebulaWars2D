@@ -113,6 +113,7 @@ namespace Code.BattleScene.ECS.Systems
             var newObject = gameContext.CreateEntity();
             newObject.AddId(id);
             newObject.AddViewType(newTransform.typeId);
+            if (newTransform.typeId == ViewTypeId.Shield) newObject.isShield = true;
             newObject.AddDelayedSpawn(newTransform.typeId, newTransform.X, newTransform.Y, newTransform.Angle, TimeDelay);
             newObject.AddPosition(new Vector3(newTransform.X, newTransform.Y, -0.00001f * id));
             newObject.AddDirection(newTransform.Angle);
@@ -126,6 +127,7 @@ namespace Code.BattleScene.ECS.Systems
             var oldViewType = entity.viewType.id;
             if (oldViewType != newTransform.typeId)
             {
+                entity.isShield = newTransform.typeId == ViewTypeId.Shield;
                 var timeDelay = TimeDelay;
                 if (ViewObjectsBase.Instance.GetViewObject(oldViewType).TryGetDeathDelay(out var deathDelay))
                 {

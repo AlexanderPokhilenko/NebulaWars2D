@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using Code.Common.Logger;
+﻿using Code.Common.Logger;
 using Code.Scenes.BattleScene.Experimental;
 using Entitas;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace Code.Scenes.BattleScene.ECS.Systems.NetworkSyncSystems
 {

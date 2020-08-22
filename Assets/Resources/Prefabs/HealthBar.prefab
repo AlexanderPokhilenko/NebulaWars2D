@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6382939239702884827}
   - component: {fileID: 1429503054112555694}
+  - component: {fileID: 3548485314095814153}
   m_Layer: 0
   m_Name: HealthBar
   m_TagString: Untagged
@@ -47,8 +48,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c00eae2509a324380ff58321d5c510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shieldLineColor: {r: 0, g: 0, b: 1, a: 1}
+  shieldTextColor: {r: 1, g: 1, b: 1, a: 1}
+  topLine: {fileID: 3286086113407616915}
+  background: {fileID: 2882586729052049905}
   mask: {fileID: 4233897037152987128}
   healthPoints: {fileID: 7544396801741693649}
+--- !u!210 &3548485314095814153
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3937837436791701230}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 4
 --- !u!1 &5752788230341286114
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,8 +429,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4290707460
+  m_fontColor: {r: 0.016375422, g: 0, b: 0.75, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -425,7 +441,7 @@ MonoBehaviour:
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
-  m_overrideHtmlColors: 0
+  m_overrideHtmlColors: 1
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
@@ -439,7 +455,7 @@ MonoBehaviour:
   m_fontSizeMin: 1
   m_fontSizeMax: 6
   m_fontStyle: 1
-  m_textAlignment: 4098
+  m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0

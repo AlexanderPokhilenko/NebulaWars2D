@@ -25,7 +25,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                 {
                     GameEntity parentEntity = gameContext.GetEntityWithId(e.parent.id);
 
-                    if (parentEntity != null && parentEntity.hasView && !parentEntity.isDestroyed)
+                    if (parentEntity != null && parentEntity.hasView && !parentEntity.isDestroyed && !parentEntity.hasDelayedDestroy)
                     {
                         e.view.gameObject.transform.SetParent(parentEntity.view.gameObject.transform);
                     }

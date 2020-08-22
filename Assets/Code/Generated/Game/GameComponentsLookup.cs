@@ -12,48 +12,57 @@ public static class GameComponentsLookup {
     public const int LoopSound = 1;
     public const int SpawnSound = 2;
     public const int CurrentPlayer = 3;
-    public const int Destroyed = 4;
-    public const int Direction = 5;
-    public const int Hidden = 6;
-    public const int MaxSpeed = 7;
-    public const int NicknameDistance = 8;
-    public const int Parent = 9;
-    public const int Player = 10;
-    public const int Speed = 11;
-    public const int Team = 12;
-    public const int DelayedDestroy = 13;
-    public const int DelayedRecreation = 14;
-    public const int DelayedSpawn = 15;
-    public const int DestroyTimer = 16;
-    public const int ManyDelayedRecreations = 17;
-    public const int Transform = 18;
-    public const int AnimatorController = 19;
-    public const int Circle = 20;
-    public const int CircleLine = 21;
-    public const int Rectangle = 22;
-    public const int Sprite = 23;
-    public const int StraightLine = 24;
-    public const int TextMeshPro = 25;
-    public const int View = 26;
-    public const int ViewType = 27;
-    public const int ZoneInfo = 28;
-    public const int Id = 29;
-    public const int Position = 30;
+    public const int CurrentShield = 4;
+    public const int Destroyed = 5;
+    public const int Direction = 6;
+    public const int HealthBarFading = 7;
+    public const int Health = 8;
+    public const int Hidden = 9;
+    public const int InfoDistance = 10;
+    public const int MaxSpeed = 11;
+    public const int Parent = 12;
+    public const int Player = 13;
+    public const int Shield = 14;
+    public const int Speed = 15;
+    public const int Team = 16;
+    public const int DelayedDestroy = 17;
+    public const int DelayedRecreation = 18;
+    public const int DelayedSpawn = 19;
+    public const int DestroyTimer = 20;
+    public const int ManyDelayedRecreations = 21;
+    public const int Transform = 22;
+    public const int AnimatorController = 23;
+    public const int Circle = 24;
+    public const int CircleLine = 25;
+    public const int HealthInfo = 26;
+    public const int Rectangle = 27;
+    public const int Sprite = 28;
+    public const int StraightLine = 29;
+    public const int TextMeshPro = 30;
+    public const int View = 31;
+    public const int ViewType = 32;
+    public const int ZoneInfo = 33;
+    public const int Id = 34;
+    public const int Position = 35;
 
-    public const int TotalComponents = 31;
+    public const int TotalComponents = 36;
 
     public static readonly string[] componentNames = {
         "DeathSound",
         "LoopSound",
         "SpawnSound",
         "CurrentPlayer",
+        "CurrentShield",
         "Destroyed",
         "Direction",
+        "HealthBarFading",
+        "Health",
         "Hidden",
+        "InfoDistance",
         "MaxSpeed",
-        "NicknameDistance",
         "Parent",
         "Player",
+        "Shield",
         "Speed",
         "Team",
         "DelayedDestroy",
@@ -65,6 +74,7 @@ public static class GameComponentsLookup {
         "AnimatorController",
         "Circle",
         "CircleLine",
+        "HealthInfo",
         "Rectangle",
         "Sprite",
         "StraightLine",
@@ -81,13 +91,17 @@ public static class GameComponentsLookup {
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.LoopSoundComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.AudioComponents.SpawnSoundComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.CurrentPlayerComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.CurrentShieldComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.DestroyedComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.DirectionComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.HealthBarFadingComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.HealthComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.HiddenComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.InfoDistanceComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.MaxSpeedComponent),
-        typeof(Code.Scenes.BattleScene.ECS.Components.Game.NicknameDistanceComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ParentComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.PlayerComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ShieldComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.SpeedComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TeamComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.TimerComponents.DelayedDestroyComponent),
@@ -99,6 +113,7 @@ public static class GameComponentsLookup {
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.AnimatorControllerComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.CircleLineComponent),
+        typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.HealthInfoComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.RectangleComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.SpriteComponent),
         typeof(Code.Scenes.BattleScene.ECS.Components.Game.ViewComponents.StraightLineComponent),

@@ -3,8 +3,8 @@
 namespace Code.Scenes.BattleScene.ECS.Components.Game
 {
     [Game]
-    public class NicknameDistanceComponent : IComponent
+    public sealed class HealthBarFadingComponent : IComponent
     {
-        public float value;
+        public float percentage;
     }
 }

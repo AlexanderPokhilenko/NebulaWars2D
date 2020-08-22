@@ -32,6 +32,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                 else
                 {
                     e.view.gameObject.GetComponent<Renderer>().enabled = false;
+                    if (e.hasHealthInfo) e.healthInfo.value.gameObject.SetActive(false);
                 }
             }
         }

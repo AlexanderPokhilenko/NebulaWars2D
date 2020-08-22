@@ -74,8 +74,13 @@ namespace Code.Scenes.BattleScene.Scripts
             float prevFrameTime = Time.time - Time.deltaTime;
             int aliveCount = MyMatchDataStorage.Instance.GetMatchModel().PlayerModels.Length;
 
+            var hpDisplayingSystem = new HealthAndShieldPointsDisplayingSystem(battleUiController.GetHealthSlider(),
+                battleUiController.GetHealthText(), battleUiController.GetShieldSlider(),
+                battleUiController.GetShieldText(),
+                battleUiController.GetVignette());
+
             // udpControllerSingleton.GetUdpSendUtils();
-            
+
             contexts = Contexts.sharedInstance;
             systems = new Systems()
                     .Add(new TimeSpeedSystem(contexts, new FloatLinearInterpolator(prevFrameTime)))
@@ -88,6 +93,7 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new UpdateParentsSystem(contexts))
                     .Add(new DetachParentsSystem(contexts))
                     .Add(new UpdateHidingSystem(contexts))
+                    .Add(new CurrentShieldSystem(contexts))
 
                     .Add(new GlobalTransformSystem(contexts))
                     .Add(new UpdatePlayersSystem(contexts))
@@ -96,7 +102,7 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new RenderSpriteSystem(contexts))
                     .Add(new RenderCircleSystem(contexts))
                     .Add(new RenderLineSystem(contexts))
-                    .Add(new AddNicknameDistanceSystem(contexts))
+                    .Add(new AddInfoDistanceSystem(contexts))
                     .Add(new AddTextSystem(contexts, battleUiController.GetNicknameFontMaterial()))
                     .Add(new SetAnimatorSystem(contexts))
                     .Add(new GameObjectParentsCheckerSystem(contexts))
@@ -104,8 +110,18 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new RenderLocalTransformSystem(contexts))
                     .Add(new AddSpeedSystem(contexts))
                     .Add(new RenderSmoothedTransformSystem(contexts))
+
                     .Add(new RotateTextSystem(contexts))
                     .Add(new MoveTextSystem(contexts))
+
+                    .Add(new MaxHealthPointsUpdaterSystem(contexts, hpDisplayingSystem))
+                    .Add(new HealthPointsUpdaterSystem(contexts, hpDisplayingSystem))
+                    .Add(new ShieldDisplayingSystem(contexts, hpDisplayingSystem))
+                    .Add(hpDisplayingSystem)
+                    .Add(new UpdateHealthInfoSystem(contexts, battleUiController.GetEnemyHealthBar()))
+                    .Add(new RotateHealthBarSystem(contexts))
+                    .Add(new MoveHealthBarSystem(contexts))
+                    .Add(new HealthBarFadingSystem(contexts))
 
                     .Add(new UpdateTeamsSystem(contexts))
                     .Add(new UpdateOutlineMaterialsSystem(contexts, aliveCount + 1))
@@ -117,6 +133,8 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new DelayedDestroySystem(contexts))
 
                     .Add(new GameObjectHidingSystem(contexts))
+
+                    .Add(new ShieldDisablingSystem(contexts, hpDisplayingSystem))
 
                     .Add(new SpawnSoundSystem(contexts))
                     //LoopSoundSystem?
@@ -131,18 +149,21 @@ namespace Code.Scenes.BattleScene.Scripts
                     .Add(new MaterialsMoveSystem(contexts, battleUiController.GetMaterials()))
                     .Add(new ZoneMoveSystem(contexts, battleUiController.GetZone()))
                     .Add(new UpdateDirectionToCenterSystem(contexts, battleUiController.GetArrowToCenter()))
+
                     .Add(new JoysticksInputSystem(contexts, battleUiController.GetMovementJoystick(),
                         battleUiController.GetAttackJoystick()))
                     .Add(new PlayerInputSenderSystem(contexts, udpSendUtils))
                     .Add(new AbilityInputClearingSystem(contexts))
                     .Add(new RudpMessagesSenderSystem(udpSendUtils))
-                    .Add(new HealthAndShieldPointsUpdaterSystem(battleUiController.GetHealthSlider(),
-                        battleUiController.GetHealthText(), battleUiController.GetShieldSlider(),
-                        battleUiController.GetShieldText(), new FloatLinearInterpolator(prevFrameTime),
-                                battleUiController.GetVignette()))
-                     .Add(new KillsIndicatorSystem(battleUiController.GetKillMessage(), battleUiController.GetKillIndicator(), battleUiController.GetKillsText(), battleUiController.GetAliveText(), aliveCount, battleUiController.GetMenuGridControllers()))
-                    .Add(new CooldownsUpdaterSystem(battleUiController.GetCannonCooldownsController(), new FloatLinearInterpolator(prevFrameTime)))
-                    .Add(new AbilityUpdaterSystem(battleUiController.GetAbilityCooldownInfo(), new FloatLinearInterpolator(prevFrameTime)))
+
+                    .Add(new KillsIndicatorSystem(battleUiController.GetKillMessage(),
+                        battleUiController.GetKillIndicator(), battleUiController.GetKillsText(),
+                        battleUiController.GetAliveText(), aliveCount, battleUiController.GetMenuGridControllers()))
+                    .Add(new CooldownsUpdaterSystem(battleUiController.GetCannonCooldownsController(),
+                        new FloatLinearInterpolator(prevFrameTime)))
+                    .Add(new AbilityUpdaterSystem(battleUiController.GetAbilityCooldownInfo(),
+                        new FloatLinearInterpolator(prevFrameTime)))
+
                     .Add(new GameContextClearSystem(contexts))
                 ;
             return systems;

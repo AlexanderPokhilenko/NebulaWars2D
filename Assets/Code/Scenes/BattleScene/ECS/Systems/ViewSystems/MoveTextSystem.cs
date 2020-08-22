@@ -16,7 +16,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
             gameContext = contexts.game;
             withText = gameContext.GetGroup(GameMatcher.AllOf(GameMatcher.View,
                     GameMatcher.TextMeshPro,
-                    GameMatcher.NicknameDistance)
+                    GameMatcher.InfoDistance)
                 .NoneOf(GameMatcher.Hidden));
         }
 
@@ -31,7 +31,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
                 foreach (var e in withText)
                 {
                     var currentTransform = e.view.gameObject.transform;
-                    var nickDist = e.nicknameDistance.value;
+                    var nickDist = e.infoDistance.value;
                     var tmp = e.textMeshPro.value;
                     Vector3 direction;
                     if (e == playerEntity)

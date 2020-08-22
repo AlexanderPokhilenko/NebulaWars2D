@@ -37,8 +37,6 @@ namespace NetworkLibrary.NetworkLibrary.Udp
         PointTracking = 14,
         ShowPlayerAchievements = 15,
         Kill = 16,
-        ShieldPoints = 17,
-        MaxShieldPoints = 18,
         Debug = 19,
         Cooldowns = 20,
         CooldownsInfos = 21,

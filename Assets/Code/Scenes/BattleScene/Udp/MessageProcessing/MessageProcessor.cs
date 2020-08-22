@@ -34,8 +34,6 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing
             handlers[(int)MessageType.HealthPoints] = new HealthPointsHandler();
             handlers[(int)MessageType.DeliveryConfirmation] = new RudpConfirmationReceiver();
             handlers[(int)MessageType.MaxHealthPoints] = new MaxHealthPointsHandler();
-            handlers[(int)MessageType.ShieldPoints] = new ShieldPointsHandler();
-            handlers[(int)MessageType.MaxShieldPoints] = new MaxShieldPointsHandler();
             handlers[(int)MessageType.Kill] = new KillsHandler();
             handlers[(int)MessageType.ShowPlayerAchievements] = new ShowPlayerAchievementsHandler(matchId);
             handlers[(int)MessageType.CooldownsInfos] = new CooldownsInfosHandler();

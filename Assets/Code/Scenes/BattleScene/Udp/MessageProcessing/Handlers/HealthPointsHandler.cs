@@ -7,7 +7,7 @@ namespace Code.Scenes.BattleScene.Udp.MessageProcessing.Handlers
     {
         protected override void Handle(in HealthPointsMessage message, uint messageId, bool needResponse)
         {
-            HealthAndShieldPointsUpdaterSystem.SetHealthPoints(message.Value);
+            HealthPointsUpdaterSystem.SetHealthPoints(message.Value);
         }
     }
 }

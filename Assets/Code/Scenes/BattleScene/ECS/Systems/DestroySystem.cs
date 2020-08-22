@@ -22,6 +22,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
         {
             foreach (var e in destroyedGroup.GetEntities(buffer))
             {
+                if (e.hasHealthInfo) Object.Destroy(e.healthInfo.value.gameObject);
                 var gameObject = e.view.gameObject;
                 foreach (Transform childTransform in gameObject.transform)
                 {
