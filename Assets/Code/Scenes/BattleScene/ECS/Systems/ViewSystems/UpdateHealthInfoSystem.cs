@@ -38,13 +38,15 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
                 {
                     var go = e.view.gameObject;
                     infoObject = Object.Instantiate(prototype, go.transform);
+                    infoObject.Initialize();
                     e.AddHealthInfo(infoObject);
                     if (e.isShield) infoObject.SetShieldStyle();
-                    if (!e.hasPlayer && !e.isShield) infoObject.SetTransparency(0f);
+                    if (!e.hasPlayer && !e.isShield) infoObject.HideHealthBar();
                     if (e.hasHealthBarFading) e.RemoveHealthBarFading();
                 }
-                infoObject.SetMaxHealthPoints(e.health.maximum);
-                infoObject.SetHealthPoints(e.health.current);
+                infoObject.MaxHealthPoints = e.health.maximum;
+                infoObject.HealthPoints = e.health.current;
+                infoObject.SaveChanges();
             }
         }
     }

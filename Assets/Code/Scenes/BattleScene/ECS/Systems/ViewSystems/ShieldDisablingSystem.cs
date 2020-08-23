@@ -35,7 +35,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
                 }
                 else if(e.hasHealthInfo)
                 {
-                    e.healthInfo.value.SetHealthPoints(0);
+                    e.healthInfo.value.HideHealthBar();
                 }
             }
         }

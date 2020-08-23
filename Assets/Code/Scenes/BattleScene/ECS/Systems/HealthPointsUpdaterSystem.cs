@@ -52,7 +52,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                 {
                     var entity = gameContext.GetEntityWithId(pair.Key);
 
-                    if (entity == null) continue;
+                    if (entity == null || entity.hasDelayedRecreation) continue;
 
                     if (entity.isCurrentPlayer)
                     {

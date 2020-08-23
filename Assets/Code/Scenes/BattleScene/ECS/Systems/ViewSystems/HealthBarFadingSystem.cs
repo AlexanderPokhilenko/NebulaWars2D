@@ -42,6 +42,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
                         e.RemoveHealthBarFading();
                     }
                     obj.SetTransparency(newPercentage);
+                    obj.SaveChanges();
                 }
             }
             catch (Exception e)
