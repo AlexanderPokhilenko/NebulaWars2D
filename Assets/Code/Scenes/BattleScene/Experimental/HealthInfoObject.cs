@@ -18,12 +18,15 @@ namespace Code.Scenes.BattleScene.Experimental
             topLine.GetPropertyBlock(propertyBlock);
 
             var parent = transform.parent;
-            var parentRenderer = parent.GetComponent<Renderer>();
             var scale = 1f;
-            if (parentRenderer != null)
+            if (parent.GetComponent<HealthInfoObject>() == null)
             {
-                var size = parentRenderer.bounds.size;
-                scale = Mathf.Min(size.x, size.y);
+                var parentRenderer = parent.GetComponent<Renderer>();
+                if (parentRenderer != null)
+                {
+                    var size = parentRenderer.bounds.size;
+                    scale = Mathf.Min(size.x, size.y);
+                }
             }
 
             transform.localScale = new Vector3(scale, Mathf.Sqrt(scale), 1f);

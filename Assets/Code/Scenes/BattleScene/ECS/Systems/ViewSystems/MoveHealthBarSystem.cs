@@ -17,7 +17,7 @@ namespace Code.Scenes.BattleScene.ECS.Systems.ViewSystems
             withHealthBar = gameContext.GetGroup(GameMatcher.AllOf(GameMatcher.View,
                     GameMatcher.HealthInfo,
                     GameMatcher.InfoDistance)
-                .NoneOf(GameMatcher.Hidden));
+                .NoneOf(GameMatcher.Hidden, GameMatcher.Shield));
         }
 
         public void Execute()
