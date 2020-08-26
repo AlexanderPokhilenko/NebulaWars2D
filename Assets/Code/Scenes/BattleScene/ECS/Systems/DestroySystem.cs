@@ -31,6 +31,13 @@ namespace Code.Scenes.BattleScene.ECS.Systems
                     {
                         childEntity.RemoveParent();
                         childTransform.SetParent(gameObject.transform.parent, true);
+                        if (childEntity.isShield && childEntity.hasHealthInfo)
+                        {
+                            var shieldHealthInfo = childEntity.healthInfo.value;
+                            shieldHealthInfo.transform.SetParent(childTransform);
+                            shieldHealthInfo.Initialize();
+                            shieldHealthInfo.SaveChanges();
+                        }
                         if (childEntity.hasPosition)
                         {
                             childEntity.ReplacePosition(childTransform.localPosition);
